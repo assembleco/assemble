@@ -1,0 +1,8 @@
+<%= simple_form_for(@script) do |f| %>
+  <%= f.input :body, as: :text %>
+  <%= f.button :submit %>
+<% end %>
+
+<pre>
+<%= @output.flatten.join.html_safe %>
+</pre>
