@@ -1,0 +1,10 @@
+<h1><%= @flow.name %></h1>
+
+<pre>
+<%= @flow.body %>
+</pre>
+
+<%= simple_form_for [@flow, Run.new] do |f| %>
+  <%= f.input :args %>
+  <%= f.button :submit %>
+<% end %>

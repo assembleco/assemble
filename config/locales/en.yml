@@ -6,6 +6,15 @@ en:
       with_weekday:
         "%a %m/%d/%y"
 
+  flows:
+    create:
+      success: Created a flow.
+      failure: Could not create the flow.
+
+  runs:
+    create:
+      success: Created a run.
+
   time:
     formats:
       default:

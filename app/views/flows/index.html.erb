@@ -1,0 +1,5 @@
+<% @flows.all.each do |flow| %>
+  <%= link_to flow_path(flow) do %>
+    <%= flow.name %>
+  <% end %>
+<% end %>
