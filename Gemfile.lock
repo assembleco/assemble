@@ -85,11 +85,15 @@ GEM
       delayed_job (>= 3.0, < 5)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    docker-api (1.32.1)
+      excon (>= 0.38.0)
+      json
     dotenv (2.1.1)
     dotenv-rails (2.1.1)
       dotenv (= 2.1.1)
       railties (>= 4.0, < 5.1)
     erubis (2.7.0)
+    excon (0.54.0)
     execjs (2.7.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
@@ -280,6 +284,7 @@ DEPENDENCIES
   capybara-webkit
   database_cleaner
   delayed_job_active_record
+  docker-api
   dotenv-rails
   factory_girl_rails
   flutie
