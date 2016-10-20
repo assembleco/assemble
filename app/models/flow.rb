@@ -1,0 +1,2 @@
+class Flow < ApplicationRecord
+end
