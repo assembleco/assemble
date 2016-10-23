@@ -1,36 +1,29 @@
 # frozen_string_literal: true
 
+require "json"
+
 class Run
   include ActiveModel::Model
 
-  attr_accessor :flow
-  attr_reader :output
+  attr_accessor :flow, :args
+  attr_reader :output, :errors, :exit_status
 
   def save
-    container = Docker::Container.create("Image" => "node:4", "Tty" => true)
+    image_dir = Rails.root.join("containers/flow-node").to_s
+    image = Docker::Image.build_from_dir(image_dir)
+    container = Docker::Container.create("Image" => image.id, "Tty" => true)
     container.start
 
-    arg_list = args.map(&:inspect).join(", ")
-
-    container.store_file("/flow/entry.js", <<-JS)
-    main = require("./flow")
-    console.log(
-    main(#{arg_list})
-    );
-    JS
-
-    container.store_file("/flow/flow.js", flow.body)
-    @output = container.exec(["node", "/flow/entry.js"])
+    puts "ARGS: #{args.to_json}"
+    container.store_file("/flow/input.json", args.to_json)
+    container.store_file("/flow/user_script.js", flow.body)
+    output, errors, @exit_status = container.exec(["node", "/flow/user_script.js"])
     container.stop
+    container.delete
 
-    true
-  end
+    @output = output.join
+    @errors = errors.join
 
-  def args
-    @args || []
-  end
-
-  def args=(value)
-    @args = value.split(",")
+    exit_status == 0
   end
 end

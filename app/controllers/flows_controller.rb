@@ -3,9 +3,16 @@
 require "docker"
 
 class FlowsController < ApplicationController
+  def index
+    @flows = Flow.all
+  end
+
+  def show
+    @flow = Flow.find(params[:id])
+  end
+
   def new
     @flow = Flow.new
-    @output = []
   end
 
   def create
@@ -18,12 +25,18 @@ class FlowsController < ApplicationController
     end
   end
 
-  def index
-    @flows = Flow.all
+  def edit
+    @flow = Flow.find(params[:id])
   end
 
-  def show
+  def update
     @flow = Flow.find(params[:id])
+
+    if @flow.update(flow_params)
+      redirect_to flow_path(@flow)
+    else
+      render :edit
+    end
   end
 
   private

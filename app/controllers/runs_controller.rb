@@ -1,23 +1,18 @@
 # frozen_string_literal: true
 
 class RunsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: :create
+
   def create
-    @run = Run.new(run_params)
+    @run = Run.new(flow: flow, args: params)
 
     if @run.save
       flash.now[:notice] = t(".success")
-      render :show
+      render plain: @run.output
     end
   end
 
   private
-
-  def run_params
-    params.
-      require(:run).
-      permit(:args).
-      merge(flow: flow)
-  end
 
   def flow
     @flow ||= Flow.find(params[:flow_id])
