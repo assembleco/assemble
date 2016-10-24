@@ -1,4 +1,2 @@
-exports.publish = function(object) {
-  console.log("Received 'publish' with:")
-  console.log(object)
-}
+exports.input = require('./input.json')
+exports.env = require('./env.json')

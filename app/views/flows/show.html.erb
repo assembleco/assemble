@@ -4,6 +4,13 @@
 <%= @flow.body %>
 </pre>
 
-<%= simple_form_for [@flow, Run.new] do |f| %>
-  <%= f.button :submit %>
-<% end %>
+<%= link_to "Edit flow", edit_flow_path(@flow) %>
+
+<h2>ENV Variables</h2>
+
+<ul>
+  <% @flow.env_variables.each do |env| %>
+    <li><%= env.key %> = <%= env.value %></li>
+  <% end %>
+</ul>
+<%= link_to "Add Variable", new_flow_env_variable_path(flow_id: @flow.id) %>
