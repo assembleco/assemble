@@ -14,8 +14,8 @@ class Run
     container = Docker::Container.create("Image" => image.id, "Tty" => true)
     container.start
 
-    puts "ARGS: #{args.to_json}"
     container.store_file("/flow/input.json", args.to_json)
+    container.store_file("/flow/env.json", env_variables.to_json)
     container.store_file("/flow/user_script.js", flow.body)
     output, errors, @exit_status = container.exec(["node", "/flow/user_script.js"])
     container.stop
@@ -25,5 +25,9 @@ class Run
     @errors = errors.join
 
     exit_status == 0
+  end
+
+  def env_variables
+    flow.env_variables.pluck(:key, :value).to_h
   end
 end
