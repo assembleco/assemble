@@ -1,5 +1,6 @@
 <%= simple_form_for(@flow) do |f| %>
   <%= f.input :name %>
-  <%= f.input :body, as: :text %>
+  <%= f.input :body %>
+  <%= f.input :schema %>
   <%= f.button :submit %>
 <% end %>

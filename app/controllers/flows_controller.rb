@@ -19,7 +19,7 @@ class FlowsController < ApplicationController
     @flow = Flow.new(flow_params)
 
     if @flow.save
-      redirect_to flows_path, notice: t(".success")
+      redirect_to flow_path(@flow), notice: t(".success")
     else
       render :new, t(".failure")
     end
@@ -42,6 +42,6 @@ class FlowsController < ApplicationController
   private
 
   def flow_params
-    params.require(:flow).permit(:body, :name)
+    params.require(:flow).permit(:body, :name, :schema)
   end
 end

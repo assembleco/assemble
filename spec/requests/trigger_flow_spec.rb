@@ -25,4 +25,27 @@ describe "POST runs#create" do
 
     expect(response.body).to eq("bar\n")
   end
+
+  it "validates the input against the defined schema" do
+    flow = create(
+      :flow,
+      schema: <<-SCHEMA,
+      {
+        "title": "Input schema",
+        "type": "object",
+        "properties": {
+          "foo": {
+            "type": "integer"
+          }
+        },
+        "required": "foo"
+      }
+      SCHEMA
+    )
+
+    post "/flows/#{flow.id}/runs", params: { foo: "bar" }
+
+    expect(response).to be_unprocessable
+    # expect run to not be created
+  end
 end
