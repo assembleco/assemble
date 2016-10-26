@@ -4,9 +4,12 @@ require "json"
 
 class Run
   include ActiveModel::Model
+  include ActiveModel::Validations
 
   attr_accessor :flow, :args
-  attr_reader :output, :errors, :exit_status
+  attr_reader :output, :flow_errors, :exit_status
+
+  validate :args_match_schema
 
   def save
     image_dir = Rails.root.join("containers/flow-node").to_s
@@ -22,12 +25,23 @@ class Run
     container.delete
 
     @output = output.join
-    @errors = errors.join
+    @flow_errors = errors.join
 
     exit_status == 0
   end
 
+  private
+
   def env_variables
     flow.env_variables.pluck(:key, :value).to_h
+  end
+
+  def args_match_schema
+    schema = JSON.parse(flow.schema)
+    data = args
+
+    unless JSON::Validator.validate(schema, data)
+      errors.add(:args, "do not match schema")
+    end
   end
 end

@@ -6,6 +6,12 @@
 
 <%= link_to "Edit flow", edit_flow_path(@flow) %>
 
+<h2>Schema</h2>
+
+<pre>
+<%= @flow.schema %>
+</pre>
+
 <h2>ENV Variables</h2>
 
 <ul>

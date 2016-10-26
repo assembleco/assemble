@@ -6,9 +6,15 @@ class RunsController < ApplicationController
   def create
     @run = Run.new(flow: flow, args: params)
 
-    if @run.save
+    if @run.valid?
+      @run.save
       flash.now[:notice] = t(".success")
       render plain: @run.output
+    else
+      render(
+        plain: "POSTed input does not match the schema for the flow.",
+        status: :unprocessable_entity,
+      )
     end
   end
 
