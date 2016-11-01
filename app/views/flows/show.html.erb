@@ -16,7 +16,10 @@
 
 <ul>
   <% @flow.env_variables.each do |env| %>
-    <li><%= env.key %> = <%= env.value %></li>
+    <li>
+      <%= env.key %> = <%= env.value %>
+      <%= link_to "[X]", flow_env_variable_path(env, flow_id: @flow.id), method: :delete %>
+    </li>
   <% end %>
 </ul>
 <%= link_to "Add Variable", new_flow_env_variable_path(flow_id: @flow.id) %>
