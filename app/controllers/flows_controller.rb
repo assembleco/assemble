@@ -42,6 +42,6 @@ class FlowsController < ApplicationController
   private
 
   def flow_params
-    params.require(:flow).permit(:body, :name, :schema)
+    params.require(:flow).permit(:body, :name, :schema, :environment)
   end
 end
