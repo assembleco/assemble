@@ -3,13 +3,14 @@ const querystring = require('querystring');
 
 exports.input = require('./input.json')
 exports.env = require('./env.json')
+const config = require('./config.json')
 
 exports.trigger = function(flow_id, data) {
   var post_data = querystring.stringify(data);
 
   var post_options = {
     // TODO: read this from the server's domain settings
-    host: '3327afe3.ngrok.io',
+    host: config.host,
     port: '80',
     path: '/flows/' + flow_id + '/runs',
     method: 'POST',
