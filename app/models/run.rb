@@ -10,7 +10,7 @@ class Run < ApplicationRecord
   ENVIRONMENT_COMMANDS = {
     "node" => "node",
     "ruby" => "ruby",
-    # "python2" => "python",
+    "python2" => "python",
   }.freeze
 
   def execute
