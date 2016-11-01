@@ -23,3 +23,14 @@
   <% end %>
 </ul>
 <%= link_to "Add Variable", new_flow_env_variable_path(flow_id: @flow.id) %>
+
+<h3>Runs</h3>
+
+<ul>
+  <% @flow.runs.each do |run| %>
+    <li>
+      <%= link_to l(run.created_at), flow_run_path(run, flow_id: @flow.id) %>
+      | exited with code: <%= run.exit_status %>
+    </li>
+  <% end %>
+</ul>

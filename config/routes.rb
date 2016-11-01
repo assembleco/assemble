@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   resources :flows do
-    resources :runs, only: [:create]
+    resources :runs, only: [:create, :show]
     resources :env_variables, only: [:new, :create, :destroy]
   end
 end

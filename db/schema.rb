@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026161238) do
+ActiveRecord::Schema.define(version: 20161101045405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+  end
 
   create_table "env_variables", force: :cascade do |t|
     t.string   "key",        null: false
@@ -32,5 +47,17 @@ ActiveRecord::Schema.define(version: 20161026161238) do
     t.text     "schema",     default: "{}", null: false
   end
 
+  create_table "runs", force: :cascade do |t|
+    t.integer  "flow_id",     null: false
+    t.text     "args"
+    t.integer  "exit_status"
+    t.text     "output"
+    t.text     "run_errors"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["flow_id"], name: "index_runs_on_flow_id", using: :btree
+  end
+
   add_foreign_key "env_variables", "flows"
+  add_foreign_key "runs", "flows"
 end

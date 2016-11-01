@@ -4,18 +4,27 @@ class RunsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :create
 
   def create
-    @run = Run.new(flow: flow, args: params)
+    run = Run.new(flow: flow, args: params.to_unsafe_h.to_json)
 
-    if @run.valid?
-      @run.save
-      flash.now[:notice] = t(".success")
-      render plain: @run.output
+    if run.save
+      run.delay.execute
+      render plain: "Run has been queued."
     else
       render(
-        plain: "POSTed input does not match the schema for the flow.",
+        plain: "POSTed input does not match the schema for the flow.
+        Expected:
+        #{flow.schema}
+
+        Got:
+        #{params.to_unsafe_h.inspect}
+        ",
         status: :unprocessable_entity,
       )
     end
+  end
+
+  def show
+    @run = Run.find(params[:id])
   end
 
   private
