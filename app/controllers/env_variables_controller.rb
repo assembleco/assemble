@@ -15,6 +15,13 @@ class EnvVariablesController < ApplicationController
     end
   end
 
+  def destroy
+    env = EnvVariable.find(params[:id])
+    flow = env.flow
+    env.destroy!
+    redirect_to flow
+  end
+
   private
 
   def flow

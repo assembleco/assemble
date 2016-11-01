@@ -3,6 +3,6 @@
 Rails.application.routes.draw do
   resources :flows do
     resources :runs, only: [:create]
-    resources :env_variables, only: [:new, :create]
+    resources :env_variables, only: [:new, :create, :destroy]
   end
 end
