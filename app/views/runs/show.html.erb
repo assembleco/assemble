@@ -1,11 +1,25 @@
-Arguments:
+<%= link_to "Back to flow", @run.flow %>
+
+<h2>Arguments:</h2>
 
 <pre>
 <%= @run.args %>
 </pre>
 
-Output:
+<h2>Output:</h2>
 
 <pre>
 <%= @run.output %>
+</pre>
+
+<h2>Errors:</h2>
+
+<pre>
+<%= @run.run_errors %>
+</pre>
+
+<h2>Exit code:</h2>
+
+<pre>
+<%= @run.exit_status %>
 </pre>
