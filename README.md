@@ -72,6 +72,15 @@ After setting up, you can run the application using [Heroku Local]:
 
 [Heroku Local]: https://devcenter.heroku.com/articles/heroku-local
 
+### Testing flows on local machine
+
+In order for flows to use your development machine as the server,
+you'll need to use a tool like [ngrok](https://ngrok.com/)
+to create a public tunnel to your local application.
+When you have a public-facing URL,
+update the `APPLICATION_HOST` environment variable in `.env`
+to point to the public URL.
+
 ## Guidelines
 
 Use the following guides for getting things done, programming well, and
