@@ -9,14 +9,14 @@ class Run < ApplicationRecord
 
   ENVIRONMENT_COMMANDS = {
     "node" => "node",
-    # "ruby" => "ruby",
+    "ruby" => "ruby",
     # "python2" => "python",
   }.freeze
 
   def execute
     container.start
 
-    container.store_file("/flow/config.json", config.to_json )
+    container.store_file("/flow/config.json", config.to_json)
     container.store_file("/flow/input.json", args)
     container.store_file("/flow/env.json", env_variables.to_json)
     container.store_file("/flow/user_script.js", flow.body)
