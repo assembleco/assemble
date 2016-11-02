@@ -1,5 +1,13 @@
-<% @flows.all.each do |flow| %>
-  <%= link_to flow_path(flow) do %>
-    <%= flow.name %>
+<h1>Flows</h1>
+
+<ul>
+  <% @flows.all.each do |flow| %>
+    <li>
+      <%= link_to flow_path(flow) do %>
+        <%= flow.name %>
+      <% end %>
+    </li>
   <% end %>
-<% end %>
+</ul>
+
+<%= link_to "+ Create a new flow", new_flow_path %>

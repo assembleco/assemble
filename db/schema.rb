@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101060733) do
+ActiveRecord::Schema.define(version: 20161102224721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 20161101060733) do
     t.datetime "updated_at",                   null: false
     t.text     "schema",      default: "{}",   null: false
     t.string   "environment", default: "node", null: false
+    t.integer  "trigger_id"
+    t.index ["trigger_id"], name: "index_flows_on_trigger_id", using: :btree
   end
 
   create_table "runs", force: :cascade do |t|
@@ -57,6 +59,13 @@ ActiveRecord::Schema.define(version: 20161101060733) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["flow_id"], name: "index_runs_on_flow_id", using: :btree
+  end
+
+  create_table "triggers", force: :cascade do |t|
+    t.string   "name"
+    t.text     "schema"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "env_variables", "flows"

@@ -8,7 +8,7 @@ class FlowsController < ApplicationController
   end
 
   def show
-    @flow = Flow.find(params[:id])
+    @flow = Flow.find_by!(name: params[:id])
   end
 
   def new
@@ -26,11 +26,11 @@ class FlowsController < ApplicationController
   end
 
   def edit
-    @flow = Flow.find(params[:id])
+    @flow = Flow.find_by!(name: params[:id])
   end
 
   def update
-    @flow = Flow.find(params[:id])
+    @flow = Flow.find_by!(name: params[:id])
 
     if @flow.update(flow_params)
       redirect_to flow_path(@flow)
@@ -42,6 +42,12 @@ class FlowsController < ApplicationController
   private
 
   def flow_params
-    params.require(:flow).permit(:body, :name, :schema, :environment)
+    params.require(:flow).permit(
+      :body,
+      :environment,
+      :name,
+      :schema,
+      :trigger_id,
+    )
   end
 end

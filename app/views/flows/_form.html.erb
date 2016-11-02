@@ -3,5 +3,6 @@
   <%= f.input :environment, collection: Run::ENVIRONMENT_COMMANDS.keys %>
   <%= f.input :body %>
   <%= f.input :schema %>
+  <%= f.input :trigger_id, collection: Trigger.all, label_method: :name %>
   <%= f.button :submit %>
 <% end %>
