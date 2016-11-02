@@ -30,6 +30,6 @@ class RunsController < ApplicationController
   private
 
   def flow
-    @flow ||= Flow.find(params[:flow_id])
+    @flow ||= Flow.find_by!(name: params[:flow_id])
   end
 end

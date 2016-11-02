@@ -18,18 +18,18 @@
   <% @flow.env_variables.each do |env| %>
     <li>
       <%= env.key %> = <%= env.value %>
-      <%= link_to "[X]", flow_env_variable_path(env, flow_id: @flow.id), method: :delete %>
+      <%= link_to "[X]", flow_env_variable_path(env, flow_id: @flow), method: :delete %>
     </li>
   <% end %>
 </ul>
-<%= link_to "Add Variable", new_flow_env_variable_path(flow_id: @flow.id) %>
+<%= link_to "Add Variable", new_flow_env_variable_path(flow_id: @flow) %>
 
 <h3>Runs</h3>
 
 <ul>
   <% @flow.runs.each do |run| %>
     <li>
-      <%= link_to l(run.created_at), flow_run_path(run, flow_id: @flow.id) %>
+      <%= link_to l(run.created_at), flow_run_path(run, flow_id: @flow) %>
       | exited with code: <%= run.exit_status %>
     </li>
   <% end %>
