@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   resources :triggers, only: [:index, :new, :create, :edit, :update] do
     resources :events, only: [:create]
   end
+
+  root to: "flows#index"
 end
