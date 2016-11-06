@@ -4,6 +4,7 @@ ruby "2.3.1"
 
 gem "autoprefixer-rails"
 gem "bourbon"
+gem "coderay"
 gem "delayed_job_active_record"
 gem "docker-api"
 gem "flutie"
