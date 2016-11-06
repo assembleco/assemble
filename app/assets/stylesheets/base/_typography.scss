@@ -47,3 +47,14 @@ picture {
   margin: 0;
   max-width: 100%;
 }
+
+pre {
+  background-color: $light-gray;
+  padding: $small-spacing;
+}
+
+code {
+  background-color: $light-gray;
+  color: $red;
+  padding: 0 $tiny-spacing;
+}

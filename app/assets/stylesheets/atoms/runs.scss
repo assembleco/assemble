@@ -1,0 +1,22 @@
+.run-summary {
+  display: block;
+  margin-bottom: $small-spacing;
+  padding: $small-spacing;
+
+  &.run-status-success {
+    background-color: $green;
+    color: $light-gray;
+
+    &:hover {
+      background-color: darken($green, 10%);
+    }
+  }
+
+  &.run-status-failure {
+    background-color: $red;
+
+    &:hover {
+      background-color: darken($red, 10%);
+    }
+  }
+}

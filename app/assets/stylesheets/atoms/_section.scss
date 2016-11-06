@@ -1,0 +1,8 @@
+.section {
+  margin-bottom: $base-spacing;
+
+  &-description {
+    color: $medium-gray;
+    margin-bottom: $small-spacing;
+  }
+}

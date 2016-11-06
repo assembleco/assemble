@@ -1,36 +1,37 @@
-<h1><%= @flow.name %></h1>
+<h1><%= link_to "All flows", flows_path %> / <%= @flow.name %></h1>
 
-<pre>
-<%= @flow.body %>
-</pre>
+<div class="layout-column-left">
+  <%= link_to "Edit", edit_flow_path(@flow) %>
 
-<%= link_to "Edit flow", edit_flow_path(@flow) %>
+  <pre><%= @flow.body %></pre>
 
-<h2>Schema</h2>
+  <h2>Input Schema</h2>
+  <pre><%= @flow.schema %></pre>
+</div>
 
-<pre>
-<%= @flow.schema %>
-</pre>
+<div class="layout-column-right">
+  <div class="section">
+    <h2>Environment Variables</h2>
 
-<h2>ENV Variables</h2>
+    <div class="section-description">
+      These variables are kept secret from everyone else,
+      but you can use them in your script through <code>Flow.env</code>.
+    </div>
 
-<ul>
-  <% @flow.env_variables.each do |env| %>
-    <li>
-      <%= env.key %> = <%= env.value %>
-      <%= link_to "[X]", flow_env_variable_path(env, flow_id: @flow), method: :delete %>
-    </li>
-  <% end %>
-</ul>
-<%= link_to "Add Variable", new_flow_env_variable_path(flow_id: @flow) %>
+    <ul>
+      <% @flow.env_variables.each do |env| %>
+        <li>
+          <code><%= env.key %></code> = <%= "*" * 8 %>
+          <%= link_to "[X]", flow_env_variable_path(env, flow_id: @flow), method: :delete %>
+        </li>
+      <% end %>
+    </ul>
+    <%= link_to "+ Add Variable", new_flow_env_variable_path(flow_id: @flow) %>
+  </div>
 
-<h3>Runs</h3>
+  <div class="section">
+    <h3>Runs</h3>
 
-<ul>
-  <% @flow.runs.each do |run| %>
-    <li>
-      <%= link_to l(run.created_at), flow_run_path(run, flow_id: @flow) %>
-      | exited with code: <%= run.exit_status %>
-    </li>
-  <% end %>
-</ul>
+    <%= render @flow.runs %>
+  </div>
+</div>

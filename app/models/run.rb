@@ -35,6 +35,14 @@ class Run < ApplicationRecord
     save
   end
 
+  def status
+    if exit_status.zero?
+      :success
+    else
+      :failure
+    end
+  end
+
   private
 
   def container
