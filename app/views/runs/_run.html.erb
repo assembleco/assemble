@@ -1,0 +1,7 @@
+<%= link_to(
+  flow_run_path(run, flow_id: run.flow),
+  class: "run-summary run-status-#{run.status}",
+) do %>
+  <%= run.status.to_s.titleize %>,
+  <%= distance_of_time_in_words(Time.current, run.created_at) %> ago
+<% end %>
