@@ -3,13 +3,15 @@
 <div class="layout-column-left">
   <%= link_to "Edit", edit_flow_path(@flow) %>
 
-  <pre><%= @flow.body %></pre>
-
-  <h2>Input Schema</h2>
-  <pre><%= @flow.schema %></pre>
+  <%= highlight_flow(@flow) %>
 </div>
 
 <div class="layout-column-right">
+  <div class="section">
+    <h2>Input Schema</h2>
+    <%= highlight_json(@flow.schema) %>
+  </div>
+
   <div class="section">
     <h2>Environment Variables</h2>
 

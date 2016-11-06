@@ -3,6 +3,10 @@
   padding: $base-spacing 0;
 }
 
+.layout-row {
+  @include fill-parent;
+}
+
 .layout-column-left,
 .layout-column-right {
   @include span-columns(6 of 12);

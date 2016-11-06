@@ -288,6 +288,7 @@ DEPENDENCIES
   bullet
   bundler-audit (>= 0.5.0)
   capybara-webkit
+  coderay
   database_cleaner
   delayed_job_active_record
   docker-api

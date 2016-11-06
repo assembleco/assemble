@@ -1,25 +1,23 @@
-<%= link_to "Back to flow", @run.flow %>
+<div class="layout-row">
+  <%= link_to "Back to flow", @run.flow %>
+</div>
 
-<h2>Arguments:</h2>
+<div class="layout-column-left">
+  <h2>Input</h2>
 
-<pre>
-<%= @run.args %>
-</pre>
+  <%= highlight_json JSON.pretty_generate(JSON.parse(@run.args)) %>
+</div>
 
-<h2>Output:</h2>
+<div class="layout-column-right">
+  <h2>Output:</h2>
 
-<pre>
-<%= @run.output %>
-</pre>
+  <pre><%= @run.output %></pre>
 
-<h2>Errors:</h2>
+  <h2>Errors:</h2>
 
-<pre>
-<%= @run.run_errors %>
-</pre>
+  <pre><%= @run.run_errors %></pre>
 
-<h2>Exit code:</h2>
+  <h2>Exit code:</h2>
 
-<pre>
-<%= @run.exit_status %>
-</pre>
+  <pre><%= @run.exit_status %></pre>
+</div>
