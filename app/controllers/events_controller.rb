@@ -2,6 +2,7 @@
 
 class EventsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :create
+  skip_before_action :require_login, only: [:create], raise: false
 
   def create
     trigger.flows.each do |flow|

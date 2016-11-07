@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TriggersController < ApplicationController
   def index
     @triggers = Trigger.all

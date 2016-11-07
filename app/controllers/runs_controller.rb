@@ -2,6 +2,7 @@
 
 class RunsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :create
+  skip_before_action :require_login, only: [:create], raise: false
 
   def create
     run = Run.new(flow: flow, args: params.to_unsafe_h.to_json)

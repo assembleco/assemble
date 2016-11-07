@@ -3,8 +3,8 @@ require "rails_helper"
 
 RSpec.feature "Flow" do
   scenario "creation" do
+    sign_in create(:user)
     visit new_flow_path
-
     fill_in :flow_name, with: "Say Hello"
     fill_in :flow_body, with: "console.log('Hello');"
     fill_in :flow_schema, with: "{}"

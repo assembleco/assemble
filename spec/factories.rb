@@ -24,4 +24,10 @@ FactoryGirl.define do
     sequence(:name) { |n| "trigger_#{n}" }
     schema "{}"
   end
+
+  factory :user do
+    sequence(:username) { |n| "user_#{n}" }
+    email { "#{username}@example.com" }
+    password_digest "password"
+  end
 end
