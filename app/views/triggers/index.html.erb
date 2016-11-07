@@ -4,9 +4,7 @@
   <% @triggers.all.each do |trigger| %>
     <li>
       <h2><%= trigger.name %> (<%= link_to "Edit", [:edit, trigger] %>)</h2>
-      <p>
-      <%= trigger.schema %>
-      </p>
+      <%= highlight_json(trigger.schema) %>
     </li>
   <% end %>
 </ul>

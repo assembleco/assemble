@@ -1,8 +1,90 @@
-<%= simple_form_for([@flow.user, @flow]) do |f| %>
-  <%= f.input :name %>
-  <%= f.input :environment, collection: Run::ENVIRONMENT_COMMANDS.keys %>
-  <%= f.input :trigger_id, collection: Trigger.all, label_method: :name %>
-  <%= f.input :body %>
-  <%= f.input :schema %>
+<%= simple_form_for([@flow.user, @flow], html: { class: "layout-form" }) do |f| %>
+  <%= f.input(
+    :name,
+    hint: "
+    <p>
+    Only use letters, numbers, and underscores.
+    </p>
+    <p>
+    This will be how you refer to your script throughout the site, so make it short and memorable.
+    </p>
+    ".html_safe,
+  ) %>
+
+  <%= f.input(
+    :environment,
+    collection: Run::ENVIRONMENT_COMMANDS.keys,
+    hint: "
+    <p>
+    What language are you most comfortable writing in?
+    </p>
+    <p>
+    If you want to see another language supported,
+    #{mail_to(ENV.fetch('FEEDBACK_EMAIL'), 'let us know')}.
+    </p>
+    ".html_safe,
+  ) %>
+
+  <%= f.input(
+    :body,
+    hint: "
+    <p>
+    This is where your script goes. A few pointers:
+    </p>
+    <p>
+    Your script is running in a private container.
+    You have full control over the entire filesystem,
+    but please don't mess with the <code>/.flow</code> directory,
+    because we use that for things like passing input into your script.
+    </p>
+    <p>
+    You can include any standard library you like.
+    </p>
+    <p>
+    Right now we're taking on all server costs ourselves,
+    so please be conscientious of long-running jobs.
+    </p>
+    ".html_safe
+  ) %>
+
+  <%= f.input(
+    :schema,
+    label: "Input Schema",
+    hint: "
+    <p>
+    We use JSON-schema
+    to describe the required input structure for each flow.
+    </p>
+    <p>
+    If you want your script to accept any input, leave this field as it is.
+    The schema <code>{}</code> allows any input with no restriction.
+    </p>
+    <p>
+    #{link_to('Here\'s a good example of the JSON-schema format.', 'http://json-schema.org/examples.html', target: 'blank')}
+    </p>
+    <p>
+    We hope to replace this with something easier to manage in the future.
+    If you have any ideas or suggestions,
+    #{mail_to(ENV.fetch('FEEDBACK_EMAIL'), 'please let us know')}.
+    </p>
+    ".html_safe,
+  ) %>
+
+  <%= f.input(
+    :trigger_id,
+    collection: Trigger.all,
+    label_method: :name,
+    hint: "
+    <p>
+    There are #{link_to('a number of triggers that your flow can subscribe to', triggers_path)}.
+    </p>
+    <p>
+    If you select one from this list,
+    any time someone fires that trigger,
+    your flow will be run.
+    </p>
+    ".html_safe
+  ) %>
+
   <%= f.button :submit %>
 <% end %>
