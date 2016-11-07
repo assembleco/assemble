@@ -10,7 +10,10 @@ describe "POST runs#create" do
     JS
 
     expect do
-      post "/flows/#{flow.name}/runs", params: { foo: "bar" }
+      post(
+        "/users/#{flow.user.username}/flows/#{flow.name}/runs",
+        params: { foo: "bar" },
+      )
     end.to change(Run, :count).by(1)
 
     expect(response.body).to eq("Run has been queued.")
@@ -25,7 +28,10 @@ describe "POST runs#create" do
     create(:env_variable, flow: flow, key: "foo", value: "bar")
 
     expect do
-      post "/flows/#{flow.name}/runs"
+      post(
+        "/users/#{flow.user.username}/flows/#{flow.name}/runs",
+        params: { foo: "bar" },
+      )
     end.to change(Run, :count).by(1)
 
     expect(response.body).to eq("Run has been queued.")
@@ -49,7 +55,10 @@ describe "POST runs#create" do
       SCHEMA
     )
 
-    post "/flows/#{flow.name}/runs", params: { foo: "bar" }
+    post(
+      "/users/#{flow.user.username}/flows/#{flow.name}/runs",
+      params: { foo: "bar" },
+    )
 
     expect(response).to be_unprocessable
     # expect run to not be created

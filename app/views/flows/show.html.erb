@@ -1,7 +1,11 @@
-<h1><%= link_to "All flows", flows_path %> / <%= @flow.name %></h1>
+<h1>
+  <%= link_to @flow.user.username, [@flow.user, :flows] %>
+  /
+  <%= @flow.name %>
+</h1>
 
 <div class="layout-column-left">
-  <%= link_to "Edit", edit_flow_path(@flow) %>
+  <%= link_to "Edit", [:edit, @flow.user, @flow] %>
 
   <%= highlight_flow(@flow) %>
 </div>
@@ -24,11 +28,12 @@
       <% @flow.env_variables.each do |env| %>
         <li>
           <code><%= env.key %></code> = <%= "*" * 8 %>
-          <%= link_to "[X]", flow_env_variable_path(env, flow_id: @flow), method: :delete %>
+          <%= link_to "[X]", [@flow.user, @flow, env], method: :delete %>
         </li>
       <% end %>
     </ul>
-    <%= link_to "+ Add Variable", new_flow_env_variable_path(flow_id: @flow) %>
+
+    <%= link_to "+ Add Variable", [:new, @flow.user, @flow, :env_variable] %>
   </div>
 
   <div class="section">

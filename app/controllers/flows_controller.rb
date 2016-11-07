@@ -3,8 +3,10 @@
 require "docker"
 
 class FlowsController < ApplicationController
+  helper_method :user
+
   def index
-    @flows = Flow.all
+    @flows = user.flows
   end
 
   def show
@@ -12,14 +14,14 @@ class FlowsController < ApplicationController
   end
 
   def new
-    @flow = Flow.new
+    @flow = Flow.new(user: current_user)
   end
 
   def create
     @flow = Flow.new(flow_params)
 
     if @flow.save
-      redirect_to flow_path(@flow), notice: t(".success")
+      redirect_to user_flow_path(@flow.user, @flow), notice: t(".success")
     else
       render :new, t(".failure")
     end
@@ -48,6 +50,10 @@ class FlowsController < ApplicationController
       :name,
       :schema,
       :trigger_id,
-    )
+    ).merge(user: current_user)
+  end
+
+  def user
+    @user ||= User.find_by(username: params[:user_id]) || current_user
   end
 end

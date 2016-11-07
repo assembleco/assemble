@@ -3,7 +3,7 @@
 <ul>
   <% @triggers.all.each do |trigger| %>
     <li>
-      <h2><%= trigger.name %> (<%= link_to "Edit", edit_trigger_path(trigger) %>)</h2>
+      <h2><%= trigger.name %> (<%= link_to "Edit", [:edit, trigger] %>)</h2>
       <p>
       <%= trigger.schema %>
       </p>
@@ -11,4 +11,4 @@
   <% end %>
 </ul>
 
-<%= link_to "+ Create a new trigger", new_trigger_path %>
+<%= link_to "+ Create a new trigger", [:new, :trigger] %>
