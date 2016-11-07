@@ -47,6 +47,7 @@ GEM
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
+    bcrypt (3.1.11)
     bitters (1.4.0)
       bourbon (>= 5.0.0.beta.6)
       sass (~> 3.4)
@@ -134,6 +135,10 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.9.1)
+    monban (1.1.0)
+      bcrypt
+      rails
+      warden
     neat (1.8.0)
       sass (>= 3.3)
       thor (~> 0.19)
@@ -263,6 +268,8 @@ GEM
     uglifier (3.0.2)
       execjs (>= 0.3.0, < 3)
     uniform_notifier (1.10.0)
+    warden (1.2.6)
+      rack (>= 1.0)
     web-console (3.3.1)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -301,6 +308,7 @@ DEPENDENCIES
   json-schema
   launchy
   listen
+  monban
   neat
   normalize-rails (~> 3.0.0)
   pg

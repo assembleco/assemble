@@ -12,11 +12,16 @@ module Features
   include Formulaic::Dsl
 end
 
+Monban.test_mode!
+
 RSpec.configure do |config|
   config.include Features, type: :feature
   config.infer_base_class_for_anonymous_controllers = false
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = false
+
+  config.include Monban::Test::Helpers, type: :feature
+  config.after(:each) { Monban.test_reset!  }
 end
 
 ActiveRecord::Migration.maintain_test_schema!
