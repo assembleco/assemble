@@ -9,7 +9,7 @@ class EnvVariablesController < ApplicationController
     @env = EnvVariable.new(env_variable_params)
 
     if @env.save
-      redirect_to @env.flow
+      redirect_to [@env.user, @env.flow]
     else
       render :new
     end
@@ -19,7 +19,7 @@ class EnvVariablesController < ApplicationController
     env = EnvVariable.find(params[:id])
     flow = env.flow
     env.destroy!
-    redirect_to flow
+    redirect_to [flow.user, flow]
   end
 
   private

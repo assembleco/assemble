@@ -4,6 +4,7 @@ require "json"
 
 class Run < ApplicationRecord
   belongs_to :flow
+  has_one :user, through: :flow
 
   validate :args_match_schema
 

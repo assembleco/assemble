@@ -1,13 +1,13 @@
-<h1>Flows</h1>
+<h1><%= user.username %>'s flows</h1>
 
 <ul>
   <% @flows.all.each do |flow| %>
     <li>
-      <%= link_to flow_path(flow) do %>
+      <%= link_to [flow.user, flow] do %>
         <%= flow.name %>
       <% end %>
     </li>
   <% end %>
 </ul>
 
-<%= link_to "+ Create a new flow", new_flow_path %>
+<%= link_to "+ Create a new flow", [:new, user, :flow] %>

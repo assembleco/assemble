@@ -1,4 +1,4 @@
-<%= simple_form_for(@flow) do |f| %>
+<%= simple_form_for([@flow.user, @flow]) do |f| %>
   <%= f.input :name %>
   <%= f.input :environment, collection: Run::ENVIRONMENT_COMMANDS.keys %>
   <%= f.input :body %>

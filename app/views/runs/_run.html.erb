@@ -1,5 +1,5 @@
 <%= link_to(
-  flow_run_path(run, flow_id: run.flow),
+  [run.user, run.flow, run],
   class: "run-summary run-status-#{run.status}",
 ) do %>
   <%= run.status.to_s.titleize %>,

@@ -11,7 +11,7 @@ module ApplicationHelper
       ruby: :ruby,
       node: :javascript,
       python2: :python,
-    }.with_indifferent_access[flow.environment]
+    }.with_indifferent_access.fetch(flow.environment)
 
     CodeRay.scan(flow.body, language).div.html_safe
   end

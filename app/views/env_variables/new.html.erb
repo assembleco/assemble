@@ -1,4 +1,4 @@
-<%= simple_form_for([@env.flow, @env]) do |f| %>
+<%= simple_form_for([@env.flow.user, @env.flow, @env]) do |f| %>
   <%= f.input :key %>
   <%= f.input :value %>
   <%= f.submit %>

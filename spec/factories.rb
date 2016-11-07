@@ -8,6 +8,7 @@ FactoryGirl.define do
   end
 
   factory :flow do
+    user
     sequence(:name) { |n| "flow_#{n}" }
     body "require('./flow.js'); console.log(flow.input.message)"
   end

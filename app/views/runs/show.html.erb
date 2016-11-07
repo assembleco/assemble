@@ -1,6 +1,10 @@
-<div class="layout-row">
-  <%= link_to "Back to flow", @run.flow %>
-</div>
+<h1>
+  <%= link_to @run.user.username, [@run.user, :flows] %>
+  /
+  <%= link_to @run.flow.name, [@run.user, @run.flow] %>
+  /
+  <%= @run.id %>
+</h1>
 
 <div class="layout-column-left">
   <h2>Input</h2>
@@ -10,14 +14,11 @@
 
 <div class="layout-column-right">
   <h2>Output:</h2>
-
   <pre><%= @run.output %></pre>
 
   <h2>Errors:</h2>
-
   <pre><%= @run.run_errors %></pre>
 
   <h2>Exit code:</h2>
-
   <pre><%= @run.exit_status %></pre>
 </div>
