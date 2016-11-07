@@ -9,7 +9,7 @@
 <div class="layout-column-left">
   <h2>Input</h2>
 
-  <%= highlight_json JSON.pretty_generate(JSON.parse(@run.args)) %>
+  <%= highlight_json prettify(@run.args) %>
 </div>
 
 <div class="layout-column-right">
