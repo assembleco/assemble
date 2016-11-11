@@ -12,6 +12,7 @@ class Run < ApplicationRecord
     "node" => "node",
     "ruby" => "ruby",
     "python2" => "python",
+    "git" => "source",
   }.freeze
 
   def execute
