@@ -1,8 +1,8 @@
 <%= simple_form_for([@flow.user, @flow]) do |f| %>
   <%= f.input :name %>
   <%= f.input :environment, collection: Run::ENVIRONMENT_COMMANDS.keys %>
+  <%= f.input :trigger_id, collection: Trigger.all, label_method: :name %>
   <%= f.input :body %>
   <%= f.input :schema %>
-  <%= f.input :trigger_id, collection: Trigger.all, label_method: :name %>
   <%= f.button :submit %>
 <% end %>
