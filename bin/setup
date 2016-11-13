@@ -16,6 +16,16 @@ bin/rake dev:prime
 # Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
 mkdir -p .git/safe
 
+# Make sure .env exists
+if [ ! -f .env ]; then
+  cp .sample.env .env
+fi
+
+# Make sure Procfile exists, copy from development if not
+if [ ! -f Procfile ]; then
+  cp Procfile.development.sample Procfile
+fi
+
 # Only if this isn't CI
 # if [ -z "$CI" ]; then
 # fi
