@@ -11,3 +11,9 @@
 /public/assets
 /tags
 /tmp/*
+
+.env
+Procfile
+
+# for production SSL certificates
+/certificates
