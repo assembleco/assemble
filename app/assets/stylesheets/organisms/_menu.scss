@@ -1,0 +1,11 @@
+.menu {
+  @include outer-container;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: $small-spacing;
+  padding-bottom: $small-spacing;
+
+  a {
+    margin-left: $base-spacing;
+  }
+}
