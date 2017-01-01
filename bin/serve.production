@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rm tmp/pids/server.pid
+
+(bundle check || bundle install) &&\
+bundle exec rake assets:precompile &&\
+bundle exec puma -b "ssl://0.0.0.0:3000?key=certificates/domain-key.pem&cert=certificates/domain-cert.pem" -C ./config/puma.rb
