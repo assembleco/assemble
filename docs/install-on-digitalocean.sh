@@ -12,13 +12,8 @@ apt-get update
 apt-get uninstall openssl
 apt-get install ruby ruby-dev gcc make libpq-dev build-essential phantomjs nodejs postgresql openssl
 
-# Set up a postgres user with the correct permissions for our application
-su - postgres
-psql
-create role root with createdb login
-\q
-exit
-
+# TODO: does this still apply?
+# Try without it.
 # Make sure we have swap space so we don't run out of memory
 free -m
 # If the swap space doesn't exist (values are 0), Create a swap file
@@ -34,13 +29,12 @@ echo "/var/cache/swap/swapfile none swap sw 0 0" | tee -a /etc/fstab
 # Allow ports and turn on the firewall
 ufw allow 80/tcp
 ufw allow 443/tcp
+ufw allow 9000/tcp
 ufw enable
 
 git clone git@github.com:graysonwright/flows
 cd flows
-cp Procfile.production.sample Procfile
 ./bin/setup
-gem install foreman
 
 # change variables in .env:
 ASSET_HOST=foo.example.com
@@ -48,6 +42,13 @@ APPLICATION_HOST=foo.example.com
 PORT=443
 SECRET_KEY_BASE=`rake secret`
 
+# TODO: update this for docker-compose
+# See:
+# https://community.letsencrypt.org/t/nginx-docker-setup-for-le/2621
+# https://thisendout.com/2016/04/21/letsencrypt-certificate-generation-with-docker/
+# https://getcarina.com/blog/push-button-lets-encrypt/
+# https://github.com/smashwilson/lets-nginx
+#
 # Set up SSL
 # Follow instructions at
 # https://github.com/lgromanowski/letsencrypt-plugin/wiki/Installation-guide
@@ -62,5 +63,4 @@ rake letsencrypt_plugin
 # and update the production Procfile to use the appropriate SSL binding
 # (https://github.com/puma/puma/#binding-tcp--sockets)
 
-nohup foreman start &
-exit
+./bin/docker-compose up -d

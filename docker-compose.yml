@@ -1,0 +1,47 @@
+version: "2.1"
+
+services:
+  db:
+    image: postgres:latest
+    expose:
+      - 5432
+
+  portainer:
+    image: portainer/portainer
+    ports:
+      - 9000:9000
+    volumes:
+      # Docker access on Linux
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Docker access on OS X
+      - ${DOCKER_CERT_PATH:-/certs}:/certs
+    command: "-H $DOCKER_HOST --tlsverify"
+
+  web:
+    build: .
+    env_file: .env
+    image: graysonwright/flows
+    command: ./bin/serve
+    ports:
+      - "$PORT:3000"
+    links:
+      - db
+    volumes:
+      - .:/app
+      # Docker access on Linux
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Docker access on OS X
+      - ${DOCKER_CERT_PATH:-/certs}:${DOCKER_CERT_PATH:-/certs}
+
+  worker:
+    env_file: .env
+    image: graysonwright/flows
+    command: rake jobs:work
+    links:
+      - db
+    volumes:
+      - .:/app
+      # Docker access on Linux
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Docker access on OS X
+      - ${DOCKER_CERT_PATH:-/certs}:${DOCKER_CERT_PATH:-/certs}

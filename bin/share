@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run --rm -it --net flows_default --link flows_web_1:web wernight/ngrok ngrok http web:3000

@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.3.1"
+ruby "2.4.0"
 
 gem "autoprefixer-rails"
 gem "bourbon"
@@ -17,7 +17,7 @@ gem "normalize-rails", "~> 3.0.0"
 gem "pg"
 gem "puma"
 gem "rack-canonical-host"
-gem "rails", "~> 5.0.0"
+gem "rails", "~> 5.0.1"
 gem "recipient_interceptor"
 gem "sass-rails", "~> 5.0"
 gem "simple_form"
