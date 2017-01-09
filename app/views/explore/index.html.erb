@@ -7,7 +7,7 @@
 
   <div class="explore-apps">
     <% App.all.each do |app| %>
-      <%= link_to app.to_path, class: "explore-app" do %>
+      <%= link_to app_path(app.user, app), class: "explore-app" do %>
         <%= app.name %>
       <% end %>
     <% end %>
@@ -19,7 +19,7 @@
 
   <div class="explore-blocks">
     <% Block.all.each do |block| %>
-      <%= link_to block.to_path, class: "explore-block" do %>
+      <%= link_to block_path(block.user, block), class: "explore-block" do %>
         <%= block.name %>
       <% end %>
     <% end %>

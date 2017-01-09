@@ -3,11 +3,11 @@
 <ul>
   <% @blocks.all.each do |block| %>
     <li>
-      <%= link_to [block.user, block] do %>
+      <%= link_to block_path(block.user, block) do %>
         <%= block.name %>
       <% end %>
     </li>
   <% end %>
 </ul>
 
-<%= link_to "+ Create a new block", [:new, user, :block] %>
+<%= link_to "+ Create a new block", new_block_path(user) %>

@@ -10,7 +10,7 @@ RSpec.feature "Explore page" do
     visit explore_path
     click_on "App 1"
 
-    expect(current_path).to eq user_app_path(app.user, app)
+    expect(current_path).to eq app_path(app.user, app)
     expect(page).to have_heading(app.name)
   end
 
@@ -22,7 +22,7 @@ RSpec.feature "Explore page" do
     visit explore_path
     click_on "Building Block 1"
 
-    expect(current_path).to eq user_block_path(block.user, block)
+    expect(current_path).to eq block_path(block.user, block)
     expect(page).to have_heading(block.name)
   end
 

@@ -13,8 +13,4 @@ class Block < ApplicationRecord
   def to_param
     name
   end
-
-  def to_path
-    [user, self]
-  end
 end

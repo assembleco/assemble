@@ -5,7 +5,7 @@ RSpec.feature "Blocks" do
   scenario "creation" do
     user = sign_in create(:user)
 
-    visit new_user_block_path(user)
+    visit new_block_path(user)
     fill_in :block_name, with: "Say Hello"
     fill_in :block_body, with: "console.log('Hello');"
     fill_in :block_schema, with: "{}"
@@ -32,7 +32,7 @@ RSpec.feature "Blocks" do
     run = create(:run)
 
     sign_in run.user
-    visit user_block_path(run.user, run.block)
+    visit block_path(run.user, run.block)
     click_on "Success"
 
     expect(page).to have_content run.args
@@ -42,7 +42,7 @@ RSpec.feature "Blocks" do
     env = create(:env_variable, key: "sample_var")
 
     sign_in env.block.user
-    visit user_block_path(env.block.user, env.block)
+    visit block_path(env.block.user, env.block)
     click_on "[X]"
     click_on "+ Add Variable"
     fill_in :env_variable_key, with: "new_variable"

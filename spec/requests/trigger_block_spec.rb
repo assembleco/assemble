@@ -11,7 +11,7 @@ describe "POST runs#create" do
 
     expect do
       post(
-        "/users/#{block.user.username}/blocks/#{block.name}/runs",
+        "/blocks/#{block.user.username}/#{block.name}/runs",
         params: { foo: "bar" },
       )
     end.to change(Run, :count).by(1)
@@ -29,7 +29,7 @@ describe "POST runs#create" do
 
     expect do
       post(
-        "/users/#{block.user.username}/blocks/#{block.name}/runs",
+        "/blocks/#{block.user.username}/#{block.name}/runs",
         params: { foo: "bar" },
       )
     end.to change(Run, :count).by(1)
@@ -56,7 +56,7 @@ describe "POST runs#create" do
     )
 
     post(
-      "/users/#{block.user.username}/blocks/#{block.name}/runs",
+      "/blocks/#{block.user.username}/#{block.name}/runs",
       params: { foo: "bar" },
     )
 

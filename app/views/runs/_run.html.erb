@@ -1,5 +1,5 @@
 <%= link_to(
-  [run.user, run.block, run],
+  run_path(run.user, run.block, run),
   class: "run-summary run-status-#{run.status}",
 ) do %>
   <%= run.status.to_s.titleize %>,

@@ -10,7 +10,7 @@ class BlocksController < ApplicationController
   end
 
   def show
-    @block = Block.find_by!(name: params[:id])
+    @block = Block.find_by!(user: user, name: params[:blockname])
   end
 
   def new
@@ -21,18 +21,18 @@ class BlocksController < ApplicationController
     @block = Block.new(block_params)
 
     if @block.save
-      redirect_to user_block_path(@block.user, @block), notice: t(".success")
+      redirect_to block_path(@block.user, @block), notice: t(".success")
     else
       render :new, t(".failure")
     end
   end
 
   def edit
-    @block = Block.find_by!(name: params[:id])
+    @block = Block.find_by!(user: user, name: params[:blockname])
   end
 
   def update
-    @block = Block.find_by!(name: params[:id])
+    @block = Block.find_by!(user: user, name: params[:blockname])
 
     if @block.update(block_params)
       redirect_to block_path(@block)
@@ -54,6 +54,6 @@ class BlocksController < ApplicationController
   end
 
   def user
-    @user ||= User.find_by(username: params[:user_id]) || current_user
+    @user ||= User.find_by!(username: params[:username])
   end
 end
