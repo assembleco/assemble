@@ -1,16 +1,22 @@
 # frozen_string_literal: true
 
 FactoryGirl.define do
-  factory :env_variable do
-    block
-    key "foo"
-    value "bar"
+  factory :app do
+    name "MyString"
+    user nil
+    description "MyText"
   end
 
   factory :block do
     user
     sequence(:name) { |n| "flow_#{n}" }
     body "require('./flow.js'); console.log(flow.input.message)"
+  end
+
+  factory :env_variable do
+    block
+    key "foo"
+    value "bar"
   end
 
   factory :run do
