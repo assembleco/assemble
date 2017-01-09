@@ -1,4 +1,4 @@
-<%= simple_form_for([@flow.user, @flow], html: { class: "layout-form" }) do |f| %>
+<%= simple_form_for([@block.user, @block], html: { class: "layout-form" }) do |f| %>
   <%= f.input(
     :name,
     hint: "
@@ -34,7 +34,7 @@
     <p>
     Your script is running in a private container.
     You have full control over the entire filesystem,
-    but please don't mess with the <code>/.flow</code> directory,
+    but please don't mess with the <code>/flow</code> directory,
     because we use that for things like passing input into your script.
     </p>
     <p>
@@ -53,7 +53,7 @@
     hint: "
     <p>
     We use JSON-schema
-    to describe the required input structure for each flow.
+    to describe the required input structure for each block.
     </p>
     <p>
     If you want your script to accept any input, leave this field as it is.
@@ -76,12 +76,12 @@
     label_method: :name,
     hint: "
     <p>
-    There are #{link_to('a number of triggers that your flow can subscribe to', triggers_path)}.
+    There are #{link_to('a number of triggers that your block can subscribe to', triggers_path)}.
     </p>
     <p>
     If you select one from this list,
     any time someone fires that trigger,
-    your flow will be run.
+    your block will be run.
     </p>
     ".html_safe
   ) %>

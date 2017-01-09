@@ -32,8 +32,8 @@ ufw allow 443/tcp
 ufw allow 9000/tcp
 ufw enable
 
-git clone git@github.com:graysonwright/flows
-cd flows
+git clone git@github.com:graysonwright/appfactory
+cd appfactory
 ./bin/setup
 
 # change variables in .env:

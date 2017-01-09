@@ -3,8 +3,8 @@
 require "json"
 
 class Run < ApplicationRecord
-  belongs_to :flow
-  has_one :user, through: :flow
+  belongs_to :block
+  has_one :user, through: :block
 
   validate :args_match_schema
 
@@ -21,10 +21,10 @@ class Run < ApplicationRecord
     container.store_file("/flow/config.json", config.to_json)
     container.store_file("/flow/input.json", args)
     container.store_file("/flow/env.json", env_variables.to_json)
-    container.store_file("/flow/user_script.js", flow.body)
+    container.store_file("/flow/user_script.js", block.body)
 
     output, errors, self.exit_status = container.exec([
-      ENVIRONMENT_COMMANDS[flow.environment],
+      ENVIRONMENT_COMMANDS[block.environment],
       "/flow/user_script.js",
     ])
 
@@ -52,7 +52,7 @@ class Run < ApplicationRecord
   def container
     @container ||=
       begin
-        image_dir = Rails.root.join("containers/#{flow.environment}").to_s
+        image_dir = Rails.root.join("containers/#{block.environment}").to_s
         image = Docker::Image.build_from_dir(image_dir)
         Docker::Container.create("Image" => image.id, "Tty" => true)
       end
@@ -65,11 +65,11 @@ class Run < ApplicationRecord
   end
 
   def env_variables
-    flow.env_variables.pluck(:key, :value).to_h
+    block.env_variables.pluck(:key, :value).to_h
   end
 
   def args_match_schema
-    schema = JSON.parse(flow.schema)
+    schema = JSON.parse(block.schema)
 
     unless JSON::Validator.validate(schema, args)
       errors.add(:args, "do not match schema")

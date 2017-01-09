@@ -11,12 +11,13 @@ but sometimes these aren't flexible enough to match your team's workflow.
 
 ![github's official merge strategies](github_merge_strategies.png)
 
-By chaining together a few flows,
+By chaining together a few building blocks,
 we can define powerful merge strategies
 that are flexible enough to account for different situations.
 
 In this example,
-we will create flows to add a custom "Merge" button to our GitHub pull requests.
+we will create building blocks
+to add a custom "Merge" button to our GitHub pull requests.
 When a project administrator clicks on "Merge",
 a flow will check that the pull request has completed successfully,
 pull the code changes onto a virtual machine,
@@ -30,13 +31,13 @@ to push the code changes to a production server.
 
 ## Merge a pull request
 
-Let's start by creating a new flow to run the merge itself.
+Let's start by creating a new building block to run the merge itself.
 Later on, we'll hook it up to run when someone clicks a button.
 
-Our flow will mostly be working with git,
+Our building block will mostly be working with git,
 so let's select a base image that has git installed.
 
-![select the git flow environment from the dropdown](git_environment.png)
+![select the git building block environment from the dropdown](git_environment.png)
 
 We'll start by cloning the git repo onto our computer.
 The URL and branch name for this repo will need to be passed into our script,
@@ -53,16 +54,16 @@ so we should define them in the input schema.
 }
 ```
 
-We can use URL and branch name in our flow
-by accessing them with the `flow input` command.
+We can use URL and branch name in our building block
+by accessing them with the `appfactory block input` command.
 
 ```bash
-git clone $(flow input git_url)
-git checkout $(flow input branch_name)
+git clone $(appfactory block input git_url)
+git checkout $(appfactory block input branch_name)
 ```
 
 After that, it's up to you to define your custom merging strategy.
-Here's what we use ourselves at Flows.
+Here's what we use ourselves at the App Factory.
 
 ```bash
 # exit immediately if any command fails
@@ -83,45 +84,47 @@ git checkout master
 git pull
 
 # Merge ONLY if there were no changes to master in the meantime
-git merge --ff-only $(flow input branch_name)
+git merge --ff-only $(appfactory block input branch_name)
 git push
 
 # delete the local and remote branches
-git branch -d $(flow input branch_name)
-git push --force-with-lease origin :$(flow input branch_name)
+git branch -d $(appfactory block input branch_name)
+git push --force-with-lease origin :$(appfactory block input branch_name)
 ```
 
-If you have a Flow that pushes code to staging or production environments,
-now might be a good time to kick that off with the `flow trigger` command.
+If you have a building block
+that pushes code to staging or production environments,
+now might be a good time to kick that off with the `appfactory trigger` command.
 
 ```bash
-# Your deployment flow might take different arguments
-flow trigger myteam/deploy environment=staging branch=master
+# Your deployment building block might take different arguments
+appfactory trigger myteam/deploy environment=staging branch=master
 ```
 
-And that's it! Whenever this flow is triggered with a Git URL and a branch name,
+And that's it! Whenever this building block
+is triggered with a Git URL and a branch name,
 it will merge that branch into the repository with your custom merge strategy.
 
 ## Hook it up to a button
 
-Now that we have a flow for merging our GitHub pull requests,
-we need to hook up an easy way for people to trigger the flow.
+Now that we have a building block for merging our GitHub pull requests,
+we need to hook up an easy way for people to trigger the building block.
 
 We want users to be able to click a button in the pull request comment thread
 to start the merge process.
 To do that, we'll watch for new pull requests
-and comment on each of them with a link to trigger the merge flow.
+and comment on each of them with a link to trigger the merge building block.
 
-![diagram of how the flows are connected.](overall_flow.png)
+![diagram of how the building blocks are connected.](app_diagram.png)
 
 Here's what that looks like.
 
-Create a new flow that subscribes to the `GitHub Pull Request` event.
+Create a new building block that subscribes to the `GitHub Pull Request` event.
 
 ![subscribe to the "GitHub Pull Request" event](github_pull_request_trigger.png)
 
-When a new pull request is created and our flow is kicked off,
-we'll use the `github/add_comment` flow
+When a new pull request is created and our building block is kicked off,
+we'll use the `github/add_comment` building block
 to add a link to the github conversation.
 
 ```ruby
@@ -158,12 +161,12 @@ Flow.trigger("github/add_comment", { text: comment_text })
 ```
 
 Now, any pull request you open will have a handy link added to it
-that will kick off your custom merge flow.
+that will kick off your custom merge building block.
 
 - - - - -
 
 Feedback form:
 
 * Was this information helpful? (Y/N)
-* How likely are you to build a flow like this? (1-5)
+* How likely are you to build an app like this? (1-5)
 * How can we change this to make it more helpful? (free-form)

@@ -1,0 +1,59 @@
+# frozen_string_literal: true
+
+require "docker"
+
+class BlocksController < ApplicationController
+  helper_method :user
+
+  def index
+    @blocks = user.blocks
+  end
+
+  def show
+    @block = Block.find_by!(name: params[:id])
+  end
+
+  def new
+    @block = Block.new(user: current_user)
+  end
+
+  def create
+    @block = Block.new(block_params)
+
+    if @block.save
+      redirect_to user_block_path(@block.user, @block), notice: t(".success")
+    else
+      render :new, t(".failure")
+    end
+  end
+
+  def edit
+    @block = Block.find_by!(name: params[:id])
+  end
+
+  def update
+    @block = Block.find_by!(name: params[:id])
+
+    if @block.update(block_params)
+      redirect_to block_path(@block)
+    else
+      render :edit
+    end
+  end
+
+  private
+
+  def block_params
+    params.require(:block).permit(
+      :body,
+      :environment,
+      :name,
+      :schema,
+      :trigger_id,
+    ).merge(user: current_user)
+  end
+
+  def user
+    @user ||= User.find_by(username: params[:user_id]) || current_user
+  end
+end

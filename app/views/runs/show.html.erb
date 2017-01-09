@@ -1,7 +1,7 @@
 <h1>
-  <%= link_to @run.user.username, [@run.user, :flows] %>
+  <%= link_to @run.user.username, [@run.user, :blocks] %>
   /
-  <%= link_to @run.flow.name, [@run.user, @run.flow] %>
+  <%= link_to @run.block.name, [@run.user, @run.block] %>
   /
   <%= @run.id %>
 </h1>

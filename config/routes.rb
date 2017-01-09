@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
 
   resources :users, only: [:new, :create] do
-    resources :flows do
+    resources :blocks do
       resources :runs, only: [:create, :show]
       resources :env_variables, only: [:new, :create, :destroy]
     end
@@ -14,6 +14,6 @@ Rails.application.routes.draw do
     resources :events, only: [:create]
   end
 
-  get "/explore", to: "flows#index", as: :explore
+  get "/explore", to: "blocks#index", as: :explore
   root to: "welcome#index"
 end

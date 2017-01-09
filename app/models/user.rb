@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :flows
+  has_many :blocks
 
   validates :email, presence: true, uniqueness: true
   validates :username, presence: true, uniqueness: true

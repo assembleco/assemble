@@ -17,7 +17,7 @@ class Flow
   def self.trigger(flow_id, data)
     user, flow = flow_id.split("/")
 
-    uri = URI("https://#{config['host']}/users/#{user}/flows/#{flow}/runs")
+    uri = URI("https://#{config['host']}/users/#{user}/blocks/#{flow}/runs")
     res = Net::HTTP.post_form(uri, data)
     puts res.body
   end

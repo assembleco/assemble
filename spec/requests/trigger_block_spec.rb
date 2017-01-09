@@ -4,14 +4,14 @@ require "rails_helper"
 
 describe "POST runs#create" do
   it "exposes the posted parameters in './input.json'" do
-    flow = create(:flow, body: <<-JS)
+    block = create(:block, body: <<-JS)
       flow = require('./flow.js')
       console.log(flow.input.foo)
     JS
 
     expect do
       post(
-        "/users/#{flow.user.username}/flows/#{flow.name}/runs",
+        "/users/#{block.user.username}/blocks/#{block.name}/runs",
         params: { foo: "bar" },
       )
     end.to change(Run, :count).by(1)
@@ -21,15 +21,15 @@ describe "POST runs#create" do
   end
 
   it "exposes any set environment variables to the script" do
-    flow = create(:flow, body: <<-JS)
+    block = create(:block, body: <<-JS)
       flow = require('./flow.js')
       console.log(flow.env.foo)
     JS
-    create(:env_variable, flow: flow, key: "foo", value: "bar")
+    create(:env_variable, block: block, key: "foo", value: "bar")
 
     expect do
       post(
-        "/users/#{flow.user.username}/flows/#{flow.name}/runs",
+        "/users/#{block.user.username}/blocks/#{block.name}/runs",
         params: { foo: "bar" },
       )
     end.to change(Run, :count).by(1)
@@ -39,8 +39,8 @@ describe "POST runs#create" do
   end
 
   it "validates the input against the defined schema" do
-    flow = create(
-      :flow,
+    block = create(
+      :block,
       schema: <<-SCHEMA,
       {
         "title": "Input schema",
@@ -56,7 +56,7 @@ describe "POST runs#create" do
     )
 
     post(
-      "/users/#{flow.user.username}/flows/#{flow.name}/runs",
+      "/users/#{block.user.username}/blocks/#{block.name}/runs",
       params: { foo: "bar" },
     )
 
@@ -66,7 +66,7 @@ describe "POST runs#create" do
 end
 
 describe "POST events#create" do
-  it "runs subscribed flows with the provided input" do
+  it "runs subscribed blocks with the provided input" do
     message = "this is a sample message"
     trigger = create(:trigger, schema: <<-JS)
       {
@@ -78,7 +78,7 @@ describe "POST events#create" do
       }
     JS
 
-    flow = create(:flow, environment: "node", trigger: trigger, body: <<-JS)
+    block = create(:block, environment: "node", trigger: trigger, body: <<-JS)
       flow = require('./flow.js')
       console.log(flow.input.message)
     JS
@@ -88,17 +88,17 @@ describe "POST events#create" do
     end.to change(Run, :count).by(1)
 
     run = Run.last
-    expect(run.flow).to eq(flow)
+    expect(run.block).to eq(block)
     expect(run.output).to eq(message + "\n")
   end
 
-  it "only triggers flows that have a matching schema" do
+  it "only triggers blocks that have a matching schema" do
     skip
-    # this is important because we should allow flows
+    # this is important because we should allow blocks
     # to have more restrictive schemas than their triggers.
     # For example,
     # perhaps all of a companies' tweets go through a specific trigger,
-    # but we only want our flow to run on one of them.
+    # but we only want our block to run on one of them.
   end
 
   it "calls the correct version of the script for you" do
@@ -108,11 +108,11 @@ describe "POST events#create" do
     # but is still an implementation detail
     # that people shouldn't have to worry about.
     # Instead, we can guess when breaking changes are happening
-    # by looking for changes in flows' schemas,
+    # by looking for changes in blocks' schemas,
     # and reflect that with a major version bump.
     #
-    # When flow A triggers flow B,
-    # instead of specifying the version of flow B
+    # When Block A triggers Block B,
+    # instead of specifying the version of Block B
     # that we waant to run,
     # we can infer the version based on the `created_at`
     # or most recent `udpated_at` of the script,

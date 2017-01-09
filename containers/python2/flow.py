@@ -27,7 +27,7 @@ class Flow(object):
     headers = {"Content-type": "application/x-www-form-urlencoded",
             "Accept": "text/plain"}
     conn = httplib.HTTPConnection(Flow.config()['host'])
-    conn.request("POST",  "/flows/" + str(flow_id) + "/runs", params, headers)
+    conn.request("POST",  "/blocks/" + str(flow_id) + "/runs", params, headers)
     response = conn.getresponse()
     print response.status, response.reason
     data = response.read()
