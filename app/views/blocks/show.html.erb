@@ -1,0 +1,65 @@
+<h1>
+  <%= link_to @block.user.username, [@block.user, :blocks] %>
+  /
+  <%= @block.name %>
+</h1>
+
+<div class="layout-column-left">
+  <%= highlight_block(@block) %>
+
+  <%= link_to "Edit", [:edit, @block.user, @block] %>
+</div>
+
+<div class="layout-column-right">
+  <div class="section">
+    <h2>Input Schema</h2>
+    <%= highlight_json(@block.schema) %>
+  </div>
+
+  <div class="section">
+    <h2>Environment Variables</h2>
+
+    <div class="section-description">
+      These variables are kept secret from everyone else,
+      but you can use them in your script through <code>block.env</code>.
+    </div>
+
+    <ul>
+      <% @block.env_variables.each do |env| %>
+        <li>
+          <code><%= env.key %></code> = <%= "*" * 8 %>
+          <%= link_to "[X]", [@block.user, @block, env], method: :delete %>
+        </li>
+      <% end %>
+    </ul>
+
+    <%= link_to "+ Add Variable", [:new, @block.user, @block, :env_variable] %>
+  </div>
+
+  <div class="section">
+    <h3>Runs</h3>
+
+    <% if @block.runs.any? %>
+      <%= render @block.runs %>
+    <% else %>
+      <div class="section-description">
+        <p>
+        This block has not been run yet.
+        </p>
+
+        <p>
+        You can run it by passing in input from another block.
+        For example, to trigger it from Javascript try:
+        </p>
+
+        <pre><code>block.trigger("<%= "#{@block.user.username}/#{@block.name}"%>", { "data": "goes here" })</code></pre>
+
+        <p>
+        You can also set up this block to run in response to online actions.
+        <%= link_to "Look through our collection of triggers", triggers_path %>,
+        and then <%= link_to "edit this block", [:edit, @block.user, @block] %>
+        to subscribe to a trigger.
+        </p>
+      </div>
+    <% end %>
+  </div>

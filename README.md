@@ -1,16 +1,14 @@
-# Flows
+# The App Factory
 
-Flows are small code snippets that run in response to events online.
-They have defined input schemas,
-store no state,
-and run in isolated Docker containers.
-There's no fussing around with servers or hosting,
-no packages or dependencies to install,
-and no more headaches.
+We want to make it easy for anyone to create an app –
+whether you know how to code or not.
 
-## Define a Flow
+Choose from thousands of community-made building blocks,
+and string them together to create the app you’ve always wanted.
 
-At the moment flows must be written in Javascript,
+## Define an App
+
+At the moment building blocks must be written in Javascript,
 with support for other languages coming soon.
 
 ```javascript
@@ -19,7 +17,7 @@ var flow = require('flow');
 flow.trigger("slack/message", { message: "Running flow with: " + flow.input.message })
 ```
 
-Each flow has defined input values, defined with json-schema.
+Each building block has defined input values, defined with json-schema.
 It is likely that the implementation will switch to protocol buffers
 to better support versioned schemas.
 
@@ -37,21 +35,24 @@ flow.trigger("google/sheets.insert_row", [ handle ] )
 
 ### Define your own container
 
-You can run your flow in a custom Docker container.
+You can run your building block in a custom Docker container.
 There is planned support for creating a Docker container
 by selecting a base image and running commands in a web UI.
 
 ### Set environment variables
 
 You are allowed to set any variables you want for your script to execute.
-They will be set in the flow's container as system environment variables.
-Each flow has its own set of environment variables,
-and they do not carry from one flow to another.
+They will be set in the building block's container
+as system environment variables.
+Each building block has its own set of environment variables,
+and they do not carry from one building block to another.
 
 There will likely be two environment variables that can't be changed -
-`FLOW_ID` and `FLOW_KEY`.
-These tell flow who you are, and what flows you have access to run.
-If you want to trigger other flows, you need to provide these values.
+`APP_FACTORY_ID` and `APP_FACTORY_KEY`.
+These tell the App Factory who you are,
+and what building blocks you have access to run.
+If you want to trigger other building blocks,
+you need to provide these values.
 
 ## Development
 
@@ -72,9 +73,9 @@ After setting up, you can run the application using [Heroku Local]:
 
 [Heroku Local]: https://devcenter.heroku.com/articles/heroku-local
 
-### Testing flows on local machine
+### Testing the App Factory on local machine
 
-In order for flows to use your development machine as the server,
+In order for the App Factory to use your development machine as the server,
 you'll need to use a tool like [ngrok](https://ngrok.com/)
 to create a public tunnel to your local application.
 When you have a public-facing URL,

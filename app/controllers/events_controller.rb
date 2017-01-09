@@ -5,13 +5,13 @@ class EventsController < ApplicationController
   skip_before_action :require_login, only: [:create], raise: false
 
   def create
-    trigger.flows.each do |flow|
-      run = Run.new(flow: flow, args: params.to_unsafe_h.to_json)
+    trigger.blocks.each do |block|
+      run = Run.new(block: block, args: params.to_unsafe_h.to_json)
       run.save
       run.delay.execute
     end
 
-    render plain: "#{trigger.flows.count} flow(s) have been queued."
+    render plain: "#{trigger.blocks.count} block(s) have been queued."
   end
 
   private

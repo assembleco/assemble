@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Flow < ApplicationRecord
+class Block < ApplicationRecord
   belongs_to :trigger
   belongs_to :user
 

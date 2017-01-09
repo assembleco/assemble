@@ -1,7 +1,7 @@
 require_relative 'boot'
 require 'rails/all'
 Bundler.require(*Rails.groups)
-module Flows
+module AppFactory
   class Application < Rails::Application
     config.assets.quiet = true
     config.generators do |generate|

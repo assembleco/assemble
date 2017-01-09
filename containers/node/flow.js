@@ -12,7 +12,7 @@ exports.trigger = function(flow_id, data) {
     // TODO: read this from the server's domain settings
     host: config.host,
     port: '80',
-    path: '/flows/' + flow_id + '/runs',
+    path: '/blocks/' + flow_id + '/runs',
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',

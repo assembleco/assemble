@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161107010231) do
+ActiveRecord::Schema.define(version: 20170109203601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "blocks", force: :cascade do |t|
+    t.string   "name",                         null: false
+    t.text     "body",                         null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.text     "schema",      default: "{}",   null: false
+    t.string   "environment", default: "node", null: false
+    t.integer  "trigger_id"
+    t.integer  "user_id",                      null: false
+    t.index ["trigger_id"], name: "index_blocks_on_trigger_id", using: :btree
+    t.index ["user_id"], name: "index_blocks_on_user_id", using: :btree
+  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -33,34 +46,21 @@ ActiveRecord::Schema.define(version: 20161107010231) do
   create_table "env_variables", force: :cascade do |t|
     t.string   "key",        null: false
     t.string   "value",      null: false
-    t.integer  "flow_id",    null: false
+    t.integer  "block_id",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["flow_id"], name: "index_env_variables_on_flow_id", using: :btree
-  end
-
-  create_table "flows", force: :cascade do |t|
-    t.string   "name",                         null: false
-    t.text     "body",                         null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.text     "schema",      default: "{}",   null: false
-    t.string   "environment", default: "node", null: false
-    t.integer  "trigger_id"
-    t.integer  "user_id",                      null: false
-    t.index ["trigger_id"], name: "index_flows_on_trigger_id", using: :btree
-    t.index ["user_id"], name: "index_flows_on_user_id", using: :btree
+    t.index ["block_id"], name: "index_env_variables_on_block_id", using: :btree
   end
 
   create_table "runs", force: :cascade do |t|
-    t.integer  "flow_id",     null: false
+    t.integer  "block_id",    null: false
     t.text     "args"
     t.integer  "exit_status"
     t.text     "output"
     t.text     "run_errors"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["flow_id"], name: "index_runs_on_flow_id", using: :btree
+    t.index ["block_id"], name: "index_runs_on_block_id", using: :btree
   end
 
   create_table "triggers", force: :cascade do |t|
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20161107010231) do
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
-  add_foreign_key "env_variables", "flows"
-  add_foreign_key "flows", "users"
-  add_foreign_key "runs", "flows"
+  add_foreign_key "blocks", "users"
+  add_foreign_key "env_variables", "blocks"
+  add_foreign_key "runs", "blocks"
 end

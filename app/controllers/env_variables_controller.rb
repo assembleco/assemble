@@ -2,14 +2,14 @@
 
 class EnvVariablesController < ApplicationController
   def new
-    @env = EnvVariable.new(flow: flow)
+    @env = EnvVariable.new(block: block)
   end
 
   def create
     @env = EnvVariable.new(env_variable_params)
 
     if @env.save
-      redirect_to [@env.user, @env.flow]
+      redirect_to [@env.user, @env.block]
     else
       render :new
     end
@@ -17,21 +17,21 @@ class EnvVariablesController < ApplicationController
 
   def destroy
     env = EnvVariable.find(params[:id])
-    flow = env.flow
+    block = env.block
     env.destroy!
-    redirect_to [flow.user, flow]
+    redirect_to [block.user, block]
   end
 
   private
 
-  def flow
-    @flow ||= Flow.find_by!(name: params[:flow_id])
+  def block
+    @block ||= Block.find_by!(name: params[:block_id])
   end
 
   def env_variable_params
     params.
       require(:env_variable).
       permit(:key, :value).
-      merge(flow: flow)
+      merge(block: block)
   end
 end

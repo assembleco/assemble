@@ -1,5 +1,5 @@
 class Trigger < ApplicationRecord
-  has_many :flows
+  has_many :blocks
 
   validates :name, presence: true
 

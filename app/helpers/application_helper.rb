@@ -3,14 +3,14 @@ module ApplicationHelper
     CodeRay.scan(json, :json).div.html_safe
   end
 
-  def highlight_flow(flow)
+  def highlight_block(block)
     language = {
       ruby: :ruby,
       node: :javascript,
       python2: :python,
-    }.with_indifferent_access.fetch(flow.environment)
+    }.with_indifferent_access.fetch(block.environment)
 
-    CodeRay.scan(flow.body, language).div.html_safe
+    CodeRay.scan(block.body, language).div.html_safe
   end
 
   def prettify(json)
