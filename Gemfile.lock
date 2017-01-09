@@ -105,6 +105,9 @@ GEM
       activesupport
       capybara
       i18n
+    fuubar (2.2.0)
+      rspec-core (~> 3.0)
+      ruby-progressbar (~> 1.4)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hashdiff (0.3.0)
@@ -215,6 +218,7 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
+    ruby-progressbar (1.8.1)
     ruby_dep (1.5.0)
     safe_yaml (1.0.4)
     sass (3.4.22)
@@ -302,6 +306,7 @@ DEPENDENCIES
   factory_girl_rails
   flutie
   formulaic
+  fuubar
   honeybadger
   jquery-rails
   json-schema
