@@ -1,4 +1,4 @@
-<%= simple_form_for([@env.block.user, @env.block, @env]) do |f| %>
+<%= simple_form_for(@env, url: env_path(@env.block.user, @env.block)) do |f| %>
   <%= f.input :key %>
   <%= f.input :value %>
   <%= f.submit %>

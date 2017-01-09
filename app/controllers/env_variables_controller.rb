@@ -9,7 +9,7 @@ class EnvVariablesController < ApplicationController
     @env = EnvVariable.new(env_variable_params)
 
     if @env.save
-      redirect_to [@env.user, @env.block]
+      redirect_to block_path(@env.user, @env.block)
     else
       render :new
     end
@@ -19,13 +19,17 @@ class EnvVariablesController < ApplicationController
     env = EnvVariable.find(params[:id])
     block = env.block
     env.destroy!
-    redirect_to [block.user, block]
+    redirect_to block_path(block.user, block)
   end
 
   private
 
   def block
-    @block ||= Block.find_by!(name: params[:block_id])
+    @block ||= Block.find_by!(user: user, name: params[:blockname])
+  end
+
+  def user
+    @user ||= User.find_by!(username: params[:username])
   end
 
   def env_variable_params

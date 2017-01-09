@@ -1,7 +1,7 @@
 <h1>
-  <%= link_to @run.user.username, [@run.user, :blocks] %>
+  <%= link_to @run.user.username, user_blocks_path(@run.user) %>
   /
-  <%= link_to @run.block.name, [@run.user, @run.block] %>
+  <%= link_to @run.block.name, block_path(@run.user, @run.block) %>
   /
   <%= @run.id %>
 </h1>
