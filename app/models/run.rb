@@ -38,7 +38,9 @@ class Run < ApplicationRecord
   end
 
   def status
-    if exit_status.zero?
+    if exit_status.nil?
+      :pending
+    elsif exit_status.zero?
       :success
     else
       :failure
