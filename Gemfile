@@ -51,10 +51,11 @@ group :development, :staging do
 end
 
 group :test do
-  gem "poltergeist"
   gem "database_cleaner"
   gem "formulaic"
+  gem "fuubar"
   gem "launchy"
+  gem "poltergeist"
   gem "shoulda-matchers"
   gem "simplecov", require: false
   gem "timecop"
