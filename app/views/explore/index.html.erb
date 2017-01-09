@@ -1,0 +1,27 @@
+<div class="hero explore-hero layout-row">
+  <h1>Explore popular apps and building blocks</h1>
+</div>
+
+<div class="layout-row explore-apps">
+  <h2>Popular Apps</h2>
+
+  <div class="explore-apps">
+    <% App.all.each do |app| %>
+      <%= link_to app.to_path, class: "explore-app" do %>
+        <%= app.name %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="layout-row explore-blocks">
+  <h2>Popular Building Blocks</h2>
+
+  <div class="explore-blocks">
+    <% Block.all.each do |block| %>
+      <%= link_to block.to_path, class: "explore-block" do %>
+        <%= block.name %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

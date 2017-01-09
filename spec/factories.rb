@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :app do
+    user
     name "MyString"
-    user nil
     description "MyText"
   end
 
