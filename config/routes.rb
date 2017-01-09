@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     resources :events, only: [:create]
   end
 
-  get "/explore", to: "blocks#index", as: :explore
+  get "/apps/:username/:appname", to: "apps#show", as: :user_app
+
+  get "/explore", to: "explore#index", as: :explore
   root to: "welcome#index"
 end
