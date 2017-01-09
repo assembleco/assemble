@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     )
 
     if sign_in(user)
-      redirect_to root_path
+      redirect_to explore_path, notice: t(".success", name: user.username)
     else
       render :new
     end

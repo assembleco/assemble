@@ -15,6 +15,10 @@ en:
     create:
       success: Created a run.
 
+  sessions:
+    create:
+      success: "Welcome back, %{name}!"
+
   time:
     formats:
       default:
@@ -26,3 +30,14 @@ en:
 
   titles:
     application: Flows
+
+  users:
+    create:
+      success: "Welcome to the App Factory, %{name}"
+
+  welcome:
+    index:
+      greeting: Welcome, beautiful human, to
+      description:
+        one: We want to make it easy for anyone to create an app – whether you know how to code or not.
+        two: Choose from thousands of community-made building blocks, and string them together to create the app you’ve always wanted.

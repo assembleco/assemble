@@ -14,5 +14,6 @@ Rails.application.routes.draw do
     resources :events, only: [:create]
   end
 
-  root to: "flows#index"
+  get "/explore", to: "flows#index", as: :explore
+  root to: "welcome#index"
 end
