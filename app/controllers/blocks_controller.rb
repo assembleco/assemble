@@ -23,7 +23,8 @@ class BlocksController < ApplicationController
     if @block.save
       redirect_to block_path(@block.user, @block), notice: t(".success")
     else
-      render :new, t(".failure")
+      flash.now[:alert] = t(".failure")
+      render :new
     end
   end
 

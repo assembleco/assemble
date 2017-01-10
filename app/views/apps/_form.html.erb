@@ -1,0 +1,18 @@
+<%= simple_form_for(@app, html: { class: "layout-form" }) do |f| %>
+  <%= f.input(
+    :name,
+    hint: "
+    <p>
+    Only use letters, numbers, and underscores.
+    </p>
+    <p>
+    This will be how you refer to your app throughout the site,
+    so make it short and memorable.
+    </p>
+    ".html_safe,
+  ) %>
+
+  <%= f.input(:description) %>
+
+  <%= f.button :submit %>
+<% end %>
