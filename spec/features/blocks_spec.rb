@@ -5,7 +5,7 @@ RSpec.feature "Blocks" do
   scenario "creation" do
     user = sign_in create(:user)
 
-    visit new_block_path(user)
+    visit new_block_path
     fill_in :block_name, with: "Say Hello"
     fill_in :block_body, with: "console.log('Hello');"
     fill_in :block_schema, with: "{}"
@@ -15,6 +15,16 @@ RSpec.feature "Blocks" do
     expect(page).to have_content "Say Hello"
     expect(page).to have_content "console.log('Hello');"
     expect(page).to have_content "{}"
+  end
+
+  scenario "creation with errors" do
+    user = sign_in create(:user)
+
+    visit new_block_path
+    fill_in :block_body, with: "We left the name blank!"
+    click_on "Create Block"
+
+    expect(page).to have_content t("blocks.create.failure")
   end
 
   scenario "blocks index shows all of the current user's blocks" do

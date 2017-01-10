@@ -13,15 +13,17 @@ Rails.application.routes.draw do
   get "/users/:username", to: "users#show", as: :user
 
   # App paths
-  get "/apps/:username/:appname", to: "apps#show", as: :app
+  get "/apps/new", to: "apps#new", as: :new_app
+  post "/apps", to: "apps#create"
   get "/apps/:username", to: "apps#index", as: :user_apps
+  get "/apps/:username/:appname", to: "apps#show", as: :app
 
   # Block paths
+  get "/blocks/new", to: "blocks#new", as: :new_block
+  post "/blocks", to: "blocks#create"
   get "/blocks/:username", to: "blocks#index", as: :user_blocks
-  get "/blocks/:username/new", to: "blocks#new", as: :new_block
   get "/blocks/:username/:blockname", to: "blocks#show", as: :block
   get "/blocks/:username/:blockname/edit", to: "blocks#edit", as: :edit_block
-  post "/blocks/:username", to: "blocks#create"
   # Block runs
   post "/blocks/:username/:blockname/runs", to: "runs#create", as: :runs
   get "/blocks/:username/:blockname/runs/:block_run_id", to: "runs#show", as: :run

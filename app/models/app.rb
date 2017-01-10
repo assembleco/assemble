@@ -1,7 +1,9 @@
 class App < ApplicationRecord
   belongs_to :user
 
-  validates :name, uniqueness: { scope: :user_id, case_sensitive: false }
+  validates :name,
+    presence: true,
+    uniqueness: { scope: :user_id, case_sensitive: false }
   validates :user, presence: true
 
   def to_param

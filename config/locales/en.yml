@@ -9,11 +9,14 @@ en:
   apps:
     index:
       title: "%{name}'s apps"
+    create:
+      success: Nice work! That's a good-lookin' app you've got there.
+      failure: Hmmm... that doesn't look quite right.
 
   blocks:
     create:
-      success: Created a block.
-      failure: Could not create the block.
+      success: Nice work! That's a good-lookin' block you've got there.
+      failure: Hmmm... that doesn't look quite right.
     index:
       title: "%{name}'s blocks"
 
