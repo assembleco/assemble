@@ -6,10 +6,25 @@ en:
       with_weekday:
         "%a %m/%d/%y"
 
+  apps:
+    index:
+      title: "%{name}'s apps"
+
   blocks:
     create:
       success: Created a block.
       failure: Could not create the block.
+    index:
+      title: "%{name}'s blocks"
+
+  explore:
+    index:
+      title: Explore popular apps and building blocks
+
+  header:
+    explore: Explore
+    my_apps: My Apps
+    my_blocks: My Blocks
 
   runs:
     create:

@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :apps
   has_many :blocks
 
   validates :email, presence: true, uniqueness: true

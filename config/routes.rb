@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   # App paths
   get "/apps/:username/:appname", to: "apps#show", as: :app
+  get "/apps/:username", to: "apps#index", as: :user_apps
 
   # Block paths
   get "/blocks/:username", to: "blocks#index", as: :user_blocks
