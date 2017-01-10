@@ -25,6 +25,21 @@ RSpec.feature "Apps" do
     expect(page).to have_content t("apps.create.failure")
   end
 
+  scenario "update" do
+    app = create(:app)
+    user = app.user
+
+    sign_in user
+    visit edit_app_path(user, app)
+    fill_in :app_name, with: "Say Hello"
+    fill_in :app_description, with: "This app says hello."
+    click_on "Update App"
+
+    expect(page).to have_content t("apps.update.success")
+    expect(page).to have_content "Say Hello"
+    expect(page).to have_content "This app says hello."
+  end
+
   scenario "apps index shows all of the current user's apps" do
     user = create(:app, name: "My app").user
     create(:app, name: "Other app")

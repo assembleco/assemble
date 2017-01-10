@@ -7,12 +7,14 @@ RSpec.feature "Blocks" do
 
     visit new_block_path
     fill_in :block_name, with: "Say Hello"
+    fill_in :block_description, with: "This block says hello."
     fill_in :block_body, with: "console.log('Hello');"
     fill_in :block_schema, with: "{}"
     click_on "Create Block"
 
     expect(page).to have_content t("blocks.create.success")
     expect(page).to have_content "Say Hello"
+    expect(page).to have_content "This block says hello."
     expect(page).to have_content "console.log('Hello');"
     expect(page).to have_content "{}"
   end
@@ -25,6 +27,25 @@ RSpec.feature "Blocks" do
     click_on "Create Block"
 
     expect(page).to have_content t("blocks.create.failure")
+  end
+
+  scenario "update" do
+    block = create(:block)
+    user = block.user
+
+    sign_in user
+    visit edit_block_path(user, block)
+    fill_in :block_name, with: "Say Hello"
+    fill_in :block_description, with: "This block says hello."
+    fill_in :block_body, with: "console.log('Hello');"
+    fill_in :block_schema, with: "{}"
+    click_on "Update Block"
+
+    expect(page).to have_content t("blocks.update.success")
+    expect(page).to have_content "Say Hello"
+    expect(page).to have_content "This block says hello."
+    expect(page).to have_content "console.log('Hello');"
+    expect(page).to have_content "{}"
   end
 
   scenario "blocks index shows all of the current user's blocks" do

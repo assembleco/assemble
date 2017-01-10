@@ -1,4 +1,4 @@
-<%= simple_form_for(@block, html: { class: "layout-form" }) do |f| %>
+<%= simple_form_for(@block, url: url, html: { class: "layout-form" }) do |f| %>
   <%= f.input(
     :name,
     hint: "
@@ -7,6 +7,15 @@
     </p>
     <p>
     This will be how you refer to your script throughout the site, so make it short and memorable.
+    </p>
+    ".html_safe,
+  ) %>
+
+  <%= f.input(
+    :description,
+    hint: "
+    <p>
+    If you want other people to use your block, you better explain how it works!
     </p>
     ".html_safe,
   ) %>

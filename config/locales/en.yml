@@ -7,10 +7,13 @@ en:
         "%a %m/%d/%y"
 
   apps:
-    index:
-      title: "%{name}'s apps"
     create:
       success: Nice work! That's a good-lookin' app you've got there.
+      failure: Hmmm... that doesn't look quite right.
+    index:
+      title: "%{name}'s apps"
+    update:
+      success: Looks good!
       failure: Hmmm... that doesn't look quite right.
 
   blocks:
@@ -19,6 +22,9 @@ en:
       failure: Hmmm... that doesn't look quite right.
     index:
       title: "%{name}'s blocks"
+    update:
+      success: Looks good!
+      failure: Hmmm... that doesn't look quite right.
 
   explore:
     index:

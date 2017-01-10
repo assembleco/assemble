@@ -24,6 +24,21 @@ class AppsController < ApplicationController
     end
   end
 
+  def edit
+    @app = App.find_by!(user: user, name: params[:appname])
+  end
+
+  def update
+    @app = App.find_by!(user: user, name: params[:appname])
+
+    if @app.update(app_params)
+      redirect_to app_path(@app.user, @app), notice: t(".success")
+    else
+      flash.now[:alert] = t(".failure")
+      render :edit
+    end
+  end
+
   private
 
   def user

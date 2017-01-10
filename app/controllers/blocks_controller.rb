@@ -36,8 +36,9 @@ class BlocksController < ApplicationController
     @block = Block.find_by!(user: user, name: params[:blockname])
 
     if @block.update(block_params)
-      redirect_to block_path(@block)
+      redirect_to block_path(@block.user, @block), notice: t(".success")
     else
+      flash.now[:alert] = t(".failure")
       render :edit
     end
   end
@@ -47,6 +48,7 @@ class BlocksController < ApplicationController
   def block_params
     params.require(:block).permit(
       :body,
+      :description,
       :environment,
       :name,
       :schema,
