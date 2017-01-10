@@ -1,4 +1,4 @@
-<h1><%= user.username %> > Blocks</h1>
+<h1><%= link_to user.username, user %> > Blocks</h1>
 
 <ul>
   <% @blocks.all.each do |block| %>

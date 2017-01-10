@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     resources :events, only: [:create]
   end
 
+  # User path
+  get "/users/:username", to: "users#show", as: :user
+
   # App paths
   get "/apps/:username/:appname", to: "apps#show", as: :app
   get "/apps/:username", to: "apps#index", as: :user_apps

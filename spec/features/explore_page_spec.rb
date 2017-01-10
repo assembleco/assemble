@@ -25,8 +25,4 @@ RSpec.feature "Explore page" do
     expect(current_path).to eq block_path(block.user, block)
     expect(page).to have_heading(block.name)
   end
-
-  def have_heading(heading_text)
-    have_css("h1", text: heading_text)
-  end
 end
