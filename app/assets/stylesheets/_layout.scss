@@ -5,6 +5,7 @@
 
 .layout-row {
   @include fill-parent;
+  margin-bottom: $base-spacing;
 }
 
 .layout-column-left,
