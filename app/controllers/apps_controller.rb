@@ -1,4 +1,10 @@
 class AppsController < ApplicationController
+  helper_method :user
+
+  def index
+    @apps = user.apps
+  end
+
   def show
     @app = App.find_by!(user: user, name: params[:appname])
   end

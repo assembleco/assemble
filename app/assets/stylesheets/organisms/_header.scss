@@ -1,0 +1,32 @@
+.header {
+  width: 100%;
+  box-shadow: $base-shadow;
+
+  .header-menu {
+    @include outer-container;
+    display: flex;
+    align-items: center;
+    padding-bottom: $small-spacing;
+    padding-top: $small-spacing;
+  }
+
+  .header-logo {
+    height: 2em;
+  }
+
+  .layout-column-left,
+  .layout-column-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .layout-column-right {
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  .header-title,
+  a {
+    margin-left: $base-spacing;
+  }
+}
