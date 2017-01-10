@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109212659) do
+ActiveRecord::Schema.define(version: 20170110034343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20170109212659) do
     t.string   "environment", default: "node", null: false
     t.integer  "trigger_id"
     t.integer  "user_id",                      null: false
+    t.text     "description"
     t.index ["trigger_id"], name: "index_blocks_on_trigger_id", using: :btree
     t.index ["user_id"], name: "index_blocks_on_user_id", using: :btree
   end
