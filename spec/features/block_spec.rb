@@ -51,4 +51,15 @@ RSpec.feature "Blocks" do
 
     expect(page).to have_content("new_variable")
   end
+
+  scenario "navigating to a block's author" do
+    block = create(:block)
+
+    sign_in create(:user)
+    visit block_path(block.user, block)
+    click_on block.user.username
+
+    expect(page).to have_heading(block.user.username)
+    expect(current_path).to eq user_path(block.user)
+  end
 end
