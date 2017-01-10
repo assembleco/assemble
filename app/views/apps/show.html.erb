@@ -3,3 +3,5 @@
 <div class="app-description">
   <%= simple_format(@app.description) %>
 </div>
+
+<%= link_to "Edit app", edit_app_path(@app.user, @app) %>
