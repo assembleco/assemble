@@ -1,0 +1,9 @@
+.app-listed {
+  border: 2px solid black;
+  border-radius: 4px;
+
+  &-icon {
+    display: block;
+    margin-bottom: $small-spacing;
+  }
+}
