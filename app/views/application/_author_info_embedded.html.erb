@@ -1,0 +1,8 @@
+<div class="author">
+  <%= avatar_for item.user %>
+
+  <div class="author-info">
+    <div>Created by <%= item.user.username %></div>
+    <div>on <%= l(item.created_at.to_date) %></div>
+  </div>
+</div>

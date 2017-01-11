@@ -14,7 +14,12 @@
     margin: $small-spacing;
     display: inline-block;
     padding: $base-spacing;
-    border: 2px solid black;
-    border-radius: 4px;
+    color: black;
+
+    .author {
+      color: gray;
+      margin-bottom: 0;
+      margin-top: $small-spacing;
+    }
   }
 }

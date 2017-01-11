@@ -1,3 +1,5 @@
 <%= link_to block_path(block.user, block), class: "list-item block-listed" do %>
+  <%= image_tag "blocks/block-1.png", class: "app-listed-icon" %>
   <%= block.name %>
+  <%= render "author_info_embedded", item: block %>
 <% end %>
