@@ -1,8 +1,20 @@
-.list-item {
-  display: inline-block;
-  margin-right: 5%;
-  padding: $base-spacing;
-  width: 20%;
-  border: 2px solid black;
-  border-radius: 4px;
+.list {
+  margin-bottom: $base-spacing;
+
+  .list-items {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+
+  .list-item {
+    flex: 1 1 20%;
+    margin: $small-spacing;
+    display: inline-block;
+    padding: $base-spacing;
+    border: 2px solid black;
+    border-radius: 4px;
+  }
 }

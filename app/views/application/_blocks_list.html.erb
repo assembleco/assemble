@@ -1,13 +1,9 @@
-<div class="list blocks-list">
+<div class="list">
   <h2><%= title %></h2>
 
-  <div>
-    <% blocks.each do |block| %>
-      <%= link_to block_path(block.user, block), class: "list-item block-listed" do %>
-        <%= block.name %>
-      <% end %>
-    <% end %>
+  <div class="list-items">
+    <%= render partial: "block", collection: blocks, as: :block %>
   </div>
 
-  <%= link_to "+ Create a new block", new_block_path, class: "explore-new-block" %>
+  <%= link_to "+ Create a new block", new_block_path, class: "list-new-item-link" %>
 </div>
