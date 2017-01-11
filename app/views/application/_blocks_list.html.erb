@@ -1,0 +1,13 @@
+<div class="list blocks-list">
+  <h2><%= title %></h2>
+
+  <div>
+    <% blocks.each do |block| %>
+      <%= link_to block_path(block.user, block), class: "list-item block-listed" do %>
+        <%= block.name %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= link_to "+ Create a new block", new_block_path, class: "explore-new-block" %>
+</div>
