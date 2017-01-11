@@ -21,6 +21,7 @@ module ApplicationHelper
     image_tag(
       "https://www.gravatar.com/avatar/#{hash}",
       alt: "Avatar for #{user.username}",
+      class: "avatar",
     )
   end
 
