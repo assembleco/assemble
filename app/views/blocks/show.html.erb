@@ -1,9 +1,7 @@
-<div class="layout-row block-title">
-  <h1>
-    <%= link_to @block.user.username, @block.user %>
-    /
-    <%= @block.name %>
-  </h1>
+<div class="heading">
+  <%= render "author_info", item: @block %>
+
+  <h1><%= @block.name %></h1>
 
   <%= link_to "Try it out!", sandbox_app_path(@block.user, @block) %>
 </div>

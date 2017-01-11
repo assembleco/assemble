@@ -1,4 +1,7 @@
-<h1><%= link_to @app.user.username, @app.user %> / <%= @app.name %></h1>
+<div class="heading">
+  <%= render "author_info", item: @app %>
+  <h1><%= @app.name %></h1>
+</div>
 
 <div class="app-description">
   <%= simple_format(@app.description) %>
