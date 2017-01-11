@@ -62,6 +62,10 @@ en:
   users:
     create:
       success: "Welcome to the App Factory, %{name}"
+      failure: Hmmm... that doesn't look quite right.
+    update:
+      success: "Thanks for sharing, %{name}!"
+      failure: Hmmm... that doesn't look quite right.
 
   welcome:
     index:
