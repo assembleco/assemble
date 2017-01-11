@@ -1,0 +1,13 @@
+<div class="list apps-list">
+  <h2><%= title %></h2>
+
+  <div>
+    <% apps.each do |app| %>
+      <%= link_to app_path(app.user, app), class: "list-item app-listed" do %>
+        <%= app.name %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= link_to "+ Create a new app", new_app_path, class: "explore-new-app" %>
+</div>

@@ -1,11 +1,3 @@
-<h1><%= link_to user.username, user %> > Apps</h1>
+<h1>Apps > <%= link_to user.username, user %></h1>
 
-<% @apps.each do |app| %>
-  <div class="app">
-    <%= link_to app_path(app.user, app) do %>
-      <%= app.name %>
-    <% end %>
-  </div>
-<% end %>
-
-<%= link_to "+ Create a new app", new_app_path %>
+<%= render "apps_list", apps: @user.apps, title: "#{@user.username}'s apps" %>

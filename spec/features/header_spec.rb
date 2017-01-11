@@ -18,7 +18,7 @@ RSpec.feature "Header" do
     visit root_path
     click_on t("header.my_apps")
 
-    expect(page).to have_content("#{user.username} > Apps")
+    expect(page).to have_content("Apps > #{user.username}")
   end
 
   scenario "user navigates to 'My Blocks'" do
@@ -28,7 +28,7 @@ RSpec.feature "Header" do
     visit root_path
     click_on t("header.my_blocks")
 
-    expect(page).to have_content("#{user.username} > Blocks")
+    expect(page).to have_content("Blocks > #{user.username}")
   end
 
   scenario "non-signed in user cannot access links" do

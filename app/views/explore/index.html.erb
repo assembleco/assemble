@@ -2,30 +2,5 @@
   <h1><%= t(".title") %></h1>
 </div>
 
-<div class="layout-row explore-apps">
-  <h2>Popular Apps</h2>
-
-  <div class="explore-apps">
-    <% App.all.each do |app| %>
-      <%= link_to app_path(app.user, app), class: "explore-app" do %>
-        <%= app.name %>
-      <% end %>
-    <% end %>
-  </div>
-
-  <%= link_to "+ Create a new app", new_app_path, class: "explore-new-app" %>
-</div>
-
-<div class="layout-row explore-blocks">
-  <h2>Popular Building Blocks</h2>
-
-  <div class="explore-blocks">
-    <% Block.all.each do |block| %>
-      <%= link_to block_path(block.user, block), class: "explore-block" do %>
-        <%= block.name %>
-      <% end %>
-    <% end %>
-  </div>
-
-  <%= link_to "+ Create a new block", new_block_path, class: "explore-new-block" %>
-</div>
+<%= render "apps_list", apps: App.all, title: "Popular Apps" %>
+<%= render "blocks_list", blocks: Block.all, title: "Popular Building Blocks" %>

@@ -1,13 +1,3 @@
-<h1><%= link_to user.username, user %> > Blocks</h1>
+<h1>Blocks > <%= link_to user.username, user %></h1>
 
-<ul>
-  <% @blocks.all.each do |block| %>
-    <li>
-      <%= link_to block_path(block.user, block) do %>
-        <%= block.name %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-
-<%= link_to "+ Create a new block", new_block_path %>
+<%= render "blocks_list", blocks: @user.blocks, title: "#{@user.username}'s blocks" %>
