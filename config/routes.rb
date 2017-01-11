@@ -2,11 +2,11 @@
 
 Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
-  resources :users, only: [:new, :create]
   resources :triggers, only: [:index, :new, :create, :edit, :update]
 
   # User path
-  get "/users/:username", to: "users#show", as: :user
+  resources :users, only: [:new, :create, :show], param: :username
+  resource :user, only: [:edit, :update], as: :profile
 
   # App paths
   get "/apps/new", to: "apps#new", as: :new_app
