@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170111030303) do
+ActiveRecord::Schema.define(version: 20170111074251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,13 +79,14 @@ ActiveRecord::Schema.define(version: 20170111030303) do
   end
 
   create_table "runs", force: :cascade do |t|
-    t.integer  "block_id",    null: false
+    t.integer  "block_id",                        null: false
     t.text     "args"
     t.integer  "exit_status"
     t.text     "output"
     t.text     "run_errors"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "status",      default: "pending", null: false
     t.index ["block_id"], name: "index_runs_on_block_id", using: :btree
   end
 

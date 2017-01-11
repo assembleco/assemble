@@ -1,23 +1,48 @@
 require 'rails_helper'
 
 RSpec.describe Run, type: :model do
-  describe "#status" do
-    it "returns :success when the exit status is zero" do
+  describe "#exit_status=" do
+    it "sets status to :success when the exit status is zero" do
       run = build(:run, exit_status: 0)
 
-      expect(run.status).to eq(:success)
+      expect(run.status).to eq("success")
     end
 
-    it "returns :failure when the exit status is non-zero" do
+    it "sets status to :failure when the exit status is non-zero" do
       run = build(:run, exit_status: 1)
 
-      expect(run.status).to eq(:failure)
+      expect(run.status).to eq("failure")
     end
+  end
 
-    it "returns :pending when the exit status is nil" do
-      run = build(:run, exit_status: nil)
+  describe "#execute" do
+    it "only executes if status is `:pending`"
 
-      expect(run.status).to eq(:pending)
+    it "sets status to :input_schema_not_satisfied when schema not satisfied" do
+      block = create(:block, schema: <<-SCHEMA)
+      {
+        "title": "Input schema",
+        "type": "object",
+        "properties": {
+          "foo": {
+            "type": "integer"
+          }
+        },
+        "required": ["foo"]
+      }
+      SCHEMA
+      run = create(:run, block: block, args: "{}")
+
+      run.execute
+      expect(run.status).to eq(Run::INPUT_SCHEMA_NOT_SATISFIED)
+    end
+  end
+
+  describe "#status" do
+    it "defaults to pending" do
+      run = build(:run)
+
+      expect(run.status).to eq("pending")
     end
   end
 end

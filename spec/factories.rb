@@ -32,7 +32,6 @@ FactoryGirl.define do
   factory :run do
     block
     args '{ "message": "Hello, World!" }'
-    exit_status 0
     output "Hello, World!"
     run_errors ""
   end

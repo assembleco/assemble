@@ -3,10 +3,10 @@
 require "json"
 
 class Run < ApplicationRecord
+  INPUT_SCHEMA_NOT_SATISFIED = "input_schema_not_satisfied"
+
   belongs_to :block
   has_one :user, through: :block
-
-  validate :args_match_schema
 
   ENVIRONMENT_COMMANDS = {
     "node" => "node",
@@ -16,34 +16,38 @@ class Run < ApplicationRecord
   }.freeze
 
   def execute
-    container.start
+    if schema_satisfied?
+      container.start
 
-    container.store_file("/flow/config.json", config.to_json)
-    container.store_file("/flow/input.json", args)
-    container.store_file("/flow/env.json", env_variables.to_json)
-    container.store_file("/flow/user_script.js", block.body)
+      container.store_file("/flow/config.json", config.to_json)
+      container.store_file("/flow/input.json", args)
+      container.store_file("/flow/env.json", env_variables.to_json)
+      container.store_file("/flow/user_script.js", block.body)
 
-    output, errors, self.exit_status = container.exec([
-      ENVIRONMENT_COMMANDS[block.environment],
-      "/flow/user_script.js",
-    ])
+      output, errors, self.exit_status = container.exec([
+        ENVIRONMENT_COMMANDS[block.environment],
+        "/flow/user_script.js",
+      ])
 
-    container.stop
-    container.delete
+      container.stop
+      container.delete
 
-    self.output = output.join
-    self.run_errors = errors.join
+      self.output = output.join
+      self.run_errors = errors.join
 
-    save
+      save!
+    else
+      update!(status: Run::INPUT_SCHEMA_NOT_SATISFIED)
+    end
   end
 
-  def status
-    if exit_status.nil?
-      :pending
-    elsif exit_status.zero?
-      :success
-    else
-      :failure
+  def exit_status=(value)
+    super(value)
+
+    if value == 0
+      self.status = :success
+    elsif value
+      self.status = :failure
     end
   end
 
@@ -68,11 +72,8 @@ class Run < ApplicationRecord
     block.env_variables.pluck(:key, :value).to_h
   end
 
-  def args_match_schema
+  def schema_satisfied?
     schema = JSON.parse(block.schema)
-
-    unless JSON::Validator.validate(schema, args)
-      errors.add(:args, "do not match schema")
-    end
+    JSON::Validator.validate(schema, args)
   end
 end
