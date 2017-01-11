@@ -4,6 +4,7 @@ require "rails_helper"
 
 describe "POST runs#create" do
   it "exposes the posted parameters in './input.json'" do
+    skip "This needs to be ported over to the `events#create` endpoint"
     block = create(:block, body: <<-JS)
       flow = require('./flow.js')
       console.log(flow.input.foo)
@@ -21,6 +22,7 @@ describe "POST runs#create" do
   end
 
   it "exposes any set environment variables to the script" do
+    skip "This needs to be ported over to the `events#create` endpoint"
     block = create(:block, body: <<-JS)
       flow = require('./flow.js')
       console.log(flow.env.foo)
@@ -39,6 +41,7 @@ describe "POST runs#create" do
   end
 
   it "validates the input against the defined schema" do
+    skip "This needs to be ported over to the `events#create` endpoint"
     block = create(
       :block,
       schema: <<-SCHEMA,
@@ -78,18 +81,26 @@ describe "POST events#create" do
       }
     JS
 
-    block = create(:block, environment: "node", trigger: trigger, body: <<-JS)
+    block = create(:block, environment: "node", body: <<-JS)
       flow = require('./flow.js')
       console.log(flow.input.message)
     JS
 
+    create(:connection, source: trigger, destination: block)
+    params = { event: { message: message }, format: 'text' }
+
     expect do
-      post "/triggers/#{trigger.name}/events", params: { message: message }
+      post "/events/#{trigger.name}", params: params
     end.to change(Run, :count).by(1)
 
     run = Run.last
     expect(run.block).to eq(block)
     expect(run.output).to eq(message + "\n")
+    expect(response.body).to eq t(
+      "events.create.success",
+      num_apps: '1 app',
+      num_blocks: '1 block',
+    )
   end
 
   it "only triggers blocks that have a matching schema" do

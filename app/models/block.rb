@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Block < ApplicationRecord
-  belongs_to :trigger
   belongs_to :user
 
   has_many :env_variables, dependent: :destroy

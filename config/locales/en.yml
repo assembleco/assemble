@@ -26,6 +26,10 @@ en:
       success: Looks good!
       failure: Hmmm... that doesn't look quite right.
 
+  events:
+    create:
+      success: "Success. Queued up %{num_blocks} in %{num_apps}"
+
   explore:
     index:
       title: Explore popular apps and building blocks
