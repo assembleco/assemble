@@ -5,12 +5,22 @@ FactoryGirl.define do
     user
     name "MyString"
     description "MyText"
+
+    factory :sandbox_app do
+    end
   end
 
-  factory :block do
+  factory :block, aliases: [:destination] do
     user
-    sequence(:name) { |n| "flow_#{n}" }
+    environment :node
+    sequence(:name) { |n| "block_#{n}" }
     body "require('./flow.js'); console.log(flow.input.message)"
+  end
+
+  factory :connection do
+    app
+    source
+    destination
   end
 
   factory :env_variable do
@@ -27,7 +37,7 @@ FactoryGirl.define do
     run_errors ""
   end
 
-  factory :trigger do
+  factory :trigger, aliases: [:source] do
     sequence(:name) { |n| "trigger_#{n}" }
     schema "{}"
   end

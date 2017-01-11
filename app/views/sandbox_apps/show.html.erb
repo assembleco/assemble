@@ -1,0 +1,6 @@
+<%= simple_form_for @app.triggers.first.events.new, url: events_path(@app.triggers.first) do |f| %>
+  <%= f.input :data, label: "Input", as: "text" %>
+  <%= f.button :submit, "Go" %>
+<% end %>
+
+<%= render "block_runs", block: @app.blocks.first %>

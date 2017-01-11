@@ -19,4 +19,14 @@ RSpec.describe App, type: :model do
       expect(app.to_param).to eq("App 1")
     end
   end
+
+  describe "#triggers" do
+    it "returns all sources that are of class `Trigger`" do
+      app = create(:app)
+      trigger = create(:trigger)
+      create(:connection, app: app, source: trigger, destination: create(:block))
+
+      expect(app.triggers).to eq([trigger])
+    end
+  end
 end

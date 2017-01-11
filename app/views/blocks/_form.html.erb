@@ -79,21 +79,5 @@
     ".html_safe,
   ) %>
 
-  <%= f.input(
-    :trigger_id,
-    collection: Trigger.all,
-    label_method: :name,
-    hint: "
-    <p>
-    There are #{link_to('a number of triggers that your block can subscribe to', triggers_path)}.
-    </p>
-    <p>
-    If you select one from this list,
-    any time someone fires that trigger,
-    your block will be run.
-    </p>
-    ".html_safe
-  ) %>
-
   <%= f.button :submit %>
 <% end %>

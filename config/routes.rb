@@ -2,12 +2,8 @@
 
 Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
-
   resources :users, only: [:new, :create]
-
-  resources :triggers, only: [:index, :new, :create, :edit, :update] do
-    resources :events, only: [:create]
-  end
+  resources :triggers, only: [:index, :new, :create, :edit, :update]
 
   # User path
   get "/users/:username", to: "users#show", as: :user
@@ -19,6 +15,8 @@ Rails.application.routes.draw do
   get "/apps/:username/:appname", to: "apps#show", as: :app
   get "/apps/:username/:appname/edit", to: "apps#edit", as: :edit_app
   patch "/apps/:username/:appname", to: "apps#update", as: :update_app
+  # Sandbox apps
+  get "/sandbox/:username/:blockname", to: "sandbox_apps#show", as: :sandbox_app
 
   # Block paths
   get "/blocks/new", to: "blocks#new", as: :new_block
@@ -28,12 +26,14 @@ Rails.application.routes.draw do
   get "/blocks/:username/:blockname/edit", to: "blocks#edit", as: :edit_block
   patch "/blocks/:username/:blockname", to: "blocks#update", as: :update_block
   # Block runs
-  post "/blocks/:username/:blockname/runs", to: "runs#create", as: :runs
   get "/blocks/:username/:blockname/runs/:block_run_id", to: "runs#show", as: :run
   # Block env variables
   get "/blocks/:username/:blockname/env/new", to: "env_variables#new", as: :new_env
   post "/blocks/:username/:blockname/env", to: "env_variables#create", as: :env
   delete "/blocks/:username/:blockname/env/:id", to: "env_variables#destroy", as: :destroy_env
+
+  # Event paths
+  post "/events/:trigger_id", to: "events#create", as: :events
 
   get "/explore", to: "explore#index", as: :explore
   root to: "welcome#index"

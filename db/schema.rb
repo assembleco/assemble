@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170110034343) do
+ActiveRecord::Schema.define(version: 20170111030303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,11 +31,20 @@ ActiveRecord::Schema.define(version: 20170110034343) do
     t.datetime "updated_at",                   null: false
     t.text     "schema",      default: "{}",   null: false
     t.string   "environment", default: "node", null: false
-    t.integer  "trigger_id"
     t.integer  "user_id",                      null: false
     t.text     "description"
-    t.index ["trigger_id"], name: "index_blocks_on_trigger_id", using: :btree
     t.index ["user_id"], name: "index_blocks_on_user_id", using: :btree
+  end
+
+  create_table "connections", force: :cascade do |t|
+    t.integer "app_id"
+    t.string  "source_type"
+    t.integer "source_id"
+    t.string  "destination_type"
+    t.integer "destination_id"
+    t.index ["app_id"], name: "index_connections_on_app_id", using: :btree
+    t.index ["destination_type", "destination_id"], name: "index_connections_on_destination_type_and_destination_id", using: :btree
+    t.index ["source_type", "source_id"], name: "index_connections_on_source_type_and_source_id", using: :btree
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -60,6 +69,13 @@ ActiveRecord::Schema.define(version: 20170110034343) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["block_id"], name: "index_env_variables_on_block_id", using: :btree
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.integer "trigger_id"
+    t.jsonb   "data"
+    t.index ["data"], name: "index_events_on_data", using: :gin
+    t.index ["trigger_id"], name: "index_events_on_trigger_id", using: :btree
   end
 
   create_table "runs", force: :cascade do |t|
@@ -91,6 +107,8 @@ ActiveRecord::Schema.define(version: 20170110034343) do
 
   add_foreign_key "apps", "users"
   add_foreign_key "blocks", "users"
+  add_foreign_key "connections", "apps"
   add_foreign_key "env_variables", "blocks"
+  add_foreign_key "events", "triggers"
   add_foreign_key "runs", "blocks"
 end
