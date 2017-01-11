@@ -10,8 +10,7 @@ class EventsController < ApplicationController
     input_data = params.require(:event).to_unsafe_h.to_json
 
     trigger.connections.each do |connection|
-      run = Run.new(block: connection.destination, args: input_data)
-      run.save
+      run = Run.create!(block: connection.destination, args: input_data)
       run.delay.execute
     end
 
