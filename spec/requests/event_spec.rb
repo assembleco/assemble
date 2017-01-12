@@ -47,7 +47,7 @@ describe "POST events#create" do
 
     block_run = BlockRun.last
     expect(block_run.block).to eq(block)
-    expect(block_run.output).to eq(message + "\n")
+    expect(block_run.stdout).to eq(message + "\n")
     expect(response.body).to eq t(
       "events.create.success",
       num_apps: '1 app',

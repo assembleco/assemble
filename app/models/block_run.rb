@@ -19,7 +19,7 @@ class BlockRun < ApplicationRecord
       container.start
 
       workdir = "/flow"
-      container.store_file("#{workdir}/input.json", args)
+      container.store_file("#{workdir}/input.json", input)
       container.store_file("#{workdir}/user_script", block.body)
 
       command = [
@@ -27,15 +27,19 @@ class BlockRun < ApplicationRecord
         "#{workdir}/user_script",
       ].join(" ")
 
-      output, errors, self.exit_status = container.exec(
+      stdout, stderr, self.exit_status = container.exec(
         ["/bin/sh", "-c", "cd #{workdir} && #{command}"]
       )
 
-      container.stop
-      container.delete
+      begin
+        container.stop
+        self.output = container.read_file("#{workdir}/output.json")
+        container.delete
+      rescue
+      end
 
-      self.output = output.join
-      self.run_errors = errors.join
+      self.stdout = stdout.join
+      self.stderr = stderr.join
 
       save!
     else
@@ -64,6 +68,6 @@ class BlockRun < ApplicationRecord
 
   def schema_satisfied?
     schema = JSON.parse(block.schema)
-    JSON::Validator.validate(schema, args)
+    JSON::Validator.validate(schema, input)
   end
 end

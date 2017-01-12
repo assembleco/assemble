@@ -31,9 +31,11 @@ FactoryGirl.define do
 
   factory :block_run do
     block
-    args '{ "message": "Hello, World!" }'
-    output "Hello, World!"
-    run_errors ""
+    input '{ "message": "Hello, World!" }'
+    output '{ "result": "Hello, World!" }'
+    status :success
+    stderr ""
+    stdout ""
   end
 
   factory :feed, aliases: [:source] do

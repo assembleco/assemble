@@ -66,7 +66,7 @@ RSpec.feature "Blocks" do
     visit block_path(block_run.user, block_run.block)
     click_on "Success"
 
-    expect(page).to have_content block_run.args
+    expect(page).to have_content block_run.input
   end
 
   scenario "managing a block's environment variables" do
