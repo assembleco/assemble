@@ -10,8 +10,8 @@ class EventsController < ApplicationController
     input_data = params.require(:event).to_unsafe_h.to_json
 
     feed.connections.each do |connection|
-      run = Run.create!(block: connection.destination, args: input_data)
-      run.delay.execute
+      block_run = BlockRun.create!(block: connection.destination, args: input_data)
+      block_run.delay.execute
     end
 
     num_blocks = pluralize(feed.connections.count, "block")

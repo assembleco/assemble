@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   get "/blocks/:username/:blockname/edit", to: "blocks#edit", as: :edit_block
   patch "/blocks/:username/:blockname", to: "blocks#update", as: :update_block
   # Block runs
-  get "/blocks/:username/:blockname/runs/:block_run_id", to: "runs#show", as: :run
+  get "/blocks/:username/:blockname/runs/:block_run_id", to: "block_runs#show", as: :block_run
   # Block env variables
   get "/blocks/:username/:blockname/env/new", to: "env_variables#new", as: :new_env
   post "/blocks/:username/:blockname/env", to: "env_variables#create", as: :env

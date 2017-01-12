@@ -1,17 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe Run, type: :model do
+RSpec.describe BlockRun, type: :model do
   describe "#exit_status=" do
     it "sets status to :success when the exit status is zero" do
-      run = build(:run, exit_status: 0)
+      block_run = build(:block_run, exit_status: 0)
 
-      expect(run.status).to eq("success")
+      expect(block_run.status).to eq("success")
     end
 
     it "sets status to :failure when the exit status is non-zero" do
-      run = build(:run, exit_status: 1)
+      block_run = build(:block_run, exit_status: 1)
 
-      expect(run.status).to eq("failure")
+      expect(block_run.status).to eq("failure")
     end
   end
 
@@ -31,18 +31,18 @@ RSpec.describe Run, type: :model do
         "required": ["foo"]
       }
       SCHEMA
-      run = create(:run, block: block, args: "{}")
+      block_run = create(:block_run, block: block, args: "{}")
 
-      run.execute
-      expect(run.status).to eq(Run::INPUT_SCHEMA_NOT_SATISFIED)
+      block_run.execute
+      expect(block_run.status).to eq(BlockRun::INPUT_SCHEMA_NOT_SATISFIED)
     end
   end
 
   describe "#status" do
     it "defaults to pending" do
-      run = build(:run)
+      block_run = build(:block_run)
 
-      expect(run.status).to eq("pending")
+      expect(block_run.status).to eq("pending")
     end
   end
 end

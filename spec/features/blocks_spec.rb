@@ -60,13 +60,13 @@ RSpec.feature "Blocks" do
   end
 
   scenario "viewing a block's runs" do
-    run = create(:run, exit_status: 0)
+    block_run = create(:block_run, exit_status: 0)
 
-    sign_in run.user
-    visit block_path(run.user, run.block)
+    sign_in block_run.user
+    visit block_path(block_run.user, block_run.block)
     click_on "Success"
 
-    expect(page).to have_content run.args
+    expect(page).to have_content block_run.args
   end
 
   scenario "managing a block's environment variables" do

@@ -1,0 +1,24 @@
+<h1>
+  <%= link_to @block_run.user.username, user_blocks_path(@block_run.user) %>
+  /
+  <%= link_to @block_run.block.name, block_path(@block_run.user, @block_run.block) %>
+  /
+  <%= @block_run.id %>
+</h1>
+
+<div class="layout-column-left">
+  <h2>Input</h2>
+
+  <%= highlight_json prettify(@block_run.args) %>
+</div>
+
+<div class="layout-column-right">
+  <h2>Output:</h2>
+  <pre><%= @block_run.output %></pre>
+
+  <h2>Errors:</h2>
+  <pre><%= @block_run.run_errors %></pre>
+
+  <h2>Exit code:</h2>
+  <pre><%= @block_run.exit_status %></pre>
+</div>

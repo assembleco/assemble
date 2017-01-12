@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "POST runs#create" do
+describe "POST block_runs#create" do
   it "exposes any set environment variables to the script" do
     skip "Environment variables should be renamed to `Configuration variables`,
     and should be associated with apps, not programs.
@@ -20,10 +20,10 @@ describe "POST runs#create" do
         "/blocks/#{block.user.username}/#{block.name}/runs",
         params: { foo: "bar" },
       )
-    end.to change(Run, :count).by(1)
+    end.to change(BlockRun, :count).by(1)
 
-    expect(response.body).to eq("Run has been queued.")
-    expect(Run.last.output).to eq("bar\n")
+    expect(response.body).to eq("Block run has been queued.")
+    expect(BlockRun.last.output).to eq("bar\n")
   end
 end
 
@@ -50,11 +50,11 @@ describe "POST events#create" do
 
     expect do
       post "/events/#{feed.name}", params: params
-    end.to change(Run, :count).by(1)
+    end.to change(BlockRun, :count).by(1)
 
-    run = Run.last
-    expect(run.block).to eq(block)
-    expect(run.output).to eq(message + "\n")
+    block_run = BlockRun.last
+    expect(block_run.block).to eq(block)
+    expect(block_run.output).to eq(message + "\n")
     expect(response.body).to eq t(
       "events.create.success",
       num_apps: '1 app',
@@ -83,7 +83,7 @@ describe "POST events#create" do
       num_apps: '1 app',
       num_blocks: '1 block',
     )
-    expect(Run.last.status).to eq(Run::INPUT_SCHEMA_NOT_SATISFIED)
+    expect(BlockRun.last.status).to eq(BlockRun::INPUT_SCHEMA_NOT_SATISFIED)
   end
 
   it "only runs blocks when their schemas are fully satisfied by their connections"

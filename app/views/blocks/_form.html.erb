@@ -22,7 +22,7 @@
 
   <%= f.input(
     :environment,
-    collection: Run::ENVIRONMENT_COMMANDS.keys,
+    collection: BlockRun::ENVIRONMENT_COMMANDS.keys,
     hint: "
     <p>
     What language are you most comfortable writing in?
@@ -41,7 +41,7 @@
     This is where your script goes. A few pointers:
     </p>
     <p>
-    Your script is running in a private container.
+    Your script runs in a private container.
     You have full control over the entire filesystem,
     but please don't mess with the <code>/flow</code> directory,
     because we use that for things like passing input into your script.
