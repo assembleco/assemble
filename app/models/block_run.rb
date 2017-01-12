@@ -2,7 +2,7 @@
 
 require "json"
 
-class Run < ApplicationRecord
+class BlockRun < ApplicationRecord
   INPUT_SCHEMA_NOT_SATISFIED = "input_schema_not_satisfied"
 
   belongs_to :block
@@ -37,7 +37,7 @@ class Run < ApplicationRecord
 
       save!
     else
-      update!(status: Run::INPUT_SCHEMA_NOT_SATISFIED)
+      update!(status: BlockRun::INPUT_SCHEMA_NOT_SATISFIED)
     end
   end
 

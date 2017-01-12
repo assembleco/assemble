@@ -4,7 +4,7 @@ class Block < ApplicationRecord
   belongs_to :user
 
   has_many :env_variables, dependent: :destroy
-  has_many :runs, dependent: :destroy
+  has_many :runs, dependent: :destroy, class_name: "BlockRun"
 
   validates :user, presence: true
   validates :name, presence: true, uniqueness: { scope: :user_id, case_sensitive: false }

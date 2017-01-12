@@ -29,7 +29,7 @@ FactoryGirl.define do
     value "bar"
   end
 
-  factory :run do
+  factory :block_run do
     block
     args '{ "message": "Hello, World!" }'
     output "Hello, World!"

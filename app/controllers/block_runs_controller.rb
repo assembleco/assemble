@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class RunsController < ApplicationController
+class BlockRunsController < ApplicationController
   def show
-    @run = Run.find_by!(block: block, id: params[:block_run_id])
+    @block_run = BlockRun.find_by!(block: block, id: params[:block_run_id])
   end
 
   private
