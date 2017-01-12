@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
-  resources :triggers, only: [:index, :new, :create, :edit, :update]
+  resources :feeds, only: [:index, :new, :create, :edit, :update]
 
   # User path
   resources :users, only: [:new, :create, :show], param: :username
@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   delete "/blocks/:username/:blockname/env/:id", to: "env_variables#destroy", as: :destroy_env
 
   # Event paths
-  post "/events/:trigger_id", to: "events#create", as: :events
+  post "/events/:feed_id", to: "events#create", as: :events
 
   get "/explore", to: "explore#index", as: :explore
   root to: "welcome#index"

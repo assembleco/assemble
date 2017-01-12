@@ -21,6 +21,12 @@ RSpec.describe Block, type: :model do
       expect(block.icon).to eq("blocks/block-2.png")
     end
 
+    it "returns an image from `app/assets/images/blocks`" do
+      block = create(:block, id: 10)
+
+      expect(block.icon).to eq("blocks/block-10.png")
+    end
+
     it "mods the id to make sure it's using valid blocks" do
       block = create(:block, id: 11)
 

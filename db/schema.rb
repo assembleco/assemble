@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170111194205) do
+ActiveRecord::Schema.define(version: 20170112022430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,10 +72,17 @@ ActiveRecord::Schema.define(version: 20170111194205) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.integer "trigger_id"
+    t.integer "feed_id"
     t.jsonb   "data"
     t.index ["data"], name: "index_events_on_data", using: :gin
-    t.index ["trigger_id"], name: "index_events_on_trigger_id", using: :btree
+    t.index ["feed_id"], name: "index_events_on_feed_id", using: :btree
+  end
+
+  create_table "feeds", force: :cascade do |t|
+    t.string   "name"
+    t.text     "schema"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "runs", force: :cascade do |t|
@@ -88,13 +95,6 @@ ActiveRecord::Schema.define(version: 20170111194205) do
     t.datetime "updated_at",                      null: false
     t.string   "status",      default: "pending", null: false
     t.index ["block_id"], name: "index_runs_on_block_id", using: :btree
-  end
-
-  create_table "triggers", force: :cascade do |t|
-    t.string   "name"
-    t.text     "schema"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -113,6 +113,6 @@ ActiveRecord::Schema.define(version: 20170111194205) do
   add_foreign_key "blocks", "users"
   add_foreign_key "connections", "apps"
   add_foreign_key "env_variables", "blocks"
-  add_foreign_key "events", "triggers"
+  add_foreign_key "events", "feeds"
   add_foreign_key "runs", "blocks"
 end

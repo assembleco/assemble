@@ -36,8 +36,8 @@ FactoryGirl.define do
     run_errors ""
   end
 
-  factory :trigger, aliases: [:source] do
-    sequence(:name) { |n| "trigger_#{n}" }
+  factory :feed, aliases: [:source] do
+    sequence(:name) { |n| "feed_#{n}" }
     schema "{}"
   end
 
