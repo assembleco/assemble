@@ -1,5 +1,51 @@
+$welcome-section-spacing: 4 * $base-spacing;
+
 .welcome-hero {
-  background-image: image_url("hero_background.png");
+  align-items: center;
+  background-image: image_url("welcome/hero_background.png");
+  background-size: cover;
+  display: flex;
+  font-size: 1.2rem;
+  min-height: 60vh;
+  justify-content: space-around;
+  margin-bottom: $welcome-section-spacing;
   overflow: hidden;
   padding: $base-spacing;
+
+  .hero-column-left {
+    flex: 0 1 40%;
+    font-weight: bold;
+  }
+
+  .hero-column-right {
+    background-color: white;
+    border-radius: 4px;
+    border: 2px solid black;
+    flex: 0 1 20em;
+    padding: $small-spacing;
+
+    .button {
+      text-align: center;
+      width: 100%;
+    }
+  }
+}
+
+.welcome-section {
+  align-items: center;
+  display: flex;
+  font-size: 1.2rem;
+  justify-content: space-around;
+  margin-bottom: $welcome-section-spacing;
+  overflow: hidden;
+
+  p {
+    flex: 0 1 30%;
+  }
+
+  img {
+    $size: 60%;
+    flex: 0 1 $size;
+    max-width: $size;
+  }
 }

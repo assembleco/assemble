@@ -14,6 +14,8 @@
   <body class="<%= body_class %>">
     <%= render "header" %>
 
+    <%= content_for :hero %>
+
     <div class="content">
       <%= render "flashes" -%>
       <%= yield %>
