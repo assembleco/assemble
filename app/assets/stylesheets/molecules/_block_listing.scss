@@ -1,4 +1,10 @@
 .block-listing {
-  border: 2px solid black;
-  border-radius: 4px;
+  border: 1px solid #ddd;
+  text-align: center;
+
+  .block-listing-icon {
+    display: block;
+    height: 3em;
+    margin: auto auto $small-spacing;
+  }
 }
