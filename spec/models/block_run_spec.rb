@@ -31,7 +31,7 @@ RSpec.describe BlockRun, type: :model do
         "required": ["foo"]
       }
       SCHEMA
-      block_run = create(:block_run, block: block, args: "{}")
+      block_run = create(:block_run, block: block, input: "{}")
 
       block_run.execute
       expect(block_run.status).to eq(BlockRun::INPUT_SCHEMA_NOT_SATISFIED)
@@ -40,7 +40,7 @@ RSpec.describe BlockRun, type: :model do
 
   describe "#status" do
     it "defaults to pending" do
-      block_run = build(:block_run)
+      block_run = BlockRun.new
 
       expect(block_run.status).to eq("pending")
     end

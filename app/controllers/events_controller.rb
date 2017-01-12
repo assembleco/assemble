@@ -7,10 +7,8 @@ class EventsController < ApplicationController
   skip_before_action :require_login, only: [:create], raise: false
 
   def create
-    input_data = params.require(:event).to_unsafe_h.to_json
-
     feed.connections.each do |connection|
-      block_run = BlockRun.create!(block: connection.destination, args: input_data)
+      block_run = BlockRun.create!(block: connection.destination, input: event_data)
       block_run.delay.execute
     end
 
@@ -25,6 +23,14 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def event_data
+    if params[:event].is_a?(String)
+      params[:event]
+    else
+      params[:event].to_json
+    end
+  end
 
   def feed
     @feed ||= Feed.find_by!(name: params[:feed_id])

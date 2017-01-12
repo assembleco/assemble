@@ -28,7 +28,7 @@ en:
 
   events:
     create:
-      success: "Success. Queued up %{num_blocks} in %{num_apps}"
+      success: "Queued up %{num_blocks} in %{num_apps}"
 
   explore:
     index:

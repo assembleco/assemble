@@ -1,9 +1,9 @@
-.run-summary {
+.block-run-summary {
   display: block;
   margin-bottom: $small-spacing;
   padding: $small-spacing;
 
-  &.run-status-success {
+  &.block-run-status-success {
     background-color: $green;
     color: $light-gray;
 
@@ -12,8 +12,18 @@
     }
   }
 
-  &.run-status-failure {
+  &.block-run-status-pending {
+    background-color: orange;
+    color: $light-gray;
+
+    &:hover {
+      background-color: darken(orange, 10%);
+    }
+  }
+
+  &.block-run-status-failure {
     background-color: $red;
+    color: $light-gray;
 
     &:hover {
       background-color: darken($red, 10%);

@@ -31,6 +31,10 @@ module ApplicationHelper
   end
 
   def prettify(json)
-    JSON.pretty_generate(JSON.parse(json))
+    if json.present?
+      JSON.pretty_generate(JSON.parse(json))
+    else
+      ""
+    end
   end
 end

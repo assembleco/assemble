@@ -9,15 +9,18 @@
 <div class="layout-column-left">
   <h2>Input</h2>
 
-  <%= highlight_json prettify(@block_run.args) %>
+  <%= highlight_json prettify(@block_run.input) %>
 </div>
 
 <div class="layout-column-right">
   <h2>Output:</h2>
-  <pre><%= @block_run.output %></pre>
+  <%= highlight_json prettify(@block_run.output) %>
+
+  <h2>Logs:</h2>
+  <pre><%= @block_run.stdout %></pre>
 
   <h2>Errors:</h2>
-  <pre><%= @block_run.run_errors %></pre>
+  <pre><%= @block_run.stderr %></pre>
 
   <h2>Exit code:</h2>
   <pre><%= @block_run.exit_status %></pre>
