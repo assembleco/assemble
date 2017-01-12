@@ -30,20 +30,13 @@ end
 describe "POST events#create" do
   it "runs subscribed blocks with the provided input" do
     message = "this is a sample message"
-    feed = create(:feed, schema: <<-JS)
-      {
-        "type": "object",
-        "properties": {
-          "message": { "type": "string" }
-        },
-        "required": ["message"]
-      }
-    JS
+    feed = create(:feed, schema: "{}")
 
-    block = create(:block, environment: "node", body: <<-JS)
-      flow = require('./flow.js')
-      console.log(flow.input.message)
-    JS
+    block = create(:block, environment: "ruby", body: <<-SCRIPT)
+      require "json"
+      input = JSON.parse(File.read("input.json"))
+      puts input["message"]
+    SCRIPT
 
     create(:connection, source: feed, destination: block)
     params = { event: { message: message }, format: 'text' }

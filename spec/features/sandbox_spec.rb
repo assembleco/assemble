@@ -2,10 +2,11 @@ require "rails_helper"
 
 feature "Sandbox apps" do
   scenario "Testing out a block in a sandbox" do
-    block = create(:block, body: <<-JS)
-      flow = require('./flow.js')
-      console.log(flow.input.foo)
-    JS
+    block = create(:block, environment: "ruby", body: <<-SCRIPT)
+      require "json"
+      input = JSON.parse(File.read("input.json"))
+      puts input["message"]
+    SCRIPT
 
     sign_in create(:user)
     visit block_path(block.user, block)
