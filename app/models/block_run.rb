@@ -12,22 +12,24 @@ class BlockRun < ApplicationRecord
     "node" => "node",
     "ruby" => "ruby",
     "python2" => "python",
-    "git" => "source",
   }.freeze
 
   def execute
     if schema_satisfied?
       container.start
 
-      container.store_file("/flow/config.json", config.to_json)
-      container.store_file("/flow/input.json", args)
-      container.store_file("/flow/env.json", env_variables.to_json)
-      container.store_file("/flow/user_script.js", block.body)
+      workdir = "/flow"
+      container.store_file("#{workdir}/input.json", args)
+      container.store_file("#{workdir}/user_script", block.body)
 
-      output, errors, self.exit_status = container.exec([
+      command = [
         ENVIRONMENT_COMMANDS[block.environment],
-        "/flow/user_script.js",
-      ])
+        "#{workdir}/user_script",
+      ].join(" ")
+
+      output, errors, self.exit_status = container.exec(
+        ["/bin/sh", "-c", "cd #{workdir} && #{command}"]
+      )
 
       container.stop
       container.delete
@@ -54,22 +56,10 @@ class BlockRun < ApplicationRecord
   private
 
   def container
-    @container ||=
-      begin
-        image_dir = Rails.root.join("containers/#{block.environment}").to_s
-        image = Docker::Image.build_from_dir(image_dir)
-        Docker::Container.create("Image" => image.id, "Tty" => true)
-      end
-  end
-
-  def config
-    {
-      host: ENV.fetch("APPLICATION_HOST"),
-    }
-  end
-
-  def env_variables
-    block.env_variables.pluck(:key, :value).to_h
+    @container ||= Docker::Container.create(
+      "Image" => block.environment,
+      "Tty" => true,
+    )
   end
 
   def schema_satisfied?
