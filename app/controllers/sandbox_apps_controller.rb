@@ -8,8 +8,8 @@ class SandboxAppsController < ApplicationController
       @app = App.create!(name: app_name, user: current_user)
 
       # Create an entrypoint for the sandbox
-      trigger = Trigger.create!(name: "Sandbox form: #{block.name}", schema: block.schema)
-      Connection.create!(app: @app, source: trigger, destination: block)
+      feed = Feed.create!(name: "Sandbox form: #{block.name}", schema: block.schema)
+      Connection.create!(app: @app, source: feed, destination: block)
     end
   end
 

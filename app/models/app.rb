@@ -13,16 +13,18 @@ class App < ApplicationRecord
     Block.where(id: block_ids)
   end
 
+  # See app/assets/stylesheets/atoms/_app_border.scss
   def border_class
-    "app-border-#{id % 4 + 1}"
+    app_border_id = (id - 1) % 4 + 1
+    "app-border-#{app_border_id}"
   end
 
   def to_param
     name
   end
 
-  def triggers
-    trigger_ids = connections.pluck(:source_id)
-    Trigger.where(id: trigger_ids)
+  def feeds
+    feed_ids = connections.pluck(:source_id)
+    Feed.where(id: feed_ids)
   end
 end

@@ -1,4 +1,4 @@
-class Trigger < ApplicationRecord
+class Feed < ApplicationRecord
   has_many :events
   has_many :connections, as: :source
 

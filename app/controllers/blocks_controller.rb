@@ -52,7 +52,6 @@ class BlocksController < ApplicationController
       :environment,
       :name,
       :schema,
-      :trigger_id,
     ).merge(user: current_user)
   end
 

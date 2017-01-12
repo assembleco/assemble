@@ -30,7 +30,7 @@ end
 describe "POST events#create" do
   it "runs subscribed blocks with the provided input" do
     message = "this is a sample message"
-    trigger = create(:trigger, schema: <<-JS)
+    feed = create(:feed, schema: <<-JS)
       {
         "type": "object",
         "properties": {
@@ -45,11 +45,11 @@ describe "POST events#create" do
       console.log(flow.input.message)
     JS
 
-    create(:connection, source: trigger, destination: block)
+    create(:connection, source: feed, destination: block)
     params = { event: { message: message }, format: 'text' }
 
     expect do
-      post "/events/#{trigger.name}", params: params
+      post "/events/#{feed.name}", params: params
     end.to change(Run, :count).by(1)
 
     run = Run.last
@@ -71,11 +71,11 @@ describe "POST events#create" do
       SCHEMA
 
     block = create(:block, schema: schema)
-    trigger = create(:trigger, schema: schema)
-    create(:connection, source: trigger, destination: block)
+    feed = create(:feed, schema: schema)
+    create(:connection, source: feed, destination: block)
 
     params = { event: { foo: "bar" }, format: :text }
-    post("/events/#{trigger.name}", params: params)
+    post("/events/#{feed.name}", params: params)
 
     expect(response).to be_success
     expect(response.body).to eq t(
@@ -87,24 +87,6 @@ describe "POST events#create" do
   end
 
   it "only runs blocks when their schemas are fully satisfied by their connections"
-
-  it "calls the correct version of the script for you" do
-    skip
-    # NEEDS DESIGN VALIDATION
-    # semantic versioning is incredibly useful,
-    # but is still an implementation detail
-    # that people shouldn't have to worry about.
-    # Instead, we can guess when breaking changes are happening
-    # by looking for changes in blocks' schemas,
-    # and reflect that with a major version bump.
-    #
-    # When Block A triggers Block B,
-    # instead of specifying the version of Block B
-    # that we waant to run,
-    # we can infer the version based on the `created_at`
-    # or most recent `udpated_at` of the script,
-    # compared to the creation time of the most recent version of script B.
-  end
 
   it "rejects events that are not properly authenticated"
   it "rejects events that are not authorized for the event stream"

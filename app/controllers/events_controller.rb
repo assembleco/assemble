@@ -9,13 +9,13 @@ class EventsController < ApplicationController
   def create
     input_data = params.require(:event).to_unsafe_h.to_json
 
-    trigger.connections.each do |connection|
+    feed.connections.each do |connection|
       run = Run.create!(block: connection.destination, args: input_data)
       run.delay.execute
     end
 
-    num_blocks = pluralize(trigger.connections.count, "block")
-    num_apps = pluralize(trigger.connections.pluck(:app_id).uniq.count, "app")
+    num_blocks = pluralize(feed.connections.count, "block")
+    num_apps = pluralize(feed.connections.pluck(:app_id).uniq.count, "app")
     notice = t(".success", num_blocks: num_blocks, num_apps: num_apps)
 
     respond_to do |format|
@@ -26,7 +26,7 @@ class EventsController < ApplicationController
 
   private
 
-  def trigger
-    @trigger ||= Trigger.find_by!(name: params[:trigger_id])
+  def feed
+    @feed ||= Feed.find_by!(name: params[:feed_id])
   end
 end
