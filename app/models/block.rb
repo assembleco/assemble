@@ -9,6 +9,10 @@ class Block < ApplicationRecord
   validates :user, presence: true
   validates :name, presence: true, uniqueness: { scope: :user_id, case_sensitive: false }
 
+  def icon
+    "blocks/block-#{id % 10 + 1}.png"
+  end
+
   def to_param
     name
   end

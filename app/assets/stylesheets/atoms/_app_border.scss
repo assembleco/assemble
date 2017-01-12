@@ -1,0 +1,22 @@
+$app-border-green: #acdbcc;
+$app-border-blue: #9bcad6;
+$app-border-yellow: #f2d38e;
+$app-border-red: #fb987f;
+
+$app-border-size: 4px;
+
+.app-border-1 {
+  border: $app-border-size solid $app-border-green;
+}
+
+.app-border-2 {
+  border: $app-border-size solid $app-border-blue;
+}
+
+.app-border-3 {
+  border: $app-border-size solid $app-border-yellow;
+}
+
+.app-border-4 {
+  border: $app-border-size solid $app-border-red;
+}

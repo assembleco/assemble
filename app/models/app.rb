@@ -13,6 +13,10 @@ class App < ApplicationRecord
     Block.where(id: block_ids)
   end
 
+  def border_class
+    "app-border-#{id % 4 + 1}"
+  end
+
   def to_param
     name
   end
