@@ -1,5 +1,5 @@
-<%= link_to app_path(app.user, app), class: "list-item app-listed" do %>
-  <%= image_tag "app-horizontal.png", class: "app-listed-icon" %>
+<%= link_to app_path(app.user, app), class: "list-item app-listing" do %>
+  <%= image_tag "app-horizontal.png", class: "app-listing-icon" %>
   <%= app.name %>
   <%= render "author_info_embedded", item: app %>
 <% end %>
