@@ -30,6 +30,7 @@ FactoryGirl.define do
   end
 
   factory :block_run do
+    app
     block
     input '{ "message": "Hello, World!" }'
     output '{ "result": "Hello, World!" }'

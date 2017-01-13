@@ -1,6 +1,7 @@
 class App < ApplicationRecord
   belongs_to :user
 
+  has_many :block_runs
   has_many :connections
 
   validates :name,

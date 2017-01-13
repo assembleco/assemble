@@ -1,12 +1,12 @@
 <div class="section">
   <h3>Block Runs</h3>
 
-  <% if block.runs.any? %>
-    <%= render block.runs.reverse %>
+  <% if runs.any? %>
+    <%= render runs.reverse %>
   <% else %>
     <div class="section-description">
       <p>
-      This block has not been run yet.
+      You have not run this block yet.
       </p>
     </div>
   <% end %>

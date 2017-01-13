@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112233524) do
+ActiveRecord::Schema.define(version: 20170113020716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 20170112233524) do
     t.string   "status",      default: "pending", null: false
     t.jsonb    "input"
     t.jsonb    "output"
+    t.integer  "app_id"
+    t.index ["app_id"], name: "index_block_runs_on_app_id", using: :btree
     t.index ["block_id"], name: "index_block_runs_on_block_id", using: :btree
     t.index ["input"], name: "index_block_runs_on_input", using: :gin
     t.index ["output"], name: "index_block_runs_on_output", using: :gin
@@ -113,6 +115,7 @@ ActiveRecord::Schema.define(version: 20170112233524) do
   end
 
   add_foreign_key "apps", "users"
+  add_foreign_key "block_runs", "apps"
   add_foreign_key "block_runs", "blocks"
   add_foreign_key "blocks", "users"
   add_foreign_key "connections", "apps"

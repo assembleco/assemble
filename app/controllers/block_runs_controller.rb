@@ -2,13 +2,13 @@
 
 class BlockRunsController < ApplicationController
   def show
-    @block_run = BlockRun.find_by!(block: block, id: params[:block_run_id])
+    @block_run = BlockRun.find_by!(app: app, id: params[:block_run_id])
   end
 
   private
 
-  def block
-    @block ||= Block.find_by!(user: user, name: params[:blockname])
+  def app
+    @app ||= App.find_by!(user: user, name: params[:appname])
   end
 
   def user
