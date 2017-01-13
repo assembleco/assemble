@@ -1,0 +1,42 @@
+.app-canvas {
+  @include span-columns(9 of 12);
+  display: flex;
+  justify-content: space-around;
+  overflow: hidden;
+  padding: $base-spacing;
+
+  img {
+    height: 2em;
+    margin-right: $small-spacing;
+  }
+
+  &-entry-feed,
+  &-block-element,
+  &-feed-element, {
+    border: 1px solid #ddd;
+    padding: $small-spacing;
+  }
+
+  &-feed-element {
+    align-items: center;
+    border: 1px solid #ddd;
+    display: flex;
+    flex: 0 1 auto;
+    justify-content: space-around;
+  }
+
+  &-connection {
+    height: 4em;
+    border-right: 2px dashed black;
+    width: 50%;
+  }
+
+  &-block-element {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.app-runs {
+  @include span-columns(3 of 12);
+}

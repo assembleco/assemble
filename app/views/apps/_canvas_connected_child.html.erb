@@ -1,0 +1,10 @@
+<div class="app-canvas-connection"></div>
+
+<div class="app-canvas-block-element">
+  <%= image_tag block.icon %>
+  <%= block.name %>
+</div>
+
+<% Connection.where(app: @app, source: block).each do |connection| %>
+  <%= render "canvas_connected_child", block: connection.destination %>
+<% end %>
