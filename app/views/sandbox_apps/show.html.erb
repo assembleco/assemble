@@ -1,7 +1,0 @@
-<%= form_tag events_path(@app.feeds.first), method: "post" do %>
-  <%= label_tag(:event, "Input:") %>
-  <%= text_area_tag(:event) %>
-  <%= submit_tag("Go") %>
-<% end %>
-
-<%= render "block_runs", block: @app.blocks.first %>
