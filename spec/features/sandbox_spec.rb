@@ -11,7 +11,6 @@ feature "Sandbox apps" do
 
     sign_in create(:user)
     visit block_path(block.user, block)
-    click_on "Try it out!"
     fill_in "Input", with: '{ "message": "bar" }'
     click_on "Go"
 
@@ -19,21 +18,5 @@ feature "Sandbox apps" do
     click_on "Success"
     expect(page).to have_content("Received input message: bar")
     expect(page).to have_content('{ "result": "baz" }')
-  end
-
-  scenario "does not create duplicate sandbox apps" do
-    block = create(:block, body: <<-JS)
-      flow = require('./flow.js')
-      console.log(flow.input.foo)
-    JS
-    user = create(:user)
-    app = create(:sandbox_app, user: user)
-    create(:connection, app: app, destination: block)
-
-    sign_in user
-    visit block_path(block.user, block)
-    expect { click_on "Try it out!" }.to change(App, :count).by(1)
-    visit block_path(block.user, block)
-    expect { click_on "Try it out!" }.not_to change(App, :count)
   end
 end

@@ -15,8 +15,6 @@ Rails.application.routes.draw do
   get "/apps/:username/:appname", to: "apps#show", as: :app
   get "/apps/:username/:appname/edit", to: "apps#edit", as: :edit_app
   patch "/apps/:username/:appname", to: "apps#update", as: :update_app
-  # Sandbox apps
-  get "/sandbox/:username/:blockname", to: "sandbox_apps#show", as: :sandbox_app
 
   # Block paths
   get "/blocks/new", to: "blocks#new", as: :new_block

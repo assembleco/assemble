@@ -13,11 +13,11 @@
   }
 
   &.block-run-status-pending {
-    background-color: orange;
+    background-color: gray;
     color: $light-gray;
 
     &:hover {
-      background-color: darken(orange, 10%);
+      background-color: darken(gray, 10%);
     }
   }
 
