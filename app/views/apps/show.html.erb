@@ -3,8 +3,29 @@
   <h1><%= @app.name %></h1>
 </div>
 
-<div class="app-description">
+<section class="app-description">
   <%= simple_format(@app.description) %>
-</div>
 
-<%= link_to "Edit app", edit_app_path(@app.user, @app) %>
+  <%= link_to "Edit app metadata", edit_app_path(@app.user, @app) %>
+</section>
+
+<div>
+  <div class="app-canvas <%= @app.border_class %>">
+    <% @app.feeds.each do |feed| %>
+      <div class="app-canvas-entry-feed">
+        <div class="app-canvas-feed-element">
+          <%= image_tag "icons/feed.svg" %>
+          <%= feed.name %>
+        </div>
+
+        <% feed.connections.each do |connection| %>
+          <%= render "canvas_connected_child", block: connection.destination %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="app-runs">
+    <%= render "block_runs", runs: @app.block_runs %>
+  </div>
+</div>

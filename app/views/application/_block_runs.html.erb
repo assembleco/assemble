@@ -2,7 +2,7 @@
   <h3>Block Runs</h3>
 
   <% if runs.any? %>
-    <%= render runs.reverse %>
+    <%= render runs.order(created_at: :desc) %>
   <% else %>
     <div class="section-description">
       <p>

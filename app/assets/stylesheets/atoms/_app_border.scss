@@ -6,6 +6,13 @@ $app-border-red: #fb987f;
 
 $app-border-size: 4px;
 
+.app-border-1,
+.app-border-2,
+.app-border-3,
+.app-border-4 {
+  border-radius: $app-border-size;
+}
+
 .app-border-1 {
   border: $app-border-size solid $app-border-green;
 }

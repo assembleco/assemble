@@ -43,7 +43,7 @@
   <div class="section">
     <h2>Try it out!</h2>
 
-    <%= form_tag events_path(current_user.sandbox_feed_for(@block)), method: "post" do %>
+    <%= form_tag events_path(current_user.sandbox_feed_for(@block).name), method: "post" do %>
       <%= label_tag(:event, "Input") %>
 
       <p class="hint">
