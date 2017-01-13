@@ -1,5 +1,5 @@
 <%= link_to(
-  block_run_path(block_run.user, block_run.block, block_run),
+  block_run_path(block_run.app.user, block_run.app, block_run),
   class: "block-run-summary block-run-status-#{block_run.status}",
 ) do %>
   <%= block_run.status.to_s.titleize %>,

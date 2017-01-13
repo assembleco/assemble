@@ -44,7 +44,7 @@
     <h2>Try it out!</h2>
 
     <%= form_tag events_path(current_user.sandbox_feed_for(@block)), method: "post" do %>
-      <%= label_tag(:event, "Input:") %>
+      <%= label_tag(:event, "Input") %>
 
       <p class="hint">
       To test the block, pass in a bit of JSON data.
@@ -56,6 +56,9 @@
   </div>
 
   <div class="section">
-    <%= render "block_runs", block: @block %>
+    <%= render(
+      "block_runs",
+      runs: @block.runs.where(app_id: current_user.apps.pluck(:id)),
+    ) %>
   </div>
 </div>

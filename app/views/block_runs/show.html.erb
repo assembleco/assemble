@@ -1,7 +1,7 @@
 <h1>
-  <%= link_to @block_run.user.username, user_blocks_path(@block_run.user) %>
+  <%= link_to @block_run.app.user.username, user_blocks_path(@block_run.app.user) %>
   /
-  <%= link_to @block_run.block.name, block_path(@block_run.user, @block_run.block) %>
+  <%= link_to @block_run.block.name, block_path(@block_run.app.user, @block_run.block) %>
   /
   <%= @block_run.id %>
 </h1>

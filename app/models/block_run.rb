@@ -5,8 +5,10 @@ require "json"
 class BlockRun < ApplicationRecord
   INPUT_SCHEMA_NOT_SATISFIED = "input_schema_not_satisfied"
 
+  belongs_to :app
   belongs_to :block
-  has_one :user, through: :block
+
+  validates :app, presence: true
 
   ENVIRONMENT_COMMANDS = {
     "node" => "node",

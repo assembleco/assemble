@@ -8,7 +8,11 @@ class EventsController < ApplicationController
 
   def create
     feed.connections.each do |connection|
-      block_run = BlockRun.create!(block: connection.destination, input: event_data)
+      block_run = BlockRun.create!(
+        app: connection.app,
+        block: connection.destination,
+        input: event_data,
+      )
       block_run.delay.execute
     end
 

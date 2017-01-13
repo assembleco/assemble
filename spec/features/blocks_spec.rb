@@ -62,8 +62,9 @@ RSpec.feature "Blocks" do
   scenario "viewing a block's runs" do
     block_run = create(:block_run, exit_status: 0)
 
-    sign_in block_run.user
-    visit block_path(block_run.user, block_run.block)
+    sign_in block_run.app.user
+    visit block_path(block_run.block.user, block_run.block)
+    expect(page).to have_content("Success")
     click_on "Success"
 
     expect(page).to have_content block_run.input
