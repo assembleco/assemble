@@ -1,5 +1,4 @@
 http = require('http')
-flow = require('./flow.js')
 input = require('./input.json')
 
 // We need this to build our post string
@@ -10,8 +9,8 @@ var http = require('http');
 console.log(input)
 data = {
   message: input.text,
-  user: flow.env.pushover_user_id,
-  token: flow.env.pushover_key
+  user: input.pushover.user_id,
+  token: input.pushover.key
 }
 var post_data = querystring.stringify(data);
 

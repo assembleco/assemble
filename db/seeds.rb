@@ -41,9 +41,17 @@ Block.create!(
     "properties": {
       "text": {
         "type": "string"
+      },
+      "pushover": {
+        "type": "object",
+        "properties": {
+          "user_id": { "type": "string" },
+          "key": { "type": "string" }
+        },
+        "required": ["user_id", "key"]
       }
     },
-    "required": ["text"]
+    "required": ["text", "pushover"]
   }',
   user: user,
   body: File.read("db/seeds/blocks/pushover.js"),
