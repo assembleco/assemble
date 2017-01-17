@@ -16,7 +16,7 @@ module ApplicationHelper
     link_to(text, url, *args)
   end
 
-  def highlight_json(json)
+  def display_json(json)
     CodeRay.scan(json, :json).div.html_safe
   end
 
