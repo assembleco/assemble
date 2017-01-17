@@ -4,7 +4,7 @@
   <% @feeds.all.each do |feed| %>
     <li>
       <h2><%= feed.name %> (<%= link_to "Edit", [:edit, feed] %>)</h2>
-      <%= highlight_json(feed.schema) %>
+      <%= display_json(feed.schema) %>
     </li>
   <% end %>
 </ul>
