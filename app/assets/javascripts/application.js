@@ -15,4 +15,8 @@
 //= require react
 //= require react_ujs
 
+//= require react-jsonschema-form
+
 //= require_tree ./components
+
+const Form = JSONSchemaForm.default;

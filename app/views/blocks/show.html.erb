@@ -43,16 +43,11 @@
   <div class="section">
     <h2>Try it out!</h2>
 
-    <%= form_tag events_path(current_user.sandbox_feed_for(@block).name), method: "post" do %>
-      <%= label_tag(:event, "Input") %>
-
-      <p class="hint">
-      To test the block, pass in a bit of JSON data.
-      </p>
-
-      <%= text_area_tag(:event, (params[:event] || "{\n\n}")) %>
-      <%= submit_tag("Go") %>
-    <% end %>
+    <%= react_component(
+      "BlockSandboxForm",
+      schema: JSON.parse(@block.schema),
+      submit_url: events_path(current_user.sandbox_feed_for(@block).name),
+    ) %>
   </div>
 
   <div class="section">
