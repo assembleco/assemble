@@ -72,7 +72,9 @@ GEM
       xpath (~> 2.0)
     cliver (0.3.2)
     coderay (1.1.1)
+    coffee-script-source (1.12.2)
     concurrent-ruby (1.0.4)
+    connection_pool (2.2.1)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.5.3)
@@ -199,6 +201,13 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    react-rails (1.10.0)
+      babel-transpiler (>= 0.7.0)
+      coffee-script-source (~> 1.8)
+      connection_pool
+      execjs
+      railties (>= 3.2)
+      tilt
     recipient_interceptor (0.1.2)
       mail
     rspec-core (3.5.4)
@@ -325,6 +334,7 @@ DEPENDENCIES
   rack-timeout
   rails (~> 5.0.1)
   rails_stdout_logging
+  react-rails
   recipient_interceptor
   rspec-rails (~> 3.5.0.beta4)
   sass-rails (~> 5.0)
