@@ -7,7 +7,11 @@ class BlockSandboxForm extends React.Component {
 
   render () {
     return (
-      <Form schema={this.props.schema} onSubmit={this.onSubmit} />
+      <Form
+        schema={this.props.schema}
+        formData={this.props.form_data}
+        onSubmit={this.onSubmit}
+      />
     );
   }
 
