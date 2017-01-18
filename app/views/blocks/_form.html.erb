@@ -59,24 +59,23 @@
   <%= f.input(
     :schema,
     label: "Input Schema",
+    as: :hidden,
     hint: "
     <p>
-    We use JSON-schema
-    to describe the required input structure for each block.
+    What information does this block need in order to run correctly?
+    Users will be responsible for providing this information
+    whenever they run your block.
     </p>
     <p>
-    If you want your script to accept any input, leave this field as it is.
-    The schema <code>{}</code> allows any input with no restriction.
-    </p>
-    <p>
-    #{link_to('Here\'s a good example of the JSON-schema format.', 'http://json-schema.org/examples.html', target: 'blank')}
-    </p>
-    <p>
-    We hope to replace this with something easier to manage in the future.
-    If you have any ideas or suggestions,
-    #{mail_to(ENV.fetch('FEEDBACK_EMAIL'), 'please let us know')}.
+    A checkbox indicates that a field is required.
     </p>
     ".html_safe,
+  ) %>
+
+  <%= react_component(
+    "SchemaBuilder",
+    initialValue: @block.schema,
+    formElement: "#block_schema",
   ) %>
 
   <%= f.button :submit %>
