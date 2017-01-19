@@ -1,5 +1,7 @@
 class AppCanvas extends React.Component {
   render() {
+
+
     return (
       <div className={"app-canvas " + this.props.border_class}>
         { this.props.app.feeds.map((feed, index) =>
@@ -86,3 +88,5 @@ class AddConnection extends React.Component {
     $.post("/connections", data, () => { location.reload(); });
   }
 }
+
+export default AppCanvas;

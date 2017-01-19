@@ -1,3 +1,5 @@
+const Freezer = require("freezer-js");
+
 class SchemaBuilder extends React.Component {
   constructor(props) {
     super(props);
@@ -222,3 +224,5 @@ class SchemaBuilderStringAttribute extends React.Component {
 SchemaBuilder.propTypes = {
   initialValue: React.PropTypes.string
 };
+
+export default SchemaBuilder;

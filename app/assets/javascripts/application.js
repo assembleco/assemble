@@ -10,9 +10,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 
-//= require jquery
-//= require jquery_ujs
-//= require react
+//= require_self
 //= require react_ujs
 
-//= require components
+window.$ = window.jQuery = global.$ = require('jquery');
+var React = window.React = global.React = require('react');
+var ReactDOM = window.ReactDOM = global.ReactDOM = require('react-dom');
+var ReactDOMServer = window.ReactDOMServer = global.ReactDOMServer = require('react-dom/server');
+
+require('jquery-ujs');
+require('fetch');
+require('./components');
