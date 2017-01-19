@@ -6,6 +6,12 @@ services:
     expose:
       - 5432
 
+  # For testing
+  phantomjs:
+    image: wernight/phantomjs
+    volumes:
+      - phantom-bin:/usr/local/bin
+
   portainer:
     image: portainer/portainer
     ports:
@@ -26,12 +32,14 @@ services:
       - "$PORT:3000"
     links:
       - db
+      - phantomjs
     volumes:
       - .:/app
       # Docker access on Linux
       - /var/run/docker.sock:/var/run/docker.sock
       # Docker access on OS X
       - ${DOCKER_CERT_PATH:-/certs}:${DOCKER_CERT_PATH:-/certs}
+      - phantom-bin:/phantomjs
 
   worker:
     env_file: .env
@@ -45,3 +53,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       # Docker access on OS X
       - ${DOCKER_CERT_PATH:-/certs}:${DOCKER_CERT_PATH:-/certs}
+
+volumes:
+  phantom-bin:
+    driver: local

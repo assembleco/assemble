@@ -23,3 +23,6 @@ WORKDIR /app
 
 ADD Gemfile Gemfile.lock /app/
 RUN bundle install
+
+ADD package.json /app/
+RUN npm install

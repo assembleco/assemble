@@ -29,4 +29,13 @@ end
 
 ActiveRecord::Migration.maintain_test_schema!
 
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(
+    app,
+    js_errors: true,
+    phantomjs: "/phantomjs/phantomjs",
+    url_whitelist: [],
+  )
+end
+
 Capybara.javascript_driver = :poltergeist

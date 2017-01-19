@@ -2,6 +2,7 @@ class BlockSandboxForm extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = { mounted: false};
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -26,3 +27,5 @@ class BlockSandboxForm extends React.Component {
 BlockSandboxForm.propTypes = {
   schema: React.PropTypes.object
 };
+
+export default BlockSandboxForm;

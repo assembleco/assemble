@@ -10,12 +10,15 @@
 </section>
 
 <div>
-  <%= react_component("AppCanvas", {
-    app: @app.canvas_json,
-    all_blocks: Block.all.pluck(:id, :name).map { |v|
-      { value: v[0], label: v[1] }
+  <%= react_component(
+    "AppCanvas", {
+      app: @app.canvas_json,
+      all_blocks: Block.all.pluck(:id, :name).map { |v|
+        { value: v[0], label: v[1] }
+      },
     },
-  }) %>
+    { prerender: true },
+  ) %>
 
   <div class="app-runs">
     <%= render "block_runs", runs: @app.block_runs %>

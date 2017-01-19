@@ -2,9 +2,12 @@
 // They needs a separate manifest from application.js
 // so that the React server-side rendering process can pick them up.
 
-//= require react-jsonschema-form
-//= require freezer-js
-
 //= require_tree ./components
 
-const Form = JSONSchemaForm.default;
+require('babel-polyfill');
+
+global.BlockSandboxForm = require('components/block_sandbox_form.es6').default;
+global.AppCanvas = require('components/app_canvas.es6').default;
+global.SchemaBuilder = require('components/schema_builder.es6').default;
+
+global.Form = require("react-jsonschema-form").default;

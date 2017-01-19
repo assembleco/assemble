@@ -1,7 +1,7 @@
 require "rails_helper"
 
 feature "Sandbox apps" do
-  xscenario "Testing out a block in a sandbox", :js do
+  scenario "Testing out a block in a sandbox", :js do
     block = create(
     :block,
     environment: "ruby",
@@ -18,7 +18,6 @@ feature "Sandbox apps" do
     fill_in "message", with: "bar"
     click_on "Go"
 
-    skip "can't get JS to run on the page in the test environment"
     expect(page).to have_content("Success")
     click_on "Success"
     expect(page).to have_content("Received input message: bar")
