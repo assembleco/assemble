@@ -11,7 +11,9 @@ class BlockSandboxForm extends React.Component {
         schema={this.props.schema}
         formData={this.props.form_data}
         onSubmit={this.onSubmit}
-      />
+        >
+        <button type="submit">Go</button>
+      </Form>
     );
   }
 

@@ -14,11 +14,6 @@
   <%= highlight_block(@block) %>
 
   <div class="section">
-    <h2>Input Schema</h2>
-    <%= display_json(@block.schema) %>
-  </div>
-
-  <div class="section">
     <h2>Environment Variables</h2>
 
     <div class="section-description">
@@ -45,11 +40,14 @@
 
     <%= react_component(
       "BlockSandboxForm",
-      schema: JSON.parse(@block.schema),
-      submit_url: events_path(current_user.sandbox_feed_for(@block).name),
-      form_data: JSON.parse(
-        @block.runs.where(app: current_user.sandbox_app).last.try(:input)
-      ),
+      {
+        schema: JSON.parse(@block.schema),
+        submit_url: events_path(current_user.sandbox_feed_for(@block).name),
+        form_data: JSON.parse(
+          @block.runs.where(app: current_user.sandbox_app).last.try(:input) || "{}"
+        ),
+      },
+      { prerender: true },
     ) %>
   </div>
 

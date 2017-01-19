@@ -9,14 +9,12 @@ RSpec.feature "Blocks" do
     fill_in :block_name, with: "Say Hello"
     fill_in :block_description, with: "This block says hello."
     fill_in :block_body, with: "console.log('Hello');"
-    fill_in :block_schema, with: "{}"
     click_on "Create Block"
 
     expect(page).to have_content t("blocks.create.success")
     expect(page).to have_content "Say Hello"
     expect(page).to have_content "This block says hello."
     expect(page).to have_content "console.log('Hello');"
-    expect(page).to have_content "{}"
   end
 
   scenario "creation with errors" do
@@ -38,14 +36,12 @@ RSpec.feature "Blocks" do
     fill_in :block_name, with: "Say Hello"
     fill_in :block_description, with: "This block says hello."
     fill_in :block_body, with: "console.log('Hello');"
-    fill_in :block_schema, with: "{}"
     click_on "Update Block"
 
     expect(page).to have_content t("blocks.update.success")
     expect(page).to have_content "Say Hello"
     expect(page).to have_content "This block says hello."
     expect(page).to have_content "console.log('Hello');"
-    expect(page).to have_content "{}"
   end
 
   scenario "blocks index shows all of the current user's blocks" do

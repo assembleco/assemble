@@ -74,8 +74,11 @@
 
   <%= react_component(
     "SchemaBuilder",
-    initialValue: @block.schema,
-    formElement: "#block_schema",
+    {
+      initialValue: @block.schema,
+      formElement: "#block_schema",
+    },
+    { prerender: true },
   ) %>
 
   <%= f.button :submit %>
