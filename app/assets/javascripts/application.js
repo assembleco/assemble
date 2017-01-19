@@ -10,14 +10,9 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 
-//= require freezer-js
 //= require jquery
 //= require jquery_ujs
 //= require react
 //= require react_ujs
 
-//= require react-jsonschema-form
-
-//= require_tree ./components
-
-const Form = JSONSchemaForm.default;
+//= require components
