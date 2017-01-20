@@ -20,7 +20,7 @@ services:
   web:
     build: .
     env_file: .env
-    image: graysonwright/appfactory
+    image: assemble/web
     command: ./bin/serve
     ports:
       - "$PORT:3000"
@@ -35,7 +35,7 @@ services:
 
   worker:
     env_file: .env
-    image: graysonwright/appfactory
+    image: assemble/web
     command: rake jobs:work
     links:
       - db
