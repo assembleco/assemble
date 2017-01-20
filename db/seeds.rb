@@ -15,7 +15,6 @@ Block.create!(
   name: "Debug input",
   description: "Simply prints out the input that was passed to the flow.",
   environment: "ruby",
-  schema: "{}",
   user: user,
   body: File.read("db/seeds/blocks/debug.rb"),
 )
@@ -24,7 +23,19 @@ Block.create!(
   name: "Get the weather forecast from DarkSky",
   description: "This block connects to the Dark Sky API (https://darksky.net/) to pull the latest weather forecast information.",
   environment: "ruby",
-  schema: "{}",
+  schema: '{
+    "type": "object",
+    "properties": {
+      "darksky_key": { "type": "string" },
+      "latitude": { "type": "string" },
+      "longitude": { "type": "string" }
+    },
+    "required": [
+      "darksky_key",
+      "latitude",
+      "longitude"
+    ]
+  }',
   user: user,
   body: File.read("db/seeds/blocks/darksky.rb"),
 )
