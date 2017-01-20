@@ -35,7 +35,11 @@ class BlockRun < ApplicationRecord
 
       begin
         container.stop
-        self.output = container.read_file("#{workdir}/output.json")
+
+        self.output = container.
+          read_file("#{workdir}/output.json").
+          encode!('UTF-16', 'UTF-8')
+
         container.delete
       rescue
       end
