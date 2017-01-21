@@ -38,6 +38,13 @@
   <div class="section">
     <h2>Try it out!</h2>
 
+    <div class="hint">
+      <p>
+      Don't see the input fields you expected?
+      <%= link_to "Edit the block's input schema", edit_block_path(@block.user, @block) + "#schema-builder" %>
+      </p>
+    </div>
+
     <%= react_component(
       "BlockSandboxForm",
       {
