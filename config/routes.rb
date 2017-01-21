@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create, :show], param: :username
   resource :user, only: [:edit, :update], as: :profile
 
+  resources :connections, only: [:create]
+
   # App paths
   get "/apps/new", to: "apps#new", as: :new_app
   post "/apps", to: "apps#create"
