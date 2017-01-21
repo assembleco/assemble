@@ -48,8 +48,22 @@ class BlockRun < ApplicationRecord
       self.stderr = stderr.join
 
       save!
+
+      execute_following_blocks
     else
       update!(status: BlockRun::INPUT_SCHEMA_NOT_SATISFIED)
+    end
+  end
+
+  def execute_following_blocks
+    block.following_blocks_for_app(app).each do |following_block|
+      block_run = BlockRun.create!(
+        app: app,
+        block: following_block,
+        input: output,
+      )
+
+      block_run.delay.execute
     end
   end
 

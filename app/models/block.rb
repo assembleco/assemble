@@ -15,8 +15,8 @@ class Block < ApplicationRecord
     {
       name: name,
       icon: icon,
-      connections: Connection.where(app: app, source: self).map { |connection|
-        connection.destination.canvas_json_for_app(app)
+      connections: following_blocks_for_app(app).map { |block|
+        block.canvas_json_for_app(app)
       }
     }
   end
@@ -24,6 +24,10 @@ class Block < ApplicationRecord
   def icon
     block_id = (id - 1) % 10 + 1
     "blocks/block-#{block_id}.png"
+  end
+
+  def following_blocks_for_app(app)
+    Connection.where(app: app, source: self).map(&:destination)
   end
 
   def schema
