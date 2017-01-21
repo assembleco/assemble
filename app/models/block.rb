@@ -15,6 +15,7 @@ class Block < ApplicationRecord
     {
       name: name,
       icon: icon,
+      id: id,
       connections: following_blocks_for_app(app).map { |block|
         block.canvas_json_for_app(app)
       }
