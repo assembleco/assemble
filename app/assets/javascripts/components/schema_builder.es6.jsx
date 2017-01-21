@@ -15,7 +15,7 @@ class SchemaBuilder extends React.Component {
 
   render () {
     return (
-      <div style={{ marginBottom: '3rem' }}>
+      <div style={{ marginBottom: '3rem' }} id="schema-builder">
         <SchemaBuilderGenericAttribute schema={this.state.schema} />
       </div>
     );
