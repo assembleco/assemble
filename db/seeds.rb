@@ -11,7 +11,7 @@ User.destroy_all
 
 user = User.create!(username: "user", password: "password", email: "user@example.com")
 
-Block.create!(
+debug = Block.create!(
   name: "Debug input",
   description: "Simply prints out the input that was passed to the flow.",
   environment: "ruby",
@@ -19,7 +19,7 @@ Block.create!(
   body: File.read("db/seeds/blocks/debug.rb"),
 )
 
-Block.create!(
+darksky = Block.create!(
   name: "Get the weather forecast from DarkSky",
   description: "This block connects to the Dark Sky API (https://darksky.net/) to pull the latest weather forecast information.",
   environment: "ruby",
@@ -66,4 +66,11 @@ Block.create!(
   }',
   user: user,
   body: File.read("db/seeds/blocks/pushover.js"),
+)
+
+# Create a few connections in a sandbox app
+Connection.create!(
+  app: user.sandbox_app,
+  source: darksky,
+  destination: debug,
 )

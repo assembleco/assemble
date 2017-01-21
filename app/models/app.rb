@@ -9,6 +9,21 @@ class App < ApplicationRecord
     uniqueness: { scope: :user_id, case_sensitive: false }
   validates :user, presence: true
 
+  def canvas_json
+    {
+      border_class: border_class,
+      id: id,
+      feeds: feeds.map { |feed|
+        {
+          name: feed.name,
+          connections: feed.connections.map { |connection|
+            connection.destination.canvas_json_for_app(self)
+          },
+        }
+      },
+    }
+  end
+
   def blocks
     block_ids = connections.pluck(:destination_id)
     Block.where(id: block_ids)
