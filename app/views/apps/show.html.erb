@@ -10,20 +10,7 @@
 </section>
 
 <div>
-  <div class="app-canvas <%= @app.border_class %>">
-    <% @app.feeds.each do |feed| %>
-      <div class="app-canvas-entry-feed">
-        <div class="app-canvas-feed-element">
-          <%= image_tag "icons/feed.svg" %>
-          <%= feed.name %>
-        </div>
-
-        <% feed.connections.each do |connection| %>
-          <%= render "canvas_connected_child", block: connection.destination %>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+  <%= react_component("AppCanvas", @app.canvas_json) %>
 
   <div class="app-runs">
     <%= render "block_runs", runs: @app.block_runs %>
