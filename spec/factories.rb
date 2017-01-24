@@ -44,6 +44,11 @@ FactoryGirl.define do
     schema "{}"
   end
 
+  factory :subscription do
+    app
+    feed
+  end
+
   factory :user do
     sequence(:username) { |n| "user_#{n}" }
     email { "#{username}@example.com" }

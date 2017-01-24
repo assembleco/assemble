@@ -35,11 +35,25 @@ RSpec.feature "Apps" do
     expect(page).to have_css(".app-canvas-entry-feed", text: feed.name)
   end
 
+  scenario "connecting a block to a feed", :js do
+    user = sign_in create(:user)
+    block = create(:block)
+    feed = create(:feed)
+    create(:subscription, feed: feed, app: user.sandbox_app)
+
+    visit app_path(user, user.sandbox_app)
+    expect(page).not_to have_block(block.name)
+    select(block.name)
+
+    expect(page).to have_block(block.name)
+  end
+
   scenario "connecting a block to a block", :js do
     user = sign_in create(:user)
     block_1 = create(:block)
     block_2 = create(:block)
     feed = create(:feed)
+    create(:subscription, feed: feed, app: user.sandbox_app)
     create(:connection, source: feed, destination: block_1, app: user.sandbox_app)
 
     visit app_path(user, user.sandbox_app)

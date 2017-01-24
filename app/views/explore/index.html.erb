@@ -2,5 +2,5 @@
   <h1><%= t(".title") %></h1>
 </div>
 
-<%= render "apps_list", apps: App.all, title: "Popular Apps" %>
+<%= render "apps_list", apps: App.where.not(name: "sandbox"), title: "Popular Apps" %>
 <%= render "blocks_list", blocks: Block.all, title: "Popular Building Blocks" %>
