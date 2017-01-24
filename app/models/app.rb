@@ -11,6 +11,10 @@ class App < ApplicationRecord
     uniqueness: { scope: :user_id, case_sensitive: false }
   validates :user, presence: true
 
+  def blocks_connected_to(feed)
+    connections.where(source: feed).map(&:destination)
+  end
+
   def canvas_json
     {
       id: id,
@@ -18,17 +22,27 @@ class App < ApplicationRecord
         {
           name: feed.name,
           id: feed.id,
-          connections: feed.connections.where(app: self).map { |connection|
-            connection.destination.try(:canvas_json_for_app, self)
+          connections: blocks_connected_to(feed).map { |block|
+            block.canvas_json_for_app(self)
           }.compact,
         }
       },
     }
   end
 
-  def blocks
-    block_ids = connections.pluck(:destination_id)
-    Block.where(id: block_ids)
+  def connect(source, destination)
+    unless feeds.include?(source)
+      subscriptions.create!(feed: source)
+    end
+
+    connections.create!(source: source, destination: destination)
+  end
+
+  def receive_event(event)
+    blocks_connected_to(event.feed).each do |block|
+      block_run = block_runs.create!(block: block, input: event.data)
+      block_run.delay.execute
+    end
   end
 
   def to_param

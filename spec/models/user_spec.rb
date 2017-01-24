@@ -31,9 +31,8 @@ describe User do
         feed = user.sandbox_feed_for(block)
       }.to change(Feed, :count).by(1)
 
-      connection = feed.connections.first
-      expect(connection.destination).to eq(block)
-      expect(connection.app).to eq(user.sandbox_app)
+      connected_blocks = user.sandbox_app.blocks_connected_to(feed)
+      expect(connected_blocks).to eq([block])
     end
   end
 end

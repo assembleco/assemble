@@ -20,9 +20,9 @@ class User < ActiveRecord::Base
   def sandbox_feed_for(block)
     (
       sandbox_app.connections.find_by(destination: block) ||
-      sandbox_app.connections.create!(
-        destination: block,
-        source: Feed.create!(name: "Sandbox form: #{block.name}"),
+      sandbox_app.connect(
+        Feed.create!(name: "Sandbox form: #{block.name}"),
+        block,
       )
     ).source
   end
