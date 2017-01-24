@@ -25,6 +25,20 @@ RSpec.feature "Apps" do
     expect(page).to have_content t("apps.create.failure")
   end
 
+  scenario "adding a block", :js do
+    user = sign_in create(:user)
+    block_1 = create(:block)
+    block_2 = create(:block)
+    feed = create(:feed)
+    create(:connection, source: feed, destination: block_1, app: user.sandbox_app)
+
+    visit app_path(user, user.sandbox_app)
+    expect(page).not_to have_block(block_2.name)
+    select(block_2.name)
+
+    expect(page).to have_css(".app-canvas-block-element", text: block_2.name)
+  end
+
   scenario "update" do
     app = create(:app)
     user = app.user
@@ -60,5 +74,9 @@ RSpec.feature "Apps" do
 
     expect(page).to have_heading(app.user.username)
     expect(current_path).to eq user_path(app.user)
+  end
+
+  def have_block(block_name)
+    have_css(".app-canvas-block-element", text: block_name)
   end
 end
