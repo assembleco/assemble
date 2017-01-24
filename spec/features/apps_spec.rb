@@ -44,7 +44,6 @@ RSpec.feature "Apps" do
     feed = create(:feed, name: "Every day at midnight")
 
     visit app_path(user, user.sandbox_app)
-    click_on "Listen for events from a new feed"
     select(feed.name)
 
     expect(page).to have_css(".app-canvas-entry-feed", text: feed.name)
