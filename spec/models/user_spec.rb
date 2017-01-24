@@ -10,7 +10,7 @@ describe User do
       user = create(:user)
       block = create(:block)
       feed = create(:feed)
-      create(:connection, app: user.sandbox_app, source: feed, destination: block)
+      user.sandbox_app.connect(feed, block)
 
       sandbox_feed = nil
 

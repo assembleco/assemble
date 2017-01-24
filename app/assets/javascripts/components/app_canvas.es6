@@ -39,6 +39,7 @@ class AppCanvas extends React.Component {
             <Feed
               key={index}
               {...feed}
+              connections={this.props.app.connections}
               all_blocks={this.props.all_blocks}
               app_id={this.props.app.id}
               />
@@ -57,6 +58,34 @@ class AppCanvas extends React.Component {
 
     $.post("/subscriptions", data, () => { location.reload(); });
   }
+}
+
+AppCanvas.propTypes = {
+  app: React.PropTypes.shape({
+    id: React.PropTypes.number.isRequired,
+
+    feeds: React.PropTypes.arrayOf(React.PropTypes.shape({
+      name: React.PropTypes.string.isRequired,
+      id: React.PropTypes.number.isRequired,
+      slug: React.PropTypes.string.isRequired,
+    })).isRequired,
+
+    connections: React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.shape({
+      name: React.PropTypes.string.isRequired,
+      id: React.PropTypes.number.isRequired,
+      slug: React.PropTypes.string.isRequired,
+    }))).isRequired,
+  }).isRequired,
+
+  all_blocks: React.PropTypes.arrayOf(React.PropTypes.shape({
+    label: React.PropTypes.string.isRequired,
+    value: React.PropTypes.number.isRequired,
+  })).isRequired,
+
+  all_feeds: React.PropTypes.arrayOf(React.PropTypes.shape({
+    label: React.PropTypes.string.isRequired,
+    value: React.PropTypes.number.isRequired,
+  })).isRequired,
 }
 
 export default Radium(AppCanvas);

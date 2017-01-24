@@ -2,7 +2,6 @@
 
 EnvVariable.destroy_all
 BlockRun.destroy_all
-Connection.destroy_all
 Block.destroy_all
 Event.destroy_all
 Feed.destroy_all

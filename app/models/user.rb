@@ -13,18 +13,20 @@ class User < ActiveRecord::Base
   DESCRIPTION
 
   def sandbox_app
-    apps.find_by(name: "sandbox") ||
+    @sandbox_app ||= apps.find_by(name: "sandbox") ||
       apps.create!(name: "sandbox", description: SANDBOX_APP_DESCRIPTION)
   end
 
   def sandbox_feed_for(block)
-    (
-      sandbox_app.connections.find_by(destination: block) ||
-      sandbox_app.connect(
-        Feed.create!(name: "Sandbox form: #{block.name}"),
-        block,
-      )
-    ).source
+    feed = sandbox_app.incoming_connections_for(block).first
+
+    if feed.nil?
+      sandbox_feed_name = "Sandbox form: #{block.name}"
+      feed = Feed.create!(name: sandbox_feed_name)
+      sandbox_app.connect(feed, block)
+    end
+
+    feed
   end
 
   def to_param

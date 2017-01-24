@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170124194954) do
+ActiveRecord::Schema.define(version: 20170124205728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20170124194954) do
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.jsonb    "definition"
+    t.index ["definition"], name: "index_apps_on_definition", using: :gin
     t.index ["user_id"], name: "index_apps_on_user_id", using: :btree
   end
 
@@ -52,17 +54,6 @@ ActiveRecord::Schema.define(version: 20170124194954) do
     t.jsonb    "schema"
     t.index ["schema"], name: "index_blocks_on_schema", using: :gin
     t.index ["user_id"], name: "index_blocks_on_user_id", using: :btree
-  end
-
-  create_table "connections", force: :cascade do |t|
-    t.integer "app_id"
-    t.string  "source_type"
-    t.integer "source_id"
-    t.string  "destination_type"
-    t.integer "destination_id"
-    t.index ["app_id"], name: "index_connections_on_app_id", using: :btree
-    t.index ["destination_type", "destination_id"], name: "index_connections_on_destination_type_and_destination_id", using: :btree
-    t.index ["source_type", "source_id"], name: "index_connections_on_source_type_and_source_id", using: :btree
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -128,7 +119,6 @@ ActiveRecord::Schema.define(version: 20170124194954) do
   add_foreign_key "block_runs", "apps"
   add_foreign_key "block_runs", "blocks"
   add_foreign_key "blocks", "users"
-  add_foreign_key "connections", "apps"
   add_foreign_key "env_variables", "blocks"
   add_foreign_key "events", "feeds"
   add_foreign_key "subscriptions", "apps"
