@@ -30,6 +30,14 @@ module ApplicationHelper
     CodeRay.scan(block.body, language).div.html_safe
   end
 
+  def prerender_component(component, options)
+    react_component(
+      component,
+      options,
+      { prerender: true },
+    )
+  end
+
   def prettify(json)
     if json.present?
       JSON.pretty_generate(JSON.parse(json))

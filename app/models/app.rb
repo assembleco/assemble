@@ -11,14 +11,13 @@ class App < ApplicationRecord
 
   def canvas_json
     {
-      border_class: border_class,
       id: id,
       feeds: feeds.map { |feed|
         {
           name: feed.name,
-          connections: feed.connections.map { |connection|
-            connection.destination.canvas_json_for_app(self)
-          },
+          connections: feed.connections.where(app: self).map { |connection|
+            connection.destination.try(:canvas_json_for_app, self)
+          }.compact,
         }
       },
     }
@@ -27,12 +26,6 @@ class App < ApplicationRecord
   def blocks
     block_ids = connections.pluck(:destination_id)
     Block.where(id: block_ids)
-  end
-
-  # See app/assets/stylesheets/atoms/_app_border.scss
-  def border_class
-    app_border_id = (id - 1) % 4 + 1
-    "app-border-#{app_border_id}"
   end
 
   def to_param

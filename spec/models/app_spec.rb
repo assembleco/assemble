@@ -12,34 +12,6 @@ RSpec.describe App, type: :model do
          case_insensitive }
   end
 
-  describe "#border_class" do
-    it "returns a class image numbered 1 - 4" do
-      app = create(:app, id: 1)
-
-      expect(app.border_class).to eq("app-border-1")
-    end
-
-    it "returns a class image numbered 1 - 4" do
-      app = create(:app, id: 4)
-
-      expect(app.border_class).to eq("app-border-4")
-    end
-
-    it "mods the id to make sure it's using valid classes" do
-      app = create(:app, id: 5)
-
-      expect(app.border_class).to eq("app-border-1")
-    end
-  end
-
-  describe "#to_param" do
-    it "uses a slug based off the app's name" do
-      app = build(:app, name: "App 1")
-
-      expect(app.to_param).to eq("App 1")
-    end
-  end
-
   describe "#feeds" do
     it "returns all sources that are of class `Feed`" do
       app = create(:app)
