@@ -67,3 +67,9 @@ Block.create!(
   user: user,
   body: File.read("db/seeds/blocks/pushover.js"),
 )
+
+# Create time-based feeds
+Feed.create!(name: "weekly")
+Feed.create!(name: "daily")
+Feed.create!(name: "hourly")
+Feed.create!(name: "minutely")

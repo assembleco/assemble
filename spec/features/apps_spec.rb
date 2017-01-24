@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.feature "Apps" do
   scenario "creation" do
-    user = sign_in create(:user)
+    sign_in create(:user)
 
     visit new_app_path
     fill_in :app_name, with: "Say Hello"
@@ -16,27 +16,13 @@ RSpec.feature "Apps" do
   end
 
   scenario "creation with errors" do
-    user = sign_in create(:user)
+    sign_in create(:user)
 
     visit new_app_path
     fill_in :app_description, with: "We left the name blank!"
     click_on "Create App"
 
     expect(page).to have_content t("apps.create.failure")
-  end
-
-  scenario "adding a block", :js do
-    user = sign_in create(:user)
-    block_1 = create(:block)
-    block_2 = create(:block)
-    feed = create(:feed)
-    create(:connection, source: feed, destination: block_1, app: user.sandbox_app)
-
-    visit app_path(user, user.sandbox_app)
-    expect(page).not_to have_block(block_2.name)
-    select(block_2.name)
-
-    expect(page).to have_css(".app-canvas-block-element", text: block_2.name)
   end
 
   scenario "subscribing to an existing feed", :js do
@@ -47,6 +33,20 @@ RSpec.feature "Apps" do
     select(feed.name)
 
     expect(page).to have_css(".app-canvas-entry-feed", text: feed.name)
+  end
+
+  scenario "connecting a block to a block", :js do
+    user = sign_in create(:user)
+    block_1 = create(:block)
+    block_2 = create(:block)
+    feed = create(:feed)
+    create(:connection, source: feed, destination: block_1, app: user.sandbox_app)
+
+    visit app_path(user, user.sandbox_app)
+    expect(page).not_to have_block(block_2.name)
+    select(block_2.name)
+
+    expect(page).to have_block(block_2.name)
   end
 
   scenario "publishing a new feed"

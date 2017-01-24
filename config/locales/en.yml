@@ -28,7 +28,7 @@ en:
 
   events:
     create:
-      success: "Queued up %{num_blocks} in %{num_apps}"
+      success: "Recorded event for %{feed_name}"
 
   explore:
     index:

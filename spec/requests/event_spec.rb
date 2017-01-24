@@ -48,11 +48,7 @@ describe "POST events#create" do
     block_run = BlockRun.last
     expect(block_run.block).to eq(block)
     expect(block_run.stdout).to eq(message + "\n")
-    expect(response.body).to eq t(
-      "events.create.success",
-      num_apps: '1 app',
-      num_blocks: '1 block',
-    )
+    expect(response.body).to eq t("events.create.success", feed_name: feed.name)
   end
 
   it "rejects events that do not match the schema" do
@@ -71,11 +67,7 @@ describe "POST events#create" do
     post("/events/#{feed.name}", params: params)
 
     expect(response).to be_success
-    expect(response.body).to eq t(
-      "events.create.success",
-      num_apps: '1 app',
-      num_blocks: '1 block',
-    )
+    expect(response.body).to eq t("events.create.success", feed_name: feed.name)
     expect(BlockRun.last.status).to eq(BlockRun::INPUT_SCHEMA_NOT_SATISFIED)
   end
 

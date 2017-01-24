@@ -7,22 +7,15 @@ class EventsController < ApplicationController
   skip_before_action :require_login, only: [:create], raise: false
 
   def create
-    feed.connections.each do |connection|
-      block_run = BlockRun.create!(
-        app: connection.app,
-        block: connection.destination,
-        input: event_data,
-      )
-      block_run.delay.execute
-    end
+    if Event.create(feed: feed, data: event_data)
+      notice = t(".success", feed_name: feed.name)
 
-    num_blocks = pluralize(feed.connections.count, "block")
-    num_apps = pluralize(feed.connections.pluck(:app_id).uniq.count, "app")
-    notice = t(".success", num_blocks: num_blocks, num_apps: num_apps)
-
-    respond_to do |format|
-      format.html { redirect_to :back, notice: notice }
-      format.text { render plain: notice }
+      respond_to do |format|
+        format.html { redirect_to :back, notice: notice }
+        format.text { render plain: notice }
+      end
+    else
+      raise "failure"
     end
   end
 
