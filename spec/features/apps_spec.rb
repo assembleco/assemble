@@ -39,6 +39,19 @@ RSpec.feature "Apps" do
     expect(page).to have_css(".app-canvas-block-element", text: block_2.name)
   end
 
+  scenario "subscribing to an existing feed", :js do
+    user = sign_in create(:user)
+    feed = create(:feed, name: "Every day at midnight")
+
+    visit app_path(user, user.sandbox_app)
+    click_on "Listen for events from a new feed"
+    select(feed.name)
+
+    expect(page).to have_css(".app-canvas-entry-feed", text: feed.name)
+  end
+
+  scenario "publishing a new feed"
+
   scenario "update" do
     app = create(:app)
     user = app.user
