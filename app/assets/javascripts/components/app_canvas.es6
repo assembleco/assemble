@@ -1,3 +1,4 @@
+import Radium from "radium"
 import Feed from "components/app_canvas/feed.es6"
 
 import Colors from "styles/colors.es6"
@@ -15,7 +16,17 @@ class AppCanvas extends React.Component {
     const foo = Colors;
 
     return (
-      <div className="app-canvas" style={ Colors(this.props.app.id) }>
+      <div style={[
+        Colors(this.props.app.id),
+        {
+          display: "flex",
+          justifyContent: "space-around",
+          overflow: "hidden",
+          overflow: "scroll",
+          padding: "$base-spacing",
+        },
+      ]} >
+
         { this.props.app.feeds.map((feed, index) =>
             <Feed key={index} {...feed} all_blocks={this.props.all_blocks} app_id={this.props.app.id} />
         ) }
@@ -48,4 +59,4 @@ class AppCanvas extends React.Component {
   }
 }
 
-export default AppCanvas;
+export default Radium(AppCanvas);

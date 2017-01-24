@@ -10,7 +10,7 @@ class Feed extends React.Component {
 
   render() {
     return (
-      <div className="app-canvas-entry-feed">
+      <div className="app-canvas-entry-feed" style={{ overflow: "hidden" }}>
         <div className="app-canvas-feed-element">
           <img src="/assets/icons/feed.svg" />
           { this.props.name }
