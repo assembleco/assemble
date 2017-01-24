@@ -58,7 +58,7 @@ class AddConnection extends React.Component {
       <div>
         <div className="app-canvas-connection"></div>
 
-        <div className="app-canvas-block-element">
+        <div className="app-canvas-add-element">
           <div>
             <label>Block:</label>
 
