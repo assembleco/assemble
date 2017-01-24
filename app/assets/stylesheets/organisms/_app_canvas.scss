@@ -1,15 +1,17 @@
 .app-canvas {
   &-add-element,
   &-block-element,
-  &-entry-feed,
   &-feed-element, {
     border: 1px solid #ddd;
     padding: $small-spacing;
   }
 
+  &-entry-feed {
+    padding: $small-spacing;
+  }
+
   &-feed-element {
     align-items: center;
-    border: 1px solid #ddd;
     display: flex;
     flex: 0 1 auto;
     justify-content: space-around;
