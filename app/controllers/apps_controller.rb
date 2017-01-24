@@ -2,7 +2,7 @@ class AppsController < ApplicationController
   helper_method :user
 
   def index
-    @apps = user.apps
+    @apps = user.apps.where.not(name: "sandbox")
   end
 
   def show

@@ -3,6 +3,8 @@ class App < ApplicationRecord
 
   has_many :block_runs
   has_many :connections
+  has_many :subscriptions
+  has_many :feeds, through: :subscriptions
 
   validates :name,
     presence: true,
@@ -15,6 +17,7 @@ class App < ApplicationRecord
       feeds: feeds.map { |feed|
         {
           name: feed.name,
+          id: feed.id,
           connections: feed.connections.where(app: self).map { |connection|
             connection.destination.try(:canvas_json_for_app, self)
           }.compact,
@@ -30,10 +33,5 @@ class App < ApplicationRecord
 
   def to_param
     name
-  end
-
-  def feeds
-    feed_ids = connections.pluck(:source_id)
-    Feed.where(id: feed_ids)
   end
 end

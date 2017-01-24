@@ -36,7 +36,12 @@ class AppCanvas extends React.Component {
           },
         ]} >
           { this.props.app.feeds.map((feed, index) =>
-              <Feed key={index} {...feed} all_blocks={this.props.all_blocks} app_id={this.props.app.id} />
+            <Feed
+              key={index}
+              {...feed}
+              all_blocks={this.props.all_blocks}
+              app_id={this.props.app.id}
+              />
           ) }
         </div>
       </div>
@@ -45,13 +50,12 @@ class AppCanvas extends React.Component {
 
   addNewFeed(event) {
     const data = {
-      connection: {
+      subscription: {
         app_id: this.props.app.id,
-        source_id: event.target.value,
-        source_type: "Feed",
+        feed_id: event.target.value,
     } };
 
-    $.post("/connections", data, () => { location.reload(); });
+    $.post("/subscriptions", data, () => { location.reload(); });
   }
 }
 

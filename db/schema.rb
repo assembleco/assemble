@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170120001053) do
+ActiveRecord::Schema.define(version: 20170124194954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,15 @@ ActiveRecord::Schema.define(version: 20170120001053) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer  "app_id",     null: false
+    t.integer  "feed_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id"], name: "index_subscriptions_on_app_id", using: :btree
+    t.index ["feed_id"], name: "index_subscriptions_on_feed_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",           null: false
     t.string   "username",        null: false
@@ -122,4 +131,6 @@ ActiveRecord::Schema.define(version: 20170120001053) do
   add_foreign_key "connections", "apps"
   add_foreign_key "env_variables", "blocks"
   add_foreign_key "events", "feeds"
+  add_foreign_key "subscriptions", "apps"
+  add_foreign_key "subscriptions", "feeds"
 end

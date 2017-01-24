@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resource :user, only: [:edit, :update], as: :profile
 
   resources :connections, only: [:create]
+  resources :subscriptions, only: [:create]
 
   # App paths
   get "/apps/new", to: "apps#new", as: :new_app
