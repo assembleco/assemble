@@ -6,7 +6,14 @@ const Connection = function(props) {
        <div className="app-canvas-connection"></div>
 
        <div className="app-canvas-block-element">
-         <img src={"/assets/" + props.icon} />
+         <img
+           src={"/assets/" + props.icon}
+           style={ {
+            height: "2em",
+            marginRight: "0.75rem",
+           } }
+           />
+
          { props.name }
        </div>
 
