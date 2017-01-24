@@ -17,12 +17,6 @@ FactoryGirl.define do
     body "require('./flow.js'); console.log(flow.input.message)"
   end
 
-  factory :connection do
-    app
-    source
-    destination
-  end
-
   factory :env_variable do
     block
     key "foo"

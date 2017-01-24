@@ -16,9 +16,9 @@ class Feed extends React.Component {
           { this.props.name }
         </div>
 
-        { this.props.connections.map(this.renderConnection) }
+        { this.connectedBlocks().map(this.renderConnection) }
 
-        { this.props.connections.length == 0 &&
+        { this.connectedBlocks().length == 0 &&
           <NewConnection
             all_blocks={this.props.all_blocks}
             app_id={this.props.app_id}
@@ -30,17 +30,35 @@ class Feed extends React.Component {
     );
   }
 
+  connectedBlocks() {
+    return this.props.connections[this.props.slug] || [];
+  }
+
   renderConnection(connection, index) {
     if(connection)
       return (
         <Connection
           key={index}
           {...connection}
+          connections={this.props.connections}
           all_blocks={this.props.all_blocks}
           app_id={this.props.app_id}
         />
       );
   }
 }
+
+Feed.propTypes = {
+  id: React.PropTypes.number.isRequired,
+  app_id: React.PropTypes.number.isRequired,
+  slug: React.PropTypes.string.isRequired,
+  name: React.PropTypes.string.isRequired,
+
+  connections: React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.shape({
+    name: React.PropTypes.string.isRequired,
+    id: React.PropTypes.number.isRequired,
+    slug: React.PropTypes.string.isRequired,
+  }))).isRequired,
+};
 
 export default Feed;

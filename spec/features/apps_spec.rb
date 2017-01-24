@@ -54,7 +54,7 @@ RSpec.feature "Apps" do
     block_2 = create(:block)
     feed = create(:feed)
     create(:subscription, feed: feed, app: user.sandbox_app)
-    create(:connection, source: feed, destination: block_1, app: user.sandbox_app)
+    user.sandbox_app.connect(feed, block_1)
 
     visit app_path(user, user.sandbox_app)
     expect(page).not_to have_block(block_2.name)

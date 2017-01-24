@@ -49,20 +49,15 @@ class BlockRun < ApplicationRecord
 
       save!
 
-      execute_following_blocks
+      run_connected_blocks
     else
       update!(status: BlockRun::INPUT_SCHEMA_NOT_SATISFIED)
     end
   end
 
-  def execute_following_blocks
-    block.following_blocks_for_app(app).each do |following_block|
-      block_run = BlockRun.create!(
-        app: app,
-        block: following_block,
-        input: output,
-      )
-
+  def run_connected_blocks
+    app.blocks_connected_to(block).each do |block|
+      block_run = app.block_runs.create!(block: block, input: output)
       block_run.delay.execute
     end
   end
