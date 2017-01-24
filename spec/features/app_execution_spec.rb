@@ -7,8 +7,9 @@ describe "App Execution", type: :request do
     feed = create(:feed)
     block_1 = create(:block, environment: :ruby, body: body)
     block_2 = create(:block, environment: :ruby, body: body)
-    create(:connection, app: app, source: block_1, destination: block_2)
+    create(:subscription, app: app, feed: feed)
     create(:connection, app: app, source: feed, destination: block_1)
+    create(:connection, app: app, source: block_1, destination: block_2)
 
     input_json = { message: "this is a sample message" }
     params = { event: input_json, format: 'text' }

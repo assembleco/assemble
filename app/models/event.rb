@@ -4,14 +4,8 @@ class Event < ApplicationRecord
   def save
     super
 
-    feed.connections.each do |connection|
-      block_run = BlockRun.create!(
-        app: connection.app,
-        block: connection.destination,
-        input: data,
-      )
-
-      block_run.delay.execute
+    feed.subscriptions.each do |subscription|
+      subscription.app.receive_event(self)
     end
   end
 end

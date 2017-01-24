@@ -1,6 +1,6 @@
 class Feed < ApplicationRecord
   has_many :events
-  has_many :connections, as: :source
+  has_many :subscriptions
 
   validates :name, presence: true, uniqueness: true
 

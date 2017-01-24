@@ -38,7 +38,8 @@ describe "POST events#create" do
       puts input["message"]
     SCRIPT
 
-    create(:connection, source: feed, destination: block)
+    app = create(:subscription, feed: feed).app
+    app.connect(feed, block)
     params = { event: { message: message }, format: 'text' }
 
     expect do
@@ -61,7 +62,8 @@ describe "POST events#create" do
 
     block = create(:block, schema: schema)
     feed = create(:feed, schema: schema)
-    create(:connection, source: feed, destination: block)
+    app = create(:subscription, feed: feed).app
+    app.connect(feed, block)
 
     params = { event: { foo: "bar" }, format: :text }
     post("/events/#{feed.name}", params: params)
