@@ -11,3 +11,4 @@ global.AppCanvas = require('components/app_canvas.es6').default;
 global.SchemaBuilder = require('components/schema_builder.es6').default;
 
 global.Form = require("react-jsonschema-form").default;
+global.JSONTree = require("react-json-tree").default;

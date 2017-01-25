@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
   def display_json(json)
-    CodeRay.scan(json, :json).div.html_safe
+    react_component("JSONTree", data: json)
   end
 
   def highlight_block(block)
