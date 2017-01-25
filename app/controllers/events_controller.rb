@@ -23,9 +23,9 @@ class EventsController < ApplicationController
 
   def event_data
     if params[:event].is_a?(String)
-      params[:event]
+      JSON.parse(params[:event])
     else
-      params[:event].to_json
+      params[:event]
     end
   end
 
