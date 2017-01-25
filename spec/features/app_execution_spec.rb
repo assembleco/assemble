@@ -19,7 +19,7 @@ describe "App Execution", type: :request do
     end.to change(BlockRun, :count).by(2)
 
     BlockRun.all.each do |run|
-      expect(run.output).to eq(input_json.to_json)
+      expect(run.output).to eq(input_json.with_indifferent_access)
     end
   end
 end

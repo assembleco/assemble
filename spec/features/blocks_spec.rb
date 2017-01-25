@@ -63,7 +63,7 @@ RSpec.feature "Blocks" do
     expect(page).to have_content("Success")
     click_on "Success"
 
-    expect(page).to have_content block_run.input
+    expect(page).to have_content JSON.pretty_generate(block_run.input)
   end
 
   scenario "managing a block's environment variables" do

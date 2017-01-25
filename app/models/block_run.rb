@@ -21,7 +21,7 @@ class BlockRun < ApplicationRecord
       container.start
 
       workdir = "/flow"
-      container.store_file("#{workdir}/input.json", input)
+      container.store_file("#{workdir}/input.json", input.to_json)
       container.store_file("#{workdir}/user_script", block.body)
 
       command = [
@@ -36,9 +36,11 @@ class BlockRun < ApplicationRecord
       begin
         container.stop
 
-        self.output = container.
+        self.output = JSON.parse(
+          container.
           read_file("#{workdir}/output.json").
           encode!('UTF-16', 'UTF-8')
+        )
 
         container.delete
       rescue

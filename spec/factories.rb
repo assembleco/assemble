@@ -26,8 +26,8 @@ FactoryGirl.define do
   factory :block_run do
     app
     block
-    input '{ "message": "Hello, World!" }'
-    output '{ "result": "Hello, World!" }'
+    input({ message: "Hello, World!" })
+    output({ result: "Hello, World!" })
     status :success
     stderr ""
     stdout ""
