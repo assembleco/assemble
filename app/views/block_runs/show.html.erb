@@ -9,12 +9,12 @@
 <div class="layout-column-left">
   <h2>Input</h2>
 
-  <%= display_json prettify(@block_run.input) %>
+  <%= display_json @block_run.input %>
 </div>
 
 <div class="layout-column-right">
   <h2>Output:</h2>
-  <%= display_json prettify(@block_run.output) %>
+  <%= display_json @block_run.output %>
 
   <h2>Logs:</h2>
   <pre><%= @block_run.stdout %></pre>
