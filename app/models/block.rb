@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Block < ApplicationRecord
-  EMPTY_SCHEMA = { type: "object", properties: {}, required: [] }.to_json.freeze
+  EMPTY_SCHEMA = { type: "object", properties: {}, required: [] }.freeze
 
   belongs_to :user
 
@@ -19,6 +19,14 @@ class Block < ApplicationRecord
 
   def schema
     super || EMPTY_SCHEMA
+  end
+
+  def schema_json=(value)
+    self.schema = JSON.parse(value)
+  end
+
+  def schema_json
+    schema.to_json
   end
 
   def to_param

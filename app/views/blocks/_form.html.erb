@@ -57,7 +57,7 @@
   ) %>
 
   <%= f.input(
-    :schema,
+    :schema_json,
     label: "Input Schema",
     as: :hidden,
     hint: "
@@ -76,7 +76,7 @@
     "SchemaBuilder",
     {
       initialValue: @block.schema,
-      formElement: "#block_schema",
+      formElement: "#block_schema_json",
     },
     { prerender: true },
   ) %>

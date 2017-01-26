@@ -1,6 +1,5 @@
 .app-canvas {
   &-add-element,
-  &-block-element,
   &-feed-element, {
     border: 1px solid #ddd;
     padding: $small-spacing;
@@ -21,11 +20,6 @@
     height: 4em;
     border-right: 2px dashed black;
     width: 50%;
-  }
-
-  &-block-element {
-    display: flex;
-    align-items: center;
   }
 }
 

@@ -84,7 +84,6 @@ class BlockRun < ApplicationRecord
   end
 
   def schema_satisfied?
-    schema = JSON.parse(block.schema)
-    JSON::Validator.validate(schema, input)
+    JSON::Validator.validate(block.schema, input)
   end
 end

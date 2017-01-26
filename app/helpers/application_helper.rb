@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
   def display_json(json)
-    react_component("JSONTree", data: json)
+    prerender_component("JSONTree", data: json)
   end
 
   def highlight_block(block)
@@ -36,13 +36,5 @@ module ApplicationHelper
       options,
       { prerender: true },
     )
-  end
-
-  def prettify(json)
-    if json.present?
-      JSON.pretty_generate(json)
-    else
-      ""
-    end
   end
 end

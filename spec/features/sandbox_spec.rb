@@ -5,7 +5,7 @@ feature "Sandbox apps" do
     block = create(
     :block,
     environment: "ruby",
-    schema: { type: :object, properties: { message: { type: :string }}}.to_json,
+    schema: { type: :object, properties: { message: { type: :string }}},
     body: <<-SCRIPT)
       require "json"
       input = JSON.parse(File.read("input.json"))
@@ -21,6 +21,6 @@ feature "Sandbox apps" do
     expect(page).to have_content("Success")
     click_on "Success"
     expect(page).to have_content("Received input message: bar")
-    expect(page).to have_content('{ "result": "baz" }')
+    expect(page).to have_content('result:"baz"')
   end
 end
