@@ -51,7 +51,7 @@ class BlocksController < ApplicationController
       :description,
       :environment,
       :name,
-      :schema,
+      :schema_json,
     ).merge(user: current_user)
   end
 

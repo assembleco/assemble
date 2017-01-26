@@ -103,6 +103,6 @@ RSpec.feature "Apps" do
   end
 
   def have_block(block_name)
-    have_css(".app-canvas-block-element", text: block_name)
+    have_content(block_name)
   end
 end

@@ -4,7 +4,7 @@ class SchemaBuilder extends React.Component {
   constructor(props) {
     super(props);
 
-    const schema = new Freezer(JSON.parse(this.props.initialValue)).get();
+    const schema = new Freezer(this.props.initialValue).get();
 
     this.state = {
       schema: schema
@@ -138,16 +138,16 @@ class SchemaBuilderObjectAttribute extends React.Component {
     const children = properties.map(this.renderChild);
 
     return (
-          <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
-            <span>Object</span>
-            {children}
-            <span>
-              <span style={{ marginRight: "0.5rem" }}>Add a child:</span>
-              <a onClick={() => this.addChild("string")} style={{ marginRight: "0.5rem" }}>""</a>
-              <a onClick={() => this.addChild("object")} style={{ marginRight: "0.5rem" }}>{"{}"}</a>
-            </span>
-          </div>
-        );
+      <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
+        <span>Object</span>
+        {children}
+        <span>
+          <span style={{ marginRight: "0.5rem" }}>Add a child:</span>
+          <a onClick={() => this.addChild("string")} style={{ marginRight: "0.5rem" }}>""</a>
+          <a onClick={() => this.addChild("object")} style={{ marginRight: "0.5rem" }}>{"{}"}</a>
+        </span>
+      </div>
+    );
   }
 
   renderChild(childProperty) {
@@ -175,13 +175,12 @@ class SchemaBuilderObjectAttribute extends React.Component {
   }
 
   removeChild(childName) {
-    const requiredIndex = this.props.schema.required.indexOf(childName);
-
     let update = this.props.schema.pivot();
-    update = update.required.splice(requiredIndex, 1);
+    update.properties.remove(childName);
 
+    const requiredIndex = this.props.schema.required.indexOf(childName);
     if(requiredIndex != -1)
-      update.properties.remove(childName);
+      update = update.required.splice(requiredIndex, 1);
   }
 
   renameChild(oldName, newName) {
@@ -222,7 +221,7 @@ class SchemaBuilderStringAttribute extends React.Component {
 }
 
 SchemaBuilder.propTypes = {
-  initialValue: React.PropTypes.string
+  initialValue: React.PropTypes.object
 };
 
 export default SchemaBuilder;

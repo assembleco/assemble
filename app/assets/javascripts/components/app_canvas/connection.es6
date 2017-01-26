@@ -1,4 +1,5 @@
 import NewConnection from "components/app_canvas/new_connection.es6"
+import Block from "components/app_canvas/block.es6"
 
 class Connection extends React.Component {
   render() {
@@ -6,17 +7,7 @@ class Connection extends React.Component {
       <div>
         <div className="app-canvas-connection"></div>
 
-        <div className="app-canvas-block-element">
-          <img
-            src={"/assets/" + this.props.icon}
-            style={ {
-             height: "2em",
-             marginRight: "0.75rem",
-            } }
-            />
-
-          { this.props.name }
-        </div>
+        <Block icon={this.props.icon} name={this.props.name} schema={this.props.schema} />
 
         { this.connectedBlocks().map((connection, index) =>
             connection

@@ -19,12 +19,12 @@ RSpec.describe App, type: :model do
       block = create(:block, name: "bar block")
       app.connect(feed, block)
 
-      expect(app.canvas_json[:connections]["feed-#{feed.id}"]).to eq [{
-        icon: block.icon,
-        id: block.id,
-        name: "bar block",
-        slug: "block-#{block.id}",
-      }.with_indifferent_access]
+      block_info = app.canvas_json[:connections]["feed-#{feed.id}"].first.with_indifferent_access
+      expect(block_info[:icon]).to eq(block.icon)
+      expect(block_info[:id]).to eq(block.id)
+      expect(block_info[:name]).to eq("bar block")
+      expect(block_info[:slug]).to eq("block-#{block.id}")
+      expect(block_info[:schema]).to be_present
     end
 
     it "should represent connections between two blocks" do
@@ -33,12 +33,12 @@ RSpec.describe App, type: :model do
       block_2 = create(:block, name: "baz block")
       app.connect(block_1, block_2)
 
-      expect(app.canvas_json[:connections]["block-#{block_1.id}"]).to eq [{
-        icon: block_2.icon,
-        id: block_2.id,
-        name: "baz block",
-        slug: "block-#{block_2.id}",
-      }.with_indifferent_access]
+      block_info = app.canvas_json[:connections]["block-#{block_1.id}"].first.with_indifferent_access
+      expect(block_info[:icon]).to eq(block_2.icon)
+      expect(block_info[:id]).to eq(block_2.id)
+      expect(block_info[:name]).to eq("baz block")
+      expect(block_info[:slug]).to eq("block-#{block_2.id}")
+      expect(block_info[:schema]).to be_present
     end
   end
 end

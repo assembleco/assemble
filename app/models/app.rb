@@ -74,6 +74,7 @@ class App < ApplicationRecord
       icon: block.icon,
       id: block.id,
       slug: slug_for(block),
+      schema: block.schema,
     }
   end
 
