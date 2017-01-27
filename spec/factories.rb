@@ -35,7 +35,7 @@ FactoryGirl.define do
 
   factory :feed, aliases: [:source] do
     sequence(:name) { |n| "feed_#{n}" }
-    schema "{}"
+    schema({ type: :object, properties: {}, required: [] })
   end
 
   factory :subscription do

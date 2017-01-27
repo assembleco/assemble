@@ -64,7 +64,15 @@ Block.create!(
 )
 
 # Create time-based feeds
-Feed.create!(name: "weekly")
-Feed.create!(name: "daily")
-Feed.create!(name: "hourly")
-Feed.create!(name: "minutely")
+time_based_schema = {
+  type: :object,
+  properties: {
+    time: { type: :string },
+  },
+  required: [:time],
+}
+
+Feed.create!(name: "weekly", schema: time_based_schema)
+Feed.create!(name: "daily", schema: time_based_schema)
+Feed.create!(name: "hourly", schema: time_based_schema)
+Feed.create!(name: "minutely", schema: time_based_schema)

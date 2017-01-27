@@ -70,11 +70,11 @@ class App < ApplicationRecord
 
   def json_for_block(block)
     {
-      name: block.name,
       icon: block.icon,
       id: block.id,
-      slug: slug_for(block),
+      name: block.name,
       schema: block.schema,
+      slug: slug_for(block),
     }
   end
 
@@ -87,6 +87,7 @@ class App < ApplicationRecord
     {
       id: feed.id,
       name: feed.name,
+      schema: feed.schema,
       slug: slug_for(feed),
     }
   end
