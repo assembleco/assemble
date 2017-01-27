@@ -1,3 +1,5 @@
+import Connector from "components/app_canvas/connector.es6"
+
 class NewConnection extends React.Component {
   constructor(props) {
     super(props);
@@ -8,7 +10,7 @@ class NewConnection extends React.Component {
   render() {
     return (
       <div>
-        <div className="app-canvas-connection"></div>
+        <Connector />
 
         <div className="app-canvas-add-element">
           <div>

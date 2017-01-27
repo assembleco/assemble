@@ -10,7 +10,7 @@
 </section>
 
 <div>
-  <%= prerender_component(
+  <%= react_component(
     "AppCanvas",
     app: @app.canvas_json,
     all_blocks: Block.all.pluck(:id, :name).map { |v|
