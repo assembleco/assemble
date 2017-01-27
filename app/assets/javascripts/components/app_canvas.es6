@@ -28,11 +28,12 @@ class AppCanvas extends React.Component {
         <div style={[
           Colors(this.props.app.id),
           {
+            backgroundColor: "#fff",
             display: "flex",
             justifyContent: "space-around",
             overflow: "hidden",
             overflow: "scroll",
-            padding: "$base-spacing",
+            padding: "1.5rem",
           },
         ]} >
           { this.props.app.feeds.map((feed, index) =>

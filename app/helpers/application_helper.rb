@@ -31,6 +31,10 @@ module ApplicationHelper
   end
 
   def prerender_component(component, options)
-    react_component(component, options, prerender: true)
+    default_options = {
+      radiumConfig: { userAgent: request.headers["user-agent"] },
+    }
+
+    react_component(component, options.merge(default_options), prerender: true)
   end
 end

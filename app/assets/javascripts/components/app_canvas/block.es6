@@ -1,10 +1,10 @@
+import Schema from "components/app_canvas/schema.es6"
+
 class Block extends React.Component {
   render() {
     return (
       <div style={Block.styles.container}>
-        <div style={Block.styles.schema}>
-          <SchemaBuilder initialValue={this.props.schema} />
-        </div>
+        <Schema schema={this.props.schema} />
 
         <div style={Block.styles.label}>
           <img
@@ -36,9 +36,6 @@ Block.styles = {
   label: {
     display: "flex",
     alignItems: "center",
-  },
-  schema: {
-    marginBottom: "0.75rem",
   },
 }
 

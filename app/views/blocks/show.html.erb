@@ -47,12 +47,9 @@
 
     <%= prerender_component(
       "BlockSandboxForm",
-      {
-        schema: @block.schema,
-        submit_url: events_path(current_user.sandbox_feed_for(@block).name),
-        form_data: @block.runs.where(app: current_user.sandbox_app).last.try(:input) || {},
-      },
-      { prerender: true },
+      schema: @block.schema,
+      submit_url: events_path(current_user.sandbox_feed_for(@block).name),
+      form_data: @block.runs.where(app: current_user.sandbox_app).last.try(:input) || {},
     ) %>
   </div>
 
