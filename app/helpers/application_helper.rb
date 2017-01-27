@@ -31,10 +31,6 @@ module ApplicationHelper
   end
 
   def prerender_component(component, options)
-    react_component(
-      component,
-      options,
-      { prerender: true },
-    )
+    react_component(component, options, prerender: true)
   end
 end
