@@ -22,4 +22,29 @@ describe "App Execution", type: :request do
       expect(run.output).to eq(input_json.with_indifferent_access)
     end
   end
+
+  it "runs blocks with default values" do
+    body = 'File.write("output.json", File.read("input.json"))'
+    app = create(:app)
+    feed = create(:feed)
+    block = create(:block, environment: :ruby, body: body, schema: {
+      type: :object,
+      properties: { foo: { type: :string } },
+      required: [:foo],
+    })
+    app.connect(feed, block)
+    app.setup_default_value(block, { foo: "bar" })
+
+    input_json = { message: "this is a sample message" }
+
+    post(
+      "/events/#{feed.name}",
+      params: { event: input_json, format: 'text' },
+    )
+
+
+    run = BlockRun.last
+    expect(run.status).to eq("success")
+    expect(run.output).to eq(input_json.merge(foo: "bar").with_indifferent_access)
+  end
 end
