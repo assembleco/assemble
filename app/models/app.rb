@@ -1,4 +1,9 @@
 class App < ApplicationRecord
+  DEFAULT_DEFINITION = {
+    connections: {},
+    defaults: {},
+  }.freeze
+
   belongs_to :user
 
   has_many :block_runs
@@ -37,7 +42,7 @@ class App < ApplicationRecord
   end
 
   def definition
-    (super || { connections: {} }).with_indifferent_access
+    (super || DEFAULT_DEFINITION).with_indifferent_access
   end
 
   def incoming_connections_for(item)
@@ -50,9 +55,28 @@ class App < ApplicationRecord
 
   def receive_event(event)
     blocks_connected_to(event.feed).each do |block|
-      block_run = block_runs.create!(block: block, input: event.data)
-      block_run.delay.execute
+      queue_block_run(block, event.data)
     end
+  end
+
+  def setup_default_value(block, default_values)
+    self.definition = definition.tap do |d|
+      d[:defaults][slug_for(block)] ||= {}
+      d[:defaults][slug_for(block)].deep_merge!(default_values)
+    end
+
+    save
+  end
+
+  def queue_block_run(block, input_data)
+    block_defaults = definition[:defaults][slug_for(block)] || {}
+
+    block_run = block_runs.create!(
+      block: block,
+      input: input_data.deep_merge(block_defaults),
+    )
+
+    block_run.delay.execute
   end
 
   def to_param

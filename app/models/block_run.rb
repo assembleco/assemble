@@ -59,8 +59,7 @@ class BlockRun < ApplicationRecord
 
   def run_connected_blocks
     app.blocks_connected_to(block).each do |block|
-      block_run = app.block_runs.create!(block: block, input: output)
-      block_run.delay.execute
+      app.queue_block_run(block, output)
     end
   end
 
