@@ -30,9 +30,10 @@ RSpec.feature "Apps" do
     feed = create(:feed, name: "Every day at midnight")
 
     visit app_path(user, user.sandbox_app)
+    expect(page).not_to have_content(feed.name)
     select(feed.name)
 
-    expect(page).to have_css(".app-canvas-entry-feed", text: feed.name)
+    expect(page).to have_content(feed.name)
   end
 
   scenario "connecting a block to a feed", :js do

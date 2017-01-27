@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
     if feed.nil?
       sandbox_feed_name = "Sandbox form: #{block.name}"
-      feed = Feed.create!(name: sandbox_feed_name)
+      feed = Feed.create!(name: sandbox_feed_name, schema: block.schema)
       sandbox_app.connect(feed, block)
     end
 

@@ -56,7 +56,7 @@ RSpec.feature "Blocks" do
   end
 
   scenario "viewing a block's runs" do
-    block_run = create(:block_run, exit_status: 0)
+    block_run = create(:block_run, input: { message: "Hello, World!" }, status: :success)
 
     sign_in block_run.app.user
     visit block_path(block_run.block.user, block_run.block)

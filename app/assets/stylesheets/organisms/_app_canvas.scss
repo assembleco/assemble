@@ -5,17 +5,6 @@
     padding: $small-spacing;
   }
 
-  &-entry-feed {
-    padding: $small-spacing;
-  }
-
-  &-feed-element {
-    align-items: center;
-    display: flex;
-    flex: 0 1 auto;
-    justify-content: space-around;
-  }
-
   &-connection {
     height: 4em;
     border-right: 2px dashed black;
