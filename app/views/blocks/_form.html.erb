@@ -72,13 +72,10 @@
     ".html_safe,
   ) %>
 
-  <%= react_component(
+  <%= prerender_component(
     "SchemaBuilder",
-    {
-      initialValue: @block.schema,
-      formElement: "#block_schema_json",
-    },
-    { prerender: true },
+    initialValue: @block.schema,
+    formElement: "#block_schema_json",
   ) %>
 
   <%= f.button :submit %>
