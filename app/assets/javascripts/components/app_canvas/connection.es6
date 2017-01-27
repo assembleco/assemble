@@ -1,3 +1,4 @@
+import PropDefinitions from "prop_definitions.es6"
 import NewConnection from "components/app_canvas/new_connection.es6"
 import Block from "components/app_canvas/block.es6"
 
@@ -7,7 +8,13 @@ class Connection extends React.Component {
       <div>
         <div className="app-canvas-connection"></div>
 
-        <Block icon={this.props.icon} name={this.props.name} schema={this.props.schema} />
+        <Block
+          icon={this.props.icon}
+          name={this.props.name}
+          slug={this.props.slug}
+          schema={this.props.schema}
+          app={this.props.app}
+          />
 
         { this.connectedBlocks().map((connection, index) =>
             connection
@@ -16,7 +23,7 @@ class Connection extends React.Component {
               {...connection}
               all_blocks={this.props.all_blocks}
               app_id={this.props.app_id}
-              connections={this.props.connections}
+              app={this.props.app}
               />
             : ""
         ) }
@@ -33,19 +40,14 @@ class Connection extends React.Component {
   }
 
   connectedBlocks() {
-    return this.props.connections[this.props.slug] || [];
+    return this.props.app.connections[this.props.slug] || [];
   }
 }
 
 Connection.propTypes = {
   app_id: React.PropTypes.number.isRequired,
   all_blocks: React.PropTypes.array,
-
-  connections: React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.shape({
-    name: React.PropTypes.string.isRequired,
-    id: React.PropTypes.number.isRequired,
-    slug: React.PropTypes.string.isRequired,
-  }))).isRequired,
+  app: PropDefinitions.app.isRequired,
 }
 
 export default Connection;
