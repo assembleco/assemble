@@ -1,3 +1,4 @@
+import PropDefinitions from "prop_definitions.es6"
 import Connection from "components/app_canvas/connection.es6"
 import NewConnection from "components/app_canvas/new_connection.es6"
 import Schema from "components/app_canvas/schema.es6"
@@ -36,7 +37,7 @@ class Feed extends React.Component {
   }
 
   connectedBlocks() {
-    return this.props.connections[this.props.slug] || [];
+    return this.props.app.connections[this.props.slug] || [];
   }
 
   renderConnection(connection, index) {
@@ -45,7 +46,7 @@ class Feed extends React.Component {
         <Connection
           key={index}
           {...connection}
-          connections={this.props.connections}
+          app={this.props.app}
           all_blocks={this.props.all_blocks}
           app_id={this.props.app_id}
         />
@@ -59,12 +60,7 @@ Feed.propTypes = {
   slug: React.PropTypes.string.isRequired,
   name: React.PropTypes.string.isRequired,
   schema: React.PropTypes.object.isRequired,
-
-  connections: React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.shape({
-    name: React.PropTypes.string.isRequired,
-    id: React.PropTypes.number.isRequired,
-    slug: React.PropTypes.string.isRequired,
-  }))).isRequired,
+  app: PropDefinitions.app.isRequired,
 };
 
 Feed.styles = {

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   resources :connections, only: [:create]
   resources :subscriptions, only: [:create]
 
+  resources :defaults, only: [:create]
+
   # App paths
   get "/apps/new", to: "apps#new", as: :new_app
   post "/apps", to: "apps#create"

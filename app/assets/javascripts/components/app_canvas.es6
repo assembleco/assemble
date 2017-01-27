@@ -40,7 +40,7 @@ class AppCanvas extends React.Component {
             <Feed
               key={index}
               {...feed}
-              connections={this.props.app.connections}
+              app={this.props.app}
               all_blocks={this.props.all_blocks}
               app_id={this.props.app.id}
               />

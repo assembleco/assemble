@@ -60,6 +60,10 @@ class App < ApplicationRecord
   end
 
   def setup_default_value(block, default_values)
+    if block.is_a?(String)
+      block = look_up_slug(block_slug)
+    end
+
     self.definition = definition.tap do |d|
       d[:defaults][slug_for(block)] ||= {}
       d[:defaults][slug_for(block)].deep_merge!(default_values)

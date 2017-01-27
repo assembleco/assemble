@@ -1,6 +1,6 @@
 class StringAttribute extends React.Component {
   render() {
-    return <input style={StringAttribute.styles.input} />;
+    return <span>String</span>;
   }
 }
 
