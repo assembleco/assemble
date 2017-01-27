@@ -1,4 +1,6 @@
 import PropDefinitions from "prop_definitions.es6"
+
+import Connector from "components/app_canvas/connector.es6"
 import NewConnection from "components/app_canvas/new_connection.es6"
 import Block from "components/app_canvas/block.es6"
 
@@ -6,7 +8,7 @@ class Connection extends React.Component {
   render() {
     return (
       <div>
-        <div className="app-canvas-connection"></div>
+        <Connector />
 
         <Block
           icon={this.props.icon}

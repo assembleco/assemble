@@ -68,8 +68,9 @@ Block.styles = {
     padding: "0.75rem",
   },
   label: {
-    display: "flex",
     alignItems: "center",
+    display: "flex",
+    marginTop: "1.5rem",
   },
 }
 
