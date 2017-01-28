@@ -30,10 +30,6 @@ en:
     create:
       success: "Recorded event for %{feed_name}"
 
-  explore:
-    index:
-      title: Explore popular apps and building blocks
-
   header:
     explore: Explore
     my_apps: My Apps

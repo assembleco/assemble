@@ -15,16 +15,26 @@ class App < ApplicationRecord
     uniqueness: { scope: :user_id, case_sensitive: false }
   validates :user, presence: true
 
+  def slugs
+    (definition[:connections].values + definition[:connections].keys).flatten.uniq
+  end
+
+  def blocks
+    connections = slugs.map(&method(:look_up_slug)).select { |x| x.is_a?(Block) }
+  end
+
   def blocks_connected_to(source)
     connections = Array(definition[:connections][slug_for(source)])
-    block_ids = connections.map { |c| c[:id] }
-    Block.where(id: block_ids)
+    connections.map(&method(:look_up_slug))
   end
 
   def canvas_json
     definition.merge(
       feeds: feeds.map(&method(:json_for_feed)),
       id: id,
+      blocks: blocks.map do |block|
+        [slug_for(block), json_for_block(block)]
+      end.to_h
     )
   end
 
@@ -35,10 +45,12 @@ class App < ApplicationRecord
 
     self.definition = definition.tap do |d|
       d[:connections][slug_for(source)] ||= []
-      d[:connections][slug_for(source)] = d[:connections][slug_for(source)] << json_for_block(destination)
+      d[:connections][slug_for(source)] = d[:connections][slug_for(source)] << slug_for(destination)
     end
 
-    save
+    if save
+      [slug_for(source), slug_for(destination)]
+    end
   end
 
   def definition
@@ -46,9 +58,9 @@ class App < ApplicationRecord
   end
 
   def incoming_connections_for(item)
-    precursors = definition[:connections].keys.select do |precursor_slug|
-      definition[:connections][precursor_slug].any? { |i| i[:slug] == slug_for(item) }
-    end
+    precursors = definition[:connections].select do |source, destinations|
+      destinations.include? slug_for(item)
+    end.keys
 
     precursors.map(&method(:look_up_slug))
   end
@@ -103,6 +115,7 @@ class App < ApplicationRecord
       name: block.name,
       schema: block.schema,
       slug: slug_for(block),
+      path: Rails.application.routes.url_helpers.block_path(block.user, block),
     }
   end
 

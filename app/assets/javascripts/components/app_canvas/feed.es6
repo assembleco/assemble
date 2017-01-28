@@ -41,27 +41,23 @@ class Feed extends React.Component {
   }
 
   renderConnection(connection, index) {
-    if(connection)
-      return (
-        <Connection
-          key={index}
-          {...connection}
-          app={this.props.app}
-          all_blocks={this.props.all_blocks}
-          app_id={this.props.app_id}
-        />
-      );
+    return (
+      <Connection
+        key={index}
+        {...this.props.app.blocks[connection]}
+        app={this.props.app}
+        all_blocks={this.props.all_blocks}
+        app_id={this.props.app_id}
+      />
+    );
   }
 }
 
-Feed.propTypes = {
-  id: React.PropTypes.number.isRequired,
+Feed.propTypes = Object.assign({}, PropDefinitions.feed, {
   app_id: React.PropTypes.number.isRequired,
-  slug: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
   schema: React.PropTypes.object.isRequired,
-  app: PropDefinitions.app.isRequired,
-};
+  app: React.PropTypes.shape(PropDefinitions.app).isRequired,
+});
 
 Feed.styles = {
   container: {
