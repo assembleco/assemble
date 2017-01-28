@@ -13,11 +13,11 @@
   <%= react_component(
     "AppCanvas",
     app: @app.canvas_json,
-    all_blocks: Block.all.pluck(:id, :name).map { |v|
-      { value: v[0], label: v[1] }
+    all_blocks: Block.all.pluck(:id, :name).map { |id, name|
+      { value: id, label: name }
     },
-    all_feeds: Feed.all.pluck(:id, :name).map { |v|
-      { value: v[0], label: v[1] }
+    all_feeds: Feed.where.not("name ILIKE ?", "Sandbox form%").pluck(:id, :name).map { |id, name|
+      { value: id, label: name }
     },
   ) %>
 
