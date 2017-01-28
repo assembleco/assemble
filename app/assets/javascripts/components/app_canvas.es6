@@ -1,5 +1,7 @@
 import Radium from "radium"
+
 import Feed from "components/app_canvas/feed.es6"
+import EmptyState from "components/app_canvas/empty_state.es6"
 
 import Colors from "styles/colors.es6"
 
@@ -13,17 +15,6 @@ class AppCanvas extends React.Component {
   render() {
     return (
       <div style={{ paddingTop: "1.5rem" }}>
-
-        <div>
-          <label>Listen for events from a new feed</label>
-          <select onChange={this.addNewFeed}>
-            <option value="select">Select a feed to listen to</option>
-
-            { this.props.all_feeds.map((option, index) =>
-              <option key={option.value} value={option.value}>{option.label}</option>
-            ) }
-          </select>
-        </div>
 
         <div style={[
           Colors(this.props.app.id),
@@ -45,6 +36,10 @@ class AppCanvas extends React.Component {
               app_id={this.props.app.id}
               />
           ) }
+
+          { this.props.app.feeds.length == 0 &&
+            <EmptyState all_feeds={this.props.all_feeds} onAddFeed={this.addNewFeed} />
+          }
         </div>
       </div>
     );
