@@ -61,7 +61,7 @@ class App < ApplicationRecord
 
   def setup_default_value(block, default_values)
     if block.is_a?(String)
-      block = look_up_slug(block_slug)
+      block = look_up_slug(block)
     end
 
     self.definition = definition.tap do |d|

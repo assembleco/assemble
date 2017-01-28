@@ -1,3 +1,5 @@
+import Radium from "radium"
+
 import PropDefinitions from "prop_definitions.es6"
 import Schema from "components/app_canvas/schema.es6"
 
@@ -15,27 +17,26 @@ class Block extends React.Component {
   render() {
     return (
       <div style={Block.styles.container}>
-        <Form
-          formData={this.props.app.defaults[this.props.slug]}
-          noHtml5Validate={ true }
-          noValidate={ true }
-          onSubmit={this.saveChanges}
-          fields={fields}
-          schema={this.props.schema}
-          >
-          <div className="hint">
-          If provided, these values will overwrite values ouptut by the above script.
-          </div>
-          <button>Save Changes</button>
-        </Form>
+        <div style={Block.styles.schema}>
+          <Form
+            formData={this.props.app.defaults[this.props.slug]}
+            noHtml5Validate={ true }
+            noValidate={ true }
+            onSubmit={this.saveChanges}
+            fields={fields}
+            schema={this.props.schema}
+            >
+            <div className="hint">
+            If provided, these values will overwrite values ouptut by the above script.
+            </div>
+            <button style={Block.styles.updateDefaultsButton}>Save Changes</button>
+          </Form>
+        </div>
 
         <div style={Block.styles.label}>
           <img
             src={"/assets/" + this.props.icon}
-            style={ {
-             height: "2em",
-             marginRight: "0.75rem",
-            } }
+            style={Block.styles.icon}
             />
 
           { this.props.name }
@@ -70,8 +71,24 @@ Block.styles = {
   label: {
     alignItems: "center",
     display: "flex",
-    marginTop: "1.5rem",
+  },
+  schema: {
+    marginLeft: "2.75rem",
+    marginBottom: "1.5rem",
+    overflow: "hidden",
+  },
+  updateDefaultsButton: {
+    backgroundColor: "gray",
+    float: "right",
+    ":hover": {
+      backgroundColor: "darkgray",
+    }
+  },
+  icon: {
+    height: "2rem",
+    width: "2rem",
+    marginRight: "0.75rem",
   },
 }
 
-export default Block;
+export default Radium(Block);
