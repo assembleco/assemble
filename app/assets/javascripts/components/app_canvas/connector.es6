@@ -8,7 +8,7 @@ Connector.styles = {
   connector: {
     content: "",
     height: "4em",
-    borderRight: "2px dashed black",
+    borderRight: "2px dashed #ddd",
     width: "1.5rem",
   }
 

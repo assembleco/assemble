@@ -39,7 +39,7 @@ class Block extends React.Component {
             style={Block.styles.icon}
             />
 
-          { this.props.name }
+          <a href={this.props.path}>{ this.props.name } -></a>
         </div>
       </div>
     );
@@ -56,12 +56,7 @@ class Block extends React.Component {
   }
 }
 
-Block.propTypes = {
-  icon: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
-  schema: React.PropTypes.object.isRequired,
-  app: PropDefinitions.app.isRequired,
-}
+Block.propTypes = PropDefinitions.block;
 
 Block.styles = {
   container: {

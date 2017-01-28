@@ -11,23 +11,18 @@ class Connection extends React.Component {
         <Connector />
 
         <Block
-          icon={this.props.icon}
-          name={this.props.name}
-          slug={this.props.slug}
-          schema={this.props.schema}
+          {...this.props.app.blocks[this.props.slug]}
           app={this.props.app}
           />
 
-        { this.connectedBlocks().map((connection, index) =>
-            connection
-            ? <Connection
+        { this.connectedBlocks().map((connected_slug, index) =>
+            <Connection
               key={index}
-              {...connection}
               all_blocks={this.props.all_blocks}
+              slug={connected_slug}
               app_id={this.props.app_id}
               app={this.props.app}
               />
-            : ""
         ) }
 
         { this.connectedBlocks().length == 0 &&
@@ -49,7 +44,7 @@ class Connection extends React.Component {
 Connection.propTypes = {
   app_id: React.PropTypes.number.isRequired,
   all_blocks: React.PropTypes.array,
-  app: PropDefinitions.app.isRequired,
+  app: React.PropTypes.shape(PropDefinitions.app).isRequired,
 }
 
 export default Connection;

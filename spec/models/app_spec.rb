@@ -17,9 +17,11 @@ RSpec.describe App, type: :model do
       app = create(:app)
       feed = create(:feed, name: "foo feed")
       block = create(:block, name: "bar block")
-      app.connect(feed, block)
+      feed_slug, block_slug = app.connect(feed, block)
 
-      block_info = app.canvas_json[:connections]["feed-#{feed.id}"].first.with_indifferent_access
+      expect(app.canvas_json[:connections][feed_slug]).to eq([block_slug])
+
+      block_info = app.canvas_json[:blocks][block_slug]
       expect(block_info[:icon]).to eq(block.icon)
       expect(block_info[:id]).to eq(block.id)
       expect(block_info[:name]).to eq("bar block")
@@ -31,14 +33,9 @@ RSpec.describe App, type: :model do
       app = create(:app)
       block_1 = create(:block, name: "bar block")
       block_2 = create(:block, name: "baz block")
-      app.connect(block_1, block_2)
+      block_1_slug, block_2_slug = app.connect(block_1, block_2)
 
-      block_info = app.canvas_json[:connections]["block-#{block_1.id}"].first.with_indifferent_access
-      expect(block_info[:icon]).to eq(block_2.icon)
-      expect(block_info[:id]).to eq(block_2.id)
-      expect(block_info[:name]).to eq("baz block")
-      expect(block_info[:slug]).to eq("block-#{block_2.id}")
-      expect(block_info[:schema]).to be_present
+      expect(app.canvas_json[:connections][block_1_slug]).to eq([block_2_slug])
     end
   end
 end

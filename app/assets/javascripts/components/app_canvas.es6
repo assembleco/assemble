@@ -1,4 +1,5 @@
 import Radium from "radium"
+import PropDefinitions from "prop_definitions.es6"
 
 import Feed from "components/app_canvas/feed.es6"
 import EmptyState from "components/app_canvas/empty_state.es6"
@@ -57,21 +58,7 @@ class AppCanvas extends React.Component {
 }
 
 AppCanvas.propTypes = {
-  app: React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-
-    feeds: React.PropTypes.arrayOf(React.PropTypes.shape({
-      name: React.PropTypes.string.isRequired,
-      id: React.PropTypes.number.isRequired,
-      slug: React.PropTypes.string.isRequired,
-    })).isRequired,
-
-    connections: React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.shape({
-      name: React.PropTypes.string.isRequired,
-      id: React.PropTypes.number.isRequired,
-      slug: React.PropTypes.string.isRequired,
-    }))).isRequired,
-  }).isRequired,
+  app: React.PropTypes.shape(PropDefinitions.app).isRequired,
 
   all_blocks: React.PropTypes.arrayOf(React.PropTypes.shape({
     label: React.PropTypes.string.isRequired,
