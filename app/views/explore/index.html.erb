@@ -1,6 +1,4 @@
-<div class="hero explore-hero layout-row">
-  <h1><%= t(".title") %></h1>
-</div>
+<%= react_component("ExploreHero", link: new_app_path) %>
 
-<%= render "apps_list", apps: App.where.not(name: "sandbox"), title: "Popular Apps" %>
-<%= render "blocks_list", blocks: Block.all, title: "Popular Building Blocks" %>
+<%= render "apps_list", apps: App.where.not(name: "sandbox"), title: "Explore All Apps" %>
+<%= render "blocks_list", blocks: Block.all, title: "Explore All Building Blocks" %>
