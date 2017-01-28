@@ -72,7 +72,7 @@ time_based_schema = {
   required: [:time],
 }
 
-Feed.create!(name: "weekly", schema: time_based_schema)
-Feed.create!(name: "daily", schema: time_based_schema)
-Feed.create!(name: "hourly", schema: time_based_schema)
-Feed.create!(name: "minutely", schema: time_based_schema)
+Feed.create!(name: "Every Week", schema: time_based_schema)
+Feed.create!(name: "Every Day", schema: time_based_schema)
+Feed.create!(name: "Every Hour", schema: time_based_schema)
+Feed.create!(name: "Every Minute", schema: time_based_schema)
