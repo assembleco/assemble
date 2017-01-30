@@ -13,6 +13,6 @@ describe "db/seeds.rb" do
     load("db/seeds.rb")
 
     expect(User.count).to eq(1)
-    expect(Block.count).to eq(3)
+    expect(Block.count).to eq(4)
   end
 end
