@@ -63,6 +63,29 @@ Block.create!(
   body: File.read("db/seeds/blocks/pushover.js"),
 )
 
+transform_schema = {
+  type: :object,
+  required: [],
+  properties: {
+    "_transform" => {
+      type: :object,
+      required: [:source, :destination],
+      properties: {
+        source: {type: :string},
+        destination: {type: :string},
+      },
+    },
+  },
+}
+Block.create!(
+  name: "Transform data",
+  body: File.read("db/seeds/blocks/transform.rb"),
+  environment: :ruby,
+  user: user,
+  description: "Takes input data, and outputs the same data with some of the data renamed.",
+  schema: transform_schema,
+)
+
 # Create time-based feeds
 time_based_schema = {
   type: :object,
