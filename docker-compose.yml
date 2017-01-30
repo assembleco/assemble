@@ -28,6 +28,8 @@ services:
     env_file: .env
     image: assemble/web
     command: ./bin/serve
+    environment:
+      PATH: "/app/bin:/phantomjs:$PATH"
     ports:
       - "$PORT:3000"
     links:
