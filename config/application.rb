@@ -15,6 +15,9 @@ module AppFactory
     end
     config.action_controller.action_on_unpermitted_parameters = :raise
     config.active_job.queue_adapter = :delayed_job
-    config.browserify_rails.commandline_options = "-t [ babelify --presets [ es2015 react stage-0 ] --plugins [ syntax-async-functions transform-regenerator ] ]"
+
+    config.webpack.dev_server.manifest_host = 'webpack'
+    config.webpack.dev_server.manifest_port = 8888
+    config.webpack.dev_server.port = 8888
   end
 end
