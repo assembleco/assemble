@@ -4,7 +4,6 @@ ruby "2.4.0"
 
 gem "autoprefixer-rails"
 gem "bourbon"
-gem "browserify-rails"
 gem "coderay"
 gem "delayed_job_active_record"
 gem "docker-api"
@@ -29,6 +28,7 @@ gem "sprockets-es6"
 gem "suspenders"
 gem "title"
 gem "uglifier"
+gem "webpack-rails"
 
 group :development do
   gem "listen"

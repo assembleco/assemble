@@ -12,17 +12,6 @@ services:
     volumes:
       - phantom-bin:/usr/local/bin
 
-  portainer:
-    image: portainer/portainer
-    ports:
-      - 9000:9000
-    volumes:
-      # Docker access on Linux
-      - /var/run/docker.sock:/var/run/docker.sock
-      # Docker access on OS X
-      - ${DOCKER_CERT_PATH:-/certs}:/certs
-    command: "-H $DOCKER_HOST --tlsverify"
-
   web:
     build: .
     env_file: .env
@@ -42,6 +31,15 @@ services:
       # Docker access on OS X
       - ${DOCKER_CERT_PATH:-/certs}:${DOCKER_CERT_PATH:-/certs}
       - phantom-bin:/phantomjs
+
+  webpack:
+    env_file: .env
+    image: assemble/web
+    command: /app/node_modules/.bin/webpack-dev-server --config config/webpack.config.js --host 0.0.0.0
+    volumes:
+      - .:/app
+    ports:
+      - 8888:8888
 
   worker:
     env_file: .env
