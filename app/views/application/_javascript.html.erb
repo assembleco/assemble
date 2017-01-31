@@ -1,5 +1,8 @@
-<%= javascript_include_tag :application %>
 <%= javascript_include_tag *webpack_asset_paths("application") %>
+
+<% if Rails.env.development? %>
+ <script src="http://localhost:8888/webpack-dev-server.js"></script>
+<% end %>
 
 <%= yield :javascript %>
 
