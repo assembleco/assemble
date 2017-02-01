@@ -1,6 +1,8 @@
+import React from "react"
 const Freezer = require("freezer-js");
+import $ from "jquery"
 
-import GenericAttribute from "components/schema_builder/generic_attribute.es6";
+import GenericAttribute from "components/schema_builder/generic_attribute";
 
 class SchemaBuilder extends React.Component {
   constructor(props) {

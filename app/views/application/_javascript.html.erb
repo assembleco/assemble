@@ -1,7 +1,7 @@
 <%= javascript_include_tag *webpack_asset_paths("application") %>
 
 <% if Rails.env.development? %>
- <script src="http://localhost:8888/webpack-dev-server.js"></script>
+  <script src="http://localhost:8888/webpack-dev-server.js"></script>
 <% end %>
 
 <%= yield :javascript %>
@@ -11,12 +11,5 @@
 <% if ENV["CRISP_WEBSITE_ID"] %>
   <%= javascript_tag do %>
     $crisp=[];CRISP_WEBSITE_ID="<%= ENV["CRISP_WEBSITE_ID"] %>";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
-  <% end %>
-<% end %>
-
-<% if Rails.env.test? %>
-  <%= javascript_tag do %>
-    $.fx.off = true;
-    $.ajaxSetup({ async: false });
   <% end %>
 <% end %>

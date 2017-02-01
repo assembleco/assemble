@@ -55,7 +55,7 @@ RSpec.feature "Blocks" do
     expect(page).not_to have_content("Other block")
   end
 
-  scenario "viewing a block's runs" do
+  scenario "viewing a block's runs", :js do
     block_run = create(:block_run, input: { message: "Hello, World!" }, status: :success)
 
     sign_in block_run.app.user

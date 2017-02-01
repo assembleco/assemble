@@ -1,4 +1,7 @@
-import Connector from "components/app_canvas/connector.es6"
+import React from "react"
+import $ from "jquery"
+
+import Connector from "components/app_canvas/connector"
 
 class NewConnection extends React.Component {
   constructor(props) {

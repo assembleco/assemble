@@ -1,3 +1,5 @@
+import React from "react"
+
 class EmptyState extends React.Component {
   render() {
     return (

@@ -13,8 +13,15 @@ var production = process.env.NODE_ENV === 'production';
 
 var config = {
   entry: {
-    // Sources are expected to live in $app_root/webpack
-    'application': './webpack/application.js'
+    'application': ["babel-polyfill", './webpack/application.js'],
+  },
+
+  module: {
+    loaders: [{
+      test: /.jsx?$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader',
+    }]
   },
 
   output: {
@@ -29,7 +36,8 @@ var config = {
   },
 
   resolve: {
-    root: path.join(__dirname, '..', 'webpack')
+    extensions: ['', '.js', '.jsx'],
+    root: path.join(__dirname, '..', 'webpack'),
   },
 
   plugins: [

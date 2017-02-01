@@ -3,8 +3,23 @@
   "version": "0.0.1",
   "license": "MIT",
   "dependencies": {
+    "freezer-js": "^0.11.2",
+    "jquery": "^3.1.1",
+    "radium": "^0.18.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-json-tree": "^0.10.1",
+    "react-jsonschema-form": "^0.42.0",
+    "react-rails-ujs": "^1.0.0",
     "stats-webpack-plugin": "^0.4.3",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-polyfill": "^6.22.0",
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-react": "^6.22.0"
   }
 }
