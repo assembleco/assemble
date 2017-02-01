@@ -1,5 +1,9 @@
+import React from "react"
+import $ from "jquery"
+
+import Form from "react-jsonschema-form"
 // TODO this instance of the `Form` constant is being polluted
-// by the instance required from `app_canvas/block.es6`.
+// by the instance required from `app_canvas/block`.
 import SchemaField from "react-jsonschema-form/lib/components/fields/SchemaField";
 const fields = { SchemaField: SchemaField };
 

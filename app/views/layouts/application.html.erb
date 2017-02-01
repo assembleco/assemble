@@ -11,7 +11,7 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <body class="<%= body_class %>">
+  <body class="<%= body_class %>" data-rails-env="<%= Rails.env %>">
     <%= render "header" %>
 
     <%= content_for :hero %>

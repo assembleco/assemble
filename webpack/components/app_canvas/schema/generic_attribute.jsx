@@ -1,5 +1,7 @@
-import ObjectAttribute from "components/app_canvas/schema/object_attribute.es6";
-import StringAttribute from "components/app_canvas/schema/string_attribute.es6";
+import React from "react"
+
+import ObjectAttribute from "components/app_canvas/schema/object_attribute";
+import StringAttribute from "components/app_canvas/schema/string_attribute";
 
 class GenericAttribute extends React.Component {
   render() {

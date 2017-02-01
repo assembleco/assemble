@@ -1,8 +1,11 @@
+import React from "react"
 import Radium from "radium"
+import $ from "jquery"
 
-import PropDefinitions from "prop_definitions.es6"
-import Schema from "components/app_canvas/schema.es6"
+import PropDefinitions from "prop_definitions"
+import Schema from "components/app_canvas/schema"
 
+import Form from "react-jsonschema-form"
 import SchemaField from "react-jsonschema-form/lib/components/fields/SchemaField";
 const CustomSchemaField = (props) => <SchemaField {...props} required={ false } />;
 const fields = { SchemaField: CustomSchemaField };
@@ -39,7 +42,7 @@ class Block extends React.Component {
             style={Block.styles.icon}
             />
 
-          <a href={this.props.path}>{ this.props.name } -></a>
+          <a href={this.props.path}>{ this.props.name + " ->" }</a>
         </div>
       </div>
     );

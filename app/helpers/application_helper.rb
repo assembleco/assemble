@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
   def display_json(json)
-    prerender_component("JSONTree", data: json)
+    react_component("JSONTree", data: json)
   end
 
   def highlight_block(block)
@@ -30,11 +30,12 @@ module ApplicationHelper
     CodeRay.scan(block.body, language).div.html_safe
   end
 
-  def prerender_component(component, options)
-    default_options = {
-      radiumConfig: { userAgent: request.headers["user-agent"] },
-    }
+  def react_component(name, props = {}, options = {}, &block)
+    html_options = options.reverse_merge(data: {
+      react_class: name,
+      react_props: (props.is_a?(String) ? props : props.to_json)
+    })
 
-    react_component(component, options.merge(default_options), prerender: true)
+    content_tag(:div, '', html_options, &block)
   end
 end

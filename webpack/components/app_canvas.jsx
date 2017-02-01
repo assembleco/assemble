@@ -1,10 +1,12 @@
+import React from "react"
 import Radium from "radium"
-import PropDefinitions from "prop_definitions.es6"
+import $ from "jquery"
 
-import Feed from "components/app_canvas/feed.es6"
-import EmptyState from "components/app_canvas/empty_state.es6"
+import Feed from "components/app_canvas/feed"
+import EmptyState from "components/app_canvas/empty_state"
 
-import Colors from "styles/colors.es6"
+import PropDefinitions from "prop_definitions"
+import Colors from "styles/colors"
 
 class AppCanvas extends React.Component {
   constructor(props) {
@@ -24,7 +26,6 @@ class AppCanvas extends React.Component {
             display: "flex",
             justifyContent: "space-around",
             overflow: "hidden",
-            overflow: "scroll",
             padding: "1.5rem",
           },
         ]} >

@@ -1,4 +1,5 @@
-const P = React.PropTypes;
+import React from "react"
+const P = React.PropTypes
 
 // Atomic data types
 const slug = P.string

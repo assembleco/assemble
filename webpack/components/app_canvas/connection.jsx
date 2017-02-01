@@ -1,8 +1,10 @@
-import PropDefinitions from "prop_definitions.es6"
+import React from "react"
 
-import Connector from "components/app_canvas/connector.es6"
-import NewConnection from "components/app_canvas/new_connection.es6"
-import Block from "components/app_canvas/block.es6"
+import PropDefinitions from "prop_definitions"
+
+import Connector from "components/app_canvas/connector"
+import NewConnection from "components/app_canvas/new_connection"
+import Block from "components/app_canvas/block"
 
 class Connection extends React.Component {
   render() {

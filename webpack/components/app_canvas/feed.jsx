@@ -1,7 +1,10 @@
-import PropDefinitions from "prop_definitions.es6"
-import Connection from "components/app_canvas/connection.es6"
-import NewConnection from "components/app_canvas/new_connection.es6"
-import Schema from "components/app_canvas/schema.es6"
+import React from "react"
+
+import PropDefinitions from "prop_definitions"
+
+import Connection from "components/app_canvas/connection"
+import NewConnection from "components/app_canvas/new_connection"
+import Schema from "components/app_canvas/schema"
 
 class Feed extends React.Component {
   constructor(props) {

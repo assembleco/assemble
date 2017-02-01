@@ -1,4 +1,6 @@
-import GenericAttribute from "components/app_canvas/schema/generic_attribute.es6";
+import React from "react"
+
+import GenericAttribute from "components/app_canvas/schema/generic_attribute";
 
 class ObjectAttribute extends React.Component {
   constructor(props) {

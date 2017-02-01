@@ -1,3 +1,5 @@
+import React from "react"
+
 class StringAttribute extends React.Component {
   render() {
     return <span>String</span>;
