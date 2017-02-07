@@ -1,4 +1,4 @@
-require "assemble/cli"
+require "assemble_cli/cli"
 
 describe "assemble command-line interface" do
   describe "with no subcommand" do

@@ -1,5 +1,6 @@
 require "thor"
-require_relative "assemble_cli/config"
+require "yaml"
+require_relative "config"
 
 module AssembleCLI
   class CLI < Thor
@@ -8,7 +9,7 @@ module AssembleCLI
       status = nil
 
       if File.exists?(".assemble.yml")
-        parsed = YAML.parse(File.read(".assemble.yml"))
+        parsed = YAML.load(File.read(".assemble.yml"))
 
         if parsed && valid_assemble_configuration?(parsed)
           status = "valid"
