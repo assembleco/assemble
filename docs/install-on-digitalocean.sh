@@ -8,12 +8,6 @@
 ssh-keygen
 # copy `~/.ssh/id_rsa.pub` into GitHub SSH key list
 
-apt-get update
-apt-get uninstall openssl
-apt-get install ruby ruby-dev gcc make libpq-dev build-essential phantomjs nodejs postgresql openssl
-
-# TODO: does this still apply?
-# Try without it.
 # Make sure we have swap space so we don't run out of memory
 free -m
 # If the swap space doesn't exist (values are 0), Create a swap file
