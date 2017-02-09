@@ -20,41 +20,7 @@
     ".html_safe,
   ) %>
 
-  <%= f.input(
-    :environment,
-    collection: BlockRun::ENVIRONMENT_COMMANDS.keys,
-    hint: "
-    <p>
-    What language are you most comfortable writing in?
-    </p>
-    <p>
-    If you want to see another language supported,
-    #{mail_to(ENV.fetch('FEEDBACK_EMAIL'), 'let us know')}.
-    </p>
-    ".html_safe,
-  ) %>
-
-  <%= f.input(
-    :body,
-    hint: "
-    <p>
-    This is where your script goes. A few pointers:
-    </p>
-    <p>
-    Your script runs in a private container.
-    You have full control over the entire filesystem,
-    but please don't mess with the <code>/flow</code> directory,
-    because we use that for things like passing input into your script.
-    </p>
-    <p>
-    You can include any standard library you like.
-    </p>
-    <p>
-    Right now we're taking on all server costs ourselves,
-    so please be conscientious of long-running jobs.
-    </p>
-    ".html_safe
-  ) %>
+  <%= f.input(:github_repo) %>
 
   <%= f.input(
     :schema_json,

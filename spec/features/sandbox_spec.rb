@@ -2,11 +2,9 @@ require "rails_helper"
 
 feature "Sandbox apps" do
   scenario "Testing out a block in a sandbox", :js do
-    block = create(
-    :block,
-    environment: "ruby",
-    schema: { type: :object, properties: { message: { type: :string }}},
-    body: <<-SCRIPT)
+    block = create(:block)
+    stub_block_schema(block, { type: :object, properties: { message: { type: :string }}})
+    stub_block_body(block, <<-SCRIPT)
       require "json"
       input = JSON.parse(File.read("input.json"))
       puts "Received input message: \#{input['message']}"

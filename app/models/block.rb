@@ -21,12 +21,12 @@ class Block < ApplicationRecord
     super || EMPTY_SCHEMA
   end
 
-  def schema_json=(value)
-    self.schema = JSON.parse(value)
-  end
-
   def schema_json
     schema.to_json
+  end
+
+  def schema_json=(value)
+    self.schema = JSON.parse(value)
   end
 
   def to_param

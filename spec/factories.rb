@@ -12,9 +12,8 @@ FactoryGirl.define do
 
   factory :block, aliases: [:destination] do
     user
-    environment :node
+    github_repo "example/example"
     sequence(:name) { |n| "block_#{n}" }
-    body "require('./flow.js'); console.log(flow.input.message)"
   end
 
   factory :env_variable do

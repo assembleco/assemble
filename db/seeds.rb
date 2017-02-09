@@ -14,9 +14,8 @@ user = User.create!(username: "user", password: "password", email: "user@example
 Block.create!(
   name: "Debug input",
   description: "Simply prints out the input that was passed to the flow.",
-  environment: "ruby",
+  github_repo: "graysonwright/debug.block",
   user: user,
-  body: File.read("db/seeds/blocks/debug.rb"),
 )
 
 darksky_schema = {
@@ -31,13 +30,10 @@ darksky_schema = {
 Block.create!(
   name: "Get the weather forecast from DarkSky",
   description: "This block connects to the Dark Sky API (https://darksky.net/) to pull the latest weather forecast information.",
-  environment: "ruby",
+  github_repo: "graysonwright/darksky_forecas.block",
   schema: darksky_schema,
   user: user,
-  body: File.read("db/seeds/blocks/darksky.rb"),
 )
-
-# TODO create default values for DarkSky block: Lat & Long for OAK, CA
 
 pushover_schema = {
   type: :object,
@@ -57,10 +53,9 @@ pushover_schema = {
 Block.create!(
   name: "Send a phone notification via Pushover",
   description: "Use Pushover (https://pushover.net/) to send a notification to a user's phone",
-  environment: "node",
+  github_repo: "graysonwright/pushover.block",
   schema: pushover_schema,
   user: user,
-  body: File.read("db/seeds/blocks/pushover.js"),
 )
 
 transform_schema = {
@@ -79,11 +74,10 @@ transform_schema = {
 }
 Block.create!(
   name: "Transform data",
-  body: File.read("db/seeds/blocks/transform.rb"),
-  environment: :ruby,
-  user: user,
   description: "Takes input data, and outputs the same data with some of the data renamed.",
+  github_repo: "graysonwright/transform_data.block",
   schema: transform_schema,
+  user: user,
 )
 
 # Create time-based feeds
