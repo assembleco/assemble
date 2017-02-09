@@ -1,47 +1,35 @@
-<div class="heading">
-  <%= render "author_info", item: @block %>
-
-  <h1><%= @block.name %></h1>
-</div>
-
-<div class="layout-row">
-  <%= @block.description %>
-</div>
-
 <div class="layout-column-left">
-  <%= link_to "Edit", edit_block_path(@block.user, @block) %>
+  <div class="card">
+    <h1>
+      <%= link_to @block.user.username, @block.user %>
+      /
+      <%= @block.name %>
+    </h1>
 
-  <%= highlight_block(@block) %>
+    <p class="hint">
+    Built from <%= link_to @block.github_repo, "https://github.com/#{@block.github_repo}" %>
+    </p>
 
-  <div class="section">
-    <h2>Environment Variables</h2>
+    <p>
+      <%= @block.description %>
+    </p>
 
-    <div class="section-description">
-      These variables are kept secret from everyone else,
-      but you can use them in your script through <code>block.env</code>.
-    </div>
-
-    <ul>
-      <% @block.env_variables.each do |env| %>
-        <li>
-          <code><%= env.key %></code> = <%= "*" * 8 %>
-          <%= link_to "[X]", destroy_env_path(@block.user, @block, env), method: :delete %>
-        </li>
-      <% end %>
-    </ul>
-
-    <%= link_to "+ Add Variable", new_env_path(@block.user, @block) %>
+    <%= render "author_info", item: @block %>
   </div>
 </div>
 
 <div class="layout-column-right">
   <div class="section">
+    <%= react_component "SchemaBuilder", initialValue: @block.schema %>
+  </div>
+
+  <div class="section">
     <h2>Try it out!</h2>
 
     <div class="hint">
       <p>
-      Don't see the input fields you expected?
-      <%= link_to "Edit the block's input schema", edit_block_path(@block.user, @block) + "#schema-builder" %>
+      Make sure this block behaves how you expect it to.
+      Fill in sample inputs and click Go to test out the block.
       </p>
     </div>
 
@@ -50,13 +38,6 @@
       schema: @block.schema,
       submit_url: events_path(current_user.sandbox_feed_for(@block).name),
       form_data: @block.runs.where(app: current_user.sandbox_app).last.try(:input) || {},
-    ) %>
-  </div>
-
-  <div class="section">
-    <%= render(
-      "block_runs",
-      runs: @block.runs.where(app_id: current_user.apps.pluck(:id)),
     ) %>
   </div>
 </div>

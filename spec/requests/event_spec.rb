@@ -9,7 +9,8 @@ describe "POST block_runs#create" do
     They should potentially have a `public` option,
     so that they can be copied over with an app if they're not sensitive."
 
-    block = create(:block, body: <<-JS)
+    block = create(:block)
+    stub_block_body(block, <<-JS)
       flow = require('./flow.js')
       console.log(flow.env.foo)
     JS
@@ -32,7 +33,8 @@ describe "POST events#create" do
     message = "this is a sample message"
     feed = create(:feed, schema: "{}")
 
-    block = create(:block, environment: "ruby", body: <<-SCRIPT)
+    block = create(:block)
+    stub_block_body(block, <<-SCRIPT)
       require "json"
       input = JSON.parse(File.read("input.json"))
       puts input["message"]
@@ -53,14 +55,13 @@ describe "POST events#create" do
   end
 
   it "rejects events that do not match the schema" do
-    schema = <<-SCHEMA
-      {
-        "type": "object",
-        "properties": { "foo": { "type": "integer" } }
-      }
-      SCHEMA
+    schema = {
+      type: "object",
+      properties: { foo: { type: "integer" } }
+    }
 
-    block = create(:block, schema: schema)
+    block = create(:block)
+    stub_block_schema(block, schema)
     feed = create(:feed, schema: schema)
     app = create(:subscription, feed: feed).app
     app.connect(feed, block)

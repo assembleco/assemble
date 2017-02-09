@@ -8,7 +8,7 @@ RSpec.feature "Header" do
     visit root_path
     click_on t("header.explore")
 
-    expect(page).to have_content("Explore All Apps")
+    expect(page).to have_content("Explore All Blocks")
   end
 
   scenario "user navigates to 'My Apps'" do

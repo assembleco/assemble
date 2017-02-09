@@ -77,9 +77,15 @@ class BlockRun < ApplicationRecord
 
   def container
     @container ||= Docker::Container.create(
-      "Image" => block.environment,
+      "Image" => image_hash,
       "Tty" => true,
     )
+  end
+
+  def image_hash
+    # Inside a tempdir
+      # Pull git repo
+      # Build image
   end
 
   def schema_satisfied?

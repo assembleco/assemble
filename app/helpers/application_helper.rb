@@ -5,7 +5,7 @@ module ApplicationHelper
     email_address = user.email.downcase
     hash = Digest::MD5.hexdigest(email_address)
     image_tag(
-      "https://www.gravatar.com/avatar/#{hash}",
+      "https://www.gravatar.com/avatar/#{hash}?d=retro",
       alt: "Avatar for #{user.username}",
       class: "avatar",
     )
@@ -18,16 +18,6 @@ module ApplicationHelper
 
   def display_json(json)
     react_component("JSONTree", data: json)
-  end
-
-  def highlight_block(block)
-    language = {
-      ruby: :ruby,
-      node: :javascript,
-      python2: :python,
-    }.with_indifferent_access.fetch(block.environment)
-
-    CodeRay.scan(block.body, language).div.html_safe
   end
 
   def react_component(name, props = {}, options = {}, &block)
