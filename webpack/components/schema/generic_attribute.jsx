@@ -1,7 +1,7 @@
 import React from "react"
 
-import ObjectAttribute from "components/schema_builder/object_attribute";
-import StringAttribute from "components/schema_builder/string_attribute";
+import ObjectAttribute from "./object_attribute";
+import StringAttribute from "./string_attribute";
 
 class GenericAttribute extends React.Component {
   constructor(props) {

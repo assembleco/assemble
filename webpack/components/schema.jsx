@@ -2,9 +2,9 @@ import React from "react"
 const Freezer = require("freezer-js");
 import $ from "jquery"
 
-import GenericAttribute from "components/schema_builder/generic_attribute";
+import GenericAttribute from "./schema/generic_attribute";
 
-class SchemaBuilder extends React.Component {
+class Schema extends React.Component {
   constructor(props) {
     super(props);
 
@@ -39,8 +39,9 @@ class SchemaBuilder extends React.Component {
   }
 }
 
-SchemaBuilder.propTypes = {
-  initialValue: React.PropTypes.object
+Schema.propTypes = {
+  initialValue: React.PropTypes.object,
+  editable: React.PropTypes.bool
 };
 
-export default SchemaBuilder;
+export default Schema;
