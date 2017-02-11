@@ -34,22 +34,4 @@
 
     <%= react_component "Schema", initialValue: @block.schema, editable: false %>
   </div>
-
-  <div class="section">
-    <h2>Try it out!</h2>
-
-    <div class="hint">
-      <p>
-      Make sure this block behaves how you expect it to.
-      Fill in sample inputs and click Go to test out the block.
-      </p>
-    </div>
-
-    <%= react_component(
-      "BlockSandboxForm",
-      schema: @block.schema,
-      submit_url: events_path(current_user.sandbox_feed_for(@block).name),
-      form_data: @block.runs.where(app: current_user.sandbox_app).last.try(:input) || {},
-    ) %>
-  </div>
 </div>
