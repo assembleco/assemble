@@ -14,7 +14,10 @@ class BlockRun < ApplicationRecord
     container ||= Docker::Container.create(
       "Image" => image.id,
       "Tty" => true,
-      "Env" => ["ASSEMBLE_BLOCK_NAME=#{block.user.username}/#{block.name}"]
+      "Env" => [
+        "ASSEMBLE_BLOCK_NAME=#{block.user.username}/#{block.name}",
+        "ASSEMBLE_DIR=#{container_assemble_dir}",
+      ]
     )
     run_in_container(container)
 
@@ -38,13 +41,10 @@ class BlockRun < ApplicationRecord
     if schema_satisfied?
       container.start
 
-      workdir = "/assemble"
-      container.store_file("#{workdir}/input.json", input.to_json)
-
-      command = "bundle exec ruby script.rb"
+      container.store_file("#{container_assemble_dir}/input.json", input.to_json)
 
       stdout, stderr, self.exit_status = container.exec(
-        ["/bin/sh", "-c", "cd #{workdir} && #{command}"]
+        ["/bin/sh", "-c", "cd #{block_workdir} && #{block_command}"]
       )
 
       begin
@@ -52,7 +52,7 @@ class BlockRun < ApplicationRecord
 
         self.output = JSON.parse(
           container.
-          read_file("#{workdir}/output.json").
+          read_file("#{container_assemble_dir}/output.json").
           encode!('UTF-16', 'UTF-8')
         )
 
@@ -80,6 +80,29 @@ class BlockRun < ApplicationRecord
   end
 
   private
+
+  def block_command
+    block_assemble_configuration[:block][:command]
+  end
+
+  def block_workdir
+    block_assemble_configuration[:block][:workdir]
+  end
+
+  def block_assemble_configuration
+    YAML.parse(
+      Base64.decode64(
+        Octokit.contents(
+          "graysonwright/debug.block",
+          path: "assemble.yml",
+        ).content
+      )
+    ).to_ruby.with_indifferent_access
+  end
+
+  def container_assemble_dir
+    "/.assemble"
+  end
 
   def schema_satisfied?
     JSON::Validator.validate(block.schema, input)
