@@ -1,4 +1,12 @@
+@mixin section {
+  background-color: white;
+  padding: $base-spacing;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
 .section {
+  @include section;
   margin-bottom: $base-spacing;
 
   &-description {
