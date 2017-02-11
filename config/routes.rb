@@ -30,10 +30,7 @@ Rails.application.routes.draw do
   get "/blocks/:username/:blockname", to: "blocks#show", as: :block
   get "/blocks/:username/:blockname/edit", to: "blocks#edit", as: :edit_block
   patch "/blocks/:username/:blockname", to: "blocks#update", as: :update_block
-  # Block env variables
-  get "/blocks/:username/:blockname/env/new", to: "env_variables#new", as: :new_env
-  post "/blocks/:username/:blockname/env", to: "env_variables#create", as: :env
-  delete "/blocks/:username/:blockname/env/:id", to: "env_variables#destroy", as: :destroy_env
+  post "/blocks/:username/:blockname/runs", to: "block_runs#create", as: :block_runs
 
   # Event paths
   post "/events/:feed_id", to: "events#create", as: :events
