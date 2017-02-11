@@ -13,16 +13,6 @@ Rails.application.routes.draw do
 
   resources :defaults, only: [:create]
 
-  # App paths
-  get "/apps/new", to: "apps#new", as: :new_app
-  post "/apps", to: "apps#create"
-  get "/apps/:username", to: "apps#index", as: :user_apps
-  get "/apps/:username/:appname", to: "apps#show", as: :app
-  get "/apps/:username/:appname/edit", to: "apps#edit", as: :edit_app
-  patch "/apps/:username/:appname", to: "apps#update", as: :update_app
-  # App block runs
-  get "/apps/:username/:appname/runs/:block_run_id", to: "block_runs#show", as: :block_run
-
   # Block paths
   get "/blocks/new", to: "blocks#new", as: :new_block
   post "/blocks", to: "blocks#create"

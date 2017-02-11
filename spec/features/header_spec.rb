@@ -11,16 +11,6 @@ RSpec.feature "Header" do
     expect(page).to have_content("Explore All Blocks")
   end
 
-  scenario "user navigates to 'My Apps'" do
-    user = create(:user)
-
-    sign_in user
-    visit root_path
-    click_on t("header.my_apps")
-
-    expect(page).to have_content("Apps > #{user.username}")
-  end
-
   scenario "user navigates to 'My Blocks'" do
     user = create(:user)
 
