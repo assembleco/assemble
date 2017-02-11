@@ -5,6 +5,8 @@ require "docker"
 class BlocksController < ApplicationController
   helper_method :user
 
+  skip_before_action :require_login, only: [:index, :show]
+
   def index
     @blocks = user.blocks
   end
