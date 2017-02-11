@@ -1,15 +1,6 @@
 # frozen_string_literal: true
 
 FactoryGirl.define do
-  factory :app do
-    user
-    name "MyString"
-    description "MyText"
-
-    factory :sandbox_app do
-    end
-  end
-
   factory :block, aliases: [:destination] do
     user
     github_repo "example/example"
@@ -23,7 +14,6 @@ FactoryGirl.define do
   end
 
   factory :block_run do
-    app
     block
     input({ message: "Hello, World!" })
     output({ result: "Hello, World!" })
@@ -35,11 +25,6 @@ FactoryGirl.define do
   factory :feed, aliases: [:source] do
     sequence(:name) { |n| "feed_#{n}" }
     schema({ type: :object, properties: {}, required: [] })
-  end
-
-  factory :subscription do
-    app
-    feed
   end
 
   factory :user do

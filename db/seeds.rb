@@ -4,9 +4,7 @@ EnvVariable.destroy_all
 BlockRun.destroy_all
 Block.destroy_all
 Event.destroy_all
-Subscription.destroy_all
 Feed.destroy_all
-App.destroy_all
 User.destroy_all
 
 user = User.create!(username: "user", password: "password", email: "user@example.com")

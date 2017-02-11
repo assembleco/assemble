@@ -2,11 +2,10 @@
   <div class="header-menu">
     <div class="layout-column-left">
       <%= image_tag "blocks/block-4.png", class: "header-logo" %>
-      <span class="header-title">The App Factory</span>
+      <span class="header-title">Assemble</span>
 
       <% if signed_in? %>
         <%= link_to t("header.explore"), explore_path %>
-        <%= link_to t("header.my_apps"), user_apps_path(current_user) %>
         <%= link_to t("header.my_blocks"), user_blocks_path(current_user) %>
       <% end %>
     </div>

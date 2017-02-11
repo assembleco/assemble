@@ -6,16 +6,6 @@ en:
       with_weekday:
         "%a %m/%d/%y"
 
-  apps:
-    create:
-      success: Nice work! That's a good-lookin' app you've got there.
-      failure: Hmmm... that doesn't look quite right.
-    index:
-      title: "%{name}'s apps"
-    update:
-      success: Looks good!
-      failure: Hmmm... that doesn't look quite right.
-
   blocks:
     create:
       success: Nice work! That's a good-lookin' block you've got there.
@@ -53,11 +43,11 @@ en:
         "%B %d"
 
   titles:
-    application: The App Factory
+    application: Assemble
 
   users:
     create:
-      success: "Welcome to the App Factory, %{name}"
+      success: "Welcome to the Assemble, %{name}"
       failure: Hmmm... that doesn't look quite right.
     update:
       success: "Thanks for sharing, %{name}!"
