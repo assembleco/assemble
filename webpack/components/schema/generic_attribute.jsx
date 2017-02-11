@@ -42,7 +42,7 @@ class GenericAttribute extends React.Component {
             ></input>
       : "";
 
-    const requiredCheckbox = this.props.onChildRequirementChange
+    const requiredCheckbox = this.props.editable && this.props.onChildRequirementChange
       ?  <input
           type="checkbox"
           checked={this.props.required}
@@ -50,7 +50,7 @@ class GenericAttribute extends React.Component {
         />
       : "";
 
-    const removeLink = this.props.onRemove
+    const removeLink = this.props.editable && this.props.onRemove
       ? <a onClick={() => this.props.onRemove(this.props.name)}>[X]</a>
       : "";
 

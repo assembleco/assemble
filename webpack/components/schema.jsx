@@ -2,7 +2,7 @@ import React from "react"
 const Freezer = require("freezer-js");
 import $ from "jquery"
 
-import GenericAttribute from "./schema/generic_attribute";
+import ObjectAttribute from "./schema/object_attribute";
 
 class Schema extends React.Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class Schema extends React.Component {
   render () {
     return (
       <div style={{ marginBottom: '3rem' }} id="schema-builder">
-        <GenericAttribute
+        <ObjectAttribute
           schema={this.state.schema}
           editable={this.props.editable}
           />

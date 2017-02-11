@@ -19,7 +19,7 @@ class ObjectAttribute extends React.Component {
 
     return (
       <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
-        <span>Object</span>
+        { children.length == 0 ?  <span>Object</span> : "" }
         {children}
 
         { this.props.editable ?
