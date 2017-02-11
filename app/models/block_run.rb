@@ -8,8 +8,6 @@ class BlockRun < ApplicationRecord
   belongs_to :app
   belongs_to :block
 
-  validates :app, presence: true
-
   ENVIRONMENT_COMMANDS = {
     "node" => "node",
     "ruby" => "ruby",

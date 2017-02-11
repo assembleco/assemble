@@ -3,9 +3,5 @@ class Event < ApplicationRecord
 
   def save
     super
-
-    feed.subscriptions.each do |subscription|
-      subscription.app.receive_event(self)
-    end
   end
 end
