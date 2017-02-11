@@ -22,7 +22,10 @@ class Schema extends React.Component {
   render () {
     return (
       <div style={{ marginBottom: '3rem' }} id="schema-builder">
-        <GenericAttribute schema={this.state.schema} />
+        <GenericAttribute
+          schema={this.state.schema}
+          editable={this.props.editable}
+          />
       </div>
     );
   }

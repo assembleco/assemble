@@ -21,11 +21,15 @@ class ObjectAttribute extends React.Component {
       <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
         <span>Object</span>
         {children}
+
+        { this.props.editable ?
         <span>
           <span style={{ marginRight: "0.5rem" }}>Add a child:</span>
           <a onClick={() => this.addChild("string")} style={{ marginRight: "0.5rem" }}>""</a>
           <a onClick={() => this.addChild("object")} style={{ marginRight: "0.5rem" }}>{"{}"}</a>
         </span>
+        : ""
+        }
       </div>
     );
   }
@@ -34,6 +38,7 @@ class ObjectAttribute extends React.Component {
     return <GenericAttribute
       style={{ marginLeft: "3rem" }}
       schema={this.props.schema.properties[childProperty]}
+      editable={this.props.editable}
       required={this.props.schema.required.indexOf(childProperty) != -1}
       key={childProperty}
       name={childProperty}
