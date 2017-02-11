@@ -39,9 +39,10 @@
   ) %>
 
   <%= react_component(
-    "SchemaBuilder",
+    "Schema",
     initialValue: @block.schema,
     formElement: "#block_schema_json",
+    editable: true,
   ) %>
 
   <%= f.button :submit %>

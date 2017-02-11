@@ -3,7 +3,7 @@ import $ from "jquery";
 import AppCanvas from "./components/app_canvas";
 import ExploreHero from "./components/explore_hero";
 import BlockSandboxForm from "./components/block_sandbox_form";
-import SchemaBuilder from "./components/schema_builder";
+import Schema from "./components/schema";
 import JSONTree from "react-json-tree";
 
 import { mountComponents } from "react-rails-ujs";
@@ -13,7 +13,7 @@ mountComponents({
   BlockSandboxForm,
   ExploreHero,
   JSONTree,
-  SchemaBuilder,
+  Schema,
 });
 
 $(document).ajaxSend(function(e, xhr, options) {
