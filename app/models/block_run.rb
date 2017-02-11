@@ -8,24 +8,40 @@ class BlockRun < ApplicationRecord
   belongs_to :app
   belongs_to :block
 
-  ENVIRONMENT_COMMANDS = {
-    "node" => "node",
-    "ruby" => "ruby",
-    "python2" => "python",
-  }.freeze
-
   def execute
+    image = build_image
+
+    container ||= Docker::Container.create(
+      "Image" => image.id,
+      "Tty" => true,
+      "Env" => ["ASSEMBLE_BLOCK_NAME=#{block.user.username}/#{block.name}"]
+    )
+    run_in_container(container)
+
+    save!
+  end
+
+  def build_image
+    Dir.mktmpdir do |dir|
+      begin
+        `cd #{dir} && git clone https://github.com/#{block.github_repo}.git`
+        dir = dir + "/" + block.github_repo.split("/").last
+        Docker::Image.build_from_dir(dir)
+      rescue Docker::Error::UnexpectedResponseError => e
+        self.status = :build_failure
+        nil
+      end
+    end
+  end
+
+  def run_in_container(container)
     if schema_satisfied?
       container.start
 
-      workdir = "/flow"
+      workdir = "/assemble"
       container.store_file("#{workdir}/input.json", input.to_json)
-      container.store_file("#{workdir}/user_script", block.body)
 
-      command = [
-        ENVIRONMENT_COMMANDS[block.environment],
-        "#{workdir}/user_script",
-      ].join(" ")
+      command = "bundle exec ruby script.rb"
 
       stdout, stderr, self.exit_status = container.exec(
         ["/bin/sh", "-c", "cd #{workdir} && #{command}"]
@@ -48,16 +64,8 @@ class BlockRun < ApplicationRecord
       self.stderr = stderr.join
 
       save!
-
-      run_connected_blocks
     else
       update!(status: BlockRun::INPUT_SCHEMA_NOT_SATISFIED)
-    end
-  end
-
-  def run_connected_blocks
-    app.blocks_connected_to(block).each do |block|
-      app.queue_block_run(block, output)
     end
   end
 
@@ -72,19 +80,6 @@ class BlockRun < ApplicationRecord
   end
 
   private
-
-  def container
-    @container ||= Docker::Container.create(
-      "Image" => image_hash,
-      "Tty" => true,
-    )
-  end
-
-  def image_hash
-    # Inside a tempdir
-      # Pull git repo
-      # Build image
-  end
 
   def schema_satisfied?
     JSON::Validator.validate(block.schema, input)
