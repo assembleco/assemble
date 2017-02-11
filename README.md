@@ -1,4 +1,4 @@
-# The App Factory
+# Assemble
 
 We want to make it easy for anyone to create an app –
 whether you know how to code or not.
@@ -31,9 +31,9 @@ After setting up, you can run the application using [Heroku Local]:
 
 [Heroku Local]: https://devcenter.heroku.com/articles/heroku-local
 
-### Testing the App Factory on local machine
+### Testing Assemble on your local machine
 
-In order for the App Factory to use your development machine as the server,
+In order for Assemble to use your development machine as the server,
 you'll need to use a tool like [ngrok](https://ngrok.com/)
 to create a public tunnel to your local application.
 When you have a public-facing URL,
