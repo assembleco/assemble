@@ -31,7 +31,8 @@ class BlockRun < ApplicationRecord
         dir = dir + "/" + block.github_repo.split("/").last
         Docker::Image.build_from_dir(dir)
       rescue Docker::Error::UnexpectedResponseError => e
-        self.status = :build_failure
+        update(status: :build_failure)
+        # TODO Save and report build failure
         nil
       end
     end
@@ -93,7 +94,7 @@ class BlockRun < ApplicationRecord
     YAML.parse(
       Base64.decode64(
         Octokit.contents(
-          "graysonwright/debug.block",
+          block.github_repo,
           path: "assemble.yml",
         ).content
       )

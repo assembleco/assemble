@@ -1,6 +1,7 @@
 import $ from "jquery";
 
 import AppCanvas from "./components/app_canvas";
+import BlockUsage from "./components/block_usage";
 import BlockSandboxForm from "./components/block_sandbox_form";
 import Schema from "./components/schema";
 import JSONTree from "react-json-tree";
@@ -9,6 +10,7 @@ import { mountComponents } from "react-rails-ujs";
 
 mountComponents({
   AppCanvas,
+  BlockUsage,
   BlockSandboxForm,
   JSONTree,
   Schema,
