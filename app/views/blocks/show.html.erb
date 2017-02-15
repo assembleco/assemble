@@ -24,12 +24,18 @@
 </div>
 
 <div class="layout-column-right">
+  <div class="section section-hint">
+    <% if @block.user == current_user %>
+      As the block's author,
+      <%= link_to "edit the block's input schema", edit_block_path(@block.user, @block) %>
+      to help users understand how it works.
+    <% end %>
+  </div>
+
   <%= react_component(
     "BlockUsage",
     schema: @block.schema,
     run_block_url: block_runs_url(@block.user, @block),
-    user_owns_block: (@block.user == current_user),
-    edit_block_path: edit_block_path(@block.user, @block),
     initial_input_data: @block.runs.last.input,
   ) %>
 </div>
