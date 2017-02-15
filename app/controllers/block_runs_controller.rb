@@ -9,7 +9,7 @@ class BlockRunsController < ApplicationController
 
   def create
     run = BlockRun.new(
-      block: Block.find_by!(user: user, name: params[:blockname]),
+      block: block,
       input: params[:data],
     )
 
@@ -18,8 +18,12 @@ class BlockRunsController < ApplicationController
       notice = t(".success")
 
       respond_to do |format|
-        format.html { redirect_to :back, notice: notice }
-        format.text { render plain: notice }
+        format.json {
+          render plain: JSON.pretty_generate({
+            status: :success,
+            message: "Running block `#{user.username}/#{block.name}`",
+          })
+        }
       end
     else
       render text: run.errors.full_messages.to_yml
@@ -27,6 +31,10 @@ class BlockRunsController < ApplicationController
   end
 
   private
+
+  def block
+    @block ||= Block.find_by!(user: user, name: params[:blockname])
+  end
 
   def user
     @user ||= User.find_by!(username: params[:username])
