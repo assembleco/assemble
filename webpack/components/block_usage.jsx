@@ -15,9 +15,12 @@ class BlockUsage extends React.Component {
   render() {
     return (
       <div className="section">
-        <h2>Inputs</h2>
+        <h2>Try it out</h2>
 
-        { this.edit_hint() }
+        <p className="hint">
+          Run this block with custom inputs,
+          in a web form or on your command line.
+        </p>
 
         <Form
           schema={this.props.schema}
@@ -25,13 +28,14 @@ class BlockUsage extends React.Component {
           onSubmit={this.onSubmit.bind(this)}
           formData={this.state.inputData}
           >
-          <button type="submit">Go</button>
+          <div style={{ position: "relative", overflow: "hidden" }}>
+            <button type="submit" style={{ float: "right" }}>Go</button>
+          </div>
         </Form>
 
-        <h2>Try it out</h2>
-
-        <p className="hint">
-        In your command line, run:
+        <p className="hint" style={{ marginTop: "0.75rem" }}>
+          Run this block from your command line with the above inputs,
+          or switch out the inputs as needed.
         </p>
 
         <pre>
@@ -45,19 +49,6 @@ class BlockUsage extends React.Component {
     );
   }
 
-  edit_hint() {
-    if(this.props.user_owns_block)
-      return (
-        <p className="hint">
-          <a href={this.props.edit_block_path}>
-            Edit the block's input schema
-          </a>
-          &nbsp;
-          to help users understand the inputs that it accepts.
-        </p>
-      );
-  }
-
   onSubmit(event) {
     const data = { data: event.formData };
     $.post(this.props.run_block_url, data, () => { location.reload(); });
@@ -65,8 +56,6 @@ class BlockUsage extends React.Component {
 }
 
 BlockUsage.propTypes = {
-  user_owns_block: React.PropTypes.bool.isRequired,
-  edit_block_path: React.PropTypes.string.isRequired,
   run_block_url: React.PropTypes.string.isRequired,
   schema: React.PropTypes.object.isRequired,
   initial_input_data: React.PropTypes.object,
