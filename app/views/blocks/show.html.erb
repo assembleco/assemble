@@ -24,34 +24,12 @@
 </div>
 
 <div class="layout-column-right">
-  <div class="section">
-    <h2>Inputs</h2>
-
-    <% if @block.user == current_user %>
-      <p class="hint">
-      <%= link_to(
-        "Edit the block's input schema",
-        edit_block_path(@block.user, @block)
-      ) %>
-      to help users understand the inputs that it accepts.
-      </p>
-    <% end %>
-
-    <%= react_component "Schema", initialValue: @block.schema, editable: false %>
-  </div>
-
-  <div class="section">
-    <h2>Try it out</h2>
-
-    <p class="hint">
-    In your command line, run:
-    </p>
-
-    <pre>
-    curl \
-    <%= block_runs_url(@block.user, @block) %> \
-    -X POST \
-    -d '{ "input_data": "goes_here" }'
-    </pre>
-  </div>
+  <%= react_component(
+    "BlockUsage",
+    schema: @block.schema,
+    run_block_url: block_runs_url(@block.user, @block),
+    user_owns_block: (@block.user == current_user),
+    edit_block_path: edit_block_path(@block.user, @block),
+    initialInputData: @block.runs.last.input,
+  ) %>
 </div>
