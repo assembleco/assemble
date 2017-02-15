@@ -40,10 +40,11 @@ class BlockUsage extends React.Component {
 
         <pre>
 {`curl \\\n\
-  ${ this.props.run_block_url } \\\n\
+  '${ this.props.run_block_url }' \\\n\
   -X POST \\\n\
   -H "Content-Type: application/json" \\\n\
-  -d '${JSON.stringify({ data: this.state.inputData })}'`}
+  -H "Accept: application/json" \\\n\
+  -d '${JSON.stringify({ data: this.state.inputData }, null, 2)}'`}
         </pre>
       </div>
     );
