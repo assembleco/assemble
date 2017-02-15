@@ -1,4 +1,5 @@
 import React from "react"
+import $ from "jquery"
 
 import Form from "react-jsonschema-form"
 
@@ -7,7 +8,7 @@ class BlockUsage extends React.Component {
     super(props);
 
     this.state = {
-      inputData: this.props.initialInputData || {}
+      inputData: this.props.initial_input_data || {}
     }
   }
 
@@ -19,10 +20,13 @@ class BlockUsage extends React.Component {
         { this.edit_hint() }
 
         <Form
-        schema={this.props.schema}
-        onChange={ (e) => this.setState({ inputData: e.formData }) }
-        formData={this.state.inputData}
-        />
+          schema={this.props.schema}
+          onChange={ (e) => this.setState({ inputData: e.formData }) }
+          onSubmit={this.onSubmit.bind(this)}
+          formData={this.state.inputData}
+          >
+          <button type="submit">Go</button>
+        </Form>
 
         <h2>Try it out</h2>
 
@@ -53,6 +57,11 @@ class BlockUsage extends React.Component {
         </p>
       );
   }
+
+  onSubmit(event) {
+    const data = { data: event.formData };
+    $.post(this.props.run_block_url, data, () => { location.reload(); });
+  }
 }
 
 BlockUsage.propTypes = {
@@ -60,7 +69,7 @@ BlockUsage.propTypes = {
   edit_block_path: React.PropTypes.string.isRequired,
   run_block_url: React.PropTypes.string.isRequired,
   schema: React.PropTypes.object.isRequired,
-  initialInputData: React.PropTypes.object.isRequired,
+  initial_input_data: React.PropTypes.object,
 }
 
 export default BlockUsage;

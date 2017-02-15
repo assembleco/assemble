@@ -30,6 +30,6 @@
     run_block_url: block_runs_url(@block.user, @block),
     user_owns_block: (@block.user == current_user),
     edit_block_path: edit_block_path(@block.user, @block),
-    initialInputData: @block.runs.last.input,
+    initial_input_data: @block.runs.last.input,
   ) %>
 </div>
