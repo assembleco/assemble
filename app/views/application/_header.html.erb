@@ -4,18 +4,17 @@
       <%= image_tag "blocks/block-4.png", class: "header-logo" %>
       <span class="header-title">Assemble</span>
 
-      <% if signed_in? %>
+      <% if current_user %>
         <%= link_to t("header.explore"), explore_path %>
         <%= link_to t("header.my_blocks"), user_blocks_path(current_user) %>
       <% end %>
     </div>
 
     <div class="layout-column-right">
-      <% if signed_in? %>
+      <% if current_user %>
         <%= button_to "Sign out", session_path, method: :delete %>
       <% else %>
-        <%= link_to "Sign in", new_session_path %>
-        <%= link_to "Sign up", new_user_path %>
+        <%= link_to "Sign in with GitHub", new_session_path %>
       <% end %>
     </div>
   </div>

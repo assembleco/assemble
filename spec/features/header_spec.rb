@@ -18,7 +18,7 @@ RSpec.feature "Header" do
     visit root_path
     click_on t("header.my_blocks")
 
-    expect(page).to have_content("Blocks > #{user.username}")
+    expect(page).to have_content("Blocks > #{user.handle}")
   end
 
   scenario "non-signed in user cannot access links" do

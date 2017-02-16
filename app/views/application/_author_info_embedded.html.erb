@@ -2,7 +2,7 @@
   <%= avatar_for item.user %>
 
   <div class="author-info">
-    <div>Created by <%= item.user.username %></div>
+    <div>Created by <%= item.user.handle %></div>
     <div>on <%= l(item.created_at.to_date) %></div>
   </div>
 </div>

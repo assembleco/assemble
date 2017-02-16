@@ -1,6 +1,6 @@
 <div class="layout-column-aside">
   <%= avatar_for @user %>
-  <h1><%= @user.username %></h1>
+  <h1><%= @user.handle %></h1>
 
   <% if @user.bio %>
     <div>
@@ -30,5 +30,5 @@
 </div>
 
 <div class="layout-column-main">
-  <%= render "blocks_list", blocks: @user.blocks, title: "#{@user.username}'s blocks" %>
+  <%= render "blocks_list", blocks: @user.blocks, title: "#{@user.handle}'s blocks" %>
 </div>

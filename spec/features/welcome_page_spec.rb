@@ -11,11 +11,11 @@ RSpec.feature "Welcome page" do
   end
 
   scenario "user signs in" do
-    create(:user, username: "foobar", password_digest: "password")
+    create(:user, handle: "foobar", password_digest: "password")
 
     visit root_path
     click_on "Sign in"
-    fill_in :username, with: "foobar"
+    fill_in :handle, with: "foobar"
     fill_in "Password", with: "password"
     click_button "Sign in"
 
@@ -25,7 +25,7 @@ RSpec.feature "Welcome page" do
   scenario "user signs up" do
     visit root_path
     click_on "Sign up"
-    fill_in "Username", with: "foobar"
+    fill_in "handle", with: "foobar"
     fill_in "Email", with: "foobar@example.com"
     fill_in "Password", with: "password"
     click_button "Sign up"

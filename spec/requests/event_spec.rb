@@ -18,7 +18,7 @@ describe "POST block_runs#create" do
 
     expect do
       post(
-        "/blocks/#{block.user.username}/#{block.name}/runs",
+        "/blocks/#{block.user.handle}/#{block.name}/runs",
         params: { foo: "bar" },
       )
     end.to change(BlockRun, :count).by(1)
