@@ -1,5 +1,5 @@
 <h1>
-  <%= link_to @block_run.app.user.username, user_blocks_path(@block_run.app.user) %>
+  <%= link_to @block_run.app.user.handle, user_blocks_path(@block_run.app.user) %>
   /
   <%= link_to @block_run.block.name, block_path(@block_run.app.user, @block_run.block) %>
   /

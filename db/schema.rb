@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170211004657) do
+ActiveRecord::Schema.define(version: 20170216210258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,15 +81,17 @@ ActiveRecord::Schema.define(version: 20170211004657) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",           null: false
-    t.string   "username",        null: false
-    t.string   "password_digest", null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "email",        null: false
+    t.string   "handle",       null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "bio"
     t.string   "location"
     t.string   "website"
+    t.string   "github_uid",   null: false
+    t.string   "github_token", null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["github_uid"], name: "index_users_on_github_uid", using: :btree
   end
 
   add_foreign_key "block_runs", "blocks"

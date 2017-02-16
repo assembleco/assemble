@@ -57,9 +57,9 @@ RSpec.feature "Blocks" do
 
     sign_in create(:user)
     visit block_path(block.user, block)
-    first("a", text: block.user.username).click
+    first("a", text: block.user.handle).click
 
-    expect(page).to have_heading(block.user.username)
+    expect(page).to have_heading(block.user.handle)
     expect(current_path).to eq user_path(block.user)
   end
 end

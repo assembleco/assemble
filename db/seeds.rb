@@ -7,10 +7,10 @@ Event.destroy_all
 Feed.destroy_all
 User.destroy_all
 
-user = User.create!(username: "user", password: "password", email: "user@example.com")
+user = User.create!(handle: "user", password: "password", email: "user@example.com")
 
 Block.create!(
-  name: "Debug input",
+  name: "debug",
   description: "Simply prints out the input that was passed to the flow.",
   github_repo: "graysonwright/debug.block",
   user: user,
@@ -26,7 +26,7 @@ darksky_schema = {
   required: [:darksky_key, :latitude, :longitude],
 }
 Block.create!(
-  name: "Get the weather forecast from DarkSky",
+  name: "forecast",
   description: "This block connects to the Dark Sky API (https://darksky.net/) to pull the latest weather forecast information.",
   github_repo: "graysonwright/darksky_forecas.block",
   schema: darksky_schema,
@@ -49,7 +49,7 @@ pushover_schema = {
   required: [:text, :pushover]
 }
 Block.create!(
-  name: "Send a phone notification via Pushover",
+  name: "phone_notification",
   description: "Use Pushover (https://pushover.net/) to send a notification to a user's phone",
   github_repo: "graysonwright/pushover.block",
   schema: pushover_schema,
@@ -71,7 +71,7 @@ transform_schema = {
   },
 }
 Block.create!(
-  name: "Transform data",
+  name: "transform",
   description: "Takes input data, and outputs the same data with some of the data renamed.",
   github_repo: "graysonwright/transform_data.block",
   schema: transform_schema,

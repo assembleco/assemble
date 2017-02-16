@@ -28,8 +28,8 @@ FactoryGirl.define do
   end
 
   factory :user do
-    sequence(:username) { |n| "user_#{n}" }
-    email { "#{username}@example.com" }
+    sequence(:handle) { |n| "user_#{n}" }
+    email { "#{handle}@example.com" }
     password_digest "password"
   end
 end

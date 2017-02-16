@@ -2,11 +2,11 @@ require "rails_helper"
 
 describe "db/seeds.rb" do
   it "deletes existing records" do
-    create(:user, username: "olduser")
+    create(:user, handle: "olduser")
 
     load("db/seeds.rb")
 
-    expect(User.where(username: "olduser")).to be_empty
+    expect(User.where(handle: "olduser")).to be_empty
   end
 
   it "creates records" do

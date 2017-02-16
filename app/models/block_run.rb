@@ -15,7 +15,7 @@ class BlockRun < ApplicationRecord
       "Image" => image.id,
       "Tty" => true,
       "Env" => [
-        "ASSEMBLE_BLOCK_NAME=#{block.user.username}/#{block.name}",
+        "ASSEMBLE_BLOCK_NAME=#{block.user.handle}/#{block.name}",
         "ASSEMBLE_DIR=#{container_assemble_dir}",
       ]
     )

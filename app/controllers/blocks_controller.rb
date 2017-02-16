@@ -57,6 +57,6 @@ class BlocksController < ApplicationController
   end
 
   def user
-    @user ||= User.find_by!(username: params[:username])
+    @user ||= User.find_by!(handle: params[:handle])
   end
 end

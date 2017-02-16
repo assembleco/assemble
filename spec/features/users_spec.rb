@@ -12,7 +12,7 @@ feature "Users" do
     fill_in "Website", with: "example.com"
     click_on "Update Profile"
 
-    expect(page).to have_content t("users.update.success", name: user.username)
+    expect(page).to have_content t("users.update.success", name: user.handle)
     expect(page).to have_content "I'm a test user"
     expect(page).to have_content "Oakland, CA"
     expect(page).to have_link "example.com"

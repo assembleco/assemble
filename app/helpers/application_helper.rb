@@ -6,7 +6,7 @@ module ApplicationHelper
     hash = Digest::MD5.hexdigest(email_address)
     image_tag(
       "https://www.gravatar.com/avatar/#{hash}?d=retro",
-      alt: "Avatar for #{user.username}",
+      alt: "Avatar for #{user.handle}",
       class: "avatar",
     )
   end
