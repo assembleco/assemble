@@ -2,19 +2,23 @@ import React from "react"
 import $ from "jquery"
 
 import Form from "react-jsonschema-form"
+import RunStatus from "./run_status"
 
 class BlockUsage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      inputData: this.props.initial_input_data || {}
+      inputData: this.props.initial_input_data || {},
+      run: null,
     }
   }
 
   render() {
     return (
       <div className="section">
+        { this.renderRun() }
+
         <h2>Try it out</h2>
 
         <p className="hint">
@@ -57,7 +61,12 @@ class BlockUsage extends React.Component {
 
   onSubmit(event) {
     const data = { data: event.formData };
-    $.post(this.props.run_block_url, data, () => { location.reload(); });
+    $.post(this.props.run_block_url, data, (event) => this.setState({ run: event.url }))
+  }
+
+  renderRun() {
+    if(this.state.run)
+      return <RunStatus url={this.state.run}/>
   }
 }
 
