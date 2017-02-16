@@ -29,13 +29,18 @@ class BlockUsage extends React.Component {
           formData={this.state.inputData}
           >
           <div style={{ position: "relative", overflow: "hidden" }}>
+            <a onClick={() => this.setState({ inputData: {} }) }>
+              Clear input fields
+            </a>
+
             <button type="submit" style={{ float: "right" }}>Go</button>
           </div>
         </Form>
 
         <p className="hint" style={{ marginTop: "0.75rem" }}>
-          Run this block from your command line with the above inputs,
-          or switch out the inputs as needed.
+          Run this block from your command line.
+          We've filled in the inputs from the form above –
+          you can use them or switch them out as needed.
         </p>
 
         <pre>
