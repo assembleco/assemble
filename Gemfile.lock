@@ -142,6 +142,11 @@ GEM
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     normalize-rails (3.0.3)
+    octicons (3.0.1)
+      nokogiri (>= 1.6.3.1)
+    octicons_helper (3.0.1)
+      octicons (~> 3.0)
+      rails
     octokit (4.6.2)
       sawyer (~> 0.8.0, >= 0.5.3)
     pg (0.19.0)
@@ -310,6 +315,7 @@ DEPENDENCIES
   monban
   neat
   normalize-rails (~> 3.0.0)
+  octicons_helper
   octokit
   pg
   poltergeist

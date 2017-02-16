@@ -21,6 +21,13 @@
       <%= @block.description %>
     </p>
   </div>
+
+  <div class="section">
+    <%= link_to "https://github.com/#{@block.github_repo}", class: "github-link" do %>
+      <%= octicon "mark-github" %>
+      View on GitHub &gt;
+    <% end %>
+  </div>
 </div>
 
 <div class="layout-column-right">
