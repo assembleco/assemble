@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def show
-    @user = User.find_by!(handle: params[:handle])
+    render json: current_user.as_json
   end
 
   def edit

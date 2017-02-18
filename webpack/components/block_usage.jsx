@@ -61,7 +61,7 @@ class BlockUsage extends React.Component {
 
   onSubmit(event) {
     const data = { data: event.formData };
-    $.post(this.props.run_block_url, data, (event) => this.setState({ run: event.url }))
+    $.post(this.props.run_block_url, data, (event) => this.setState({ run: event.path }))
   }
 
   renderRun() {
