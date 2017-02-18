@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "sessions#create"
+  get "/user_info", to: "users#show"
 
   resource :session, only: [:new, :destroy]
   resources :feeds, only: [:index, :new, :create, :edit, :update]

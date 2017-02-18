@@ -2,7 +2,6 @@
 
 class BlockRunsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
-  skip_before_action :require_login, only: [:create, :show]
 
   def show
     @block_run = BlockRun.find_by!(id: params[:block_run_id])
@@ -29,7 +28,7 @@ class BlockRunsController < ApplicationController
           render plain: JSON.pretty_generate({
             status: :success,
             message: "Running block `#{user.handle}/#{block.name}`",
-            url: block_run_url(user, block, run),
+            path: block_run_path(user, block, run),
           })
         }
       end

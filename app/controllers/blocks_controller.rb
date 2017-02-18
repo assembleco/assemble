@@ -6,6 +6,7 @@ class BlocksController < ApplicationController
   helper_method :user
 
   skip_before_action :require_login, only: [:index, :show]
+  skip_before_action :verify_authenticity_token, only: [:create]
 
   def index
     @blocks = user.blocks
@@ -23,10 +24,24 @@ class BlocksController < ApplicationController
     @block = Block.new(block_params)
 
     if @block.save
-      redirect_to block_path(@block.user, @block), notice: t(".success")
+      respond_to do |format|
+        format.json {
+          render json: @block.as_json
+        }
+        format.html {
+          redirect_to block_path(@block.user, @block), notice: t(".success")
+        }
+      end
     else
-      flash.now[:alert] = t(".failure")
-      render :new
+      respond_to do |format|
+        format.json {
+          render json: @block.errors.full_messages
+        }
+        format.html {
+          flash.now[:alert] = t(".failure")
+          render :new
+        }
+      end
     end
   end
 

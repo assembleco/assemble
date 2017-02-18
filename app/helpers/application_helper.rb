@@ -2,7 +2,7 @@ require 'digest/md5'
 
 module ApplicationHelper
   def avatar_for(user)
-    email_address = user.email.downcase
+    email_address = "TODO@example.com"
     hash = Digest::MD5.hexdigest(email_address)
     image_tag(
       "https://www.gravatar.com/avatar/#{hash}?d=retro",
