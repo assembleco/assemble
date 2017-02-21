@@ -2,6 +2,7 @@ import React from "react"
 import Radium from "radium"
 import $ from "jquery"
 
+import JSONTree from "react-json-tree";
 import colors from "../styles/colors"
 
 class RunStatus extends React.Component {
@@ -37,6 +38,11 @@ class RunStatus extends React.Component {
             <pre>
             {this.state.stderr}
             </pre>
+          </div>
+
+          <div>
+            Output:
+            <JSONTree data={this.state.output} shouldExpandNode={() => false} />
           </div>
         </div>
       );
