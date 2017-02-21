@@ -16,7 +16,7 @@ class BlockRunsController < ApplicationController
   def create
     run = BlockRun.new(
       block: block,
-      input: params[:data],
+      input: params[:data] || {},
     )
 
     if run.save
