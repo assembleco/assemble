@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170218011452) do
+ActiveRecord::Schema.define(version: 20170302010807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,11 +34,19 @@ ActiveRecord::Schema.define(version: 20170218011452) do
     t.string   "name",        null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "user_id",     null: false
     t.text     "description"
     t.jsonb    "schema"
-    t.string   "github_repo", null: false
+    t.integer  "claim_id"
+    t.index ["claim_id"], name: "index_blocks_on_claim_id", using: :btree
     t.index ["schema"], name: "index_blocks_on_schema", using: :gin
+  end
+
+  create_table "claims", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "handle",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_claims_on_user_id", using: :btree
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -90,11 +98,14 @@ ActiveRecord::Schema.define(version: 20170218011452) do
     t.string   "github_uid",   null: false
     t.string   "github_token", null: false
     t.string   "api_key",      null: false
+    t.string   "email"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["github_uid"], name: "index_users_on_github_uid", using: :btree
   end
 
   add_foreign_key "block_runs", "blocks"
-  add_foreign_key "blocks", "users"
+  add_foreign_key "blocks", "claims"
+  add_foreign_key "claims", "users"
   add_foreign_key "env_variables", "blocks"
   add_foreign_key "events", "feeds"
 end

@@ -9,7 +9,7 @@ if ENV.fetch("COVERAGE", false)
   SimpleCov.start "rails"
 end
 
-require "webmock/rspec"
+# require "webmock/rspec"
 
 # http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
@@ -26,4 +26,4 @@ RSpec.configure do |config|
   config.order = :random
 end
 
-WebMock.disable_net_connect!(allow_localhost: true)
+# WebMock.disable_net_connect!(allow_localhost: true)

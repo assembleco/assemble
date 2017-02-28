@@ -1,49 +1,41 @@
-<%= simple_form_for(@block, url: url, html: { class: "layout-form" }) do |f| %>
-  <%= f.input(
-    :name,
-    hint: "
-    <p>
-    Only use letters, numbers, and underscores.
-    </p>
-    <p>
-    This will be how you refer to your script throughout the site, so make it short and memorable.
-    </p>
-    ".html_safe,
-  ) %>
+<div class="section layout-form">
+  <h1>
+    Editing <%= claim.handle %> / <%= @block.name %>
+  </h1>
 
-  <%= f.input(
-    :description,
-    hint: "
-    <p>
-    If you want other people to use your block, you better explain how it works!
-    </p>
-    ".html_safe,
-  ) %>
+  <%= simple_form_for(@block, url: url) do |f| %>
+    <%= f.input(
+      :description,
+      hint: "
+      <p>
+      If you want other people to use your block, you better explain how it works!
+      </p>
+      ".html_safe,
+    ) %>
 
-  <%= f.input(:github_repo) %>
+    <%= f.input(
+      :schema_json,
+      label: "Input Schema",
+      as: :hidden,
+      hint: "
+      <p>
+      What information does this block need in order to run correctly?
+      Users will be responsible for providing this information
+      whenever they run your block.
+      </p>
+      <p>
+      A checkbox indicates that a field is required.
+      </p>
+      ".html_safe,
+    ) %>
 
-  <%= f.input(
-    :schema_json,
-    label: "Input Schema",
-    as: :hidden,
-    hint: "
-    <p>
-    What information does this block need in order to run correctly?
-    Users will be responsible for providing this information
-    whenever they run your block.
-    </p>
-    <p>
-    A checkbox indicates that a field is required.
-    </p>
-    ".html_safe,
-  ) %>
+    <%= react_component(
+      "Schema",
+      initialValue: @block.schema,
+      formElement: "#block_schema_json",
+      editable: true,
+    ) %>
 
-  <%= react_component(
-    "Schema",
-    initialValue: @block.schema,
-    formElement: "#block_schema_json",
-    editable: true,
-  ) %>
-
-  <%= f.button :submit %>
-<% end %>
+    <%= f.button :submit %>
+  <% end %>
+</div>

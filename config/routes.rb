@@ -2,8 +2,11 @@
 
 Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "sessions#create"
-  get "/user_info", to: "users#show"
-  get "/about", to: "about#index"
+  get "/user_info", to: "users#show", as: :user_info
+  get "/about", to: "about#index", as: :about
+
+  get "/claims/:handle/dockerfile", to: "claims#dockerfile", as: :dockerfile
+  post "/claims", to: "claims#create"
 
   resource :session, only: [:new, :destroy]
   resources :feeds, only: [:index, :new, :create, :edit, :update]
@@ -20,7 +23,6 @@ Rails.application.routes.draw do
   # Block paths
   get "/blocks/new", to: "blocks#new", as: :new_block
   post "/blocks", to: "blocks#create"
-  get "/blocks/:handle", to: "blocks#index", as: :user_blocks
   get "/blocks/:handle/:blockname", to: "blocks#show", as: :block
   get "/blocks/:handle/:blockname/edit", to: "blocks#edit", as: :edit_block
   patch "/blocks/:handle/:blockname", to: "blocks#update", as: :update_block

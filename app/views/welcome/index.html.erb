@@ -1,10 +1,6 @@
 <% if current_user %>
   <div class="section">
-    Sign in with your assemble CLI with:
-
-    <code style="padding: 0.75rem; margin-left: 1.5rem;">
-      assemble auth <%= current_user.api_key %>
-    </code>
+    <%= link_to "+ Register a new block", new_block_path %>
   </div>
 <% end %>
 

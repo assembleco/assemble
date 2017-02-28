@@ -9,7 +9,7 @@ class EnvVariablesController < ApplicationController
     @env = EnvVariable.new(env_variable_params)
 
     if @env.save
-      redirect_to block_path(@env.user, @env.block)
+      redirect_to block_path(@env.claim, @env.block)
     else
       render :new
     end
