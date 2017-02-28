@@ -22,6 +22,8 @@ module Features
       },
       "uid" => user.github_uid,
     )
+
+    stub_github_email('foo@example.com')
   end
 
   def sign_in(user)

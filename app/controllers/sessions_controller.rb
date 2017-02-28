@@ -7,6 +7,8 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_or_create_from_auth_hash(auth_hash)
+    user.sync_email_with_github
+
     self.current_user = user
 
     notice = t(".success", name: user.handle)

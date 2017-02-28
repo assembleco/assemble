@@ -3,21 +3,16 @@
 require "docker"
 
 class BlocksController < ApplicationController
-  helper_method :user
+  helper_method :user, :claim
 
-  skip_before_action :require_login, only: [:index, :show]
+  skip_before_action :require_login, only: [:show]
   skip_before_action :verify_authenticity_token, only: [:create]
 
-  def index
-    @blocks = user.blocks
-  end
-
   def show
-    @block = Block.find_by!(user: user, name: params[:blockname])
-  end
+    @block = Block.find_by!(name: params[:blockname], claim: claim) end
 
   def new
-    @block = Block.new(user: current_user)
+    @block = Block.new()
   end
 
   def create
@@ -29,7 +24,7 @@ class BlocksController < ApplicationController
           render json: @block.as_json
         }
         format.html {
-          redirect_to block_path(@block.user, @block), notice: t(".success")
+          redirect_to block_path(@block.claim, @block), notice: t(".success")
         }
       end
     else
@@ -46,14 +41,14 @@ class BlocksController < ApplicationController
   end
 
   def edit
-    @block = Block.find_by!(user: user, name: params[:blockname])
+    @block = Block.find_by!(claim: claim, name: params[:blockname])
   end
 
   def update
-    @block = Block.find_by!(user: user, name: params[:blockname])
+    @block = Block.find_by!(claim: claim, name: params[:blockname])
 
     if @block.update(block_params)
-      redirect_to block_path(@block.user, @block), notice: t(".success")
+      redirect_to block_path(@block.claim, @block), notice: t(".success")
     else
       flash.now[:alert] = t(".failure")
       render :edit
@@ -65,13 +60,17 @@ class BlocksController < ApplicationController
   def block_params
     params.require(:block).permit(
       :description,
-      :github_repo,
+      :handle,
       :name,
       :schema_json,
-    ).merge(user: current_user)
+    )
+  end
+
+  def claim
+    @claim ||= Claim.find_by!(handle: params[:handle])
   end
 
   def user
-    @user ||= User.find_by!(handle: params[:handle])
+    @user ||= claim.user
   end
 end

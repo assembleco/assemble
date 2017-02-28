@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Block, type: :model do
-  it { should belong_to :user }
+  it { should belong_to :claim }
 
   describe "validations" do
     subject { build(:block) }
@@ -10,7 +10,7 @@ RSpec.describe Block, type: :model do
 
     it { should validate_presence_of(:name) }
     it { should validate_uniqueness_of(:name).
-         scoped_to(:user_id).
+         scoped_to(:claim_id).
          case_insensitive }
   end
 

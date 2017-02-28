@@ -6,7 +6,7 @@ RSpec.feature "Header" do
     user = sign_in create(:user)
 
     visit root_path
-    click_on t("header.explore")
+    click_on "Assemble"
 
     expect(page).to have_content("Explore All Blocks")
   end
@@ -18,7 +18,7 @@ RSpec.feature "Header" do
     visit root_path
     click_on t("header.my_blocks")
 
-    expect(page).to have_content("Blocks > #{user.handle}")
+    expect(page).to have_content("#{user.handle}'s blocks")
   end
 
   scenario "non-signed in user cannot access links" do

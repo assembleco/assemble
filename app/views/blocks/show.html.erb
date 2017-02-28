@@ -9,23 +9,25 @@
     </h1>
 
     <p class="hint">
-    Built from <%= link_to @block.github_repo, "https://github.com/#{@block.github_repo}" %>
-    <br/>
-    on <%= l(@block.created_at.to_date) %>
+    Registered on <%= l(@block.created_at.to_date) %>
     </p>
   </div>
 
   <div class="section">
     <h2>Description</h2>
+
     <p>
       <%= @block.description %>
     </p>
+
+    <div>
+      <%= link_to "Edit", edit_block_path(claim, @block) %>
+    </div>
   </div>
 
   <div class="section">
-    <%= link_to "https://github.com/#{@block.github_repo}", class: "github-link" do %>
-      <%= octicon "mark-github" %>
-      View on GitHub &gt;
+    <%= link_to "https://hub.docker.com/#{claim.handle}/#{@block.name}", class: "github-link" do %>
+      View on Docker Hub &gt;
     <% end %>
   </div>
 </div>
@@ -34,7 +36,7 @@
   <div class="section section-hint">
     <% if @block.user == current_user %>
       As the block's author,
-      <%= link_to "edit the block's input schema", edit_block_path(@block.user, @block) %>
+      <%= link_to "edit the block's input schema", edit_block_path(@block.claim, @block) %>
       to help users understand how it works.
     <% end %>
   </div>

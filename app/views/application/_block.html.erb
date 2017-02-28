@@ -1,4 +1,4 @@
-<%= link_to block_path(block.user, block), class: "list-item block-listing" do %>
+<%= link_to block_path(block.claim, block), class: "list-item block-listing" do %>
   <%= image_tag block.icon, class: "block-listing-icon" %>
   <%= block.name %>
   <%= render "author_info_embedded", item: block %>

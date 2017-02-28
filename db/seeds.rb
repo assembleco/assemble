@@ -8,11 +8,12 @@ Feed.destroy_all
 User.destroy_all
 
 user = User.create!(handle: "user", github_uid: "abc123", github_token: "abc123")
+claim = Claim.create!(user: user, handle: "user")
 
 Block.create!(
   name: "debug",
+  claim: claim,
   description: "Simply prints out the input that was passed to the flow.",
-  github_repo: "graysonwright/debug.block",
   user: user,
 )
 
@@ -27,8 +28,8 @@ darksky_schema = {
 }
 Block.create!(
   name: "forecast",
+  claim: claim,
   description: "This block connects to the Dark Sky API (https://darksky.net/) to pull the latest weather forecast information.",
-  github_repo: "graysonwright/darksky_forecas.block",
   schema: darksky_schema,
   user: user,
 )
@@ -50,8 +51,8 @@ pushover_schema = {
 }
 Block.create!(
   name: "phone_notification",
+  claim: claim,
   description: "Use Pushover (https://pushover.net/) to send a notification to a user's phone",
-  github_repo: "graysonwright/pushover.block",
   schema: pushover_schema,
   user: user,
 )
@@ -72,8 +73,8 @@ transform_schema = {
 }
 Block.create!(
   name: "transform",
+  claim: claim,
   description: "Takes input data, and outputs the same data with some of the data renamed.",
-  github_repo: "graysonwright/transform_data.block",
   schema: transform_schema,
   user: user,
 )

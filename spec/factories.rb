@@ -2,9 +2,13 @@
 
 FactoryGirl.define do
   factory :block, aliases: [:destination] do
-    user
-    github_repo "example/example"
+    claim
     sequence(:name) { |n| "block_#{n}" }
+  end
+
+  factory :claim do
+    user
+    handle "user"
   end
 
   factory :env_variable do
