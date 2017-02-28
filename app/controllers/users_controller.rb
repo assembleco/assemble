@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
   def show
-    render json: current_user.as_json
+    @user = User.find_by(handle: params[:handle]) || current_user
+
+    respond_to do |format|
+      format.html
+      format.json { render json: current_user.as_json }
+    end
   end
 
   def edit

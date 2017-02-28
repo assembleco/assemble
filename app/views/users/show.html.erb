@@ -1,0 +1,34 @@
+<div class="layout-column-aside">
+  <%= avatar_for @user %>
+  <h1><%= @user.handle %></h1>
+
+  <% if @user.bio %>
+    <div>
+      <%= @user.bio %>
+    </div>
+  <% end %>
+
+  <% if @user.location %>
+    <div>
+      <%= @user.location %>
+    </div>
+  <% end %>
+
+  <% if @user.website %>
+    <div>
+      <%= external_link_to @user.website, @user.website %>
+    </div>
+  <% end %>
+
+  <div>
+    Joined <%= time_ago_in_words(@user.created_at) %> ago
+  </div>
+
+  <% if @user == current_user %>
+    <div><%= link_to "Edit profile", edit_profile_path %></div>
+  <% end %>
+</div>
+
+<div class="layout-column-main">
+  <%= render "blocks_list", blocks: @user.blocks, title: "#{@user.handle}'s blocks" %>
+</div>

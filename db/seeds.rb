@@ -7,7 +7,7 @@ Event.destroy_all
 Feed.destroy_all
 User.destroy_all
 
-user = User.create!(handle: "user", password: "password", email: "user@example.com")
+user = User.create!(handle: "user", github_uid: "abc123", github_token: "abc123")
 
 Block.create!(
   name: "debug",

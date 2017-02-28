@@ -29,7 +29,7 @@ FactoryGirl.define do
 
   factory :user do
     sequence(:handle) { |n| "user_#{n}" }
-    email { "#{handle}@example.com" }
-    password_digest "password"
+    sequence(:github_uid) { |n| n }
+    sequence(:github_token) { |n| n }
   end
 end
