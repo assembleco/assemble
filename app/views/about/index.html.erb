@@ -1,0 +1,76 @@
+<%= content_for :hero do %>
+  <section class="hero welcome-hero">
+    <div class="hero-column-left">
+      <p><%= t(".greeting") %></p>
+      <%= image_tag "welcome/title.png" %>
+    </div>
+
+    <div class="hero-column-right">
+      <p><%= t(".description.one") %></p>
+      <p><%= t(".description.two") %></p>
+
+      <%= link_to "Let's make an app.", new_session_path, class: "button" %>
+    </div>
+  </section>
+<% end %>
+
+<section class="welcome-section">
+  <p>
+  So... what does it take to build an app?
+  </p>
+</section>
+
+<section class="welcome-section">
+  <p>
+  Most of us see apps as a single entity that we can interact with.
+  </p>
+
+  <%= image_tag "welcome/facebook_opaque.png" %>
+</section>
+
+<section class="welcome-section">
+  <p>
+  But behind the scenes, apps are powered by small programs
+  that talk to each other.
+  </p>
+
+  <%= image_tag "welcome/facebook_transparent.png" %>
+</section>
+
+<section class="welcome-section">
+  <p>
+  Assemble
+  packages these programs into building blocks
+  that anyone can use.
+  </p>
+
+  <%= image_tag "welcome/building_blocks.png" %>
+</section>
+
+<section class="welcome-section">
+  <p>
+  So Jasmine, an event photographer,
+  can create an app to share photos with her customers.
+  </p>
+
+  <%= image_tag "welcome/photo_sharing.png" %>
+</section>
+
+<section class="welcome-section">
+  <p>
+  Or Muhammed, an office manager,
+  can build an app to help his coworkers
+  decide what to order for lunch.
+  </p>
+
+  <%= image_tag "welcome/order_lunch.png" %>
+</section>
+
+<section class="welcome-section welcome-section-cta">
+  <p>
+  Want to try to build an app yourself?
+  Let’s try - it will only take 5 minutes.
+  </p>
+
+  <%= link_to "Let's make an app.", new_session_path, class: "button" %>
+</section>

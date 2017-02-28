@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "sessions#create"
   get "/user_info", to: "users#show"
+  get "/about", to: "about#index"
 
   resource :session, only: [:new, :destroy]
   resources :feeds, only: [:index, :new, :create, :edit, :update]
@@ -29,6 +30,5 @@ Rails.application.routes.draw do
   # Event paths
   post "/events/:feed_id", to: "events#create", as: :events
 
-  get "/explore", to: "explore#index", as: :explore
   root to: "welcome#index"
 end

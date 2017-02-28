@@ -5,8 +5,9 @@
       <span class="header-title">Assemble</span>
 
       <% if current_user %>
-        <%= link_to t("header.explore"), explore_path %>
+        <%= link_to t("header.explore"), root_path %>
         <%= link_to t("header.my_blocks"), user_blocks_path(current_user) %>
+        <%= link_to t("header.about"), user_blocks_path(current_user) %>
       <% end %>
     </div>
 

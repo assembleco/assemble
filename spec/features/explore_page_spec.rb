@@ -7,7 +7,7 @@ RSpec.feature "Explore page" do
     block = create(:block, name: "Building Block 1")
 
     sign_in user
-    visit explore_path
+    visit root_path
     click_on "Building Block 1"
 
     expect(current_path).to eq block_path(block.user, block)
