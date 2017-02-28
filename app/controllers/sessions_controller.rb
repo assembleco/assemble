@@ -8,7 +8,9 @@ class SessionsController < ApplicationController
   def create
     user = User.find_or_create_from_auth_hash(auth_hash)
     self.current_user = user
-    redirect_to explore_path, notice: t(".success", name: user.handle)
+
+    notice = t(".success", name: user.handle)
+    redirect_to explore_path, notice: notice
   end
 
   def destroy

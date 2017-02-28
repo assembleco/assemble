@@ -31,7 +31,7 @@ en:
 
   sessions:
     create:
-      success: "Welcome back, %{name}!"
+      success: "Welcome, %{name}!"
 
   time:
     formats:

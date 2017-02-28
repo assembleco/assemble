@@ -11,26 +11,23 @@ RSpec.feature "Welcome page" do
   end
 
   scenario "user signs in" do
-    create(:user, handle: "foobar", password_digest: "password")
+    user = create(:user, handle: "foobar")
+    stub_authentication(user)
 
     visit root_path
-    click_on "Sign in"
-    fill_in :handle, with: "foobar"
-    fill_in "Password", with: "password"
-    click_button "Sign in"
+    click_on "Sign in with GitHub"
 
     expect(page).to have_content t("sessions.create.success", name: "foobar")
   end
 
   scenario "user signs up" do
-    visit root_path
-    click_on "Sign up"
-    fill_in "handle", with: "foobar"
-    fill_in "Email", with: "foobar@example.com"
-    fill_in "Password", with: "password"
-    click_button "Sign up"
+    user = build_stubbed(:user, handle: "foobar")
+    stub_authentication(user)
 
-    expect(page).to have_content t("users.create.success", name: "foobar")
+    visit root_path
+    click_on "Sign in with GitHub"
+
+    expect(page).to have_content t("sessions.create.success", name: "foobar")
   end
 
   scenario "signed-in user is redirected to explore page" do

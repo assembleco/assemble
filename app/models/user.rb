@@ -8,8 +8,6 @@ class User < ActiveRecord::Base
   before_create :generate_api_key
 
   def self.find_or_create_from_auth_hash(auth_hash)
-    require "json"
-    puts JSON.pretty_generate(auth_hash.to_h)
     find_by(github_uid: auth_hash["uid"]) ||
       create!(
         github_token: auth_hash["credentials"]["token"],
