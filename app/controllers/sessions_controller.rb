@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     self.current_user = user
 
     notice = t(".success", name: user.handle)
-    redirect_to explore_path, notice: notice
+    redirect_to root_path, notice: notice
   end
 
   def destroy

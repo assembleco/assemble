@@ -21,6 +21,7 @@ en:
       success: "Recorded event for %{feed_name}"
 
   header:
+    about: About
     explore: Explore
     my_apps: My Apps
     my_blocks: My Blocks
@@ -53,7 +54,7 @@ en:
       success: "Thanks for sharing, %{name}!"
       failure: Hmmm... that doesn't look quite right.
 
-  welcome:
+  about:
     index:
       greeting: Welcome, beautiful human, to
       description:
