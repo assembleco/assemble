@@ -51,10 +51,17 @@ mkdir key certificates challenge
 openssl genrsa 4096 > key/keyfile.pem
 cat 'gem "letsencrypt_plugin"' >> Gemfile
 bundle
-foreman start -f Procfile.dev
-rake letsencrypt_plugin
-# Now you can uninstall the 'letsencrypt_plugin' from the application,
-# and update the production Procfile to use the appropriate SSL binding
-# (https://github.com/puma/puma/#binding-tcp--sockets)
+
+# We need to run the server in development mode while the letsencrypt_plugin
+# does its thing.
+# Make sure `RACK_ENV=development` in the `.env` file
+rm bin/serve
+cp bin/serve.dev bin/serve
+./bin/docker-compose up -d
+./bin/docker-compose run --rm web bash -c 'bundle && rake letsencrypt_plugin'
+# Now that we're done, switch back to production mode.
+# Remember `RACK_ENV=production` in the `.env` file.
+rm bin/serve
+cp bin/serve.production bin/serve
 
 ./bin/docker-compose up -d
