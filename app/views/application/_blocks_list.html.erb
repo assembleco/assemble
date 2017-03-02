@@ -1,9 +1,5 @@
 <div class="list">
-  <h2><%= title %></h2>
-
   <div class="list-items">
     <%= render partial: "block", collection: blocks, as: :block %>
   </div>
-
-  <%= link_to "+ Create a new block", new_block_path, class: "list-new-item-link" %>
 </div>
