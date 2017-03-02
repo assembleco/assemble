@@ -55,6 +55,15 @@ class BlocksController < ApplicationController
     end
   end
 
+  def destroy
+    block = Block.find_by!(claim: claim, name: params[:blockname])
+    block.destroy!
+
+    respond_to do |format|
+      format.json { render json: { status: :success } }
+    end
+  end
+
   private
 
   def block_params
