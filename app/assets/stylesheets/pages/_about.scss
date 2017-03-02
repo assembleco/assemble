@@ -1,5 +1,10 @@
 $about-section-spacing: 3 * $base-spacing;
 
+$green: #acdbcc;
+$blue: #9bcad6;
+$yellow: #f2d38e;
+$red: #fb987f;
+
 .about-hero {
   align-items: center;
   background-image: image_url("about/hero_background.png");
@@ -8,7 +13,6 @@ $about-section-spacing: 3 * $base-spacing;
   font-size: 1.2rem;
   min-height: 60vh;
   justify-content: space-around;
-  margin-bottom: $about-section-spacing;
   overflow: hidden;
   padding: $base-spacing;
 
@@ -32,22 +36,52 @@ $about-section-spacing: 3 * $base-spacing;
 }
 
 .about-section {
+  @include outer-container;
   align-items: center;
   clear: both;
   display: flex;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   justify-content: space-around;
-  margin-bottom: $about-section-spacing;
   overflow: hidden;
+  padding: 2*$base-spacing $base-spacing;
+  position:relative;
 
   p {
     flex: 0 1 30%;
+
+    background-color: white;
+    border-radius: 4px;
+    border: 2px solid black;
+    flex: 0 1 20em;
+    padding: $small-spacing;
   }
 
   img {
     $size: 60%;
     flex: 0 1 $size;
     max-width: $size;
+    margin-left: 10%;
+  }
+
+  &-wrapper {
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+
+    &:before {
+      content: '';
+      display: block;
+      z-index: -1;
+      opacity: 0.25;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+
+    &:nth-child(4n+1):before { background-color: $green; }
+    &:nth-child(4n+2):before { background-color: $blue; }
+    &:nth-child(4n+3):before { background-color: $yellow; }
+    &:nth-child(4n+4):before { background-color: $red; }
   }
 }
 
@@ -56,7 +90,16 @@ $about-section-spacing: 3 * $base-spacing;
   @include shift(2);
 }
 
-.about-aside {
-  @include span-columns(6 of 12);
-  margin-bottom: $about-section-spacing;
+.about-context-wrapper {
+  @include outer-container;
+  padding-top: $about-section-spacing;
+
+  .about-aside {
+    @include span-columns(6 of 12);
+    margin-bottom: $about-section-spacing;
+
+    &:first-child {
+      @include shift(3);
+    }
+  }
 }
