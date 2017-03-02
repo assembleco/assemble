@@ -1,14 +1,14 @@
-$welcome-section-spacing: 4 * $base-spacing;
+$about-section-spacing: 3 * $base-spacing;
 
-.welcome-hero {
+.about-hero {
   align-items: center;
-  background-image: image_url("welcome/hero_background.png");
+  background-image: image_url("about/hero_background.png");
   background-size: cover;
   display: flex;
   font-size: 1.2rem;
   min-height: 60vh;
   justify-content: space-around;
-  margin-bottom: $welcome-section-spacing;
+  margin-bottom: $about-section-spacing;
   overflow: hidden;
   padding: $base-spacing;
 
@@ -31,12 +31,13 @@ $welcome-section-spacing: 4 * $base-spacing;
   }
 }
 
-.welcome-section {
+.about-section {
   align-items: center;
+  clear: both;
   display: flex;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   justify-content: space-around;
-  margin-bottom: $welcome-section-spacing;
+  margin-bottom: $about-section-spacing;
   overflow: hidden;
 
   p {
@@ -48,4 +49,14 @@ $welcome-section-spacing: 4 * $base-spacing;
     flex: 0 1 $size;
     max-width: $size;
   }
+}
+
+.about-scroll-hint {
+  @include span-columns(1);
+  @include shift(2);
+}
+
+.about-aside {
+  @include span-columns(6 of 12);
+  margin-bottom: $about-section-spacing;
 }

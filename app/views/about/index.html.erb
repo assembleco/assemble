@@ -1,76 +1,107 @@
 <%= content_for :hero do %>
-  <section class="hero welcome-hero">
+  <section class="hero about-hero">
     <div class="hero-column-left">
       <p><%= t(".greeting") %></p>
-      <%= image_tag "welcome/title.png" %>
+      <%= image_tag "about/title.png" %>
     </div>
 
     <div class="hero-column-right">
       <p><%= t(".description.one") %></p>
       <p><%= t(".description.two") %></p>
-
-      <%= link_to "Let's make an app.", new_session_path, class: "button" %>
     </div>
   </section>
 <% end %>
 
-<section class="welcome-section">
+<div class="about-scroll-hint">
+  <%= image_tag "about/scroll_down.svg", alt: "Scroll down for more" %>
+</div>
+
+<div class="section section-hint about-aside">
+  <p>
+  Hello!
+  </p>
+
+  <p>
+  You're looking at an early take on how our platform
+  can help nontechnical users leverage the power of custom technology.
+  </p>
+
+  <p>
+  These features have not been built yet –
+  this is simply a vision of what we'd like to achieve.
+  </p>
+
+  <p>
+  We want to build our tools to be as accessible and inclusive as possible.
+  To do that, it's necessary to give everyone a voice in how the tools are built.
+  We'd love to hear your thoughts and ideas.
+  </p>
+
+  <p>
+  Find us
+  <%= link_to "on Slack", ENV.fetch("SLACKIN_URL") %>
+  and
+  <%= link_to "on GitHub", "https://github.com/assembleapp/registry" %>,
+  or just click on the orange circle in the corner of your screen
+  and start typing.
+  </p>
+</div>
+
+<section class="about-section">
   <p>
   So... what does it take to build an app?
   </p>
 </section>
 
-<section class="welcome-section">
+<section class="about-section">
   <p>
   Most of us see apps as a single entity that we can interact with.
   </p>
 
-  <%= image_tag "welcome/facebook_opaque.png" %>
+  <%= image_tag "about/facebook_opaque.png" %>
 </section>
 
-<section class="welcome-section">
+<section class="about-section">
   <p>
   But behind the scenes, apps are powered by small programs
   that talk to each other.
   </p>
 
-  <%= image_tag "welcome/facebook_transparent.png" %>
+  <%= image_tag "about/facebook_transparent.png" %>
 </section>
 
-<section class="welcome-section">
+<section class="about-section">
   <p>
   Assemble
   packages these programs into building blocks
   that anyone can use.
   </p>
 
-  <%= image_tag "welcome/building_blocks.png" %>
+  <%= image_tag "about/building_blocks.png" %>
 </section>
 
-<section class="welcome-section">
+<section class="about-section">
   <p>
   So Jasmine, an event photographer,
   can create an app to share photos with her customers.
   </p>
 
-  <%= image_tag "welcome/photo_sharing.png" %>
+  <%= image_tag "about/photo_sharing.png" %>
 </section>
 
-<section class="welcome-section">
+<section class="about-section">
   <p>
   Or Muhammed, an office manager,
   can build an app to help his coworkers
   decide what to order for lunch.
   </p>
 
-  <%= image_tag "welcome/order_lunch.png" %>
+  <%= image_tag "about/order_lunch.png" %>
 </section>
 
-<section class="welcome-section welcome-section-cta">
+<section class="about-section about-section-cta">
   <p>
   Want to try to build an app yourself?
   Let’s try - it will only take 5 minutes.
   </p>
-
-  <%= link_to "Let's make an app.", new_session_path, class: "button" %>
 </section>
