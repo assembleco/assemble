@@ -22,6 +22,10 @@ fi
 # Install Node dependencies
 ./bin/docker-compose run --rm webpack yarn install
 
+# For SSL
+mkdir key certificates challenge
+openssl genrsa 4096 > key/keyfile.pem
+
 # Only if this isn't CI
 # if [ -z "$CI" ]; then
 # fi
