@@ -20,6 +20,8 @@ bin/serve
 
 # for production SSL certificates
 /certificates
+/challenge
+/key
 
 # Added by webpack-rails
 /public/webpack
