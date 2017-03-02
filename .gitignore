@@ -23,3 +23,5 @@ bin/serve
 
 # Added by webpack-rails
 /public/webpack
+
+docker-compose.yml
