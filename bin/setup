@@ -19,6 +19,11 @@ if [ ! -f bin/serve ]; then
   cp bin/serve.dev bin/serve
 fi
 
+# Make sure docker-compose.yml exists
+if [ ! -f docker-compose.yml ]; then
+  cp docker-compose.dev.yml docker-compose.yml
+fi
+
 # Install Node dependencies
 ./bin/docker-compose run --rm webpack yarn install
 
