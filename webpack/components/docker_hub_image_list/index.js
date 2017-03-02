@@ -53,7 +53,11 @@ class DockerHubImageList extends React.Component {
   deactivateImage(name) {
     const { handle } = this.props;
 
-    $.delete(`/blocks/${handle}/${name}`, () => { location.reload() });
+    $.ajax({
+      type: 'delete',
+      url: `/blocks/${handle}/${name}`,
+      success: () => { location.reload() },
+    });
   }
 }
 
