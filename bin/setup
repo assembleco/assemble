@@ -19,6 +19,9 @@ if [ ! -f bin/serve ]; then
   cp bin/serve.dev bin/serve
 fi
 
+# Install Node dependencies
+./bin/docker-compose run --rm webpack yarn install
+
 # Only if this isn't CI
 # if [ -z "$CI" ]; then
 # fi
