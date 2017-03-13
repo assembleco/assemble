@@ -23,7 +23,8 @@ class Claim extends React.Component {
 
         <UsageHint>
           Don't see the image that you're looking for?
-          Make sure it's published publicly on Docker Hub.
+          Make sure it's published publicly on Docker Hub,
+          then refresh this page.
         </UsageHint>
       </Section>
     );
