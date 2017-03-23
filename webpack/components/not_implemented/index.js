@@ -12,7 +12,7 @@ const NotImplemented = (props) => <Wrapper>
   This feature is still under construction.
   <br/>
   Please see
-  <a href={`https://github.com/assembleapp/registry/${props.issueID}`}> the GitHub issue </a>
+  <a href={`https://github.com/assembleapp/registry/issues/${props.issueID}`}> the GitHub issue </a>
   for more information.
 </Wrapper>
 
