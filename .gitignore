@@ -27,3 +27,5 @@ bin/serve
 /public/webpack
 
 docker-compose.yml
+
+data
