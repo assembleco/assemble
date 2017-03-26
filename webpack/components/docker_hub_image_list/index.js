@@ -35,7 +35,7 @@ class DockerHubImageList extends React.Component {
       <Image key={image}>
         <span>{image}</span>
 
-        <Link onClick={() => this.activateImage(image)}>
+        <Link onClick={() => this.activateImage(image)} role="link">
           Register as an IronFunction
         </Link>
       </Image>
