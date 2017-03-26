@@ -9,9 +9,11 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN apt-get update -qq
 
 RUN apt-get install -y \
+      apt-transport-https \
       build-essential \
-      build-essential \
+      ca-certificates \
       chrpath \
+      curl \
       libfontconfig1 \
       libfontconfig1-dev \
       libfreetype6 \
@@ -20,7 +22,20 @@ RUN apt-get install -y \
       libssl-dev \
       libxft-dev \
       nodejs \
+      software-properties-common \
       yarn
+
+# Install Docker, required for `fn` command
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+RUN add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable" && \
+   apt-get update -qq && \
+   apt-get install -y docker-ce
+
+# Install IronFunctions `fn` command-line tool
+RUN curl -LSs https://goo.gl/VZrL8t | sh
 
 RUN mkdir /app
 WORKDIR /app
