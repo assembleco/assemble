@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "sessions#create"
+
   get "/user_info", to: "users#show", as: :user_info
   get "/about", to: "about#index", as: :about
 
@@ -27,6 +28,10 @@ Rails.application.routes.draw do
   get "/blocks/:handle/:blockname/edit", to: "blocks#edit", as: :edit_block
   patch "/blocks/:handle/:blockname", to: "blocks#update", as: :update_block
   delete "/blocks/:handle/:blockname", to: "blocks#destroy"
+
+  # Block runs
+  get "/blocks/:handle/:blockname/runs/:block_run_id", to: "block_runs#show", as: :block_run
+  post "/blocks/:handle/:blockname/runs", to: "block_runs#create", as: :block_runs
 
   # Event paths
   post "/events/:feed_id", to: "events#create", as: :events

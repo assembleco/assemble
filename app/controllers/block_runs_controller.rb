@@ -27,8 +27,8 @@ class BlockRunsController < ApplicationController
         format.json {
           render plain: JSON.pretty_generate({
             status: :success,
-            message: "Running block `#{user.handle}/#{block.name}`",
-            path: block_run_path(user, block, run),
+            message: "Running block `#{claim.handle}/#{block.name}`",
+            path: block_run_path(claim, block, run),
           })
         }
       end
@@ -40,10 +40,10 @@ class BlockRunsController < ApplicationController
   private
 
   def block
-    @block ||= Block.find_by!(user: user, name: params[:blockname])
+    @block ||= Block.find_by!(claim: claim, name: params[:blockname])
   end
 
-  def user
-    @user ||= User.find_by!(handle: params[:handle])
+  def claim
+    @claim ||= Claim.find_by!(handle: params[:handle])
   end
 end

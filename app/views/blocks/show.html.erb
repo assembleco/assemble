@@ -44,7 +44,8 @@
   <%= react_component(
     "BlockUsage",
     schema: @block.schema,
-    run_block_url: "/foo/bar", # TODO block_runs_url(@block.user, @block),
+    run_block_url: block_runs_url(@block.claim, @block),
+    user_api_key: current_user.api_key,
     initial_input_data: @block.runs.last.try(:input),
   ) %>
 </div>
