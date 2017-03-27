@@ -57,7 +57,7 @@ class RunStatus extends React.Component {
   }
 
   checkBlockStatus() {
-    $.get(this.props.url, (response) => {
+    $.get(this.props.url + '.json', (response) => {
       if(response.status === "pending") {
         setTimeout(this.checkBlockStatus, 500);
       } else {

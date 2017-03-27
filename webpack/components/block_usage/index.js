@@ -2,8 +2,7 @@ import React from "react"
 import $ from "jquery"
 
 import Form from "react-jsonschema-form"
-import RunStatus from "./run_status"
-import NotImplemented from "./not_implemented"
+import RunStatus from "../run_status"
 
 class BlockUsage extends React.Component {
   constructor(props) {
@@ -27,7 +26,6 @@ class BlockUsage extends React.Component {
           in a web form or on your command line.
         </p>
 
-        <NotImplemented issueID={1} >
         <Form
           schema={this.props.schema}
           onChange={ (e) => this.setState({ inputData: e.formData }) }
@@ -51,13 +49,13 @@ class BlockUsage extends React.Component {
 
         <pre>
 {`curl \\\n\
-  '${ this.props.run_block_url }' \\\n\
+  '${ this.props.run_block_url }.json' \\\n\
   -X POST \\\n\
   -H "Content-Type: application/json" \\\n\
   -H "Accept: application/json" \\\n\
+  -H "Authorization: Bearer ${this.props.user_api_key}" \\\n\
   -d '${JSON.stringify({ data: this.state.inputData }, null, 2)}'`}
         </pre>
-        </NotImplemented>
       </div>
     );
   }
@@ -74,6 +72,7 @@ class BlockUsage extends React.Component {
 }
 
 BlockUsage.propTypes = {
+  user_api_key: React.PropTypes.string.isRequired,
   run_block_url: React.PropTypes.string.isRequired,
   schema: React.PropTypes.object.isRequired,
   initial_input_data: React.PropTypes.object,
