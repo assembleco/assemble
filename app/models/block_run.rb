@@ -10,9 +10,15 @@ class BlockRun < ApplicationRecord
 
   def execute
     if schema_satisfied?
-      self.stdout = `fn run #{block.claim.handle}/#{block.name}`
-      # self.stderr = stderr.join
-      self.exit_status = 0
+      Tempfile.open("block_run.#{id}.input") do |f|
+        File.write(f.to_path, input.to_json)
+        command = "cat #{f.to_path} | fn run #{block.claim.handle}/#{block.name}:#{block.version}"
+
+        self.stdout = `#{command}`
+        # self.stderr = stderr.join
+
+        self.exit_status = 0
+      end
 
       save!
     else

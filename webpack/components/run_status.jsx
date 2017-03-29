@@ -39,11 +39,6 @@ class RunStatus extends React.Component {
             {this.state.stderr}
             </pre>
           </div>
-
-          <div>
-            Output:
-            <JSONTree data={this.state.output} shouldExpandNode={() => false} />
-          </div>
         </div>
       );
     else
@@ -77,6 +72,9 @@ RunStatus.styles = {
   },
   success: {
     backgroundColor: colors.green
+  },
+  failure: {
+    backgroundColor: colors.red
   }
 }
 
