@@ -37,4 +37,13 @@ class Block < ApplicationRecord
   def to_param
     name
   end
+
+  # TODO
+  # This is hard-coded to get around the `latest` issue.
+  # Options:
+  # * Require a `latest` tag
+  # * Manage all images under the `assembleapp` handle on Docker Hub
+  def version
+    "0.0.1"
+  end
 end
