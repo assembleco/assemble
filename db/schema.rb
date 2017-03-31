@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302010807) do
+ActiveRecord::Schema.define(version: 20170331163531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,9 +25,11 @@ ActiveRecord::Schema.define(version: 20170302010807) do
     t.string   "status",      default: "pending", null: false
     t.jsonb    "input"
     t.jsonb    "output"
+    t.integer  "user_id"
     t.index ["block_id"], name: "index_block_runs_on_block_id", using: :btree
     t.index ["input"], name: "index_block_runs_on_input", using: :gin
     t.index ["output"], name: "index_block_runs_on_output", using: :gin
+    t.index ["user_id"], name: "index_block_runs_on_user_id", using: :btree
   end
 
   create_table "blocks", force: :cascade do |t|

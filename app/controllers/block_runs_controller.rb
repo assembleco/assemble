@@ -17,6 +17,7 @@ class BlockRunsController < ApplicationController
     run = BlockRun.new(
       block: block,
       input: params[:data] || {},
+      user: current_user,
     )
 
     if run.save

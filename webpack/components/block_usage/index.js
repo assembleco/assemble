@@ -37,7 +37,13 @@ class BlockUsage extends React.Component {
               Clear input fields
             </a>
 
-            <button type="submit" style={{ float: "right" }}>Go</button>
+            <button
+              type="submit"
+              style={{ float: "right" }}
+              disabled={this.props.user_api_key == null}
+            >
+            Go
+            </button>
           </div>
         </Form>
 
@@ -48,7 +54,10 @@ class BlockUsage extends React.Component {
         </p>
 
         <pre>
-{`curl \\\n\
+{
+  this.props.user_api_key == null ?
+    "Sign in to try out this block" :
+  `curl \\\n\
   '${ this.props.run_block_url }.json' \\\n\
   -X POST \\\n\
   -H "Content-Type: application/json" \\\n\
