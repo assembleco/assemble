@@ -34,7 +34,10 @@ Rails.application.routes.draw do
   post "/blocks/:handle/:blockname/runs", to: "block_runs#create", as: :block_runs
 
   # Event paths
+  post "/events/slack/assemble", to: "slack#slash", as: :slack_slash
   post "/events/:feed_id", to: "events#create", as: :events
+
+  resources :services, only: [:index]
 
   root to: "welcome#index"
 end

@@ -5,6 +5,7 @@ import BlockSandboxForm from "./components/block_sandbox_form";
 import Claim from "./components/claim";
 import NewClaim from "./components/new_claim";
 import Schema from "./components/schema";
+import ServiceIndex from "./components/service_index";
 import JSONTree from "react-json-tree";
 
 import { mountComponents } from "react-rails-ujs";
@@ -16,6 +17,7 @@ mountComponents({
   JSONTree,
   NewClaim,
   Schema,
+  ServiceIndex,
 });
 
 $(document).ajaxSend(function(e, xhr, options) {
