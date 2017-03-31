@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331163531) do
+ActiveRecord::Schema.define(version: 20170405192431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,14 @@ ActiveRecord::Schema.define(version: 20170331163531) do
     t.datetime "updated_at", null: false
     t.jsonb    "schema"
     t.index ["schema"], name: "index_feeds_on_schema", using: :gin
+  end
+
+  create_table "slack_authentications", force: :cascade do |t|
+    t.string "handle",  null: false
+    t.string "team",    null: false
+    t.string "user_id", null: false
+    t.string "team_id", null: false
+    t.string "token",   null: false
   end
 
   create_table "users", force: :cascade do |t|
