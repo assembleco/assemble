@@ -5,8 +5,10 @@ require "json"
 class BlockRun < ApplicationRecord
   INPUT_SCHEMA_NOT_SATISFIED = "input_schema_not_satisfied"
 
-  belongs_to :app
+  belongs_to :user
   belongs_to :block
+
+  validates :user, presence: true
 
   def execute
     if schema_satisfied?
