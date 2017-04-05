@@ -1,1 +1,6 @@
-<%= react_component "ServiceIndex" %>
+<%= react_component(
+  "ServiceIndex",
+  slack_connections: @connections[:slack].as_json,
+  github_connections: @connections[:github].as_json,
+)
+%>

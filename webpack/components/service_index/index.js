@@ -25,6 +25,7 @@ class ServiceIndex extends React.Component {
         name="Slack"
         domain="slack.com"
         auth_route="/auth/slack"
+        connections={this.props.slack_connections}
         hint={`
           Trigger blocks based on Slash commands,
           and to send block output back into your team's Slack conversation.
@@ -34,6 +35,8 @@ class ServiceIndex extends React.Component {
         <Service
         name="GitHub"
         domain="github.com"
+        connections={this.props.github_connections}
+        auth_route="/auth/github"
         hint={`
           Trigger blocks whenever you push code,
           open issues or pull requests,
@@ -46,6 +49,8 @@ class ServiceIndex extends React.Component {
 }
 
 ServiceIndex.propTypes = {
+  slack_connections: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  github_connections: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
 }
 
 export default Radium(ServiceIndex);
