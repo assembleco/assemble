@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_many :claims
   has_many :blocks, through: :claims
 
+  has_many :slack_authentications
+
   validates :github_uid, presence: true, uniqueness: true
   validates :github_token, presence: true, uniqueness: true
   validates :handle, presence: true, uniqueness: true

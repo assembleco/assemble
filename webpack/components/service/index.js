@@ -15,8 +15,25 @@ class Service extends React.Component {
         <p className="hint">
         {this.props.hint}
         </p>
+
+        { this.props.connections.map(this.renderConnection.bind(this)) }
       </div>
     );
+  }
+
+  renderConnection(connection) {
+    if(connection.team) {
+      // This is the Slack service
+      return <Connection key={connection.team}>
+        Connected to team <code>{connection.team}</code>&nbsp;
+        by user <code>{connection.handle}</code>
+      </Connection>
+    } else {
+      // This is the GitHub service
+      return <Connection key={connection.handle}>
+        Connected to user <code>{connection.handle}</code>
+      </Connection>
+    }
   }
 }
 
@@ -32,6 +49,11 @@ const Name = styled.h2`
 
 const Button = styled.a`
   float: right;
+`
+
+const Connection = styled.div`
+  border-top: 1px solid lightgrey;
+  padding: 0.5rem;
 `
 
 Service.propTypes = {
