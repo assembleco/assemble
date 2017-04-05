@@ -26,7 +26,11 @@
   </div>
 
   <div class="section">
-    <%= link_to "https://hub.docker.com/#{claim.handle}/#{@block.name}", class: "github-link" do %>
+    <%= link_to(
+      "https://hub.docker.com/r/#{claim.handle}/#{@block.name}",
+      class: "github-link",
+      target: "_blank",
+    ) do %>
       View on Docker Hub &gt;
     <% end %>
   </div>
