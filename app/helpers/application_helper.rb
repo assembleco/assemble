@@ -28,7 +28,7 @@ module ApplicationHelper
       fenced_code_blocks: true,
     )
 
-    markdown.render(source).html_safe
+    markdown.render(source.to_s).html_safe
   end
 
   def react_component(name, props = {}, options = {}, &block)
