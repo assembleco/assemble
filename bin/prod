@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Run this script to deploy the app to DigitalOcean
+
+ssh -t root@assembleapp.co '\
+cd registry &&\
+./bin/docker-compose run --rm web rails c \
+'
