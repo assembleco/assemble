@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :claims
-  has_many :blocks, through: :claims
+  has_many :blocks
 
   has_many :slack_authentications
 

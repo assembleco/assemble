@@ -6,9 +6,6 @@ Rails.application.routes.draw do
   get "/user_info", to: "users#show", as: :user_info
   get "/about", to: "about#index", as: :about
 
-  get "/claims/:handle/dockerfile", to: "claims#dockerfile", as: :dockerfile
-  post "/claims", to: "claims#create"
-
   resource :session, only: [:new, :destroy]
   resources :feeds, only: [:index, :new, :create, :edit, :update]
 

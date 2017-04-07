@@ -10,7 +10,7 @@ RSpec.feature "Explore page" do
     visit root_path
     click_on "Building Block 1"
 
-    expect(current_path).to eq block_path(block.claim, block)
+    expect(current_path).to eq block_path(block.user, block)
     expect(page).to have_heading(block.name)
   end
 end

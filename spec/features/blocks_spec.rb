@@ -7,7 +7,7 @@ RSpec.feature "Blocks" do
     user = block.user
 
     sign_in user
-    visit edit_block_path(block.claim, block)
+    visit edit_block_path(block.user, block)
     fill_in :block_description, with: "This block says hello."
     click_on "Update Block"
 
@@ -19,7 +19,7 @@ RSpec.feature "Blocks" do
     block = create(:block)
 
     sign_in create(:user)
-    visit block_path(block.claim, block)
+    visit block_path(block.user, block)
     first("a", text: block.user.handle).click
 
     expect(page).to have_heading(block.user.handle)

@@ -1,20 +1,4 @@
-<div class="layout-column-left">
-  <%= react_component(
-    "NewClaim",
-    userHandle: current_user.handle,
-    host: root_url.gsub(/\/$/, ""),
-    dockerfileURL: dockerfile_url(handle: current_user.handle),
-  ) %>
-</div>
+<%= react_component(
+  "BlockForm",
 
-<div class="layout-column-right">
-  <% current_user.claims.each do |claim| %>
-    <%= react_component(
-      "Claim",
-      claim.as_json.merge(
-        activatedImages: claim.blocks.pluck(:name),
-        publicDockerImages: claim.fetch_unregistered_images,
-      ),
-    ) %>
-<% end %>
-</div>
+) %>

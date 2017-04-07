@@ -21,13 +21,13 @@
     </p>
 
     <div>
-      <%= link_to "Edit", edit_block_path(claim, @block) %>
+      <%= link_to "Edit", edit_block_path(user, @block) %>
     </div>
   </div>
 
   <div class="section">
     <%= link_to(
-      "https://hub.docker.com/r/#{claim.handle}/#{@block.name}",
+      "https://hub.docker.com/r/#{user.handle}/#{@block.name}",
       class: "github-link",
       target: "_blank",
     ) do %>
@@ -40,7 +40,7 @@
   <% if @block.user == current_user %>
     <div class="section section-hint">
       As the block's author,
-      <%= link_to "edit the block's input schema", edit_block_path(@block.claim, @block) %>
+      <%= link_to "edit the block's input schema", edit_block_path(@block.user, @block) %>
       to help users understand how it works.
     </div>
   <% end %>
@@ -48,7 +48,7 @@
   <%= react_component(
     "BlockUsage",
     schema: @block.schema,
-    run_block_url: block_runs_url(@block.claim, @block),
+    run_block_url: block_runs_url(@block.user, @block),
     user_api_key: current_user.try(:api_key),
     initial_input_data: @block.runs.where(user: current_user).last.try(:input),
   ) %>
