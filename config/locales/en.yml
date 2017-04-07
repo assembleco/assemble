@@ -6,6 +6,10 @@ en:
       with_weekday:
         "%a %m/%d/%y"
 
+  docs:
+    serverless_functions: serverless functions
+    root: Docs
+
   blocks:
     create:
       success: Nice work! That's a good-lookin' block you've got there.

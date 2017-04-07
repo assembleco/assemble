@@ -1,7 +1,7 @@
 <div class="section layout-center">
   <p>
   Assemble is a registry of open-source, publicly-usable
-  <%= link_to "IronFunctions", "http://open.iron.io/" %>.
+  <%= docs_link(:serverless_functions) %>.
   </p>
 
   <p>
@@ -12,7 +12,7 @@
 
   <p>
   <% if current_user %>
-    <%= link_to "+ Register a new function", new_block_path, class: "button" %>
+    <%= link_to "+ Create a new block", new_block_path, class: "button" %>
   <% else %>
     <%= link_to "Sign in to get started", new_session_path %>
   <% end %>
