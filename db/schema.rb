@@ -83,11 +83,13 @@ ActiveRecord::Schema.define(version: 20170407214454) do
   end
 
   create_table "slack_authentications", force: :cascade do |t|
-    t.string "handle",  null: false
-    t.string "team",    null: false
-    t.string "user_id", null: false
-    t.string "team_id", null: false
-    t.string "token",   null: false
+    t.string  "handle",        null: false
+    t.string  "team",          null: false
+    t.string  "slack_user_id", null: false
+    t.string  "slack_team_id", null: false
+    t.string  "token",         null: false
+    t.integer "user_id",       null: false
+    t.index ["user_id"], name: "index_slack_authentications_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -109,4 +111,5 @@ ActiveRecord::Schema.define(version: 20170407214454) do
   add_foreign_key "blocks", "users"
   add_foreign_key "env_variables", "blocks"
   add_foreign_key "events", "feeds"
+  add_foreign_key "slack_authentications", "users"
 end
