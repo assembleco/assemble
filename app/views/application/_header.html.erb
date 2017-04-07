@@ -1,17 +1,16 @@
+<%#= react_component("Header", user: current_user.as_json) %>
 <div class="header">
   <div class="header-menu">
     <div class="layout-column-left">
       <%= image_tag "blocks/block-4.png", class: "header-logo" %>
       <%= link_to "Assemble", root_path, class: "header-title" %>
-
-      <% if current_user %>
-        <%= link_to t("header.my_blocks"), user_info_path %>
-        <%= link_to t("header.about"), about_path %>
-      <% end %>
+      <%= docs_link %>
+      <%= link_to t("header.about"), about_path %>
     </div>
 
     <div class="layout-column-right">
       <% if current_user %>
+        <%= link_to current_user.handle, user_info_path %>
         <%= button_to "Sign out", session_path, method: :delete %>
       <% else %>
         <%= link_to "Sign in with GitHub", new_session_path %>
