@@ -5,8 +5,11 @@ require "docker"
 class BlocksController < ApplicationController
   helper_method :user, :claim
 
-  skip_before_action :require_login, only: [:show]
+  skip_before_action :require_login, only: [:index, :show]
   skip_before_action :verify_authenticity_token, only: [:create]
+
+  def index
+  end
 
   def show
     @block = Block.find_by!(name: params[:blockname], claim: claim) end
