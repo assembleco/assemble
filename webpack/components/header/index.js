@@ -7,7 +7,7 @@ class Header extends React.Component {
   render() {
     return (
       <Background>
-        <Menu>
+        <Menu width="1200px">
           <Left className="layout-column-left">
             <Logo src="/assets/blocks/block-4.png"/>
 
