@@ -15,6 +15,7 @@ class BlocksController < ApplicationController
     @block = Block.find_by!(name: params[:blockname], user: user) end
 
   def new
+    @user = current_user
     @block = Block.new()
   end
 

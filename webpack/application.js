@@ -5,7 +5,6 @@ import BlockSandboxForm from "./components/block_sandbox_form";
 import BlockUsage from "./components/block_usage";
 import Header from "./components/header";
 import JSONTree from "react-json-tree";
-import BlockForm from "./components/block_form";
 import Schema from "./components/schema";
 import ServiceIndex from "./components/service_index";
 
@@ -14,7 +13,6 @@ mountComponents({
   BlockUsage,
   Header,
   JSONTree,
-  BlockForm,
   Schema,
   ServiceIndex,
 });
