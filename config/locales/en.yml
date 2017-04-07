@@ -24,11 +24,6 @@ en:
     create:
       success: "Recorded event for %{feed_name}"
 
-  header:
-    about: About
-    my_apps: My Apps
-    my_blocks: My Blocks
-
   runs:
     create:
       success: Created a run.

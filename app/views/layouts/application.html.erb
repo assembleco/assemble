@@ -14,7 +14,11 @@
   </head>
 
   <body class="<%= body_class %>" data-rails-env="<%= Rails.env %>">
-    <%= render "header" %>
+    <%= react_component(
+      "Header",
+      current_user: current_user.try(:handle),
+      docs_path: ENV.fetch("ABOUT_URL_DOCS"),
+    ) %>
 
     <%= content_for :hero %>
 
