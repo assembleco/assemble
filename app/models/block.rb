@@ -3,14 +3,13 @@
 class Block < ApplicationRecord
   EMPTY_SCHEMA = { type: "object", properties: {}, required: [] }.freeze
 
-  belongs_to :claim
-  has_one :user, through: :claim
+  belongs_to :user
 
   has_many :env_variables, dependent: :destroy
   has_many :runs, dependent: :destroy, class_name: "BlockRun"
 
   validates :user, presence: true
-  validates :name, presence: true, uniqueness: { scope: :claim_id, case_sensitive: false }
+  validates :name, presence: true, uniqueness: { scope: :user_id, case_sensitive: false }
 
   # TODO extract to React
   def icon
@@ -18,8 +17,8 @@ class Block < ApplicationRecord
     "blocks/block-#{block_id}.png"
   end
 
-  def handle=(value)
-    self.claim = Claim.find_by!(handle: value)
+  def handle
+    user.handle
   end
 
   def schema

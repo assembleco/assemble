@@ -2,13 +2,8 @@
 
 FactoryGirl.define do
   factory :block, aliases: [:destination] do
-    claim
-    sequence(:name) { |n| "block_#{n}" }
-  end
-
-  factory :claim do
     user
-    handle "user"
+    sequence(:name) { |n| "block_#{n}" }
   end
 
   factory :env_variable do

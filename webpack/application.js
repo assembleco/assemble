@@ -1,23 +1,20 @@
 import $ from "jquery";
+import { mountComponents } from "react-rails-ujs";
 
-import BlockUsage from "./components/block_usage";
 import BlockSandboxForm from "./components/block_sandbox_form";
+import BlockUsage from "./components/block_usage";
 import Header from "./components/header";
-import Claim from "./components/claim";
-import NewClaim from "./components/new_claim";
+import JSONTree from "react-json-tree";
+import BlockForm from "./components/block_form";
 import Schema from "./components/schema";
 import ServiceIndex from "./components/service_index";
-import JSONTree from "react-json-tree";
-
-import { mountComponents } from "react-rails-ujs";
 
 mountComponents({
   BlockSandboxForm,
   BlockUsage,
   Header,
-  Claim,
   JSONTree,
-  NewClaim,
+  BlockForm,
   Schema,
   ServiceIndex,
 });

@@ -3,7 +3,7 @@
 require "docker"
 
 class BlocksController < ApplicationController
-  helper_method :user, :claim
+  helper_method :user
 
   skip_before_action :require_login, only: [:index, :show]
   skip_before_action :verify_authenticity_token, only: [:create]
@@ -12,7 +12,7 @@ class BlocksController < ApplicationController
   end
 
   def show
-    @block = Block.find_by!(name: params[:blockname], claim: claim) end
+    @block = Block.find_by!(name: params[:blockname], user: user) end
 
   def new
     @block = Block.new()
@@ -27,7 +27,7 @@ class BlocksController < ApplicationController
           render json: @block.as_json
         }
         format.html {
-          redirect_to block_path(@block.claim, @block), notice: t(".success")
+          redirect_to block_path(@block.user, @block), notice: t(".success")
         }
       end
     else
@@ -44,14 +44,14 @@ class BlocksController < ApplicationController
   end
 
   def edit
-    @block = Block.find_by!(claim: claim, name: params[:blockname])
+    @block = Block.find_by!(user: user, name: params[:blockname])
   end
 
   def update
-    @block = Block.find_by!(claim: claim, name: params[:blockname])
+    @block = Block.find_by!(user: user, name: params[:blockname])
 
     if @block.update(block_params)
-      redirect_to block_path(@block.claim, @block), notice: t(".success")
+      redirect_to block_path(@block.user, @block), notice: t(".success")
     else
       flash.now[:alert] = t(".failure")
       render :edit
@@ -59,7 +59,7 @@ class BlocksController < ApplicationController
   end
 
   def destroy
-    block = Block.find_by!(claim: claim, name: params[:blockname])
+    block = Block.find_by!(user: user, name: params[:blockname])
     block.destroy!
 
     respond_to do |format|
@@ -78,11 +78,7 @@ class BlocksController < ApplicationController
     )
   end
 
-  def claim
-    @claim ||= Claim.find_by!(handle: params[:handle])
-  end
-
   def user
-    @user ||= claim.user
+    @user ||= User.find_by!(handle: params[:handle])
   end
 end
