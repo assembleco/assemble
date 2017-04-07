@@ -2,6 +2,7 @@ import $ from "jquery";
 
 import BlockUsage from "./components/block_usage";
 import BlockSandboxForm from "./components/block_sandbox_form";
+import Header from "./components/header";
 import Claim from "./components/claim";
 import NewClaim from "./components/new_claim";
 import Schema from "./components/schema";
@@ -13,6 +14,7 @@ import { mountComponents } from "react-rails-ujs";
 mountComponents({
   BlockSandboxForm,
   BlockUsage,
+  Header,
   Claim,
   JSONTree,
   NewClaim,
