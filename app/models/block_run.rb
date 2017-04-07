@@ -14,7 +14,7 @@ class BlockRun < ApplicationRecord
     if schema_satisfied?
       Tempfile.open("block_run.#{id}.input") do |f|
         File.write(f.to_path, input.to_json)
-        command = "cat #{f.to_path} | fn run #{block.handle}/#{block.name}:#{block.version}"
+        command = "cat #{f.to_path} | fn run #{block.docker_image}"
 
         self.stdout = `#{command}`
         # self.stderr = stderr.join
