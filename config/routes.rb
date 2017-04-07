@@ -39,5 +39,5 @@ Rails.application.routes.draw do
 
   resources :services, only: [:index]
 
-  root to: "welcome#index"
+  root to: "blocks#index"
 end

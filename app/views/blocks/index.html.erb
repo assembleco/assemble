@@ -1,3 +1,24 @@
-<h1>Blocks > <%= link_to user.handle, user %></h1>
+<div class="section layout-center">
+  <p>
+  Assemble is a registry of open-source, publicly-usable
+  <%= link_to "IronFunctions", "http://open.iron.io/" %>.
+  </p>
 
-<%= render "blocks_list", blocks: user.blocks, title: "#{user.handle}'s blocks" %>
+  <p>
+  We are working with the community to make it easier to use and share open functions,
+  with the goal of making them as accessible as possible for novice developers and non-developers.
+  <%= link_to "Learn more", about_path %>.
+  </p>
+
+  <p>
+  <% if current_user %>
+    <%= link_to "+ Register a new function", new_block_path, class: "button" %>
+  <% else %>
+    <%= link_to "Sign in to get started", new_session_path %>
+  <% end %>
+  </p>
+</div>
+
+<div class="layout-clear">
+  <%= render "blocks_list", blocks: Block.all %>
+</div>
