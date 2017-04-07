@@ -1,9 +1,13 @@
 <div class="section layout-form">
   <h1>
-    Editing <%= user.handle %> / <%= @block.name %>
+    <%= title %>
   </h1>
 
   <%= simple_form_for(@block, url: url) do |f| %>
+    <%= f.input(
+      :name
+    ) %>
+
     <%= f.input(
       :description,
       hint: "
