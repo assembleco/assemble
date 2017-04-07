@@ -8,8 +8,9 @@ class Block < ApplicationRecord
   has_many :env_variables, dependent: :destroy
   has_many :runs, dependent: :destroy, class_name: "BlockRun"
 
-  validates :user, presence: true
+  validates :docker_image, presence: true
   validates :name, presence: true, uniqueness: { scope: :user_id, case_sensitive: false }
+  validates :user, presence: true
 
   # TODO extract to React
   def icon
@@ -35,14 +36,5 @@ class Block < ApplicationRecord
 
   def to_param
     name
-  end
-
-  # TODO
-  # This is hard-coded to get around the `latest` issue.
-  # Options:
-  # * Require a `latest` tag
-  # * Manage all images under the `assembleapp` handle on Docker Hub
-  def version
-    "0.0.1"
   end
 end
