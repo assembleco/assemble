@@ -9,6 +9,5 @@ ssh root@assembleapp.co '\
   ./bin/docker-compose rm -f web worker &&\
   ./bin/docker-compose build &&\
   ./bin/docker-compose up -d &&\
-  ./bin/docker-compose run web rake db:migrate &&\
-  ./bin/docker-compose logs -f web\
+  ./bin/docker-compose run web rake db:migrate \
   '
