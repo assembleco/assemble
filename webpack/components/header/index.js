@@ -3,13 +3,15 @@ import $ from "jquery"
 import styled from "styled-components"
 import { Page } from 'hedron';
 
+import logo from "images/blocks/block-4.png"
+
 class Header extends React.Component {
   render() {
     return (
       <Background>
         <Menu width="1200px">
           <Left className="layout-column-left">
-            <Logo src="/assets/blocks/block-4.png"/>
+            <Logo src={logo}/>
 
             <Link href="/" className="header-title">Assemble</Link>
             <Link href={this.props.docs_path}>Docs</Link>
