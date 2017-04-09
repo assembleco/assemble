@@ -21,8 +21,12 @@ var config = {
       test: /.jsx?$/,
       exclude: /node_modules/,
       loader: 'babel-loader',
-    }]
-  },
+    },
+    {
+      test: /\.(png|jpg)$/,
+      loader: 'url?limit=25000'
+    },
+  ]},
 
   output: {
     // Build assets directly in to public/webpack/, let webpack know
