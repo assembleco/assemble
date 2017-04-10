@@ -1,7 +1,7 @@
 import React from "react"
 import $ from "jquery"
 import styled from "styled-components"
-import { Page } from 'hedron';
+import { Page, Column } from 'hedron';
 
 import logo from "images/blocks/block-4.png"
 
@@ -10,7 +10,7 @@ class Header extends React.Component {
     return (
       <Background>
         <Menu width="1200px">
-          <Left className="layout-column-left">
+          <Left>
             <Logo src={logo}/>
 
             <Link href="/" className="header-title">Assemble</Link>
@@ -19,7 +19,7 @@ class Header extends React.Component {
             <Link href="https://github.com/assembleapp/registry">GitHub</Link>
           </Left>
 
-          <Right className="layout-column-right">
+          <Right>
             { this.props.current_user ?
               <div>
                 <Link href="/user_info">{this.props.current_user}</Link>
@@ -64,9 +64,11 @@ const Logo = styled.img`
   height: 2em;
 `
 
-const Left = styled.div`
+const Left = styled(Column)`
   display: flex;
   align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
 `
 
 const Right = styled(Left)`
