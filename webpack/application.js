@@ -1,7 +1,6 @@
 import $ from "jquery";
 import { mountComponents } from "react-rails-ujs";
 
-import BlockSandboxForm from "./components/block_sandbox_form";
 import BlockUsage from "./components/block_usage";
 import Header from "./components/header";
 import JSONTree from "react-json-tree";
@@ -9,7 +8,6 @@ import Schema from "./components/schema";
 import ServiceIndex from "./components/service_index";
 
 mountComponents({
-  BlockSandboxForm,
   BlockUsage,
   Header,
   JSONTree,
