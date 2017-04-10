@@ -2,6 +2,7 @@ import React from "react"
 import $ from "jquery"
 import styled from "styled-components"
 
+import Hint from "components/hint"
 import Section from "components/section"
 
 class Form extends React.Component {
@@ -41,7 +42,7 @@ const Submit = (props) =>
 class Input extends React.Component {
   render() {
     return (
-      <InputWrapper>
+      <InputWrapper key={this.props.attr}>
         <label htmlFor={this.props.attr}>
           {this.props.attr}
         </label>
@@ -84,11 +85,6 @@ Form.propTypes = {
 
 Form.Input = Input;
 Form.Submit = Submit;
-
-const Hint = styled.div`
-  color: #999;
-  margin-bottom: 0.75rem;
-`
 
 const InputWrapper = styled.div`
   margin-bottom: 1.5rem;

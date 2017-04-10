@@ -3,9 +3,11 @@ import $ from "jquery"
 import styled from "styled-components"
 import { Page, Row, Column } from 'hedron';
 
-import Section from "components/section"
 import Form from "components/form"
+import Hint from "components/hint"
 import Schema from "components/schema"
+import Section from "components/section"
+import TabNavigation from "components/tab_navigation"
 
 class BlockForm extends React.Component {
   constructor(props) {
@@ -84,24 +86,53 @@ class BlockForm extends React.Component {
             <Section>
               <h2>Block Source</h2>
 
-              <Form.Input
-                attr="docker_image"
-                model="block"
-                value={this.props.block.docker_image}
-                required
-                >
+              <Hint>
                 <p>
-                  At the moment, you can only register
-                  <a href='http://open.iron.io'> IronFunctions </a>
-                  that are publicly available on Docker Hub.
+                You can add serverless functions from a number of different sources.
                 </p>
                 <p>
-                  We are working to support additional function sources soon.
+                If you'd like to see another source added,
+                please <a href="https://github.com/assembleapp/registry/issues/new">open an issue on GitHub</a>.
                 </p>
-                <p>
-                  Please use the full image ID, as in: <code>username/imagename:version</code>.
-                </p>
-              </Form.Input>
+              </Hint>
+
+              <div>
+                <label>Source</label>
+
+                <TabNavigation
+                  activeTab={this.props.block.source_type}
+                  tabLabels={{
+                    github_gist: "Github Gist",
+                    docker_image: "Public Docker Image",
+                  }}
+                  tabs={{
+                  docker_image: <Form.Input
+                    attr="docker_image"
+                    model="block"
+                    value={this.props.block.docker_image}
+                    required
+                    >
+                    <p>
+                      At the moment, you can only register
+                      <a href='http://open.iron.io'> IronFunctions </a>
+                      that are publicly available on Docker Hub.
+                    </p>
+                    <p>
+                      We are working to support additional function sources soon.
+                    </p>
+                    <p>
+                      Please use the full image ID, as in: <code>username/imagename:version</code>.
+                    </p>
+                  </Form.Input>,
+
+                  github_gist: <Form.Input
+                    attr="github_gist_url"
+                    model="block"
+                    value={this.props.block.github_gist_url}
+                    required
+                    />
+                }} />
+              </div>
             </Section>
           </Column>
         </Row>
