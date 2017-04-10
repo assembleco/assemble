@@ -26,12 +26,17 @@ class Form extends React.Component {
         <input type="hidden" name="authenticity_token" value={this.state.authenticity_token} />
 
         {this.props.children}
-
-        <input type="submit" name="commit" value={this.props.submit.label}/>
       </form>
     );
   }
 }
+
+const Submit = (props) =>
+  <input
+  type="submit"
+  name="commit"
+  value={props.submit.label}
+  />
 
 class Input extends React.Component {
   render() {
@@ -78,6 +83,7 @@ Form.propTypes = {
 }
 
 Form.Input = Input;
+Form.Submit = Submit;
 
 const Hint = styled.div`
   color: #999;

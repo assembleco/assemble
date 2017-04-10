@@ -23,10 +23,14 @@ class BlockForm extends React.Component {
   render() {
     return (
       <Form submit={this.props.submit} >
+        <CenteredColumn>
+          <h1>{this.props.title}</h1>
+        </CenteredColumn>
+
         <Row divisions={2}>
           <Column xs={1}>
             <Section>
-              <h1>{this.props.title}</h1>
+              <h2>Block Metadata</h2>
 
               <Form.Input
                 attr="name"
@@ -101,6 +105,10 @@ class BlockForm extends React.Component {
             </Section>
           </Column>
         </Row>
+
+        <CenteredColumn>
+          <Form.Submit submit={this.props.submit} />
+        </CenteredColumn>
       </Form>
     );
   }
@@ -111,5 +119,9 @@ BlockForm.propTypes = {
   submit: React.PropTypes.object.isRequired,
   title: React.PropTypes.string.isRequired,
 }
+
+const CenteredColumn = styled(Column)`
+  text-align: center;
+`
 
 export default BlockForm;
