@@ -3,7 +3,7 @@
   block: @block.as_json,
   submit: {
     label: "Update #{user.handle}/#{@block.name}",
-    method: :post,
+    method: :patch,
     url: update_block_path(@block.user, @block),
   },
   title: "Editing #{user.handle} / #{@block.name}",
