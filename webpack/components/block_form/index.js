@@ -101,36 +101,50 @@ class BlockForm extends React.Component {
 
                 <TabNavigation
                   activeTab={this.props.block.source_type}
+
                   tabLabels={{
                     github_gist: "Github Gist",
                     docker_image: "Public Docker Image",
                   }}
-                  tabs={{
-                  docker_image: <Form.Input
-                    attr="docker_image"
-                    model="block"
-                    value={this.props.block.docker_image}
-                    required
-                    >
-                    <p>
-                      At the moment, you can only register
-                      <a href='http://open.iron.io'> IronFunctions </a>
-                      that are publicly available on Docker Hub.
-                    </p>
-                    <p>
-                      We are working to support additional function sources soon.
-                    </p>
-                    <p>
-                      Please use the full image ID, as in: <code>username/imagename:version</code>.
-                    </p>
-                  </Form.Input>,
 
-                  github_gist: <Form.Input
-                    attr="github_gist_url"
-                    model="block"
-                    value={this.props.block.github_gist_url}
-                    required
-                    />
+                  tabs={{
+                  docker_image: <div>
+                    <Form.Input
+                      attr="docker_image"
+                      model="block"
+                      value={this.props.block.docker_image}
+                      required
+                      >
+                      <p>
+                        At the moment, you can only register
+                        <a href='http://open.iron.io'> IronFunctions </a>
+                        that are publicly available on Docker Hub.
+                      </p>
+                      <p>
+                        We are working to support additional function sources soon.
+                      </p>
+                      <p>
+                        Please use the full image ID, as in: <code>username/imagename:version</code>.
+                      </p>
+                    </Form.Input>
+
+                    <Hidden>
+                      <Form.Input key="docker_image"  model="block" attr="source_type" value="docker_image" />
+                    </Hidden>
+                  </div>,
+
+                  github_gist: <div>
+                    <Form.Input
+                      attr="github_gist_url"
+                      model="block"
+                      value={this.props.block.github_gist_url}
+                      required
+                      />
+
+                    <Hidden>
+                      <Form.Input key="github_gist" model="block" attr="source_type" value="github_gist" />
+                    </Hidden>
+                  </div>
                 }} />
               </div>
             </Section>
@@ -153,6 +167,10 @@ BlockForm.propTypes = {
 
 const CenteredColumn = styled(Column)`
   text-align: center;
+`
+
+const Hidden = styled.div`
+  visibility: hidden;
 `
 
 export default BlockForm;

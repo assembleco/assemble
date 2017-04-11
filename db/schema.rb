@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407223140) do
+ActiveRecord::Schema.define(version: 20170410235704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,13 +33,15 @@ ActiveRecord::Schema.define(version: 20170407223140) do
   end
 
   create_table "blocks", force: :cascade do |t|
-    t.string   "name",         null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "name",                                     null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.text     "description"
     t.jsonb    "schema"
     t.integer  "user_id"
     t.string   "docker_image"
+    t.string   "source_type",     default: "docker_image", null: false
+    t.string   "github_gist_url"
     t.index ["schema"], name: "index_blocks_on_schema", using: :gin
     t.index ["user_id"], name: "index_blocks_on_user_id", using: :btree
   end

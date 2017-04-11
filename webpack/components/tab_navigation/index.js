@@ -6,7 +6,7 @@ class TabNavigation extends React.Component {
     super(props);
 
     this.tabLabels = Object.keys(this.props.tabs)
-    this.state = { activeTab: this.tabLabels[0] };
+    this.state = { activeTab: this.props.activeTab || this.tabLabels[0] };
   }
 
   render() {

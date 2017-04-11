@@ -74,9 +74,11 @@ class BlocksController < ApplicationController
     params.require(:block).permit(
       :description,
       :docker_image,
+      :github_gist_url,
       :handle,
       :name,
       :schema_json,
+      :source_type,
     ).merge(
       user: current_user,
     )

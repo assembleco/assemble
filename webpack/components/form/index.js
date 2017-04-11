@@ -23,7 +23,8 @@ class Form extends React.Component {
     let method = this.props.submit.method;
 
     return (
-      <form {...{action, method}} >
+      <form action={action} method="post">
+        <input type="hidden" name="_method" value={method} />
         <input type="hidden" name="authenticity_token" value={this.state.authenticity_token} />
 
         {this.props.children}
