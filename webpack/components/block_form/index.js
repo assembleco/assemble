@@ -3,12 +3,14 @@ import $ from "jquery"
 import styled from "styled-components"
 import { Page, Row, Column } from 'hedron';
 
-import BuildStep from "./build_step";
 import Form from "components/form"
 import Hint from "components/hint"
-import Schema from "components/schema"
 import Section from "components/section"
 import TabNavigation from "components/tab_navigation"
+
+import BuildStep from "./build_step";
+import TestStep from "./test_step";
+import PublishStep from "./publish_step";
 
 class BlockForm extends React.Component {
   constructor(props) {
@@ -30,66 +32,20 @@ class BlockForm extends React.Component {
           <h1>{this.props.title}</h1>
         </CenteredColumn>
 
-        <Row divisions={2}>
-          <Column xs={1}>
-            <Section>
-              <h2>Step 1: Build</h2>
-              <BuildStep block={this.props.block} />
-            </Section>
-          </Column>
-
-          <Column xs={1}>
-            <Section>
-              <h2>Block Metadata</h2>
-
-              <Form.Input
-                attr="name"
-                model="block"
-                required
-                value={this.props.block.name}
-                />
-
-              <Form.Input
-                attr="description"
-                model="block"
-                required
-                type="text"
-                value={this.props.block.description}
-                >
-                <p>
-                  If you want other people to use your block, you better explain how it works!
-                </p>
-                <p>
-                  We support
-                  <a href='https://help.github.com/articles/basic-writing-and-formatting-syntax/'> Github-Flavored Markdown</a>.
-                </p>
-              </Form.Input>
-
-              <Form.Input
-                attr="schema_json"
-                id="schema_json"
-                model="block"
-                required
-                type="hidden"
-                value={JSON.stringify(this.props.block.schema)}
-                >
-                <p>
-                  What information does this block need in order to run correctly?
-                  Users will be responsible for providing this information
-                  whenever they run your block.
-                </p> <p>
-                  A checkbox indicates that a field is required.
-                </p>
-              </Form.Input>
-
-              <Schema
-                initialValue={this.props.block.schema}
-                formElement="#schema_json"
-                editable
-                />
-            </Section>
-          </Column>
-        </Row>
+        <Section>
+          <TabNavigation
+            tabs={{
+              1: <BuildStep block={this.props.block} />,
+              2: <TestStep block={this.props.block} />,
+              3: <PublishStep block={this.props.block} />,
+            }}
+            labels={{
+              1: "Step 1: Build",
+              2: "Step 2: Test",
+              3: "Step 3: Publish",
+            }}
+          />
+        </Section>
 
         <CenteredColumn>
           <Form.Submit submit={this.props.submit} />

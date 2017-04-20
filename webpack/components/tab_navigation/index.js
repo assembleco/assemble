@@ -28,7 +28,7 @@ class TabNavigation extends React.Component {
           key={label}
           href="#"
           >
-          {this.props.tabLabels[label]}
+          {this.props.labels[label]}
         </TabLabel>
       );
 
@@ -38,7 +38,7 @@ class TabNavigation extends React.Component {
         href="#"
         onClick={() => this.setState({activeTab: label})}
         >
-        {label}
+        {this.props.labels[label]}
       </InactiveTab>
     );
   }
@@ -46,13 +46,14 @@ class TabNavigation extends React.Component {
 
 TabNavigation.propTypes = {
   tabs: React.PropTypes.object.isRequired,
+  labels: React.PropTypes.object.isRequired,
 }
 
 const TabLabel = styled.a`
   display: block;
 `
 
-const InactiveTab = styled.a`
+const InactiveTab = styled(TabLabel)`
   color: #999;
 `
 
