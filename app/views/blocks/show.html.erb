@@ -24,16 +24,6 @@
       <%= link_to "Edit", edit_block_path(user, @block) %>
     </div>
   </div>
-
-  <div class="section">
-    <%= link_to(
-      "https://hub.docker.com/r/#{user.handle}/#{@block.name}",
-      class: "github-link",
-      target: "_blank",
-    ) do %>
-      View on Docker Hub &gt;
-    <% end %>
-  </div>
 </div>
 
 <div class="layout-column-right">

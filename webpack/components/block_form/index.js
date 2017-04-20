@@ -3,6 +3,7 @@ import $ from "jquery"
 import styled from "styled-components"
 import { Page, Row, Column } from 'hedron';
 
+import BuildStep from "./build_step";
 import Form from "components/form"
 import Hint from "components/hint"
 import Schema from "components/schema"
@@ -30,6 +31,13 @@ class BlockForm extends React.Component {
         </CenteredColumn>
 
         <Row divisions={2}>
+          <Column xs={1}>
+            <Section>
+              <h2>Step 1: Build</h2>
+              <BuildStep block={this.props.block} />
+            </Section>
+          </Column>
+
           <Column xs={1}>
             <Section>
               <h2>Block Metadata</h2>
@@ -79,28 +87,6 @@ class BlockForm extends React.Component {
                 formElement="#schema_json"
                 editable
                 />
-            </Section>
-          </Column>
-
-          <Column xs={1}>
-            <Section>
-              <Form.Input
-                attr="source_url"
-                model="block"
-                value={this.props.block.source_url}
-                required
-                >
-                <p>
-                  This must be the URL for a GitHub repository or a GitHub gist.
-                </p>
-                <p>
-                  We are working to support additional function sources soon.
-                </p>
-                <p>
-                  If you'd like to see another source added,
-                  please <a href="https://github.com/assembleapp/registry/issues/new">open an issue on GitHub</a>.
-                </p>
-              </Form.Input>
             </Section>
           </Column>
         </Row>

@@ -94,7 +94,9 @@ class BlocksController < ApplicationController
 
   def block_params
     params.require(:block).permit(
+      :command,
       :description,
+      :environment,
       :handle,
       :name,
       :schema_json,
