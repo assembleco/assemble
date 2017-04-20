@@ -17,6 +17,17 @@ class BlocksController < ApplicationController
   def new
     @user = current_user
     @block = Block.new()
+
+    react_component(
+      "BlockForm",
+      block: @block.as_json,
+      submit: {
+        label: "Create Block",
+        method: :post,
+        url: blocks_path,
+      },
+      title: "Create a New Block",
+    )
   end
 
   def create
@@ -46,6 +57,17 @@ class BlocksController < ApplicationController
 
   def edit
     @block = Block.find_by!(user: user, name: params[:blockname])
+
+    react_component(
+      "BlockForm",
+      block: @block.as_json,
+      submit: {
+        label: "Update #{user.handle}/#{@block.name}",
+        method: :patch,
+          url: update_block_path(@block.user, @block),
+      },
+      title: "Editing #{user.handle} / #{@block.name}",
+    )
   end
 
   def update
