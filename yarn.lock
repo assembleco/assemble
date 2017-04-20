@@ -1251,6 +1251,10 @@ freezer-js@^0.11.2:
   version "0.11.2"
   resolved "https://registry.yarnpkg.com/freezer-js/-/freezer-js-0.11.2.tgz#9b79de91632646395bb0c7bc2659b862a5e9b820"
 
+freezer-js@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/freezer-js/-/freezer-js-0.5.2.tgz#c24dbc47fc327b3475ea34adc408b0953f2a4907"
+
 fresh@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.3.0.tgz#651f838e22424e7566de161d8358caa199f83d4f"
@@ -1945,6 +1949,10 @@ oauth-sign@~0.8.1:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.8.2.tgz#46a6ab7f0aead8deae9ec0565780b7d4efeb9d43"
 
+object-assign@^2.0.0:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-2.1.1.tgz#43c36e5d569ff8e4816c4efa8be02d26967c18aa"
+
 object-assign@^4.0.1, object-assign@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
@@ -2186,6 +2194,13 @@ react-json-tree@^0.10.1:
     babel-runtime "^6.6.1"
     react-base16-styling "^0.4.1"
     react-pure-render "^1.0.2"
+
+react-json@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/react-json/-/react-json-0.2.1.tgz#f348390189b290cbf7f16c62d68303248e553f70"
+  dependencies:
+    freezer-js "^0.5.2"
+    object-assign "^2.0.0"
 
 react-jsonschema-form@^0.42.0:
   version "0.42.0"

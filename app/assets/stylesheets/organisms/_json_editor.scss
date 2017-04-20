@@ -1,0 +1,21 @@
+/*
+Styles for https://github.com/dustingetz/react-json-editor
+
+These are very rough and should be revised.
+ */
+.jsonName label {
+  display: inline;
+}
+
+.jsonChildren {
+  padding-left: 1.5rem;
+}
+
+.jsonFieldAdder {
+  input,
+  select {
+    display: inline-block;
+    width: 40%;
+  }
+}
+

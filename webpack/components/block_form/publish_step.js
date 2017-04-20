@@ -6,8 +6,6 @@ import Schema from "components/schema"
 
 export default (props) => (
   <div>
-    <h2>Block Metadata</h2>
-
     <Form.Input
       attr="name"
       model="block"
