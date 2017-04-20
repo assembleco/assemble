@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import Section from "components/section"
 
 class TabNavigation extends React.Component {
   constructor(props) {
@@ -11,13 +12,15 @@ class TabNavigation extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.tabLabels.map(this.renderTabLabel.bind(this))}
+      <Section>
+        <TabHeading>
+          {this.tabLabels.map(this.renderTabLabel.bind(this))}
+        </TabHeading>
 
-        <TabContents>
+        <div>
           {this.props.tabs[this.state.activeTab]}
-        </TabContents>
-      </div>
+        </div>
+      </Section>
     );
   }
 
@@ -49,16 +52,19 @@ TabNavigation.propTypes = {
   labels: React.PropTypes.object.isRequired,
 }
 
+const TabHeading = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgrey;
+`
+
 const TabLabel = styled.a`
   display: block;
+  padding-bottom: 0.75rem;
 `
 
 const InactiveTab = styled(TabLabel)`
   color: #999;
-`
-
-const TabContents = styled.div`
-  margin-left: 1.5rem;
 `
 
 export default TabNavigation;

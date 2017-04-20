@@ -5,7 +5,6 @@ import { Page, Row, Column } from 'hedron';
 
 import Form from "components/form"
 import Hint from "components/hint"
-import Section from "components/section"
 import TabNavigation from "components/tab_navigation"
 
 import BuildStep from "./build_step";
@@ -32,20 +31,18 @@ class BlockForm extends React.Component {
           <h1>{this.props.title}</h1>
         </CenteredColumn>
 
-        <Section>
-          <TabNavigation
-            tabs={{
-              1: <BuildStep block={this.props.block} />,
-              2: <TestStep block={this.props.block} />,
-              3: <PublishStep block={this.props.block} />,
-            }}
-            labels={{
-              1: "Step 1: Build",
-              2: "Step 2: Test",
-              3: "Step 3: Publish",
-            }}
-          />
-        </Section>
+        <TabNavigation
+          labels={{
+            1: "Step 1: Build",
+            2: "Step 2: Test",
+            3: "Step 3: Publish",
+          }}
+          tabs={{
+            1: <BuildStep block={this.props.block} />,
+            2: <TestStep block={this.props.block} />,
+            3: <PublishStep block={this.props.block} />,
+          }}
+        />
 
         <CenteredColumn>
           <Form.Submit submit={this.props.submit} />
