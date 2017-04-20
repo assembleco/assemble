@@ -84,69 +84,23 @@ class BlockForm extends React.Component {
 
           <Column xs={1}>
             <Section>
-              <h2>Block Source</h2>
-
-              <Hint>
+              <Form.Input
+                attr="source_url"
+                model="block"
+                value={this.props.block.source_url}
+                required
+                >
                 <p>
-                You can add serverless functions from a number of different sources.
+                  This must be the URL for a GitHub repository or a GitHub gist.
                 </p>
                 <p>
-                If you'd like to see another source added,
-                please <a href="https://github.com/assembleapp/registry/issues/new">open an issue on GitHub</a>.
+                  We are working to support additional function sources soon.
                 </p>
-              </Hint>
-
-              <div>
-                <label>Source</label>
-
-                <TabNavigation
-                  activeTab={this.props.block.source_type}
-
-                  tabLabels={{
-                    github_gist: "Github Gist",
-                    docker_image: "Public Docker Image",
-                  }}
-
-                  tabs={{
-                  docker_image: <div>
-                    <Form.Input
-                      attr="docker_image"
-                      model="block"
-                      value={this.props.block.docker_image}
-                      required
-                      >
-                      <p>
-                        At the moment, you can only register
-                        <a href='http://open.iron.io'> IronFunctions </a>
-                        that are publicly available on Docker Hub.
-                      </p>
-                      <p>
-                        We are working to support additional function sources soon.
-                      </p>
-                      <p>
-                        Please use the full image ID, as in: <code>username/imagename:version</code>.
-                      </p>
-                    </Form.Input>
-
-                    <Hidden>
-                      <Form.Input key="docker_image"  model="block" attr="source_type" value="docker_image" />
-                    </Hidden>
-                  </div>,
-
-                  github_gist: <div>
-                    <Form.Input
-                      attr="github_gist_url"
-                      model="block"
-                      value={this.props.block.github_gist_url}
-                      required
-                      />
-
-                    <Hidden>
-                      <Form.Input key="github_gist" model="block" attr="source_type" value="github_gist" />
-                    </Hidden>
-                  </div>
-                }} />
-              </div>
+                <p>
+                  If you'd like to see another source added,
+                  please <a href="https://github.com/assembleapp/registry/issues/new">open an issue on GitHub</a>.
+                </p>
+              </Form.Input>
             </Section>
           </Column>
         </Row>

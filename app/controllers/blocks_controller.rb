@@ -95,12 +95,10 @@ class BlocksController < ApplicationController
   def block_params
     params.require(:block).permit(
       :description,
-      :docker_image,
-      :github_gist_url,
       :handle,
       :name,
       :schema_json,
-      :source_type,
+      :source_url,
     ).merge(
       user: current_user,
     )

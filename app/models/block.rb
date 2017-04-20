@@ -8,7 +8,7 @@ class Block < ApplicationRecord
   has_many :env_variables, dependent: :destroy
   has_many :runs, dependent: :destroy, class_name: "BlockRun"
 
-  validates :docker_image, presence: true
+  validates :source_url, presence: true
   validates :name, presence: true, uniqueness: { scope: :user_id, case_sensitive: false }
   validates :user, presence: true
 
