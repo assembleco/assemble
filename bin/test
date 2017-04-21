@@ -1,0 +1,5 @@
+#!/bin/bash
+
+docker-compose run --rm webpack \
+  node_modules/webpack/bin/webpack.js \
+  --config config/webpack.config.test.js
