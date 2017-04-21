@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import Radium from "radium"
 import styled from "styled-components";
 
@@ -57,9 +58,9 @@ const Connection = styled.div`
 `
 
 Service.propTypes = {
-  auth_route: React.PropTypes.string.isRequired,
-  domain: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
+  auth_route: PropTypes.string.isRequired,
+  domain: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 }
 
 export default Radium(Service);

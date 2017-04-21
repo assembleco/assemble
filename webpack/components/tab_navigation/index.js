@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import styled from "styled-components"
 import Section from "components/section"
 
@@ -48,8 +49,8 @@ class TabNavigation extends React.Component {
 }
 
 TabNavigation.propTypes = {
-  tabs: React.PropTypes.object.isRequired,
-  labels: React.PropTypes.object.isRequired,
+  tabs: PropTypes.object.isRequired,
+  labels: PropTypes.object.isRequired,
 }
 
 const TabHeading = styled.div`

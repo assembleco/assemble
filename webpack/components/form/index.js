@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import $ from "jquery"
 import styled from "styled-components"
 
@@ -77,10 +78,10 @@ class Input extends React.Component {
 }
 
 Form.propTypes = {
-  submit: React.PropTypes.shape({
-    method: React.PropTypes.string.isRequired,
-    url: React.PropTypes.string.isRequired,
-    label: React.PropTypes.string.isRequired,
+  submit: PropTypes.shape({
+    method: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
   }).isRequired,
 }
 

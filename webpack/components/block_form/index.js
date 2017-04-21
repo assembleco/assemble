@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import $ from "jquery"
 import styled from "styled-components"
 import { Page, Row, Column } from 'hedron';
@@ -53,9 +54,9 @@ class BlockForm extends React.Component {
 }
 
 BlockForm.propTypes = {
-  block: React.PropTypes.object.isRequired,
-  submit: React.PropTypes.object.isRequired,
-  title: React.PropTypes.string.isRequired,
+  block: PropTypes.object.isRequired,
+  submit: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
 }
 
 const CenteredColumn = styled(Column)`
