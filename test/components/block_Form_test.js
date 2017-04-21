@@ -1,9 +1,16 @@
-var assert = require('assert');
+import React from "react"
+import { shallow } from "enzyme"
+import { expect } from 'chai';
 
-describe('Array', function() {
-  describe('#indexOf()', function() {
-    it('should return -1 when the value is not present', function() {
-      assert.equal(-1, [1,2,3].indexOf(4));
-    });
+import BlockForm from "../../webpack/components/block_form"
+import TabNavigation from "../../webpack/components/tab_navigation"
+
+var assert = require("assert");
+
+describe("<BlockForm/>", () => {
+  it("renders a <TabNavigation/>", () => {
+    const wrapper = shallow(<BlockForm />);
+
+    expect(wrapper.find(TabNavigation)).to.have.length(1);
   });
 });
