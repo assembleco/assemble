@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.feature "Welcome page" do
-  scenario "user signs in" do
+  xscenario "user signs in", :js do
     user = create(:user, handle: "foobar")
     stub_authentication(user)
 
@@ -12,7 +12,7 @@ RSpec.feature "Welcome page" do
     expect(page).to have_content t("sessions.create.success", name: "foobar")
   end
 
-  scenario "user signs up" do
+  xscenario "user signs up", :js do
     user = build_stubbed(:user, handle: "foobar")
     stub_authentication(user)
 

@@ -1,5 +1,7 @@
 # Remove any data currently in the database
 
+SOURCE_URL = "https://github.com/foo/bar".freeze
+
 EnvVariable.destroy_all
 BlockRun.destroy_all
 Block.destroy_all
@@ -13,6 +15,7 @@ Block.create!(
   name: "debug",
   user: user,
   description: "Simply prints out the input that was passed to the flow.",
+  source_url: SOURCE_URL,
   user: user,
 )
 
@@ -30,6 +33,7 @@ Block.create!(
   user: user,
   description: "This block connects to the Dark Sky API (https://darksky.net/) to pull the latest weather forecast information.",
   schema: darksky_schema,
+  source_url: SOURCE_URL,
   user: user,
 )
 
@@ -53,6 +57,7 @@ Block.create!(
   user: user,
   description: "Use Pushover (https://pushover.net/) to send a notification to a user's phone",
   schema: pushover_schema,
+  source_url: SOURCE_URL,
   user: user,
 )
 
@@ -75,6 +80,7 @@ Block.create!(
   user: user,
   description: "Takes input data, and outputs the same data with some of the data renamed.",
   schema: transform_schema,
+  source_url: SOURCE_URL,
   user: user,
 )
 

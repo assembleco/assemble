@@ -2,13 +2,14 @@
 require "rails_helper"
 
 RSpec.feature "Blocks" do
-  scenario "update" do
+  xscenario "update" do
     block = create(:block)
     user = block.user
 
     sign_in user
     visit edit_block_path(block.user, block)
-    fill_in :block_description, with: "This block says hello."
+    click_on "Step 3: Publish"
+    fill_in "description", with: "This block says hello."
     click_on "Update Block"
 
     expect(page).to have_content t("blocks.update.success")

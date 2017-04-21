@@ -4,6 +4,7 @@ FactoryGirl.define do
   factory :block, aliases: [:destination] do
     user
     sequence(:name) { |n| "block_#{n}" }
+    source_url "https://github.com/foo/bar"
   end
 
   factory :env_variable do
