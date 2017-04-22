@@ -34,7 +34,7 @@ export default (props) => (
       id="schema_json"
       model="block"
       required
-      type="hidden"
+      type="text"
       value={JSON.stringify(props.block.schema)}
       >
       <p>
@@ -45,11 +45,11 @@ export default (props) => (
         A checkbox indicates that a field is required.
       </p>
     </Form.Input>
-
-    <Schema
-      initialValue={props.block.schema}
-      formElement="#schema_json"
-      editable
-      />
   </div>
 );
+
+    // <Schema
+      // initialValue={props.block.schema}
+      // formElement="#schema_json"
+      // editable
+      // />

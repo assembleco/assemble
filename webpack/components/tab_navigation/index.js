@@ -26,24 +26,15 @@ class TabNavigation extends React.Component {
   }
 
   renderTabLabel(label) {
-    if(label == this.state.activeTab)
-      return(
-        <TabLabel
-          key={label}
-          href="#"
-          >
-          {this.props.labels[label]}
-        </TabLabel>
-      );
-
-    else return(
-      <InactiveTab
+    return(
+      <TabLabel
         key={label}
         href="#"
+        active={label == this.state.activeTab}
         onClick={() => this.setState({activeTab: label})}
         >
         {this.props.labels[label]}
-      </InactiveTab>
+      </TabLabel>
     );
   }
 }
@@ -62,10 +53,9 @@ const TabHeading = styled.div`
 const TabLabel = styled.a`
   display: block;
   padding-bottom: 0.75rem;
+  color: ${props => props.active ? "auto" : "#999" };
 `
 
-const InactiveTab = styled(TabLabel)`
-  color: #999;
-`
+TabNavigation.TabLabel = TabLabel;
 
 export default TabNavigation;
