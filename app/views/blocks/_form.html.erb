@@ -10,15 +10,18 @@
       :docker_image,
       hint: "
       <p>
-      At the moment, you can only register
-      <a href='http://open.iron.io'>IronFunctions</a>
+      At the moment, you can only register Docker images
       that are publicly available on Docker Hub.
+      Your Docker image should accept JSON through <code>STDIN</code>,
+      and return output through <code>STDOUT</code>.
       </p>
       <p>
-      We are working to support additional function sources soon.
+      Please enter the full image ID,
+      as in: <code>username/image:version</code>.
       </p>
       <p>
-      Please use the full image ID, as in: <code>username/imagename:version</code>.
+      We are working to support additional function sources soon,
+      including GitHub repos and Gists.
       </p>
       ".html_safe
     ) %>
