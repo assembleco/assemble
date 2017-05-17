@@ -20,11 +20,6 @@ FactoryGirl.define do
     stdout ""
   end
 
-  factory :feed, aliases: [:source] do
-    sequence(:name) { |n| "feed_#{n}" }
-    schema({ type: :object, properties: {}, required: [] })
-  end
-
   factory :user do
     sequence(:handle) { |n| "user_#{n}" }
     sequence(:github_uid) { |n| n }

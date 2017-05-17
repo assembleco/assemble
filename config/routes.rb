@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get "/about", to: "about#index", as: :about
 
   resource :session, only: [:new, :destroy]
-  resources :feeds, only: [:index, :new, :create, :edit, :update]
 
   # User path
   resources :users, only: [:show], param: :handle
