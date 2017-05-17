@@ -3,7 +3,7 @@ import $ from "jquery"
 import styled from "styled-components"
 import { Page } from 'hedron';
 
-import logo from "images/blocks/block-4.png"
+import Logo from "../logo"
 
 class Header extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class Header extends React.Component {
       <Background>
         <Menu width="1200px">
           <Left className="layout-column-left">
-            <Logo src={logo}/>
+            <Logo continuous />
 
             <Link href="/" className="header-title">Assemble</Link>
             <Link href={this.props.docs_path}>Docs</Link>
@@ -82,10 +82,6 @@ const Menu = styled(Page)`
 const Notice = styled(Menu)`
   background-color: #f2d38e;
   padding: 1.5rem;
-`
-
-const Logo = styled.img`
-  height: 2em;
 `
 
 const Left = styled.div`
