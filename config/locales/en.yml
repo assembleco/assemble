@@ -20,10 +20,6 @@ en:
       success: Looks good!
       failure: Hmmm... that doesn't look quite right.
 
-  events:
-    create:
-      success: "Recorded event for %{feed_name}"
-
   runs:
     create:
       success: Created a run.
