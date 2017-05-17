@@ -4,6 +4,11 @@ FactoryGirl.define do
   factory :block, aliases: [:destination] do
     user
     sequence(:name) { |n| "block_#{n}" }
+
+    command "ruby /app/script.rb"
+    dockerfile "FROM ruby\n"
+    source "puts 'Hello, World!'\n"
+    source_path "/app/script.rb"
   end
 
   factory :env_variable do

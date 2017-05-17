@@ -73,7 +73,10 @@ class BlocksController < ApplicationController
   def block_params
     params.require(:block).permit(
       :description,
-      :docker_image,
+      :dockerfile,
+      :source,
+      :source_path,
+      :command,
       :handle,
       :name,
       :schema_json,
