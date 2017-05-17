@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "sessions#create"
+  delete "/session", to: "sessions#destroy"
 
   get "/user_info", to: "users#show", as: :user_info
   get "/about", to: "about#index", as: :about
