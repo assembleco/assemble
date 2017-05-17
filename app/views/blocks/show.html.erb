@@ -26,13 +26,16 @@
   </div>
 
   <div class="section">
-    <%= link_to(
-      "https://hub.docker.com/r/#{user.handle}/#{@block.name}",
-      class: "github-link",
-      target: "_blank",
-    ) do %>
-      View on Docker Hub &gt;
-    <% end %>
+    <h2>Source</h2>
+
+    <h3>Command</h3>
+    <code><%= @block.command %></code>
+
+    <h3>Source: <code><%= @block.source_path %></code></h3>
+    <pre><%= @block.source %></pre>
+
+    <h3>Dockerfile</h3>
+    <pre><%= @block.dockerfile %></pre>
   </div>
 </div>
 

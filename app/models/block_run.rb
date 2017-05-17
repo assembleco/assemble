@@ -12,17 +12,31 @@ class BlockRun < ApplicationRecord
 
   def execute
     if schema_satisfied?
-      Tempfile.open("block_run.#{id}.input") do |f|
-        File.write(f.to_path, input.to_json)
-        command = "cat #{f.to_path} | fn run #{block.docker_image}"
+      Dir.mktmpdir do |dir|
+        File.write("#{dir}/Dockerfile", block.dockerfile)
+        image = Docker::Image.build_from_dir(dir)
 
-        self.stdout = `#{command}`
-        # self.stderr = stderr.join
+        container = Docker::Container.create("Image" => image.id, "Tty" => true)
+        container.start
 
-        self.exit_status = 0
+        container.store_file(block.source_path, block.source)
+
+        puts "Input:"
+        puts  input.to_json
+
+        output, errors, self.exit_status = container.exec(
+          block.command.split(" "),
+          stdin: StringIO.new(input.to_json),
+        )
+
+        container.stop
+        container.delete
+
+        self.stdout = output.join
+        self.stderr = errors.join
+
+        save
       end
-
-      save!
     else
       update!(status: BlockRun::INPUT_SCHEMA_NOT_SATISFIED)
     end

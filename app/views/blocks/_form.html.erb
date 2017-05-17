@@ -7,21 +7,55 @@
     <%= f.input(:name) %>
 
     <%= f.input(
-      :docker_image,
+      :source,
       hint: "
       <p>
-      At the moment, you can only register Docker images
-      that are publicly available on Docker Hub.
-      Your Docker image should accept JSON through <code>STDIN</code>,
-      and return output through <code>STDOUT</code>.
+      What code should this block run?
       </p>
       <p>
-      Please enter the full image ID,
-      as in: <code>username/image:version</code>.
+      You can use any language you like -
+      just be sure that it works
+      with the Dockerfile and command that you enter below.
       </p>
       <p>
       We are working to support additional function sources soon,
-      including GitHub repos and Gists.
+      including GitHub repos, Gists, and images on Docker Hub.
+      </p>
+      ".html_safe
+    ) %>
+
+    <%= f.input(
+      :source_path,
+      hint: "
+      <p>
+      Where should we save your script in your virtual machine?
+      </p>
+      ".html_safe
+    ) %>
+
+    <%= f.input(
+      :command,
+      hint: "
+      <p>
+      How do we run your code?
+      </p>
+      ".html_safe
+    ) %>
+
+    <%= f.input(
+      :dockerfile,
+      hint: "
+      <p>
+      Define your code's environment as a Dockerfile –
+      check out the <a href='https://www.digitalocean.com/community/tutorials/docker-explained-using-dockerfiles-to-automate-building-of-images'>official reference</a>
+      or get in touch with the chat button in the corner
+      if you're not familiar with Dockerfiles.
+      </p>
+      <p>
+      Soon, you won't need to worry about this.
+      We're working on automatically detecting
+      your code's environment and dependencies
+      so that all you need to write is the code.
       </p>
       ".html_safe
     ) %>

@@ -25,7 +25,7 @@ RUN apt-get install -y \
       software-properties-common \
       yarn
 
-# Install Docker, required for `fn` command
+# Install Docker, required to run blocks
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/debian \
@@ -33,9 +33,6 @@ RUN add-apt-repository \
    stable" && \
    apt-get update -qq && \
    apt-get install -y docker-ce
-
-# Install IronFunctions `fn` command-line tool
-RUN curl -LSs https://goo.gl/VZrL8t | sh
 
 RUN mkdir /app
 WORKDIR /app
