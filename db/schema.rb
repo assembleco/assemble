@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170517210501) do
+ActiveRecord::Schema.define(version: 20170517213929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,13 +62,6 @@ ActiveRecord::Schema.define(version: 20170517210501) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
 
-  create_table "events", force: :cascade do |t|
-    t.integer "feed_id"
-    t.jsonb   "data"
-    t.index ["data"], name: "index_events_on_data", using: :gin
-    t.index ["feed_id"], name: "index_events_on_feed_id", using: :btree
-  end
-
   create_table "feeds", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -104,6 +97,5 @@ ActiveRecord::Schema.define(version: 20170517210501) do
 
   add_foreign_key "block_runs", "blocks"
   add_foreign_key "blocks", "users"
-  add_foreign_key "events", "feeds"
   add_foreign_key "slack_authentications", "users"
 end

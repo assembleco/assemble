@@ -2,7 +2,6 @@
 
 BlockRun.destroy_all
 Block.destroy_all
-Event.destroy_all
 Feed.destroy_all
 SlackAuthentication.destroy_all
 User.destroy_all
