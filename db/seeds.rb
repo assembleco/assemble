@@ -1,6 +1,5 @@
 # Remove any data currently in the database
 
-EnvVariable.destroy_all
 BlockRun.destroy_all
 Block.destroy_all
 Event.destroy_all

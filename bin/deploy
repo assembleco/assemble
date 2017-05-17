@@ -5,7 +5,8 @@
 ssh root@assembleapp.co '\
   cd registry &&\
   ./bin/docker-compose stop &&\
-  git pull &&\
+  git checkout master &&\
+  git pull -f &&\
   ./bin/docker-compose rm -f web worker &&\
   ./bin/docker-compose build &&\
   ./bin/docker-compose run web yarn install &&\
