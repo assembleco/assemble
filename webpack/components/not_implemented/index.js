@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types"
 import styled from "styled-components";
 import colors from "styles/colors";
 
@@ -17,7 +18,7 @@ const NotImplemented = (props) => <Wrapper>
 </Wrapper>
 
 NotImplemented.propTypes = {
-  issueID: React.PropTypes.number.isRequired
+  issueID: PropTypes.number.isRequired
 }
 
 export default NotImplemented;

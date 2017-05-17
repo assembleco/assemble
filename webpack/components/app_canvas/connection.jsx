@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 
 import PropDefinitions from "prop_definitions"
 
@@ -44,9 +45,9 @@ class Connection extends React.Component {
 }
 
 Connection.propTypes = {
-  app_id: React.PropTypes.number.isRequired,
-  all_blocks: React.PropTypes.array,
-  app: React.PropTypes.shape(PropDefinitions.app).isRequired,
+  app_id: PropTypes.number.isRequired,
+  all_blocks: PropTypes.array,
+  app: PropTypes.shape(PropDefinitions.app).isRequired,
 }
 
 export default Connection;

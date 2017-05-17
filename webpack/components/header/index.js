@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import $ from "jquery"
 import styled from "styled-components"
 import { Page } from 'hedron';
@@ -44,8 +45,8 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  current_user: React.PropTypes.string,
-  docs_path: React.PropTypes.string.isRequired,
+  current_user: PropTypes.string,
+  docs_path: PropTypes.string.isRequired,
 }
 
 const Background = styled.div`
