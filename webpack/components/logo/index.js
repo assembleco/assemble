@@ -1,6 +1,7 @@
 import styled from "styled-components"
 
 import React from "react";
+import PropTypes from "prop-types"
 
 const face_colors = [
   '#a8cfd9', // blue
@@ -163,10 +164,10 @@ class Logo extends React.Component {
 }
 
 Logo.propTypes = {
-  hover: React.PropTypes.bool,
-  theme: React.PropTypes.string,
-  depth: React.PropTypes.number,
-  repeatDelay: React.PropTypes.number
+  hover: PropTypes.bool,
+  theme: PropTypes.string,
+  depth: PropTypes.number,
+  repeatDelay: PropTypes.number
 };
 
 Logo.defaultProps = {

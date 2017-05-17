@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import $ from "jquery"
 
 import Form from "react-jsonschema-form"
@@ -88,10 +89,10 @@ class BlockUsage extends React.Component {
 }
 
 BlockUsage.propTypes = {
-  user_api_key: React.PropTypes.string.isRequired,
-  run_block_url: React.PropTypes.string.isRequired,
-  schema: React.PropTypes.object.isRequired,
-  initial_input_data: React.PropTypes.object,
+  user_api_key: PropTypes.string.isRequired,
+  run_block_url: PropTypes.string.isRequired,
+  schema: PropTypes.object.isRequired,
+  initial_input_data: PropTypes.object,
 }
 
 export default BlockUsage;

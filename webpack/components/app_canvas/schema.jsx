@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 
 import GenericAttribute from "components/app_canvas/schema/generic_attribute";
 
@@ -11,7 +12,7 @@ class Schema extends React.Component {
 }
 
 Schema.propTypes = {
-  initialValue: React.PropTypes.object
+  initialValue: PropTypes.object
 };
 
 export default Schema;

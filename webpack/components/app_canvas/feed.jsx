@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 
 import PropDefinitions from "prop_definitions"
 
@@ -57,9 +58,9 @@ class Feed extends React.Component {
 }
 
 Feed.propTypes = Object.assign({}, PropDefinitions.feed, {
-  app_id: React.PropTypes.number.isRequired,
-  schema: React.PropTypes.object.isRequired,
-  app: React.PropTypes.shape(PropDefinitions.app).isRequired,
+  app_id: PropTypes.number.isRequired,
+  schema: PropTypes.object.isRequired,
+  app: PropTypes.shape(PropDefinitions.app).isRequired,
 });
 
 Feed.styles = {

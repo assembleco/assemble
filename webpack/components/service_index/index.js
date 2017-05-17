@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import Radium from "radium"
 
 import Service from "components/service"
@@ -49,8 +50,8 @@ class ServiceIndex extends React.Component {
 }
 
 ServiceIndex.propTypes = {
-  slack_connections: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  github_connections: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  slack_connections: PropTypes.arrayOf(PropTypes.object).isRequired,
+  github_connections: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default Radium(ServiceIndex);

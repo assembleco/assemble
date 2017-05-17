@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 const Freezer = require("freezer-js");
 import $ from "jquery"
 
@@ -43,8 +44,8 @@ class Schema extends React.Component {
 }
 
 Schema.propTypes = {
-  initialValue: React.PropTypes.object,
-  editable: React.PropTypes.bool
+  initialValue: PropTypes.object,
+  editable: PropTypes.bool
 };
 
 export default Schema;

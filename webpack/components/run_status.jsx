@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import Radium from "radium"
 import $ from "jquery"
 
@@ -79,7 +80,7 @@ RunStatus.styles = {
 }
 
 RunStatus.propTypes = {
-  url: React.PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 }
 
 export default Radium(RunStatus);

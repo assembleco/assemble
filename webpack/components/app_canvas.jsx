@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import Radium from "radium"
 import $ from "jquery"
 
@@ -59,16 +60,16 @@ class AppCanvas extends React.Component {
 }
 
 AppCanvas.propTypes = {
-  app: React.PropTypes.shape(PropDefinitions.app).isRequired,
+  app: PropTypes.shape(PropDefinitions.app).isRequired,
 
-  all_blocks: React.PropTypes.arrayOf(React.PropTypes.shape({
-    label: React.PropTypes.string.isRequired,
-    value: React.PropTypes.number.isRequired,
+  all_blocks: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
   })).isRequired,
 
-  all_feeds: React.PropTypes.arrayOf(React.PropTypes.shape({
-    label: React.PropTypes.string.isRequired,
-    value: React.PropTypes.number.isRequired,
+  all_feeds: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
   })).isRequired,
 }
 
