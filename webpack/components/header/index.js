@@ -30,25 +30,6 @@ class Header extends React.Component {
             }
           </Right>
         </Menu>
-
-        <Notice width="1200px">
-          Hey there!
-          <br/>
-          This is Grayson, the lead developer on the project.
-          You've caught me in the middle of moving across the country on a motorcycle,
-          from California to Michigan.
-          <br/>
-          Since I'm on the road for the better part of a month,
-          this project is currently in a little state of disrepair.
-          <br/>
-          Feel free to poke around,
-          but please don't hold it against me if things don't work like you expect.
-          <br/>
-          I'll be back online and working on this project in June.
-          Until then, you can send me messages about the project through GitHub.
-          <br/>
-          Thanks for understanding. Cheers!
-        </Notice>
       </Background>
     );
   }
@@ -77,11 +58,6 @@ const Menu = styled(Page)`
   align-items: center;
   padding-bottom: 0.75rem;
   padding-top: 0.75rem;
-`
-
-const Notice = styled(Menu)`
-  background-color: #f2d38e;
-  padding: 1.5rem;
 `
 
 const Left = styled.div`
