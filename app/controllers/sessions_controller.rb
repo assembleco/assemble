@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       self.current_user = user
 
       flash[:notice] =  t(".success", name: user.handle)
-      render json: { status: :ok }
+      redirect_to :root
     elsif provider?(:slack)
       create_slack_authentication
 
@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
 
   def destroy
     self.current_user = nil
-    redirect_to root_path
+    render json: { status: :ok }
   end
 
   private

@@ -37,9 +37,9 @@ class Header extends React.Component {
 
   sign_out() {
     $.ajax({
-      path: '/session',
+      url: '/session',
       type: 'DELETE',
-      success: () => { window.reload() },
+      success: () => { window.location = window.location.pathname },
     });
   }
 }
