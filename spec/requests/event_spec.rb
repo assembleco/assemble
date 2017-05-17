@@ -4,11 +4,6 @@ require "rails_helper"
 
 describe "POST block_runs#create" do
   it "exposes any set environment variables to the script" do
-    skip "Environment variables should be renamed to `Configuration variables`,
-    and should be associated with apps, not blocks.
-    They should potentially have a `public` option,
-    so that they can be copied over with an app if they're not sensitive."
-
     block = create(:block)
     stub_block_body(block, <<-JS)
       flow = require('./flow.js')

@@ -11,12 +11,6 @@ FactoryGirl.define do
     source_path "/app/script.rb"
   end
 
-  factory :env_variable do
-    block
-    key "foo"
-    value "bar"
-  end
-
   factory :block_run do
     block
     input({ message: "Hello, World!" })
