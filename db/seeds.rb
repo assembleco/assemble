@@ -2,7 +2,6 @@
 
 BlockRun.destroy_all
 Block.destroy_all
-Feed.destroy_all
 SlackAuthentication.destroy_all
 User.destroy_all
 
@@ -88,17 +87,3 @@ Block.create!(
   source_path: "/app/transform.rb",
   user: user,
 )
-
-# Create time-based feeds
-time_based_schema = {
-  type: :object,
-  properties: {
-    time: { type: :string },
-  },
-  required: [:time],
-}
-
-Feed.create!(name: "Every Week", schema: time_based_schema)
-Feed.create!(name: "Every Day", schema: time_based_schema)
-Feed.create!(name: "Every Hour", schema: time_based_schema)
-Feed.create!(name: "Every Minute", schema: time_based_schema)
