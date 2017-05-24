@@ -18,11 +18,6 @@ class Logo extends React.Component {
   constructor(props) {
     super(props);
 
-    this.listeners = {
-      spin: this._spin.bind(this),
-      reset: this._reset.bind(this)
-    };
-
     this.state = {
       x: 0,
       y: 0,
@@ -57,24 +52,22 @@ class Logo extends React.Component {
   }
 
   componentDidMount() {
-    let { hover, continuous, repeatDelay } = this.props;
+    let { continuous, repeatDelay } = this.props;
 
-    if (hover) {
-      this.container.addEventListener("mouseenter", this.listeners.spin);
-      this.container.addEventListener("mouseleave", this.listeners.reset);
-
-    } else if (continuous) {
+    if (continuous) {
       let lastTime = performance.now();
       let animation = () => {
         let axis = this._getRandomAxis();
         let nowTime = performance.now();
         let deltaTime = nowTime - lastTime;
+        let spinAmount = Math.random() < 0.9 ? 1 : 2;
+        let spinDirection = Math.random() < 0.5 ? -1 : 1;
 
         if (repeatDelay <= deltaTime) {
           let obj = {};
 
           let newState = this.state;
-          newState[axis] = this.state[axis] + 90;
+          newState[axis] = this.state[axis] + 90 * spinAmount * spinDirection;
 
           this.setState(newState);
           lastTime = performance.now();
@@ -87,13 +80,9 @@ class Logo extends React.Component {
   }
 
   componentWillUnmount() {
-    let { hover, continuous } = this.props;
+    let { continuous } = this.props;
 
-    if (hover) {
-      this.container.removeEventListener("mouseenter", this.listeners.spin);
-      this.container.removeEventListener("mouseleave", this.listeners.reset);
-
-    } else if (continuous) {
+    if (continuous) {
       cancelAnimationFrame(this._requestAnimation);
     }
   }
@@ -133,45 +122,15 @@ class Logo extends React.Component {
 
     return axes[ Math.floor(Math.random() * axes.length) ];
   }
-
-  /**
-   * Spin the cubes in opposite directions semi-randomly
-   *
-   * @param {object} e - Native event
-   */
-  _spin(e) {
-    let obj = {};
-    let axis = this._getRandomAxis();
-    let sign = Math.random() < 0.5 ? -1 : 1;
-
-    obj[axis] = sign * 90;
-
-    this.setState(obj);
-  }
-
-  /**
-   * Rotate the cubes back to their original position
-   *
-   * @param {object} e - Native event
-   */
-  _reset(e) {
-    this.setState({
-      x: 0,
-      y: 0,
-      z: 0
-    });
-  }
 }
 
 Logo.propTypes = {
-  hover: PropTypes.bool,
   theme: PropTypes.string,
   depth: PropTypes.number,
   repeatDelay: PropTypes.number
 };
 
 Logo.defaultProps = {
-  hover: false,
   theme: "dark",
   depth: 30,
   repeatDelay: 2000,
@@ -191,19 +150,20 @@ const Container = styled.span`
   width: ${depth}px;
 `
 
+const transition_timing = "1000ms";
+const transition_easing = "cubic-bezier(0.68, -0.55, 0.265, 1.55)";
+
 const CubeOuter = styled.figure`
   -webkit-transform-style: preserve-3d;
-  -webkit-transition: -webkit-transform 1000ms;
+  -webkit-transition: -webkit-transform ${transition_timing};
   display: inline-block;
   transform-style: preserve-3d;
-  transition: -webkit-transform 1000ms;
-  transition: transform 1000ms, -webkit-transform 1000ms;
-  transition: transform 1000ms;
+  transition: -webkit-transform ${transition_timing} ${transition_easing};
+  transition: transform ${transition_timing}, -webkit-transform ${transition_timing} ${transition_easing};
+  transition: transform ${transition_timing} ${transition_easing};
 `
 
 const CubeFace = styled.section`
-  -webkit-transition-delay: 0.2s;
-  -webkit-transition: border-width 0.2s;
   background: rgba(141, 214, 249, 1);
   border: 2px solid #000;
   height: 100%;
