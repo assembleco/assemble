@@ -2,7 +2,24 @@
 require "rails_helper"
 
 RSpec.feature "Blocks" do
-  scenario "update" do
+  scenario "create a block" do
+    user = create(:user)
+
+    sign_in user
+    visit new_block_path
+    fill_in :block_name, with: "Hello"
+    fill_in :block_description, with: "This block says hello."
+    fill_in :block_source, with: "Hello"
+    fill_in :block_source_path, with: "Hello"
+    fill_in :block_command, with: "Hello"
+    fill_in :block_dockerfile, with: "Hello"
+    click_on "Create Block"
+
+    expect(page).to have_content t("blocks.create.success")
+    expect(page).to have_content "This block says hello."
+  end
+
+  scenario "update a block" do
     block = create(:block)
     user = block.user
 
