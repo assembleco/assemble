@@ -80,7 +80,7 @@ class BlocksController < ApplicationController
       :handle,
       :name,
       :schema_json,
-    )
+    ).merge(user: current_user)
   end
 
   def user
