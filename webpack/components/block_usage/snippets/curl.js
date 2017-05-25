@@ -1,6 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 
+import SyntaxHighlighter from 'react-syntax-highlighter';
+
 import Hint from "components/hint"
 
 class CurlSnippet extends React.Component {
@@ -11,7 +13,7 @@ class CurlSnippet extends React.Component {
         Copy and paste this snippet into your computer's Terminal program.
         </Hint>
 
-        <pre>
+        <SyntaxHighlighter language="bash">
 {
   `curl \\\n\
   '${ this.props.run_block_url }.json' \\\n\
@@ -21,7 +23,7 @@ class CurlSnippet extends React.Component {
   -H "Authorization: Bearer ${this.props.user_api_key}" \\\n\
   -d '${JSON.stringify({ data: this.props.input_data }, null, 2)}'`
 }
-        </pre>
+        </SyntaxHighlighter>
       </div>
     );
   }
