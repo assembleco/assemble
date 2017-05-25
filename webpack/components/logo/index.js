@@ -138,7 +138,7 @@ Logo.defaultProps = {
 
 const OuterContainer = styled.div`
   height: ${depth * 1.5}px;
-  width: ${depth * 1.5}px;
+  width: ${depth * 2.5}px;
 `
 
 const Container = styled.span`
