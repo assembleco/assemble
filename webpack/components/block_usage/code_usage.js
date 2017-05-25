@@ -2,8 +2,12 @@ import React from "react"
 import PropTypes from "prop-types"
 
 import Hint from "components/hint"
+import TabNavigation from "components/tab_navigation"
 
 import CurlSnippet from "./snippets/curl"
+import NodeSnippet from "./snippets/node"
+import RubySnippet from "./snippets/ruby"
+import PythonSnippet from "./snippets/python"
 
 class CodeUsage extends React.Component {
   render() {
@@ -15,7 +19,14 @@ class CodeUsage extends React.Component {
           To start, choose your preferred language.
         </Hint>
 
-        <CurlSnippet {...this.props} />
+        <TabNavigation
+          tabs={{
+            "Curl": <CurlSnippet {...this.props} />,
+            "Ruby": <RubySnippet {...this.props} />,
+            "Python": <PythonSnippet {...this.props} />,
+            "Node": <NodeSnippet {...this.props} />,
+          }}
+        />
       </div>
     );
   }
