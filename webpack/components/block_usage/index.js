@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import $ from "jquery"
 
 import Form from "react-jsonschema-form"
-import RunStatus from "../run_status"
+import RunStatus from "components/run_status"
 import CodeUsage from "./code_usage"
 
 class BlockUsage extends React.Component {
