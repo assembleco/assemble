@@ -4,6 +4,7 @@ import $ from "jquery"
 
 import Form from "react-jsonschema-form"
 import RunStatus from "../run_status"
+import CodeUsage from "./code_usage"
 
 class BlockUsage extends React.Component {
   constructor(props) {
@@ -48,24 +49,11 @@ class BlockUsage extends React.Component {
           </div>
         </Form>
 
-        <p className="hint" style={{ marginTop: "0.75rem" }}>
-          Run this block from your command line.
-          We've filled in the inputs from the form above –
-          you can use them or switch them out as needed.
-        </p>
-
-        <pre>
-{
-  this.props.user_api_key == null ?
-    "Sign in to try out this block" :
-  `curl \\\n\
-  '${ this.props.run_block_url }.json' \\\n\
-  -X POST \\\n\
-  -H "Content-Type: application/json" \\\n\
-  -H "Accept: application/json" \\\n\
-  -H "Authorization: Bearer ${this.props.user_api_key}" \\\n\
-  -d '${JSON.stringify({ data: this.state.inputData }, null, 2)}'`}
-        </pre>
+        <CodeUsage
+          user_api_key={this.props.user_api_key}
+          input_data={this.state.inputData}
+          run_block_url={this.props.run_block_url}
+          />
       </div>
     );
   }
