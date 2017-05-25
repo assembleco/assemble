@@ -1,6 +1,5 @@
 import React from "react"
 import PropTypes from "prop-types"
-import Radium from "radium"
 
 import Service from "components/service"
 
@@ -54,4 +53,4 @@ ServiceIndex.propTypes = {
   github_connections: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
-export default Radium(ServiceIndex);
+export default ServiceIndex;

@@ -1,5 +1,4 @@
 import React from "react"
-import Radium from "radium"
 import PropTypes from "prop-types"
 import styled from "styled-components";
 
@@ -63,4 +62,4 @@ Service.propTypes = {
   name: PropTypes.string.isRequired,
 }
 
-export default Radium(Service);
+export default Service;
