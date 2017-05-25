@@ -133,7 +133,7 @@ Logo.propTypes = {
 Logo.defaultProps = {
   theme: "dark",
   depth: 30,
-  repeatDelay: 2000,
+  repeatDelay: 4000,
 };
 
 const OuterContainer = styled.div`
