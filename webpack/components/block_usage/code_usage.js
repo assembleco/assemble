@@ -1,7 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
+import styled from "styled-components"
 
-import Hint from "components/hint"
+import OriginalHint from "components/hint"
 import TabNavigation from "components/tab_navigation"
 
 import CurlSnippet from "./snippets/curl"
@@ -12,7 +13,7 @@ import PythonSnippet from "./snippets/python"
 class CodeUsage extends React.Component {
   render() {
     return (
-      <div>
+      <Wrapper>
         <Hint>
           You can also run this block from your terminal
           or an existing code base.
@@ -27,7 +28,7 @@ class CodeUsage extends React.Component {
             "Node": <NodeSnippet {...this.props} />,
           }}
         />
-      </div>
+      </Wrapper>
     );
   }
 }
@@ -37,5 +38,13 @@ CodeUsage.propTypes = {
   user_api_key: PropTypes.string.isRequired,
   input_data: PropTypes.object,
 }
+
+const Wrapper = styled.div`
+  margin-top: 1.5rem;
+`
+
+const Hint = styled(OriginalHint)`
+  margin-bottom: 0.75rem;
+`
 
 export default CodeUsage;
