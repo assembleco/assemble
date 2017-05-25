@@ -1,10 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types"
-import Radium from "radium"
 import $ from "jquery"
+import styled from "styled-components"
 
 import JSONTree from "react-json-tree";
-import colors from "../styles/colors"
+import colors from "../../styles/colors"
 
 class RunStatus extends React.Component {
   constructor(props) {
@@ -22,10 +22,10 @@ class RunStatus extends React.Component {
   render() {
     if(this.state.status)
       return (
-        <div
-          style={[RunStatus.styles.status, RunStatus.styles[this.state.status]]}
-          >
-          Run completed – {this.state.status}
+        <Container style={backgroundColors[this.state.status]} >
+          <Message>
+            Run completed – {this.state.status}
+          </Message>
 
           <div>
             STDOUT:
@@ -40,15 +40,15 @@ class RunStatus extends React.Component {
             {this.state.stderr}
             </pre>
           </div>
-        </div>
+        </Container>
       );
     else
       return(
-        <div
-          style={[RunStatus.styles.status, RunStatus.styles[this.state.status]]}
-          >
-          Run is pending...
-        </div>
+        <Container style={backgroundColors[this.state.status]} >
+          <Message>
+            Run is pending...
+          </Message>
+        </Container>
       );
   }
 
@@ -63,24 +63,23 @@ class RunStatus extends React.Component {
   }
 }
 
-RunStatus.styles = {
-  status: {
-    padding: "0.75rem",
-    marginBottom: "1.5rem",
-  },
-  pending: {
-    backgroundColor: colors.yellow
-  },
-  success: {
-    backgroundColor: colors.green
-  },
-  failure: {
-    backgroundColor: colors.red
-  }
+const backgroundColors = {
+  pending: { backgroundColor: colors.yellow },
+  success: { backgroundColor: colors.green },
+  failure: { backgroundColor: colors.red }
 }
 
 RunStatus.propTypes = {
   url: PropTypes.string.isRequired,
 }
 
-export default Radium(RunStatus);
+const Container = styled.div`
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+`
+
+const Message = styled.div`
+  margin-bottom: 1.5rem;
+`
+
+export default RunStatus;
