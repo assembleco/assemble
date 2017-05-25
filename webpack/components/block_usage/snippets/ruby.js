@@ -1,26 +1,26 @@
 import React from "react"
 import PropTypes from "prop-types"
 
+import SyntaxHighlighter from 'react-syntax-highlighter';
+
 import Hint from "components/hint"
 
-class RubySnippet extends React.Component {
-  render() {
-    return (
-      <div>
-        <Hint>
-        Tested on Ruby 2.4.1
-        </Hint>
+const RubySnippet = (props) => (
+  <div>
+    <Hint>
+    Tested on Ruby 2.4.1
+    </Hint>
 
-        <pre>
+    <SyntaxHighlighter language="ruby">
 {
 `require 'net/http'
 require 'uri'
 
-ASSEMBLE_USER_KEY = "${this.props.user_api_key}"
+ASSEMBLE_USER_KEY = "${props.user_api_key}"
 
-input = '${JSON.stringify({ data: this.props.input_data }, null, 2)}'
+input = '${JSON.stringify({ data: props.input_data }, null, 2)}'
 
-uri = URI('${ this.props.run_block_url }.json')
+uri = URI('${ props.run_block_url }.json')
 result = Net::HTTP.post(
   uri,
   input,
@@ -36,11 +36,9 @@ else
 end
 `
 }
-        </pre>
-      </div>
-    );
-  }
-}
+    </SyntaxHighlighter>
+  </div>
+);
 
 RubySnippet.propTypes = {
   run_block_url: PropTypes.string.isRequired,
