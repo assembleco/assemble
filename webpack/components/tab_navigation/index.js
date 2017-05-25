@@ -49,6 +49,7 @@ class TabNavigation extends React.Component {
 
 TabNavigation.propTypes = {
   tabs: React.PropTypes.object.isRequired,
+  activeTab: React.PropTypes.string,
 }
 
 const TabHeading = styled.div`
