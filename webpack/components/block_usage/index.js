@@ -59,20 +59,22 @@ class BlockUsage extends React.Component {
   }
 
   onSubmit(event) {
-    const data = { data: event.formData };
-
-    this.setState({ run: null });
+    this.setState({ run: { status: "pending" } });
 
     $.post(
       this.props.run_block_url,
-      data,
-      (event) => this.setState({ run: event.path }),
+      { data: event.formData },
+      this.runFinished.bind(this),
     )
+  }
+
+  runFinished(event) {
+    this.setState({ run: event })
   }
 
   renderRun() {
     if(this.state.run)
-      return <RunStatus url={this.state.run}/>
+      return <RunStatus {...this.state.run}/>
   }
 }
 
