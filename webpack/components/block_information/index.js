@@ -32,7 +32,7 @@ class BlockInformation extends React.Component {
             </Hint>
           </VerticalFlex>
 
-          <a href={`/blocks/${this.props.user.handle}/${this.props.name}`}>
+          <a href={`/blocks/${this.props.user.handle}/${this.props.name}/edit`}>
             Edit
           </a>
         </HorizontalFlex>
