@@ -21,7 +21,7 @@ class BlockRunsController < ApplicationController
     )
 
     if run.save
-      run.delay.execute
+      run.execute
       notice = t(".success")
 
       respond_to do |format|
@@ -30,6 +30,8 @@ class BlockRunsController < ApplicationController
             status: :success,
             message: "Running block `#{user.handle}/#{block.name}`",
             path: block_run_path(user, block, run),
+            input: run.input,
+            output: JSON.parse(run.stdout),
           })
         }
       end

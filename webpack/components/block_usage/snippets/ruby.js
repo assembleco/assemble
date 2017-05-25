@@ -18,13 +18,15 @@ require 'uri'
 
 ASSEMBLE_USER_KEY = "${this.props.user_api_key}"
 
+input = '${JSON.stringify({ data: this.props.input_data }, null, 2)}'
+
 uri = URI('${ this.props.run_block_url }.json')
 result = Net::HTTP.post(
   uri,
-  '${JSON.stringify({ data: this.props.input_data }, null, 2)}',
+  input,
   "Content-Type" => "application/json",
   "Accept" => "application/json",
-  "Authorization" => "Bearer ${this.props.user_api_key}",
+  "Authorization" => "Bearer #{ASSEMBLE_USER_KEY}",
 )
 
 if result.code == "200"
