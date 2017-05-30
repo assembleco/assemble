@@ -31,7 +31,7 @@ class BlockRunsController < ApplicationController
             message: "Running block `#{user.handle}/#{block.name}`",
             path: block_run_path(user, block, run),
             input: run.input,
-            output: JSON.parse(run.stdout),
+            output: run.stdout,
           })
         }
       end
