@@ -32,6 +32,7 @@ class BlockRunsController < ApplicationController
             path: block_run_path(user, block, run),
             input: run.input,
             output: run.stdout,
+            errors: run.stderr,
           })
         }
       end
