@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170517214742) do
+ActiveRecord::Schema.define(version: 20170530212048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,14 @@ ActiveRecord::Schema.define(version: 20170517214742) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
 
+  create_table "secrets", force: :cascade do |t|
+    t.integer "block_id"
+    t.string  "key",                null: false
+    t.string  "encrypted_value",    null: false
+    t.string  "encrypted_value_iv", null: false
+    t.index ["block_id"], name: "index_secrets_on_block_id", using: :btree
+  end
+
   create_table "slack_authentications", force: :cascade do |t|
     t.string  "handle",        null: false
     t.string  "team",          null: false
@@ -89,5 +97,6 @@ ActiveRecord::Schema.define(version: 20170517214742) do
 
   add_foreign_key "block_runs", "blocks"
   add_foreign_key "blocks", "users"
+  add_foreign_key "secrets", "blocks"
   add_foreign_key "slack_authentications", "users"
 end
