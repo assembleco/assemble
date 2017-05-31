@@ -26,12 +26,13 @@ class BlockPage extends React.Component {
 
         <div className="layout-column-right">
           <BlockUsage
-            schema={this.props.schema}
-            run_block_url={this.props.run_block_url}
-            user_api_key={this.props.user_api_key}
-            initial_input_data={this.props.initial_input_data}
             current_user={this.props.current_user}
+            initial_input_data={this.props.initial_input_data}
+            name={this.props.name}
+            run_block_url={this.props.run_block_url}
+            schema={this.props.schema}
             user={this.props.user}
+            user_api_key={this.props.user_api_key}
             />
         </div>
       </div>
