@@ -6,6 +6,9 @@ import Form from "react-jsonschema-form"
 import RunStatus from "components/run_status"
 import CodeUsage from "./code_usage"
 
+import Section from "components/section"
+import Hint from "components/hint"
+
 class BlockUsage extends React.Component {
   constructor(props) {
     super(props);
@@ -24,15 +27,25 @@ class BlockUsage extends React.Component {
     };
 
     return (
-      <div className="section">
+      <Section>
         { this.renderRun() }
 
         <h2>Try it out</h2>
 
-        <p className="hint">
+        <Hint>
           Run this block with custom inputs,
           in a web form or on your command line.
-        </p>
+        </Hint>
+
+        { this.props.user.id == this.props.current_user.id
+          ? <Hint>
+            As the block's author, <a
+              href={this.props.run_block_url.replace("runs", "edit")}>
+              edit the block's input schema
+            </a> to help others understand how it works.
+            </Hint>
+          : ""
+        }
 
         <Form
           uiSchema={uiSchema}
@@ -61,7 +74,7 @@ class BlockUsage extends React.Component {
           input_data={this.state.inputData}
           run_block_url={this.props.run_block_url}
           />
-      </div>
+      </Section>
     );
   }
 

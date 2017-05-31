@@ -15,19 +15,14 @@
 </div>
 
 <div class="layout-column-right">
-  <% if @block.user == current_user %>
-    <div class="section section-hint">
-      As the block's author,
-      <%= link_to "edit the block's input schema", edit_block_path(@block.user, @block) %>
-      to help users understand how it works.
-    </div>
-  <% end %>
-
   <%= react_component(
     "BlockUsage",
     schema: @block.schema,
     run_block_url: block_runs_url(@block.user, @block),
     user_api_key: current_user.try(:api_key),
     initial_input_data: @block.runs.where(user: current_user).last.try(:input),
+
+    current_user: current_user.try(:as_json) || {},
+    user: @block.user.as_json,
   ) %>
 </div>
