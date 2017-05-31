@@ -1,16 +1,14 @@
 import $ from "jquery";
 import { mountComponents } from "react-rails-ujs";
 
-import BlockInformation from "./components/block_information";
-import BlockUsage from "./components/block_usage";
+import BlockPage from "./pages/block_page";
 import Header from "./components/header";
 import JSONTree from "react-json-tree";
 import Schema from "./components/schema";
 import ServiceIndex from "./components/service_index";
 
 mountComponents({
-  BlockInformation,
-  BlockUsage,
+  BlockPage,
   Header,
   JSONTree,
   Schema,

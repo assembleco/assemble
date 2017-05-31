@@ -1,28 +1,17 @@
-<div class="layout-column-left">
-  <%= react_component(
-    "BlockInformation",
-    icon: @block.icon,
-    user: @block.user.as_json,
-    created_at: @block.created_at,
-    description: markdown(@block.description),
-    name: @block.name,
-    source: @block.source,
-    dockerfile: @block.dockerfile,
-    source_path: @block.source_path,
-    command: @block.command,
-    current_user: current_user.try(:as_json) || {},
-  ) %>
-</div>
-
-<div class="layout-column-right">
-  <%= react_component(
-    "BlockUsage",
-    schema: @block.schema,
-    run_block_url: block_runs_url(@block.user, @block),
-    user_api_key: current_user.try(:api_key),
-    initial_input_data: @block.runs.where(user: current_user).last.try(:input),
-
-    current_user: current_user.try(:as_json) || {},
-    user: @block.user.as_json,
-  ) %>
-</div>
+<%= react_component(
+  "BlockPage",
+  command: @block.command,
+  created_at: @block.created_at,
+  current_user: current_user.try(:as_json) || {},
+  description: markdown(@block.description),
+  dockerfile: @block.dockerfile,
+  icon: @block.icon,
+  initial_input_data: @block.runs.where(user: current_user).last.try(:input),
+  name: @block.name,
+  run_block_url: block_runs_url(@block.user, @block),
+  schema: @block.schema,
+  source: @block.source,
+  source_path: @block.source_path,
+  user: @block.user.as_json,
+  user_api_key: current_user.try(:api_key),
+) %>
