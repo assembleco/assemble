@@ -103,13 +103,19 @@ class BlockUsage extends React.Component {
   schemaUpdated(newSchema) {
     this.setState({schema: newSchema})
 
-    updateBlock({ schema_json: JSON.stringify(newSchema) })
+    updateBlock(
+      { schema_json: JSON.stringify(newSchema) },
+      this.props.user.handle,
+      this.props.name,
+    )
   }
 }
 
 BlockUsage.propTypes = {
   user_api_key: PropTypes.string.isRequired,
   run_block_url: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
   schema: PropTypes.object.isRequired,
   initial_input_data: PropTypes.object,
 }

@@ -1,20 +1,12 @@
 import React from "react"
+import styled from "styled-components"
 
 import ObjectAttribute from "./object_attribute";
 import StringAttribute from "./string_attribute";
 
+import EditableField from "components/editable_field"
+
 class GenericAttribute extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      editedName: null
-    };
-
-    this.finishEditing = this.finishEditing.bind(this);
-    this.editingKeyDown = this.editingKeyDown.bind(this);
-  }
-
   render() {
     const component = {
       object: ObjectAttribute,
@@ -22,24 +14,13 @@ class GenericAttribute extends React.Component {
     }[this.props.schema.type];
 
     const nameTag = this.props.name
-      ? this.state.editedName == null
-        ? <span
-            key="name"
-            onClick={() => this.setState({ editedName: this.props.name })}
-            role="link"
-            style={{ marginRight: "0.5rem", textDecoration: "underline", cursor: "pointer" }}
-            >
-            {this.props.name + ':'}
-          </span>
-        : <input
-            type='text'
-            value={this.state.editedName}
-            onChange={(e) => this.setState({ editedName: e.target.value })}
-            onBlur={this.finishEditing}
-            ref={(input) => { if(input) { input.focus() }}}
-            onKeyDown={this.editingKeyDown}
-            style={{ marginRight: "0.5rem" }}
-            ></input>
+      ? <EditableField.String
+      editable
+      onChange={(newName) => this.props.onRename(this.props.name, newName)}
+      initialValue={this.props.name}
+      >
+        <Label>{ this.props.name + ':' }</Label>
+      </EditableField.String>
       : "";
 
     const requiredCheckbox = this.props.editable && this.props.onChildRequirementChange
@@ -54,40 +35,32 @@ class GenericAttribute extends React.Component {
       ? <a onClick={() => this.props.onRemove(this.props.name)}>[X]</a>
       : "";
 
-    const style = {
-      alignItems: "flex-start",
-      border: "1px solid gray",
-      display: "flex",
-      justifyContent: "space-between",
-      marginBottom: "0.5rem",
-      padding: "0.5rem",
-    }
-
     return (
-      <div style={style}>
+      <Wrapper>
         { nameTag }
 
         { React.createElement(component, this.props, null) }
 
         { requiredCheckbox }
         { removeLink }
-      </div>
+      </Wrapper>
     );
   }
-
-  editingKeyDown(e) {
-    // If the user just hit enter
-    if (e.keyCode == 13) {
-      e.stopPropagation();
-      this.finishEditing();
-    }
-  }
-
-  finishEditing() {
-    var newName = this.state.editedName;
-    this.setState({ editedName: null });
-    this.props.onRename(this.props.name, newName);
-  }
 }
+
+const Label = styled.span`
+  margin-right: 0.5rem;
+  text-decoration: underline;
+  cursor: pointer;
+`
+
+const Wrapper = styled.div`
+  align-items: flex-start;
+  border: 1px solid gray;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+`
 
 export default GenericAttribute;
