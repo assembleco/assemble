@@ -33,9 +33,12 @@ class BlockInformation extends React.Component {
             </Hint>
           </VerticalFlex>
 
-          <a href={`/blocks/${this.props.user.handle}/${this.props.name}/edit`}>
-            Edit
-          </a>
+          { this.props.current_user.id == this.props.user.id
+            ? <a href={`/blocks/${this.props.user.handle}/${this.props.name}/edit`}>
+                Edit
+              </a>
+            : ''
+          }
         </HorizontalFlex>
 
         <Description dangerouslySetInnerHTML={{__html: this.props.description}} />

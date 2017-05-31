@@ -10,6 +10,7 @@
     dockerfile: @block.dockerfile,
     source_path: @block.source_path,
     command: @block.command,
+    current_user: current_user.try(:as_json) || {},
   ) %>
 </div>
 
