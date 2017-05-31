@@ -53,10 +53,22 @@ class BlocksController < ApplicationController
     @block = Block.find_by!(user: user, name: params[:blockname])
 
     if @block.update(block_params)
-      redirect_to block_path(@block.user, @block), notice: t(".success")
+      respond_to do |format|
+        format.json {
+          render json: @block.as_json
+        }
+        format.html {
+          redirect_to block_path(@block.user, @block), notice: t(".success")
+        }
+      end
     else
-      flash.now[:alert] = t(".failure")
-      render :edit
+      format.json {
+        render json: @block.errors.as_json
+      }
+      format.html {
+        flash.now[:alert] = t(".failure")
+        render :edit
+      }
     end
   end
 
