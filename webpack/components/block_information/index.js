@@ -7,6 +7,7 @@ import Section from "components/section"
 
 import Logo from "components/logo"
 import Hint from "components/hint"
+import Toggle from "components/toggle"
 
 class BlockInformation extends React.Component {
   render() {
@@ -38,6 +39,16 @@ class BlockInformation extends React.Component {
         </HorizontalFlex>
 
         <Description dangerouslySetInnerHTML={{__html: this.props.description}} />
+
+        <Toggle showLabel="Show source" hideLabel="Hide source">
+          <h3>Command: <Code>{ this.props.command }</Code></h3>
+
+          <h3>Source: <Code>{ this.props.source_path }</Code></h3>
+          <pre>{ this.props.source }</pre>
+
+          <h3>Dockerfile</h3>
+          <pre>{ this.props.dockerfile }</pre>
+        </Toggle>
       </Section>
     );
   }
@@ -61,6 +72,11 @@ const Title = styled.h1``;
 
 const Description = styled.div`
   margin-top: 1.5rem;
+`
+
+const Code = styled.code`
+  background-color: lightgray;
+  color: red;
 `
 
 export default BlockInformation;
