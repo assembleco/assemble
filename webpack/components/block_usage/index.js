@@ -11,6 +11,8 @@ import EditableField from "components/editable_field"
 import Section from "components/section"
 import Hint from "components/hint"
 
+import updateBlock from "util/update_block"
+
 class BlockUsage extends React.Component {
   constructor(props) {
     super(props);
@@ -101,16 +103,7 @@ class BlockUsage extends React.Component {
   schemaUpdated(newSchema) {
     this.setState({schema: newSchema})
 
-    $.ajax({
-      url: this.props.run_block_url.replace("/runs", ".json"),
-      data: {
-        block: {
-          schema_json: JSON.stringify(newSchema)
-        }
-      },
-      type: "PATCH",
-      success: () => { console.log("Updated"); }
-    });
+    updateBlock({ schema_json: JSON.stringify(newSchema) })
   }
 }
 

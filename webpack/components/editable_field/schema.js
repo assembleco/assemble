@@ -43,8 +43,9 @@ class EditableSchema extends React.Component {
 }
 
 EditableSchema.propTypes = {
-  update_url: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
   editable: PropTypes.bool.isRequired,
+  initialValue: PropTypes.object.isRequired,
 }
 
 const Link = styled.span`
