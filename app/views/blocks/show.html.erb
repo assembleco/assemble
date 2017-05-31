@@ -6,20 +6,11 @@
     created_at: @block.created_at,
     description: markdown(@block.description),
     name: @block.name,
+    source: @block.source,
+    dockerfile: @block.dockerfile,
+    source_path: @block.source_path,
+    command: @block.command,
   ) %>
-
-  <div class="section">
-    <h2>Source</h2>
-
-    <h3>Command</h3>
-    <code><%= @block.command %></code>
-
-    <h3>Source: <code><%= @block.source_path %></code></h3>
-    <pre><%= @block.source %></pre>
-
-    <h3>Dockerfile</h3>
-    <pre><%= @block.dockerfile %></pre>
-  </div>
 </div>
 
 <div class="layout-column-right">
