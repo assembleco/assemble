@@ -32,7 +32,7 @@ class BlockRun < ApplicationRecord
         container.stop
         container.delete
 
-        self.stdout = JSON.parse(output.join) rescue output.join
+        self.stdout = output.join
         self.stderr = errors.join
 
         save
