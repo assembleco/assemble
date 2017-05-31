@@ -17,6 +17,12 @@ class BlockUsage extends React.Component {
   }
 
   render() {
+    const uiSchema =  {
+      ssh_private_key: {
+        "ui:widget": "textarea" // could also be "select"
+      }
+    };
+
     return (
       <div className="section">
         { this.renderRun() }
@@ -29,6 +35,7 @@ class BlockUsage extends React.Component {
         </p>
 
         <Form
+          uiSchema={uiSchema}
           schema={this.props.schema}
           onChange={ (e) => this.setState({ inputData: e.formData }) }
           onSubmit={this.onSubmit.bind(this)}

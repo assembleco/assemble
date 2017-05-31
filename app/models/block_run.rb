@@ -19,7 +19,7 @@ class BlockRun < ApplicationRecord
         container = Docker::Container.create("Image" => image.id, "Tty" => true)
         container.start
 
-        container.store_file(block.source_path, block.source)
+        container.store_file(block.source_path, block.source.gsub("\r\n", "\n"))
 
         puts "Input:"
         puts  input.to_json
