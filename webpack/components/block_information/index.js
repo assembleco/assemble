@@ -9,7 +9,18 @@ import Logo from "components/logo"
 import Hint from "components/hint"
 import Toggle from "components/toggle"
 
+import EditableField from "components/editable_field"
+import updateBlock from "util/update_block"
+
 class BlockInformation extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      name: this.props.name,
+    }
+  }
+
   render() {
     const date = new Date(this.props.created_at);
 
@@ -25,7 +36,13 @@ class BlockInformation extends React.Component {
               </a>
 
               &nbsp;/&nbsp;
-              {this.props.name}
+              <EditableField.String
+                editable={this.props.current_user.id == this.props.user.id}
+                initialValue={this.state.name}
+                onChange={this.nameUpdated.bind(this)}
+                >
+                {this.state.name}
+              </EditableField.String>
             </Title>
 
             <Hint>
@@ -54,6 +71,11 @@ class BlockInformation extends React.Component {
         </Toggle>
       </Section>
     );
+  }
+
+  nameUpdated(newName) {
+    this.setState({ name: newName })
+    updateBlock({ name: newName }, this.props.user.handle, this.props.name)
   }
 }
 
