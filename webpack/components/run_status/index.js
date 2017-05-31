@@ -3,7 +3,6 @@ import PropTypes from "prop-types"
 import $ from "jquery"
 import styled from "styled-components"
 
-import JSONTree from "react-json-tree";
 import colors from "../../styles/colors"
 
 class RunStatus extends React.Component {
@@ -26,7 +25,9 @@ class RunStatus extends React.Component {
           <div>
             Output:
 
-            <JSONTree data={this.props.output} />
+            <pre>
+            {this.props.output}
+            </pre>
           </div>
 
           <div>
