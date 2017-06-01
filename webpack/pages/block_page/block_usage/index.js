@@ -37,8 +37,6 @@ class BlockUsage extends React.Component {
 
     return (
       <Section>
-        { this.renderRun() }
-
         <h2>Try it out</h2>
 
         <Row>
@@ -86,6 +84,8 @@ class BlockUsage extends React.Component {
               />
           </Column>
         </Row>
+
+        { this.renderRun() }
       </Section>
     );
   }

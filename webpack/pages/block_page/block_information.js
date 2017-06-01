@@ -11,6 +11,9 @@ import Toggle from "components/toggle"
 
 import Markdown from "components/markdown"
 
+import Row from "layout/row"
+import Column from "layout/column"
+
 import EditableField from "components/editable_field"
 import updateBlock from "util/update_block"
 
@@ -34,10 +37,10 @@ class BlockInformation extends React.Component {
 
     return(
       <Section>
-        <HorizontalFlex>
+        <Row>
           <Logo />
 
-          <VerticalFlex>
+          <Column>
             <Title>
               <a href={`/users/${this.props.user.handle}`}>
                 {this.props.user.handle}
@@ -56,97 +59,101 @@ class BlockInformation extends React.Component {
             <Hint>
               Created on {dateFormat(date, "mmmm d, yyyy")}
             </Hint>
-          </VerticalFlex>
-        </HorizontalFlex>
+          </Column>
+        </Row>
 
-        <EditableField.Text
-          editable={editable}
-          initialValue={this.state.description}
-          onChange={this.descriptionUpdated.bind(this)}
-          hint={<div>
-            <p>
-            If you want other people to use your block, you better explain how it works!
-            </p>
-            <p>
-            We support
-            <a href='https://help.github.com/articles/basic-writing-and-formatting-syntax/'>
-            Github-Flavored Markdown</a>.
-            </p>
-          </div>}
-          >
-          <Description>
-            <Markdown source={this.state.description}/>
-          </Description>
-        </EditableField.Text>
-
-        <Toggle showLabel="Show source" hideLabel="Hide source">
-          <h3>
-            Command:
-            <EditableField.String
+        <Row>
+          <Column>
+            <EditableField.Text
               editable={editable}
-              hint="How do we run your code?"
-              onChange={this.commandUpdated.bind(this)}
-              initialValue={this.state.command}>
-              <Code>{ this.state.command }</Code>
-            </EditableField.String>
-          </h3>
+              initialValue={this.state.description}
+              onChange={this.descriptionUpdated.bind(this)}
+              hint={<div>
+                <p>
+                If you want other people to use your block, you better explain how it works!
+                </p>
+                <p>
+                We support
+                <a href='https://help.github.com/articles/basic-writing-and-formatting-syntax/'>
+                Github-Flavored Markdown</a>.
+                </p>
+              </div>}
+              >
+              <Description>
+                <Markdown source={this.state.description}/>
+              </Description>
+            </EditableField.Text>
+          </Column>
 
-          <h3>
-            Source:
-            <EditableField.String
+          <Column>
+            <h3>
+              Command:
+              <EditableField.String
+                editable={editable}
+                hint="How do we run your code?"
+                onChange={this.commandUpdated.bind(this)}
+                initialValue={this.state.command}>
+                <Code>{ this.state.command }</Code>
+              </EditableField.String>
+            </h3>
+
+            <h3>
+              Source:
+              <EditableField.String
+                editable={editable}
+                hint="Where should we save your script in your virtual machine?"
+                initialValue={this.state.source_path}
+                onChange={this.sourcePathUpdated.bind(this)}>
+                  <Code>{ this.state.source_path }</Code>
+              </EditableField.String>
+            </h3>
+
+            <EditableField.Text
+              hint={<div>
+                <p>
+                What code should this block run?
+                </p>
+                <p>
+                You can use any language you like -
+                just be sure that it works
+                with the Dockerfile and command that you enter below.
+                </p>
+                <p>
+                We are working to support additional function sources soon,
+                including GitHub repos, Gists, and images on Docker Hub.
+                </p>
+              </div>}
               editable={editable}
-              hint="Where should we save your script in your virtual machine?"
-              initialValue={this.state.source_path}
-              onChange={this.sourcePathUpdated.bind(this)}>
-                <Code>{ this.state.source_path }</Code>
-            </EditableField.String>
-          </h3>
+              onChange={this.sourceUpdated.bind(this)}
+              initialValue={this.state.source}
+              >
+              <pre>{ this.state.source }</pre>
+            </EditableField.Text>
 
-          <EditableField.Text
-            hint={<div>
-              <p>
-              What code should this block run?
-              </p>
-              <p>
-              You can use any language you like -
-              just be sure that it works
-              with the Dockerfile and command that you enter below.
-              </p>
-              <p>
-              We are working to support additional function sources soon,
-              including GitHub repos, Gists, and images on Docker Hub.
-              </p>
-            </div>}
-            editable={editable}
-            onChange={this.sourceUpdated.bind(this)}
-            initialValue={this.state.source}
-            >
-            <pre>{ this.state.source }</pre>
-          </EditableField.Text>
-
-          <h3>Dockerfile</h3>
-          <EditableField.Text
-            hint={<div>
-              <p>
-              Define your code's environment as a Dockerfile –
-              check out the <a href='https://www.digitalocean.com/community/tutorials/docker-explained-using-dockerfiles-to-automate-building-of-images'>official reference</a> or
-              get in touch with the chat button in the corner
-              if you're not familiar with Dockerfiles.
-              </p>
-              <p>
-              Soon, you won't need to worry about this.
-              We're working on automatically detecting
-              your code's environment and dependencies
-              so that all you need to write is the code.
-              </p>
-            </div>}
-            editable={editable}
-            onChange={this.dockerfileUpdated.bind(this)}
-            initialValue={this.state.dockerfile}
-            >
-            <pre>{ this.state.dockerfile }</pre>
-          </EditableField.Text>
-        </Toggle>
+            <h3>Dockerfile</h3>
+            <EditableField.Text
+              hint={<div>
+                <p>
+                Define your code's environment as a Dockerfile –
+                check out the <a href='https://www.digitalocean.com/community/tutorials/docker-explained-using-dockerfiles-to-automate-building-of-images'>official reference</a> or
+                get in touch with the chat button in the corner
+                if you're not familiar with Dockerfiles.
+                </p>
+                <p>
+                Soon, you won't need to worry about this.
+                We're working on automatically detecting
+                your code's environment and dependencies
+                so that all you need to write is the code.
+                </p>
+              </div>}
+              editable={editable}
+              onChange={this.dockerfileUpdated.bind(this)}
+              initialValue={this.state.dockerfile}
+              >
+              <pre>{ this.state.dockerfile }</pre>
+            </EditableField.Text>
+          </Column>
+        </Row>
       </Section>
     );
   }
@@ -186,21 +193,8 @@ const Icon = styled.img`
   height: 3rem;
 `
 
-const HorizontalFlex = styled.div`
-  display: flex;
-`
-
-const VerticalFlex = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1 0 auto;
-`
-
-const Title = styled.h1``;
-
-const Description = styled.div`
-  margin-top: 1.5rem;
-`
+const Title = styled.h1``
+const Description = styled.div``
 
 const Code = styled.code`
   background-color: lightgray;
