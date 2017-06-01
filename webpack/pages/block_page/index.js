@@ -2,8 +2,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 
-import BlockInformation from "components/block_information";
-import BlockUsage from "components/block_usage";
+import BlockInformation from "./block_information";
+import BlockUsage from "./block_usage";
 
 class BlockPage extends React.Component {
   render() {
