@@ -64,7 +64,14 @@ class SelectAnEvent extends React.Component {
     if(this.state.eventChecked)
       return(
         <Column>
-          <EventSetup/>
+          <EventSetup
+            service="GitHub"
+            event="New commit"
+            settings={{
+              repo: "assembleapp/registry",
+              branch: "master",
+            }}
+            />
         </Column>
       );
     else
