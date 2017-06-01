@@ -30,12 +30,6 @@ body {
   @include omega;
 }
 
-.layout-center,
-.layout-form {
-  @include span-columns(6 of 12);
-  @include shift(3);
-}
-
 .layout-clear {
   clear: both;
 }
