@@ -8,6 +8,8 @@ import Hint from "components/hint"
 import Column from "layout/column"
 import Row from "layout/row"
 
+import EventSetup from "./event_setup"
+
 class SelectAnEvent extends React.Component {
   constructor(props) {
     super(props)
@@ -24,6 +26,20 @@ class SelectAnEvent extends React.Component {
 
         <Row>
           <Column>
+            <Hint>
+            <p>
+              At the moment we only support this one, lonely event.
+              Soon, we'll support events from all over the web –
+              Facebook posts, Slack conversations, Twitter tweets...
+              You get the idea.
+              </p>
+
+              <p>
+              Check out <a href="https://github.com/assembleapp/registry/issues/11">the GitHub issue</a>
+              &nbsp;for further discussion.
+              </p>
+            </Hint>
+
             <label>
               <input
                 type="checkbox"
@@ -32,16 +48,6 @@ class SelectAnEvent extends React.Component {
                 />
               <span>New GitHub Commit</span>
             </label>
-
-            <Hint>
-            At the moment we only support this one, lonely event.
-            Soon, we'll support events from all over the web –
-            Facebook posts, Slack conversations, Twitter tweets...
-            You get the idea.
-
-            Check out <a href="https://github.com/assembleapp/registry/issues/11">the GitHub issue</a>
-            &nbsp;for further discussion.
-            </Hint>
           </Column>
 
           {this.renderRightColumn()}
@@ -58,7 +64,7 @@ class SelectAnEvent extends React.Component {
     if(this.state.eventChecked)
       return(
         <Column>
-          Foo!
+          <EventSetup/>
         </Column>
       );
     else
