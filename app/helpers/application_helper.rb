@@ -30,17 +30,6 @@ module ApplicationHelper
     react_component("JSONTree", data: json)
   end
 
-  def markdown(source)
-    markdown = Redcarpet::Markdown.new(
-      Redcarpet::Render::HTML,
-      autolink: true,
-      tables: true,
-      fenced_code_blocks: true,
-    )
-
-    markdown.render(source.to_s).html_safe
-  end
-
   def react_component(name, props = {}, options = {}, &block)
     html_options = options.reverse_merge(data: {
       react_class: name,

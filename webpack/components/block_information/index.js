@@ -9,6 +9,8 @@ import Logo from "components/logo"
 import Hint from "components/hint"
 import Toggle from "components/toggle"
 
+import Markdown from "components/markdown"
+
 import EditableField from "components/editable_field"
 import updateBlock from "util/update_block"
 
@@ -22,6 +24,7 @@ class BlockInformation extends React.Component {
       source_path: this.props.source_path,
       source: this.props.source,
       dockerfile: this.props.dockerfile,
+      description: this.props.description,
     }
   }
 
@@ -63,7 +66,9 @@ class BlockInformation extends React.Component {
           }
         </HorizontalFlex>
 
-        <Description dangerouslySetInnerHTML={{__html: this.props.description}} />
+        <Description>
+          <Markdown source={this.state.description}/>
+        </Description>
 
         <Toggle showLabel="Show source" hideLabel="Hide source">
           <h3>
