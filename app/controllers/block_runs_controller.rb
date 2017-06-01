@@ -31,8 +31,8 @@ class BlockRunsController < ApplicationController
             message: "Running block `#{user.handle}/#{block.name}`",
             path: block_run_path(user, block, run),
             input: run.input,
-            output: run.stdout,
-            errors: run.stderr,
+            output: clean(run.stdout),
+            errors: clean(run.stderr),
           })
         }
       end
@@ -49,5 +49,13 @@ class BlockRunsController < ApplicationController
 
   def user
     @user ||= User.find_by!(handle: params[:handle])
+  end
+
+  def clean(input)
+    input.to_s.encode('UTF-8', {
+      invalid: :replace,
+      undef: :replace,
+      replace: '?',
+    })
   end
 end
