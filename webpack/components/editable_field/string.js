@@ -2,6 +2,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 
+import Hint from "components/hint"
+
 class EditableString extends React.Component {
   constructor(props) {
     super(props);
@@ -20,15 +22,18 @@ class EditableString extends React.Component {
             role="link">
             {this.props.children}
             </span>
-          : <input
-            type='text'
-            value={this.state.editedValue}
-            onChange={(e) => this.setState({ editedValue: e.target.value })}
-            onBlur={this.finishEditing.bind(this)}
-            ref={(input) => { if(input) { input.focus() }}}
-            onKeyDown={this.editingKeyDown.bind(this)}
-            style={{ marginRight: "0.5rem" }}
-            />
+          : <div>
+              <Hint>{this.props.hint}</Hint>
+              <input
+                type='text'
+                value={this.state.editedValue}
+                onChange={(e) => this.setState({ editedValue: e.target.value })}
+                onBlur={this.finishEditing.bind(this)}
+                ref={(input) => { if(input) { input.focus() }}}
+                onKeyDown={this.editingKeyDown.bind(this)}
+                style={{ marginRight: "0.5rem" }}
+                />
+            </div>
         }
       </span>
     );
