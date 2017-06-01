@@ -1,24 +1,7 @@
-<div class="section layout-center">
-  <p>
-  Assemble is a registry of open-source, publicly-usable
-  <%= docs_link(:serverless_functions) %>, which we call <em>Blocks</em>.
-  </p>
-
-  <p>
-  We are working with the community to make it easier to use and share blocks,
-  with the goal of making them as accessible as possible
-  for novice developers and non-developers.
-  <%= link_to "Learn more", about_path %>.
-  </p>
-
-  <p>
-  <% if current_user %>
-    <%= link_to "+ Create a new block", new_block_path, class: "button" %>
-  <% else %>
-    <%= link_to "Sign in to get started", new_session_path %>
-  <% end %>
-  </p>
-</div>
+<%= react_component(
+  "WelcomeMessage",
+  current_user: current_user.as_json,
+) %>
 
 <div class="layout-clear">
   <%= render "blocks_list", blocks: Block.all %>

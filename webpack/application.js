@@ -6,6 +6,7 @@ import Header from "./components/header";
 import JSONTree from "react-json-tree";
 import Schema from "./components/schema";
 import ServiceIndex from "./components/service_index";
+import WelcomeMessage from "./components/welcome_message";
 
 mountComponents({
   BlockPage,
@@ -13,6 +14,7 @@ mountComponents({
   JSONTree,
   Schema,
   ServiceIndex,
+  WelcomeMessage,
 });
 
 $(document).ajaxSend(function(e, xhr, options) {
