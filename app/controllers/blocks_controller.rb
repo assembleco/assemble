@@ -15,11 +15,6 @@ class BlocksController < ApplicationController
     @block = Block.find_by!(name: params[:blockname], user: user)
   end
 
-  def new
-    @user = current_user
-    @block = Block.new()
-  end
-
   def create
     @block = Block.new(block_params)
 
@@ -43,10 +38,6 @@ class BlocksController < ApplicationController
         }
       end
     end
-  end
-
-  def edit
-    @block = Block.find_by!(user: user, name: params[:blockname])
   end
 
   def update

@@ -19,10 +19,8 @@ Rails.application.routes.draw do
   resources :defaults, only: [:create]
 
   # Block paths
-  get "/blocks/new", to: "blocks#new", as: :new_block
   post "/blocks", to: "blocks#create"
   get "/blocks/:handle/:blockname", to: "blocks#show", as: :block
-  get "/blocks/:handle/:blockname/edit", to: "blocks#edit", as: :edit_block
   patch "/blocks/:handle/:blockname", to: "blocks#update", as: :update_block
   delete "/blocks/:handle/:blockname", to: "blocks#destroy"
 

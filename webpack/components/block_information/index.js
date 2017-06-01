@@ -57,13 +57,6 @@ class BlockInformation extends React.Component {
               Created on {dateFormat(date, "mmmm d, yyyy")}
             </Hint>
           </VerticalFlex>
-
-          { editable
-            ? <a href={`/blocks/${this.props.user.handle}/${this.props.name}/edit`}>
-                Edit
-              </a>
-            : ''
-          }
         </HorizontalFlex>
 
         <EditableField.Text
