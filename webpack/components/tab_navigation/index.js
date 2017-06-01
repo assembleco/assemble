@@ -29,7 +29,7 @@ class TabNavigation extends React.Component {
       return(
         <TabLabel
           key={label}
-          href="#"
+          role="link"
           >
           {label}
         </TabLabel>
@@ -38,8 +38,8 @@ class TabNavigation extends React.Component {
     else return(
       <InactiveTab
         key={label}
-        href="#"
         onClick={() => this.setState({activeTab: label})}
+        role="link"
         >
         {label}
       </InactiveTab>
