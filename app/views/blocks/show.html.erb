@@ -3,7 +3,7 @@
   command: @block.command,
   created_at: @block.created_at,
   current_user: current_user.try(:as_json) || {},
-  description: markdown(@block.description),
+  description: @block.description,
   dockerfile: @block.dockerfile,
   icon: @block.icon,
   initial_input_data: @block.runs.where(user: current_user).last.try(:input),
