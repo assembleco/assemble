@@ -18,6 +18,8 @@ class BlockInformation extends React.Component {
 
     this.state = {
       name: this.props.name,
+      command: this.props.command,
+      source_path: this.props.source_path,
     }
   }
 
@@ -61,9 +63,27 @@ class BlockInformation extends React.Component {
         <Description dangerouslySetInnerHTML={{__html: this.props.description}} />
 
         <Toggle showLabel="Show source" hideLabel="Hide source">
-          <h3>Command: <Code>{ this.props.command }</Code></h3>
+          <h3>
+            Command:
+            <EditableField.String
+              editable
+              hint="How do we run your code?"
+              onChange={this.commandUpdated.bind(this)}
+              initialValue={this.state.command}>
+              <Code>{ this.state.command }</Code>
+            </EditableField.String>
+          </h3>
 
-          <h3>Source: <Code>{ this.props.source_path }</Code></h3>
+          <h3>
+            Source:
+            <EditableField.String
+              editable
+              hint="Where should we save your script in your virtual machine?"
+              initialValue={this.state.source_path}
+              onChange={this.sourcePathUpdated.bind(this)}>
+                <Code>{ this.state.source_path }</Code>
+            </EditableField.String>
+          </h3>
           <pre>{ this.props.source }</pre>
 
           <h3>Dockerfile</h3>
@@ -71,6 +91,16 @@ class BlockInformation extends React.Component {
         </Toggle>
       </Section>
     );
+  }
+
+  commandUpdated(newCommand) {
+    this.setState({ command: newCommand })
+    updateBlock({ command: newCommand }, this.props.user.handle, this.props.name)
+  }
+
+  sourcePathUpdated(newSourcePath) {
+    this.setState({ source_path: newSourcePath })
+    updateBlock({ source_path: newSourcePath }, this.props.user.handle, this.props.name)
   }
 
   nameUpdated(newName) {
