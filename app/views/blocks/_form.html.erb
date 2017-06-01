@@ -5,42 +5,6 @@
 
   <%= simple_form_for(@block, url: url) do |f| %>
     <%= f.input(
-      :source,
-      hint: "
-      <p>
-      What code should this block run?
-      </p>
-      <p>
-      You can use any language you like -
-      just be sure that it works
-      with the Dockerfile and command that you enter below.
-      </p>
-      <p>
-      We are working to support additional function sources soon,
-      including GitHub repos, Gists, and images on Docker Hub.
-      </p>
-      ".html_safe
-    ) %>
-
-    <%= f.input(
-      :dockerfile,
-      hint: "
-      <p>
-      Define your code's environment as a Dockerfile –
-      check out the <a href='https://www.digitalocean.com/community/tutorials/docker-explained-using-dockerfiles-to-automate-building-of-images'>official reference</a>
-      or get in touch with the chat button in the corner
-      if you're not familiar with Dockerfiles.
-      </p>
-      <p>
-      Soon, you won't need to worry about this.
-      We're working on automatically detecting
-      your code's environment and dependencies
-      so that all you need to write is the code.
-      </p>
-      ".html_safe
-    ) %>
-
-    <%= f.input(
       :description,
       hint: "
       <p>
