@@ -11,7 +11,7 @@ class Header extends React.Component {
     return (
       <Background>
         <Menu width="1200px">
-          <Left className="layout-column-left">
+          <Left>
             <Logo continuous />
 
             <Link href="/" className="header-title">Assemble</Link>
@@ -20,7 +20,7 @@ class Header extends React.Component {
             <Link href="https://github.com/assembleapp/registry">GitHub</Link>
           </Left>
 
-          <Right className="layout-column-right">
+          <Right>
             { this.props.current_user ?
               <div>
                 <Link href="/user_info">{this.props.current_user}</Link>
@@ -55,15 +55,16 @@ const Background = styled.div`
 `
 
 const Menu = styled(Page)`
-  display: flex;
   align-items: center;
+  display: flex;
   padding-bottom: 0.75rem;
   padding-top: 0.75rem;
 `
 
 const Left = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
+  width: 50%;
 `
 
 const Right = styled(Left)`

@@ -21,15 +21,6 @@ body {
   @include omega;
 }
 
-.layout-column-left,
-.layout-column-right {
-  @include span-columns(6 of 12);
-}
-
-.layout-column-right {
-  @include omega;
-}
-
 .layout-clear {
   clear: both;
 }
