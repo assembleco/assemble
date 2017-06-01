@@ -13,7 +13,7 @@ import PythonSnippet from "./snippets/python"
 class CodeUsage extends React.Component {
   render() {
     return (
-      <Wrapper>
+      <div>
         <Hint>
           You can also run this block from your terminal
           or an existing code base.
@@ -28,7 +28,7 @@ class CodeUsage extends React.Component {
             "Node": <NodeSnippet {...this.props} />,
           }}
         />
-      </Wrapper>
+      </div>
     );
   }
 }
@@ -38,10 +38,6 @@ CodeUsage.propTypes = {
   user_api_key: PropTypes.string.isRequired,
   input_data: PropTypes.object,
 }
-
-const Wrapper = styled.div`
-  margin-top: 1.5rem;
-`
 
 const Hint = styled(OriginalHint)`
   margin-bottom: 0.75rem;
