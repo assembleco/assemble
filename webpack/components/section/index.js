@@ -8,6 +8,8 @@ const Section = styled.div`
   border-radius: 4px;
   margin-bottom: 1.5rem;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 `
 
 export default Section;
