@@ -9,7 +9,7 @@ class BlockPage extends React.Component {
   render() {
     return(
       <div>
-        <div className="layout-column-left">
+        <div>
           <BlockInformation
             icon={this.props.icon}
             user={this.props.user}
@@ -24,7 +24,7 @@ class BlockPage extends React.Component {
             />
         </div>
 
-        <div className="layout-column-right">
+        <div>
           <BlockUsage
             current_user={this.props.current_user}
             initial_input_data={this.props.initial_input_data}
