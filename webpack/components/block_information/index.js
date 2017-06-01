@@ -66,9 +66,25 @@ class BlockInformation extends React.Component {
           }
         </HorizontalFlex>
 
-        <Description>
-          <Markdown source={this.state.description}/>
-        </Description>
+        <EditableField.Text
+          editable={editable}
+          initialValue={this.state.description}
+          onChange={this.descriptionUpdated.bind(this)}
+          hint={<div>
+            <p>
+            If you want other people to use your block, you better explain how it works!
+            </p>
+            <p>
+            We support
+            <a href='https://help.github.com/articles/basic-writing-and-formatting-syntax/'>
+            Github-Flavored Markdown</a>.
+            </p>
+          </div>}
+          >
+          <Description>
+            <Markdown source={this.state.description}/>
+          </Description>
+        </EditableField.Text>
 
         <Toggle showLabel="Show source" hideLabel="Hide source">
           <h3>
@@ -160,6 +176,11 @@ class BlockInformation extends React.Component {
   sourceUpdated(newSource) {
     this.setState({ source: newSource })
     updateBlock({ source: newSource }, this.props.user.handle, this.props.name)
+  }
+
+  descriptionUpdated(newDescription) {
+    this.setState({ description: newDescription })
+    updateBlock({ description: newDescription }, this.props.user.handle, this.props.name)
   }
 
   dockerfileUpdated(newDockerfile) {

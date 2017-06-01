@@ -4,19 +4,6 @@
   </h1>
 
   <%= simple_form_for(@block, url: url) do |f| %>
-    <%= f.input(
-      :description,
-      hint: "
-      <p>
-      If you want other people to use your block, you better explain how it works!
-      </p>
-      <p>
-      We support
-      <a href='https://help.github.com/articles/basic-writing-and-formatting-syntax/'>
-      Github-Flavored Markdown</a>.
-      </p>
-      ".html_safe,
-    ) %>
 
     <%= f.button :submit %>
   <% end %>
