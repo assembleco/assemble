@@ -64,10 +64,12 @@ ActiveRecord::Schema.define(version: 20170530212048) do
 
   create_table "secrets", force: :cascade do |t|
     t.integer "block_id"
+    t.integer "user_id"
     t.string  "key",                null: false
     t.string  "encrypted_value",    null: false
     t.string  "encrypted_value_iv", null: false
     t.index ["block_id"], name: "index_secrets_on_block_id", using: :btree
+    t.index ["user_id"], name: "index_secrets_on_user_id", using: :btree
   end
 
   create_table "slack_authentications", force: :cascade do |t|
@@ -98,5 +100,6 @@ ActiveRecord::Schema.define(version: 20170530212048) do
   add_foreign_key "block_runs", "blocks"
   add_foreign_key "blocks", "users"
   add_foreign_key "secrets", "blocks"
+  add_foreign_key "secrets", "users"
   add_foreign_key "slack_authentications", "users"
 end
