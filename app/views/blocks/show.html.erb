@@ -6,6 +6,10 @@
   current_user: current_user.try(:as_json) || {},
   description: @block.description,
   dockerfile: @block.dockerfile,
+  event_settings: {
+    repo: "assembleapp/registry",
+    branch: "master",
+  },
   icon: @block.icon,
   initial_input_data: @block.runs.where(user: current_user).last.try(:input),
   name: @block.name,

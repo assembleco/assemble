@@ -47,7 +47,7 @@ class BlockUsage extends React.Component {
             </Hint>
 
             <EditableField.Schema
-              editable={this.props.user.id == this.props.current_user.id}
+              editable={this.props.editable}
               initialValue={this.state.schema}
               onChange={this.schemaUpdated.bind(this)}
               >
@@ -121,12 +121,13 @@ class BlockUsage extends React.Component {
 }
 
 BlockUsage.propTypes = {
-  user_api_key: PropTypes.string.isRequired,
-  run_block_url: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
-  name: PropTypes.string.isRequired,
-  schema: PropTypes.object.isRequired,
+  editable: PropTypes.bool.isRequired,
   initial_input_data: PropTypes.object,
+  name: PropTypes.string.isRequired,
+  run_block_url: PropTypes.string.isRequired,
+  schema: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  user_api_key: PropTypes.string.isRequired,
 }
 
 export default BlockUsage;
