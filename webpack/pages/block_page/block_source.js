@@ -22,15 +22,13 @@ class BlockSource extends React.Component {
   }
 
   render() {
-    const editable = (this.props.current_user.id == this.props.user.id)
-
     return(
       <Section>
         <Row>
           <Column>
             <h3>Command</h3>
             <EditableField.String
-              editable={editable}
+              editable={this.props.editable}
               hint="How do we run your code?"
               onChange={this.commandUpdated.bind(this)}
               initialValue={this.state.command}>
@@ -39,7 +37,7 @@ class BlockSource extends React.Component {
 
             <h3>Source Path</h3>
             <EditableField.String
-              editable={editable}
+              editable={this.props.editable}
               hint="Where should we save your script in your virtual machine?"
               initialValue={this.state.source_path}
               onChange={this.sourcePathUpdated.bind(this)}>
@@ -62,7 +60,7 @@ class BlockSource extends React.Component {
                 so that all you need to write is the code.
                 </p>
               </div>}
-              editable={editable}
+              editable={this.props.editable}
               onChange={this.dockerfileUpdated.bind(this)}
               initialValue={this.state.dockerfile}
               >
@@ -88,7 +86,7 @@ class BlockSource extends React.Component {
                 including GitHub repos, Gists, and images on Docker Hub.
                 </p>
               </div>}
-              editable={editable}
+              editable={this.props.editable}
               onChange={this.sourceUpdated.bind(this)}
               initialValue={this.state.source}
               >
@@ -135,6 +133,7 @@ BlockSource.propTypes = {
   source_path: PropTypes.string.isRequired,
   source: PropTypes.string.isRequired,
   dockerfile: PropTypes.string.isRequired,
+  editable: PropTypes.bool.isRequired,
 }
 
 export default BlockSource;

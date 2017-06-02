@@ -25,7 +25,6 @@ class Title extends React.Component {
 
   render() {
     const date = new Date(this.props.created_at);
-    const editable = (this.props.current_user.id == this.props.user.id)
 
     return(
       <Row>
@@ -39,7 +38,7 @@ class Title extends React.Component {
 
             &nbsp;/&nbsp;
             <EditableField.String
-              editable={editable}
+              editable={this.props.editable}
               initialValue={this.state.name}
               onChange={this.nameUpdated.bind(this)}
               >
@@ -52,7 +51,7 @@ class Title extends React.Component {
           </Hint>
 
           <EditableField.Text
-            editable={editable}
+            editable={this.props.editable}
             initialValue={this.state.description}
             onChange={this.descriptionUpdated.bind(this)}
             hint={<div>
@@ -89,7 +88,7 @@ Title.propTypes = {
   description: PropTypes.string.isRequired,
   created_at: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
-  current_user: PropTypes.object.isRequired,
+  editable: PropTypes.bool.isRequired,
 }
 
 export default Title;

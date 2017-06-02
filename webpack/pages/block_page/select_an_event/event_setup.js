@@ -2,12 +2,11 @@ import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 
-import Hint from "components/hint"
-
-import Row from "layout/row"
 import Column from "layout/column"
-
 import EditableField from "components/editable_field"
+import Hint from "components/hint"
+import Row from "layout/row"
+import updateBlock from "util/update_block"
 
 class EventSetup extends React.Component {
   constructor(props) {
@@ -49,8 +48,8 @@ class EventSetup extends React.Component {
             <Column>Repository:</Column>
             <Column>
               <EditableField.String
-                onChange={(val) => this.setState({repo: val})}
-                editable
+                onChange={this.repoUpdated.bind(this)}
+                editable={this.props.editable}
                 initialValue={this.state.repo}
               >
                 {this.state.repo}
@@ -62,8 +61,8 @@ class EventSetup extends React.Component {
             <Column>Branch:</Column>
             <Column>
               <EditableField.String
-                onChange={(val) => this.setState({branch: val})}
-                editable
+                onChange={this.branchUpdated.bind(this)}
+                editable={this.props.editable}
                 initialValue={this.state.branch}
               >
                 {this.state.branch}
@@ -87,6 +86,26 @@ class EventSetup extends React.Component {
       </div>
     );
   }
+
+  branchUpdated(newBranch) {
+    this.setState({ branch: newBranch })
+
+    updateBlock(
+      { branch: newBranch },
+      this.props.user.handle,
+      this.props.name,
+    )
+  }
+
+  repoUpdated(newRepo) {
+    this.setState({ repo: newRepo })
+
+    updateBlock(
+      { repo: newRepo },
+      this.props.user.handle,
+      this.props.name,
+    )
+  }
 }
 
 const Settings = styled.div`
@@ -97,9 +116,12 @@ const Information = styled.div`
 `
 
 EventSetup.propTypes = {
-  service: PropTypes.string.isRequired,
+  editable: PropTypes.bool.isRequired,
   event: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  service: PropTypes.string.isRequired,
   settings: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 }
 
 export default EventSetup;

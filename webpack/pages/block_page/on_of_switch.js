@@ -17,9 +17,7 @@ class OnOffSwitch extends React.Component {
   }
 
   render() {
-    const editable = (this.props.current_user.id == this.props.user.id)
-
-    if(!editable)
+    if(!this.props.editable)
       return null;
 
     return(
@@ -54,7 +52,7 @@ class OnOffSwitch extends React.Component {
 OnOffSwitch.propTypes = {
   name: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
-  current_user: PropTypes.object.isRequired,
+  editable: PropTypes.bool.isRequired,
   active: PropTypes.bool.isRequired,
 }
 

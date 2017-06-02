@@ -2,13 +2,11 @@ import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 
-import Section from "components/section"
-import Hint from "components/hint"
-
 import Column from "layout/column"
-import Row from "layout/row"
-
 import EventSetup from "./event_setup"
+import Hint from "components/hint"
+import Row from "layout/row"
+import Section from "components/section"
 
 class SelectAnEvent extends React.Component {
   constructor(props) {
@@ -67,10 +65,10 @@ class SelectAnEvent extends React.Component {
           <EventSetup
             service="GitHub"
             event="New commit"
-            settings={{
-              repo: "assembleapp/registry",
-              branch: "master",
-            }}
+            settings={this.props.eventSettings}
+            name={this.props.name}
+            editable={this.props.editable}
+            user={this.props.user}
             />
         </Column>
       );
@@ -85,6 +83,13 @@ class SelectAnEvent extends React.Component {
         </Column>
       );
   }
+}
+
+SelectAnEvent.propTypes = {
+  editable: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
+  eventSettings: PropTypes.object.isRequired,
 }
 
 export default SelectAnEvent;
