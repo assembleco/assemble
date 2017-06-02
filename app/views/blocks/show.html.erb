@@ -1,5 +1,6 @@
 <%= react_component(
   "BlockPage",
+  active: false,
   command: @block.command,
   created_at: @block.created_at,
   current_user: current_user.try(:as_json) || {},

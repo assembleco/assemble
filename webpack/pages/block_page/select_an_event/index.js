@@ -15,7 +15,7 @@ class SelectAnEvent extends React.Component {
     super(props)
 
     this.state = {
-      eventChecked: false,
+      eventChecked: true,
     }
   }
 

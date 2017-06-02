@@ -2,22 +2,46 @@ import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 
-import BlockInformation from "./block_information";
+import BlockSource from "./block_source";
 import BlockUsage from "./block_usage";
 import SelectAnEvent from "./select_an_event"
+import Title from "./title"
+import OnOffSwitch from "./on_of_switch"
+
+import Row from "layout/row"
+import Column from "layout/column"
 
 class BlockPage extends React.Component {
   render() {
     return(
       <div>
+        <Row>
+          <Column>
+            <Title
+              name={this.props.name}
+              user={this.props.user}
+              created_at={this.props.created_at}
+              description={this.props.description}
+              current_user={this.props.current_user}
+              />
+          </Column>
+
+          <Column>
+            <OnOffSwitch
+              user={this.props.user}
+              name={this.props.name}
+              current_user={this.props.current_user}
+              active={this.props.active}
+              />
+          </Column>
+        </Row>
+
         <SelectAnEvent
           />
 
-        <BlockInformation
+        <BlockSource
           icon={this.props.icon}
           user={this.props.user}
-          created_at={this.props.created_at}
-          description={this.props.description}
           name={this.props.name}
           source={this.props.source}
           dockerfile={this.props.dockerfile}
