@@ -12,10 +12,7 @@ class EventSetup extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      repo: this.props.settings.repo,
-      branch: this.props.settings.branch,
-    }
+    this.state = this.props.settings
   }
 
   render() {
@@ -44,31 +41,7 @@ class EventSetup extends React.Component {
         <Settings>
           <h4>Settings</h4>
 
-          <Row>
-            <Column>Repository:</Column>
-            <Column>
-              <EditableField.String
-                onChange={this.repoUpdated.bind(this)}
-                editable={this.props.editable}
-                initialValue={this.state.repo}
-              >
-                {this.state.repo}
-              </EditableField.String>
-            </Column>
-          </Row>
-
-          <Row>
-            <Column>Branch:</Column>
-            <Column>
-              <EditableField.String
-                onChange={this.branchUpdated.bind(this)}
-                editable={this.props.editable}
-                initialValue={this.state.branch}
-              >
-                {this.state.branch}
-              </EditableField.String>
-            </Column>
-          </Row>
+          {Object.keys(this.state).map(this.renderSetting.bind(this))}
         </Settings>
 
         <Information>
@@ -87,24 +60,29 @@ class EventSetup extends React.Component {
     );
   }
 
-  branchUpdated(newBranch) {
-    this.setState({ branch: newBranch })
-
-    updateBlock(
-      { branch: newBranch },
-      this.props.user.handle,
-      this.props.name,
-    )
+  renderSetting(settingName) {
+    return(
+      <Row key={settingName}>
+        <Column>{settingName}:</Column>
+        <Column>
+          <EditableField.String
+            onChange={(newVal) => this.settingUpdated(settingName, newVal)}
+            editable={this.props.editable}
+            initialValue={this.state[settingName]}
+          >
+            {this.state[settingName]}
+          </EditableField.String>
+        </Column>
+      </Row>
+    );
   }
 
-  repoUpdated(newRepo) {
-    this.setState({ repo: newRepo })
+  settingUpdated(settingName, newValue) {
+    let newState = {}
+    newState[settingName] = newValue;
 
-    updateBlock(
-      { repo: newRepo },
-      this.props.user.handle,
-      this.props.name,
-    )
+    this.setState(newState)
+    updateBlock({ event_settings: newState }, this.props.user.handle, this.props.name)
   }
 }
 
