@@ -5,4 +5,4 @@ rm tmp/pids/server.pid
 (bundle check || bundle install) &&\
 bundle exec rake assets:precompile &&\
 bundle exec rake webpack:compile &&\
-bundle exec puma -b "ssl://0.0.0.0:3000?key=certificates/assembleapp.co-key.pem&cert=certificates/assembleapp.co-cert.pem" -C ./config/puma.rb
+bundle exec puma -b "tcp://0.0.0.0:3000" -C ./config/puma.rb
