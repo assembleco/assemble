@@ -8,16 +8,27 @@ const WelcomePage = (props) => (
   <div>
     <WelcomeMessage/>
 
-    <div className="layout-clear">
-      <div className="list">
-        <div className="list-items">
-          {props.blocks.map(
-            (block) => <BlockListing {...block} key={block.id}/>
-          )}
-        </div>
-      </div>
-    </div>
+    <Wrapper>
+      <List>
+        {props.blocks.map(
+          (block) => <BlockListing {...block} key={block.id}/>
+        )}
+      </List>
+    </Wrapper>
   </div>
 );
+
+const Wrapper = styled.div`
+  clear: both;
+`
+
+const List = styled.div`
+  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+`
 
 export default WelcomePage
