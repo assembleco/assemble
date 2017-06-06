@@ -3,16 +3,6 @@
 class BlockRunsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
-  def show
-    @block_run = BlockRun.find_by!(id: params[:block_run_id])
-
-    respond_to do |format|
-      format.json do
-        render json: @block_run
-      end
-    end
-  end
-
   def create
     run = BlockRun.new(
       block: block,
