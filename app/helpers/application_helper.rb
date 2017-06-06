@@ -1,20 +1,8 @@
-require 'digest/md5'
-
 module ApplicationHelper
   DOCS_PATHS = {
     root: "https://www.notion.so/Assemble-Documentation-006d3d9b69a0409ba8c456b08acc9cf1",
     serverless_functions: "https://www.notion.so/assemble/Glossary-107d90a48c6441f79ff35b6943cc3fad#44c9a85610884b45a1f8941e4f9d9f9c",
   }
-
-  def avatar_for(user)
-    hash = Digest::MD5.hexdigest(user.email || "")
-
-    image_tag(
-      "https://www.gravatar.com/avatar/#{hash}?d=retro",
-      alt: "Avatar for #{user.handle}",
-      class: "avatar",
-    )
-  end
 
   def docs_link(topic = :root)
     path = DOCS_PATHS.fetch(topic)
