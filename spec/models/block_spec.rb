@@ -6,12 +6,7 @@ RSpec.describe Block, type: :model do
   describe "validations" do
     subject { build(:block) }
 
-    it { should validate_presence_of :user }
-
-    it { should validate_presence_of(:name) }
-    it { should validate_uniqueness_of(:name).
-         scoped_to(:user_id).
-         case_insensitive }
+    it { should validate_presence_of(:user) }
   end
 
   describe "#icon" do

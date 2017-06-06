@@ -4,16 +4,9 @@ class Block < ApplicationRecord
   EMPTY_SCHEMA = { type: "object", properties: {}, required: [] }.freeze
 
   belongs_to :user
-
   has_many :runs, dependent: :destroy, class_name: "BlockRun"
 
-  # validates :name, presence: true, uniqueness: { scope: :user_id, case_sensitive: false }
-  # validates :user, presence: true
-
-  # validates :dockerfile, presence: true
-  # validates :source, presence: true
-  # validates :source_path, presence: true
-  # validates :command, presence: true
+  validates :user, presence: true
 
   # TODO extract to React
   def icon
