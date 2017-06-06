@@ -17,11 +17,11 @@ class SlackController < ApplicationController
 
   def with_authenticated_slack_message
     if(params[:token] == ENV.fetch("SLACK_VERIFICATION_TOKEN"))
-      service = Service.find_by!(name: "slack")
-      connection = service.connections.find_by!(service_user_id: params[:user_id])
-      user = connection.user
+      authentication = SlackAuthentication.find_by!(
+        slack_user_id: params[:user_id],
+      )
 
-      yield user
+      yield authentication.user
     else
       render json: { error: "Invalid verification token" }, status: 401
     end

@@ -5,7 +5,6 @@ import BlockPage from "./pages/block_page";
 import Header from "./components/header";
 import JSONTree from "react-json-tree";
 import Schema from "./components/schema";
-import ServiceIndex from "./components/service_index";
 import WelcomeMessage from "./components/welcome_message";
 
 mountComponents({
@@ -13,7 +12,6 @@ mountComponents({
   Header,
   JSONTree,
   Schema,
-  ServiceIndex,
   WelcomeMessage,
 });
 
