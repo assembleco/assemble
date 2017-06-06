@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
     elsif provider?(:slack)
       create_slack_authentication
 
-      redirect_to services_path
+      redirect_to :root
     end
   end
 

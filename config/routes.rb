@@ -15,7 +15,5 @@ Rails.application.routes.draw do
   # Block runs
   post "/blocks/:handle/:blockname/runs", to: "block_runs#create", as: :block_runs
 
-  resources :services, only: [:index]
-
   root to: "blocks#index"
 end
