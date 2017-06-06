@@ -1,22 +1,13 @@
 <%= react_component(
   "BlockPage",
-  active: false,
-  command: @block.command,
-  created_at: @block.created_at,
-  current_user: current_user.try(:as_json) || {},
-  description: @block.description,
-  dockerfile: @block.dockerfile,
-  event_settings: {
-    repo: "assembleapp/registry",
-    branch: "master",
-  },
-  icon: @block.icon,
-  initial_input_data: @block.runs.where(user: current_user).last.try(:input),
-  name: @block.name,
-  run_block_url: block_runs_url(@block.user, @block),
-  schema: @block.schema,
-  source: @block.source,
-  source_path: @block.source_path,
-  user: @block.user.as_json,
-  user_api_key: current_user.try(:api_key),
+  @block.as_json.merge(
+    current_user: current_user.try(:as_json) || {},
+    initial_input_data: @block.runs.where(user: current_user).last.try(:input),
+    run_block_url: block_runs_url(@block.user, @block),
+    user_api_key: current_user.try(:api_key),
+    event_settings: {
+      repo: "assembleapp/registry",
+      branch: "master",
+    },
+  )
 ) %>

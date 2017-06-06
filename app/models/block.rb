@@ -8,10 +8,11 @@ class Block < ApplicationRecord
 
   validates :user, presence: true
 
-  # TODO extract to React
-  def icon
-    block_id = (id - 1) % 10 + 1
-    "blocks/block-#{block_id}.png"
+  def as_json
+    super.merge(
+      active: false,
+      user: user.as_json,
+    )
   end
 
   def handle

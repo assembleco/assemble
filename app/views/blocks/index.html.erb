@@ -1,8 +1,5 @@
 <%= react_component(
-  "WelcomeMessage",
+  "WelcomePage",
   current_user: current_user.as_json,
+  blocks: Block.all.as_json,
 ) %>
-
-<div class="layout-clear">
-  <%= render "blocks_list", blocks: Block.all %>
-</div>
