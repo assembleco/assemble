@@ -15,39 +15,6 @@ RSpec.describe BlockRun, type: :model do
     end
   end
 
-  describe "#execute" do
-    it "only executes if status is `:pending`"
-    it "pulls the block definition from GitHub"
-    it "builds the image"
-    it "runs the newly-built image"
-
-    it "sets status to :input_schema_not_satisfied when schema not satisfied" do
-      block = create(:block)
-      stub_block_schema(
-        block,
-        {
-          title: "Input schema",
-          type: "object",
-          properties: {
-            foo: {
-              type: "integer"
-            }
-          },
-          required: ["foo"]
-        }
-      )
-
-      block_run = create(
-        :block_run,
-        block: block,
-        input: "{}",
-      )
-
-      block_run.execute
-      expect(block_run.status).to eq(BlockRun::INPUT_SCHEMA_NOT_SATISFIED)
-    end
-  end
-
   describe "#status" do
     it "defaults to pending" do
       block_run = BlockRun.new
