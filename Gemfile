@@ -9,6 +9,7 @@ gem "coderay"
 gem "delayed_job_active_record"
 gem "docker-api"
 gem "flutie"
+gem "graphql"
 gem "honeybadger"
 gem "httparty"
 gem "json-schema"
@@ -35,6 +36,7 @@ gem "uglifier"
 gem "webpack-rails"
 
 group :development do
+  gem "graphiql-rails"
   gem "listen"
   gem "web-console"
 end

@@ -31,6 +31,21 @@ After setting up, you can run the application using [Heroku Local]:
 
 [Heroku Local]: https://devcenter.heroku.com/articles/heroku-local
 
+### API documentation
+
+Our application uses GraphQL to define the API.
+GraphQL has a number of advantages over RESTful JSON endpoints.
+Notably,
+
+* Each client request can fetch exactly the data it needs and no more.
+* We get more granular control over what data can be accessed,
+  with a simpler and less redundant API than JSON serializers.
+* Our API is self-documenting,
+  and automatically works with a wide range of tools like GraphiQL.
+
+Once you have the project set up and running in development mode,
+you can visit the `/graphiql` route for the interactive API interface.
+
 ### Testing Assemble on your local machine
 
 In order for Assemble to use your development machine as the server,

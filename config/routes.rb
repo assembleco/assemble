@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  post "/api", to: "api#query"
+
   get "/auth/:provider/callback", to: "sessions#create"
   resource :session, only: [:new, :destroy]
 
@@ -17,4 +19,8 @@ Rails.application.routes.draw do
   post "/blocks/:handle/:blockname/runs", to: "block_runs#create", as: :block_runs
 
   root to: "blocks#index"
+
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/api"
+  end
 end
