@@ -100,22 +100,22 @@ class BlockSource extends React.Component {
 
   commandUpdated(newCommand) {
     this.setState({ command: newCommand })
-    updateBlock({ command: newCommand }, this.props.user.handle, this.props.name)
+    updateBlock({ command: newCommand }, this.props.id)
   }
 
   sourcePathUpdated(newSourcePath) {
     this.setState({ source_path: newSourcePath })
-    updateBlock({ source_path: newSourcePath }, this.props.user.handle, this.props.name)
+    updateBlock({ source_path: newSourcePath }, this.props.id)
   }
 
   sourceUpdated(newSource) {
     this.setState({ source: newSource })
-    updateBlock({ source: newSource }, this.props.user.handle, this.props.name)
+    updateBlock({ source: newSource }, this.props.id)
   }
 
   dockerfileUpdated(newDockerfile) {
     this.setState({ dockerfile: newDockerfile })
-    updateBlock({ dockerfile: newDockerfile }, this.props.user.handle, this.props.name)
+    updateBlock({ dockerfile: newDockerfile }, this.props.id)
   }
 }
 
@@ -129,6 +129,7 @@ const Code = styled.code`
 `
 
 BlockSource.propTypes = {
+  id: PropTypes.string.isRequired,
   command: PropTypes.string.isRequired,
   source_path: PropTypes.string.isRequired,
   source: PropTypes.string.isRequired,

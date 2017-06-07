@@ -41,8 +41,4 @@ class Block < ApplicationRecord
   def schema_json=(value)
     self.schema = JSON.parse(value)
   end
-
-  def to_param
-    name
-  end
 end

@@ -16,7 +16,7 @@ class CurlSnippet extends React.Component {
         <SyntaxHighlighter language="bash">
 {
   `curl \\\n\
-  '${ this.props.run_block_url }.json' \\\n\
+  '${ this.props.run_block_url }' \\\n\
   -X POST \\\n\
   -H "Content-Type: application/json" \\\n\
   -H "Accept: application/json" \\\n\

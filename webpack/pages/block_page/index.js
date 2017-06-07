@@ -1,7 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
-import $ from "jquery"
+import ApolloClient, { createNetworkInterface } from "apollo-client"
+import { ApolloProvider, graphql } from "react-apollo"
+import gql from "graphql-tag"
 
 import BlockSource from "./block_source";
 import BlockUsage from "./block_usage";
@@ -13,82 +15,111 @@ import Loading from "components/loading"
 import Row from "layout/row"
 import Column from "layout/column"
 
-class BlockPage extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = { loaded: false };
-  }
-
-  render() {
-    if(this.state.loaded) {
-      return(
-        <div>
-          <Row>
-            <Column>
-              <Title
-                created_at={this.state.created_at}
-                description={this.state.description}
-                editable={this.state.editable}
-                name={this.state.name}
-                user={this.state.user}
-              />
-            </Column>
-
-            <Column>
-              <OnOffSwitch
-                active={this.state.active}
-                editable={this.state.editable}
-                name={this.state.name}
-                user={this.state.user}
-              />
-            </Column>
-          </Row>
-
-          <SelectAnEvent
-            editable={this.state.editable}
-            name={this.state.name}
-            user={this.state.user}
-            eventSettings={this.state.event_settings}
+const BlockPage = (props) => (
+  props.data.loading ? <Loading /> : (
+    <div>
+      <Row>
+        <Column>
+          <Title
+            id={props.data.block.id}
+            created_at={props.data.block.created_at}
+            description={props.data.block.description}
+            editable={props.data.block.editable}
+            name={props.data.block.name}
+            user={props.data.block.author}
           />
+        </Column>
 
-          <BlockSource
-            command={this.state.command}
-            editable={this.state.editable}
-            dockerfile={this.state.dockerfile}
-            icon={this.state.icon}
-            name={this.state.name}
-            source={this.state.source}
-            source_path={this.state.source_path}
-            user={this.state.user}
+        <Column>
+          <OnOffSwitch
+            id={props.data.block.id}
+            active={props.data.block.active}
+            editable={props.data.block.editable}
+            name={props.data.block.name}
+            user={props.data.block.author}
           />
+        </Column>
+      </Row>
 
-          <BlockUsage
-            editable={this.state.editable}
-            initial_input_data={this.state.initial_input_data}
-            name={this.state.name}
-            run_block_url={this.state.run_block_url}
-            schema={this.state.schema}
-            user={this.state.user}
-            user_api_key={this.state.user_api_key}
-          />
-        </div>
-      );
-    } else {
-      return <Loading />
+      <SelectAnEvent
+        id={props.data.block.id}
+        editable={props.data.block.editable}
+        name={props.data.block.name}
+        user={props.data.block.author}
+        eventSettings={props.data.block.event_settings}
+      />
+
+      <BlockSource
+        id={props.data.block.id}
+        command={props.data.block.command}
+        editable={props.data.block.editable}
+        dockerfile={props.data.block.dockerfile}
+        name={props.data.block.name}
+        source={props.data.block.source}
+        source_path={props.data.block.source_path}
+        user={props.data.block.author}
+      />
+
+      <BlockUsage
+        editable={props.data.block.editable}
+        initial_input_data={props.data.block.initial_input_data}
+        name={props.data.block.name}
+        run_block_url={`${window.location.href}/runs.json`}
+        schema={props.data.block.schema}
+        user={props.data.block.author}
+        user_api_key={props.data.session.api_key}
+      />
+    </div>
+  )
+)
+
+const id = window.location.pathname.split("/")[2]
+
+const BlockPageQuery = gql`
+  query BlockQuery {
+    block(id: ${id}) {
+      active
+      command
+      created_at
+      description
+      dockerfile
+      editable
+      event_settings
+      id
+      initial_input_data
+      name
+      schema
+      source
+      source_path
+
+      author {
+        handle
+      }
+    }
+
+    session {
+      api_key
     }
   }
+`
 
-  componentDidMount() {
-    const path = window.location.pathname + ".json"
+const BlockPageWithData = graphql(BlockPageQuery)(BlockPage)
 
-    $.get({
-      url: path,
-      success: (data) => {
-        this.setState(Object.assign({ loaded: true }, data))
+const WrappedBlockPage = (props) => {
+  const client = new ApolloClient({
+    networkInterface: createNetworkInterface({
+      uri: "/api",
+      opts: {
+        credentials: 'same-origin',
       },
-    })
-  }
-}
+    }),
+  })
 
-export default BlockPage;
+  return (
+    <ApolloProvider client={client}>
+      <BlockPageWithData />
+    </ApolloProvider>
+  );
+};
+
+export default WrappedBlockPage;

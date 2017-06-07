@@ -82,7 +82,7 @@ class EventSetup extends React.Component {
     newState[settingName] = newValue;
 
     this.setState(newState)
-    updateBlock({ event_settings: newState }, this.props.user.handle, this.props.name)
+    updateBlock({ event_settings: newState }, this.props.id)
   }
 }
 
@@ -96,6 +96,7 @@ const Information = styled.div`
 EventSetup.propTypes = {
   editable: PropTypes.bool.isRequired,
   event: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   service: PropTypes.string.isRequired,
   settings: PropTypes.object.isRequired,

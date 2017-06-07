@@ -6,11 +6,11 @@ import NotImplemented from "components/not_implemented"
 class NodeSnippet extends React.Component {
   render() {
     return (
-      <NotImplemented issueID="7">
+      <NotImplemented issueID={7}>
         <pre>
 {
   `curl \\\n\
-  '${ this.props.run_block_url }.json' \\\n\
+  '${ this.props.run_block_url }' \\\n\
   -X POST \\\n\
   -H "Content-Type: application/json" \\\n\
   -H "Accept: application/json" \\\n\

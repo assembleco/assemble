@@ -7,7 +7,7 @@ import Logo from "components/logo"
 
 const BlockListing = (props) => (
   <ListItem
-    href={`/blocks/${props.user.handle}/${props.name}`}
+    href={`/blocks/${props.id}`}
     >
     <Icon/>
 
