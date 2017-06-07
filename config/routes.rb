@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "/about", to: "about#index", as: :about
 
   # Block paths
+  resources :blocks, only: [:index]
   post "/blocks", to: "blocks#create"
   get "/blocks/:handle/:blockname", to: "blocks#show", as: :block
   patch "/blocks/:handle/:blockname", to: "blocks#update", as: :update_block

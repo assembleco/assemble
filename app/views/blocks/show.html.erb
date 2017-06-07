@@ -1,13 +1,1 @@
-<%= react_component(
-  "BlockPage",
-  @block.as_json.merge(
-    current_user: current_user.try(:as_json) || {},
-    initial_input_data: @block.runs.where(user: current_user).last.try(:input),
-    run_block_url: block_runs_url(@block.user, @block),
-    user_api_key: current_user.try(:api_key),
-    event_settings: {
-      repo: "assembleapp/registry",
-      branch: "master",
-    },
-  )
-) %>
+<%= react_component("BlockPage") %>

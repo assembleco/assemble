@@ -1,22 +1,47 @@
 import React from "react"
 import styled from "styled-components"
+import $ from "jquery"
 
 import WelcomeMessage from "./welcome_message"
 import BlockListing from "components/block_listing"
+import Loading from "components/loading"
 
-const WelcomePage = (props) => (
-  <div>
-    <WelcomeMessage/>
+class WelcomePage extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {loaded: false}
+  }
 
-    <Wrapper>
-      <List>
-        {props.blocks.map(
-          (block) => <BlockListing {...block} key={block.id}/>
-        )}
-      </List>
-    </Wrapper>
-  </div>
-);
+  render() {
+    return (
+      <div>
+        <WelcomeMessage/>
+
+        { this.state.loaded
+          ? <Wrapper>
+              <List>
+                {this.state.blocks.map(
+                  (block) => <BlockListing {...block} key={block.id}/>
+                )}
+              </List>
+            </Wrapper>
+          : <Loading />
+        }
+      </div>
+    );
+  }
+
+  componentDidMount() {
+    const path = "/blocks.json"
+
+    $.get({
+      url: path,
+      success: (data) => {
+        this.setState(Object.assign({ loaded: true }, data))
+      },
+    })
+  }
+}
 
 const Wrapper = styled.div`
   clear: both;
