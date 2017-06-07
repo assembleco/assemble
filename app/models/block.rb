@@ -19,13 +19,6 @@ class Block < ApplicationRecord
     }
   end
 
-  def as_json
-    super.merge(
-      active: active,
-      user: user.as_json,
-    )
-  end
-
   def handle
     user.handle
   end

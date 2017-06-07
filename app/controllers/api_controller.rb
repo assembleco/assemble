@@ -33,7 +33,7 @@ PersonType = GraphQL::ObjectType.define do
 
   field :id, !types.ID
   field :handle, !types.String
-  field :email, !types.String
+  field :email, types.String
 end
 
 BlockType = GraphQL::ObjectType.define do

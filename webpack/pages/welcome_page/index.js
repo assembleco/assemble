@@ -1,47 +1,28 @@
 import React from "react"
 import styled from "styled-components"
-import $ from "jquery"
+import ApolloClient, { createNetworkInterface } from "apollo-client"
+import { ApolloProvider, graphql } from "react-apollo"
+import gql from "graphql-tag"
 
 import WelcomeMessage from "./welcome_message"
 import BlockListing from "components/block_listing"
 import Loading from "components/loading"
 
-class WelcomePage extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {loaded: false}
-  }
+const WelcomePage = (props) => (
+  props.data.loading
+  ? <Loading />
+  : <div>
+      <WelcomeMessage session={props.session}/>
 
-  render() {
-    return (
-      <div>
-        <WelcomeMessage/>
-
-        { this.state.loaded
-          ? <Wrapper>
-              <List>
-                {this.state.blocks.map(
-                  (block) => <BlockListing {...block} key={block.id}/>
-                )}
-              </List>
-            </Wrapper>
-          : <Loading />
-        }
-      </div>
-    );
-  }
-
-  componentDidMount() {
-    const path = "/blocks.json"
-
-    $.get({
-      url: path,
-      success: (data) => {
-        this.setState(Object.assign({ loaded: true }, data))
-      },
-    })
-  }
-}
+      <Wrapper>
+        <List>
+          {props.data.blocks.map(
+            (block) => <BlockListing {...block} key={block.id}/>
+          )}
+        </List>
+      </Wrapper>
+    </div>
+);
 
 const Wrapper = styled.div`
   clear: both;
@@ -56,4 +37,44 @@ const List = styled.div`
   overflow: hidden;
 `
 
-export default WelcomePage
+const WelcomePageQuery = gql`
+  query BlockQuery {
+    blocks {
+      created_at
+      id
+      name
+
+      author {
+        handle
+        email
+      }
+    }
+
+    session {
+      person {
+        id
+      }
+    }
+  }
+`
+
+const WelcomePageWithData = graphql(WelcomePageQuery)(WelcomePage)
+
+const WrappedWelcomePage = (props) => {
+  const client = new ApolloClient({
+    networkInterface: createNetworkInterface({
+      uri: "/api",
+      opts: {
+        credentials: 'same-origin',
+      },
+    }),
+  })
+
+  return (
+    <ApolloProvider client={client}>
+      <WelcomePageWithData />
+    </ApolloProvider>
+  );
+};
+
+export default WrappedWelcomePage;
