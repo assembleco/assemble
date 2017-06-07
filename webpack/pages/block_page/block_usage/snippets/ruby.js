@@ -20,7 +20,7 @@ ASSEMBLE_USER_KEY = "${props.user_api_key}"
 
 input = '${JSON.stringify({ data: props.input_data }, null, 2)}'
 
-uri = URI('${ props.run_block_url }.json')
+uri = URI('${ props.run_block_url }')
 result = Net::HTTP.post(
   uri,
   input,

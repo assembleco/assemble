@@ -74,21 +74,22 @@ class Title extends React.Component {
 
   nameUpdated(newName) {
     this.setState({ name: newName })
-    updateBlock({ name: newName }, this.props.user.handle, this.props.name)
+    updateBlock({ name: newName }, this.props.id)
   }
 
   descriptionUpdated(newDescription) {
     this.setState({ description: newDescription })
-    updateBlock({ description: newDescription }, this.props.user.handle, this.props.name)
+    updateBlock({ description: newDescription }, this.props.id)
   }
 }
 
 Title.propTypes = {
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
   created_at: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
+  description: PropTypes.string.isRequired,
   editable: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
 }
 
 export default Title;

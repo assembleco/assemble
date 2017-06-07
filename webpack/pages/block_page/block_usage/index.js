@@ -114,8 +114,7 @@ class BlockUsage extends React.Component {
 
     updateBlock(
       { schema_json: JSON.stringify(newSchema) },
-      this.props.user.handle,
-      this.props.name,
+      this.props.id,
     )
   }
 }

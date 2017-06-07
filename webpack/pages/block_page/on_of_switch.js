@@ -43,17 +43,17 @@ class OnOffSwitch extends React.Component {
 
     updateBlock(
       { active: event.target.checked },
-      this.props.user.handle,
-      this.props.name,
+      this.props.id,
     )
   }
 }
 
 OnOffSwitch.propTypes = {
+  active: PropTypes.bool.isRequired,
+  editable: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
-  editable: PropTypes.bool.isRequired,
-  active: PropTypes.bool.isRequired,
 }
 
 export default OnOffSwitch;

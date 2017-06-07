@@ -63,6 +63,7 @@ class SelectAnEvent extends React.Component {
       return(
         <Column>
           <EventSetup
+            id={this.props.id}
             service="GitHub"
             event="New commit"
             settings={this.props.eventSettings}

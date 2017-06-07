@@ -50,9 +50,20 @@ BlockType = GraphQL::ObjectType.define do
   field :source, types.String
   field :source_path, types.String
   field :udpated_at, !TimeType
+  field :schema, !ArbitraryObjectType
 
   field :author, !PersonType do
     resolve ->(obj, args, ctx) { obj.user }
+  end
+
+  field :editable, !types.Boolean do
+    resolve ->(obj, args, ctx) { obj.user == ctx[:session] }
+  end
+
+  field :initial_input_data, !ArbitraryObjectType do
+    resolve ->(obj, args, ctx) {
+      obj.runs.where(user: ctx[:session]).last.try(:input) || {}
+    }
   end
 
   field :event_settings, !ArbitraryObjectType

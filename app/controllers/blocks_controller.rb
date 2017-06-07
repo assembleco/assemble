@@ -3,8 +3,6 @@
 require "docker"
 
 class BlocksController < ApplicationController
-  helper_method :user
-
   skip_before_action :require_login, only: [:index, :show]
   skip_before_action :verify_authenticity_token, only: [:create]
 
@@ -21,24 +19,8 @@ class BlocksController < ApplicationController
   end
 
   def show
-    @block = Block.find_by!(name: params[:blockname], user: user)
+    @block = Block.find(params[:id])
     editable = current_user == @block.user
-
-    respond_to do |format|
-      format.html
-      format.json {
-        render json: {
-          editable: editable,
-          initial_input_data: @block.runs.where(user: current_user).last.try(:input),
-          run_block_url: block_runs_url(@block.user, @block),
-          user_api_key: current_user.try(:api_key),
-          event_settings: {
-            repo: "assembleapp/registry",
-            branch: "master",
-          },
-        }.merge(@block.as_json)
-      }
-    end
   end
 
   def create
@@ -54,43 +36,22 @@ class BlocksController < ApplicationController
         }
       end
     else
-      respond_to do |format|
-        format.json {
-          render json: @block.errors.full_messages
-        }
-        format.html {
-          flash.now[:alert] = t(".failure")
-          render :new
-        }
-      end
+      render json: @block.errors.full_messages
     end
   end
 
   def update
-    @block = Block.find_by!(user: user, name: params[:blockname])
+    @block = Block.find(params[:id])
 
     if @block.update(block_params)
-      respond_to do |format|
-        format.json {
-          render json: @block.as_json
-        }
-        format.html {
-          redirect_to block_path(@block.user, @block), notice: t(".success")
-        }
-      end
+      render json: @block.as_json
     else
-      format.json {
-        render json: @block.errors.as_json
-      }
-      format.html {
-        flash.now[:alert] = t(".failure")
-        render :edit
-      }
+      render json: @block.errors.as_json
     end
   end
 
   def destroy
-    block = Block.find_by!(user: user, name: params[:blockname])
+    block = Block.find(params[:id])
     block.destroy!
 
     respond_to do |format|
@@ -111,9 +72,5 @@ class BlocksController < ApplicationController
       :name,
       :schema_json,
     ).merge(user: current_user)
-  end
-
-  def user
-    @user ||= User.find_by!(handle: params[:handle])
   end
 end
