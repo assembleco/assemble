@@ -15,12 +15,12 @@ const BlockListing = (props) => (
 
     <Author>
       <Avatar
-        email={props.user.email}
-        alt={`Avatar for ${props.user.handle}`}
+        email={props.author.email}
+        alt={`Avatar for ${props.author.handle}`}
         />
 
       <AuthorInfo>
-        <div>Created by {props.user.handle}</div>
+        <div>Created by {props.author.handle}</div>
         <div>on {dateFormat(props.created_at, "mmmm d, yyyy")}</div>
       </AuthorInfo>
     </Author>

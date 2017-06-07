@@ -26,7 +26,7 @@ class WelcomeMessage extends React.Component {
           </p>
 
           <p>
-          { this.props.current_user
+          { this.props.session
             ? <button onClick={this.createNewBlock.bind(this)}>+ Create a new block</button>
             : <a href="/session/new">Sign in to get started</a>
           }

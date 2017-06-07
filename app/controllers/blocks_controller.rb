@@ -7,15 +7,6 @@ class BlocksController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
   def index
-    respond_to do |format|
-      format.html
-      format.json {
-        render json: {
-          current_user: current_user.as_json,
-          blocks: Block.all.as_json,
-        }
-      }
-    end
   end
 
   def show
