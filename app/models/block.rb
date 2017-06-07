@@ -8,9 +8,20 @@ class Block < ApplicationRecord
 
   validates :user, presence: true
 
+  def active
+    false
+  end
+
+  def event_settings
+    {
+      repo: "assembleapp/registry",
+      branch: "master",
+    }
+  end
+
   def as_json
     super.merge(
-      active: false,
+      active: active,
       user: user.as_json,
     )
   end
