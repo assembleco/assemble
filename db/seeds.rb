@@ -7,7 +7,21 @@ User.destroy_all
 Service.destroy_all
 
 user = User.create!(handle: "user", github_uid: "abc123", github_token: "abc123")
-Service.create!(name: "GitHub", domain: "github.com")
+github = Service.create!(name: "GitHub", domain: "github.com")
+
+trigger_schema = {
+  type: :object,
+  properties: {
+    repo: { type: :string },
+  },
+  required: [:repo]
+}
+Trigger.create!(
+  service: github,
+  name: "Push",
+  description: "New commits pushed to the GitHub repository",
+  options_schema: trigger_schema,
+)
 
 Block.create!(
   command: "ruby /app/debug.rb",
