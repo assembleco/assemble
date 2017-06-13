@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 FactoryGirl.define do
+  factory :service do
+    name "MyString"
+    domain "MyString"
+  end
   factory :block, aliases: [:destination] do
     user
     sequence(:name) { |n| "block_#{n}" }

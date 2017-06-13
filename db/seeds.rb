@@ -4,8 +4,10 @@ BlockRun.destroy_all
 Block.destroy_all
 SlackAuthentication.destroy_all
 User.destroy_all
+Service.destroy_all
 
 user = User.create!(handle: "user", github_uid: "abc123", github_token: "abc123")
+Service.create!(name: "GitHub", domain: "github.com")
 
 Block.create!(
   command: "ruby /app/debug.rb",
