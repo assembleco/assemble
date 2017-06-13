@@ -3,23 +3,53 @@ module TriggerStrategy
     class Push
       def initialize(authentication, options)
         @authentication = authentication
-        @options = option
+        @options = options.with_indifferent_access
       end
 
+      attr_reader :authentication, :options
+
+      # Returns the remote webhook ID
       def activate
-        raise NotImplementedError
+        response = github_client.create_hook(
+          repo,
+          "web",
+          {
+            url: "https://#{host}/webhook",
+            content_type: "json"
+          },
+          {
+            events: ["push"],
+            active: true
+          }
+        )
+
+        response[:id]
       end
 
       def active?
-        raise NotImplementedError
+        github_client.hooks("assembleapp/registry").any?
       end
 
-      def deactivate
-        raise NotImplementedError
+      def deactivate(remote_webhook_id)
+        github_client.remove_hook(repo, remote_webhook_id)
       end
 
       def record_event(payload)
         raise NotImplementedError
+      end
+
+      private
+
+      def repo
+        options.fetch(:repo)
+      end
+
+      def github_client
+        Octokit::Client.new(access_token: authentication.github_token)
+      end
+
+      def host
+        ENV.fetch("APPLICATION_HOST")
       end
     end
   end
