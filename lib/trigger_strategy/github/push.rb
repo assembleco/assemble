@@ -14,12 +14,13 @@ module TriggerStrategy
           repo,
           "web",
           {
-            url: "https://#{host}/webhook",
-            content_type: "json"
+            url: "https://#{host}/webhook/github",
+            content_type: "json",
+            secret: github_signature_secret,
           },
           {
             events: ["push"],
-            active: true
+            active: true,
           }
         )
 
@@ -50,6 +51,10 @@ module TriggerStrategy
 
       def host
         ENV.fetch("APPLICATION_HOST")
+      end
+
+      def github_signature_secret
+        ENV.fetch("GITHUB_SIGNATURE_SECRET")
       end
     end
   end
