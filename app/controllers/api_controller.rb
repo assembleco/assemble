@@ -99,6 +99,16 @@ SessionType = GraphQL::ObjectType.define do
   end
 end
 
+SubscriptionType = GraphQL::ObjectType.define do
+  name "Subscription"
+  description "The connection between a block and the web events it listens to"
+
+  field :id, !types.Int
+  field :block, !BlockType
+  field :trigger_options, !ArbitraryObjectType
+  field :trigger, !TriggerType
+end
+
 QueryType = GraphQL::ObjectType.define do
   name "Query"
   description "The root of all queries"
@@ -135,6 +145,44 @@ QueryType = GraphQL::ObjectType.define do
   end
 end
 
+MutationRoot = GraphQL::ObjectType.define do
+  name "Mutation"
+
+  field :activate_subscription, SubscriptionType do
+    description "Create and activate a block's subscription"
+    argument :block_id, !types.Int
+    argument :trigger_id, !types.Int
+    argument :trigger_options, !ArbitraryObjectType
+
+    resolve ->(ob, args, ctx) {
+      block = Block.find(args[:block_id])
+      trigger = Trigger.find(args[:trigger_id])
+
+      subscription = Subscription.new(
+        block: block,
+        trigger: trigger,
+        user: ctx[:session],
+        trigger_options: args[:trigger_options],
+      )
+
+      subscription.activate
+      subscription
+    }
+  end
+
+  field :deactivate_subscription, SubscriptionType do
+    description "Deactivate a block's subscription"
+    argument :subscription_id, !types.Int
+
+    resolve ->(obj, args, ctx) {
+      subscription = Subscription.find(args[:subscription_id])
+      subscription.deactivate
+      subscription
+    }
+  end
+end
+
 Schema = GraphQL::Schema.define do
   query QueryType
+  mutation MutationRoot
 end
