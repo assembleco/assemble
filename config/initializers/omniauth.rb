@@ -5,7 +5,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     :github,
     ENV.fetch("GITHUB_CLIENT_ID"),
     ENV.fetch("GITHUB_CLIENT_SECRET"),
-    scope: "user:email",
+    scope: "user:email,admin:repo_hook",
   )
 
   provider(

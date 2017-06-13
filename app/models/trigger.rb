@@ -14,15 +14,17 @@ class Trigger < ApplicationRecord
 
   validate :has_strategy
 
+  def strategy
+    @strategy ||= STRATEGIES.
+      fetch(service.domain, {}).
+      fetch(name.downcase.to_sym, nil)
+  end
+
   private
 
   def has_strategy
     unless strategy
       errors.add(:name, "could not find a strategy for this service and trigger")
     end
-  end
-
-  def strategy
-    STRATEGIES.fetch(service.domain, {}).fetch(name.downcase.to_sym, nil)
   end
 end
