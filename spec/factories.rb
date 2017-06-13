@@ -20,6 +20,11 @@ FactoryGirl.define do
     stdout ""
   end
 
+  factory :event do
+    data({})
+    trigger
+  end
+
   factory :service do
     name "GitHub"
     domain "github.com"

@@ -35,8 +35,8 @@ module TriggerStrategy
         github_client.remove_hook(repo, remote_webhook_id)
       end
 
-      def record_event(payload)
-        raise NotImplementedError
+      def record_event(payload, subscription)
+        Event.create!(data: payload.as_json, subscription: subscription)
       end
 
       private

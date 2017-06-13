@@ -7,6 +7,8 @@ class Subscription < ApplicationRecord
   validates :trigger, presence: true
   validates :user, presence: true
 
+  has_many :events
+
   def activate
     unless trigger_options_satisfied?
       raise ArgumentError, "missing some required trigger options"
@@ -26,7 +28,7 @@ class Subscription < ApplicationRecord
   end
 
   def record_event(webhook_params)
-    service.record_event(webhook_params)
+    service.record_event(webhook_params, self)
   end
 
   private

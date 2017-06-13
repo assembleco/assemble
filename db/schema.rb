@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613150406) do
+ActiveRecord::Schema.define(version: 20170613175653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,9 @@ ActiveRecord::Schema.define(version: 20170613150406) do
     t.jsonb    "input"
     t.jsonb    "output"
     t.integer  "user_id"
+    t.integer  "event_id"
     t.index ["block_id"], name: "index_block_runs_on_block_id", using: :btree
+    t.index ["event_id"], name: "index_block_runs_on_event_id", using: :btree
     t.index ["input"], name: "index_block_runs_on_input", using: :gin
     t.index ["output"], name: "index_block_runs_on_output", using: :gin
     t.index ["user_id"], name: "index_block_runs_on_user_id", using: :btree
@@ -60,6 +62,14 @@ ActiveRecord::Schema.define(version: 20170613150406) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.jsonb    "data",            default: {}
+    t.integer  "subscription_id",              null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["subscription_id"], name: "index_events_on_subscription_id", using: :btree
   end
 
   create_table "secrets", force: :cascade do |t|
@@ -132,7 +142,9 @@ ActiveRecord::Schema.define(version: 20170613150406) do
   end
 
   add_foreign_key "block_runs", "blocks"
+  add_foreign_key "block_runs", "events"
   add_foreign_key "blocks", "users"
+  add_foreign_key "events", "subscriptions"
   add_foreign_key "secrets", "blocks"
   add_foreign_key "secrets", "users"
   add_foreign_key "slack_authentications", "users"
