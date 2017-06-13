@@ -36,6 +36,25 @@ PersonType = GraphQL::ObjectType.define do
   field :email, types.String
 end
 
+ServiceType = GraphQL::ObjectType.define do
+  name "Service"
+  description "A third-party service that publishes webhook events"
+
+  field :name, !types.String
+  field :domain, !types.String
+end
+
+TriggerType = GraphQL::ObjectType.define do
+  name "Trigger"
+  description "A known class of event that a service can publish via webhook"
+
+  field :name, !types.String
+  field :description, !types.String
+  field :options_schema, !ArbitraryObjectType
+  field :data_schema, !ArbitraryObjectType
+  field :service, !ServiceType
+end
+
 BlockType = GraphQL::ObjectType.define do
   name "Block"
   description "A standalone, executable serverless function"
@@ -95,6 +114,18 @@ QueryType = GraphQL::ObjectType.define do
     type types[BlockType]
     description "A list of all blocks"
     resolve -> (obj, args, ctx) { Block.all }
+  end
+
+  field :services do
+    type types[ServiceType]
+    description "A list of all known third-party services"
+    resolve -> (obj, args, ctx) { Service.all }
+  end
+
+  field :triggers do
+    type types[TriggerType]
+    description "A list of all registered event triggers"
+    resolve -> (obj, args, ctx) { Trigger.all }
   end
 
   field :session do
