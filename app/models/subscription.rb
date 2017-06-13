@@ -25,6 +25,10 @@ class Subscription < ApplicationRecord
     end
   end
 
+  def record_event(webhook_params)
+    service.record_event(webhook_params)
+  end
+
   private
 
   def trigger_options_satisfied?

@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     resources :runs, only: [:create], controller: :block_runs, as: :block_runs
   end
 
+  # Webhook paths
+  post "/webhook/github", to: "webhook_events#create"
+
   root to: "blocks#index"
 
   if Rails.env.development?
