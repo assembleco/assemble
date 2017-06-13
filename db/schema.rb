@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613135141) do
+ActiveRecord::Schema.define(version: 20170613150406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,22 @@ ActiveRecord::Schema.define(version: 20170613135141) do
     t.index ["user_id"], name: "index_slack_authentications_on_user_id", using: :btree
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer  "block_id",                       null: false
+    t.integer  "user_id",                        null: false
+    t.integer  "trigger_id",                     null: false
+    t.datetime "activated_at"
+    t.datetime "deactivated_at"
+    t.jsonb    "data_overrides",    default: {}
+    t.jsonb    "trigger_options",   default: {}
+    t.string   "remote_webhook_id"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["block_id"], name: "index_subscriptions_on_block_id", using: :btree
+    t.index ["trigger_id"], name: "index_subscriptions_on_trigger_id", using: :btree
+    t.index ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
+  end
+
   create_table "triggers", force: :cascade do |t|
     t.string   "name",                        null: false
     t.text     "description"
@@ -120,4 +136,7 @@ ActiveRecord::Schema.define(version: 20170613135141) do
   add_foreign_key "secrets", "blocks"
   add_foreign_key "secrets", "users"
   add_foreign_key "slack_authentications", "users"
+  add_foreign_key "subscriptions", "blocks"
+  add_foreign_key "subscriptions", "triggers"
+  add_foreign_key "subscriptions", "users"
 end
