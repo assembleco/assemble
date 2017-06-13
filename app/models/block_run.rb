@@ -7,6 +7,7 @@ class BlockRun < ApplicationRecord
 
   belongs_to :user
   belongs_to :block
+  belongs_to :event
 
   validates :user, presence: true
 
