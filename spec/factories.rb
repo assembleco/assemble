@@ -25,6 +25,13 @@ FactoryGirl.define do
     domain "github.com"
   end
 
+  factory :subscription do
+    block
+    user
+    trigger
+    data_overrides {}
+  end
+
   factory :trigger do
     name "Push"
     description "New commits pushed to the GitHub repository"
