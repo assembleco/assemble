@@ -7,7 +7,7 @@ class Subscription < ApplicationRecord
   validates :trigger, presence: true
   validates :user, presence: true
 
-  has_many :events
+  has_many :events, dependent: :destroy
 
   def activate
     unless trigger_options_satisfied?
