@@ -8,11 +8,11 @@ import Hint from "components/hint"
 import Row from "layout/row"
 import updateBlock from "util/update_block"
 
-class EventSetup extends React.Component {
+class TriggerSetup extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = this.props.settings
+    this.state = this.props.options || {}
   }
 
   render() {
@@ -36,7 +36,7 @@ class EventSetup extends React.Component {
 
     return(
       <div>
-        <h3>{this.props.service}: {this.props.event}</h3>
+        <h3>{this.props.service.name}: {this.props.name}</h3>
 
         <Settings>
           <h4>Settings</h4>
@@ -67,7 +67,7 @@ class EventSetup extends React.Component {
         <Column>
           <EditableField.String
             onChange={(newVal) => this.settingUpdated(settingName, newVal)}
-            editable={this.props.editable}
+            editable={true}
             initialValue={this.state[settingName]}
           >
             {this.state[settingName]}
@@ -82,7 +82,6 @@ class EventSetup extends React.Component {
     newState[settingName] = newValue;
 
     this.setState(newState)
-    updateBlock({ event_settings: newState }, this.props.id)
   }
 }
 
@@ -93,14 +92,17 @@ const Settings = styled.div`
 const Information = styled.div`
 `
 
-EventSetup.propTypes = {
-  editable: PropTypes.bool.isRequired,
-  event: PropTypes.string.isRequired,
+TriggerSetup.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  service: PropTypes.string.isRequired,
-  settings: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
+  description: PropTypes.string.isRequired,
+  options_schema: PropTypes.object.isRequired,
+  data_schema: PropTypes.object.isRequired,
+
+  service: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    domain: PropTypes.string.isRequired,
+  }),
 }
 
-export default EventSetup;
+export default TriggerSetup;

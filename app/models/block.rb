@@ -5,18 +5,12 @@ class Block < ApplicationRecord
 
   belongs_to :user
   has_many :runs, dependent: :destroy, class_name: "BlockRun"
+  has_many :subscriptions, dependent: :destroy
 
   validates :user, presence: true
 
   def active
     false
-  end
-
-  def event_settings
-    {
-      repo: "assembleapp/registry",
-      branch: "master",
-    }
   end
 
   def handle

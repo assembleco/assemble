@@ -48,6 +48,7 @@ TriggerType = GraphQL::ObjectType.define do
   name "Trigger"
   description "A known class of event that a service can publish via webhook"
 
+  field :id, !types.ID
   field :name, !types.String
   field :description, !types.String
   field :options_schema, !ArbitraryObjectType
@@ -85,7 +86,11 @@ BlockType = GraphQL::ObjectType.define do
     }
   end
 
-  field :event_settings, !ArbitraryObjectType
+  field :subscription, SubscriptionType do
+    resolve -> (obj, args, ctx) {
+      obj.subscriptions.find_by(user: ctx[:session])
+    }
+  end
 end
 
 SessionType = GraphQL::ObjectType.define do
@@ -103,7 +108,7 @@ SubscriptionType = GraphQL::ObjectType.define do
   name "Subscription"
   description "The connection between a block and the web events it listens to"
 
-  field :id, !types.Int
+  field :id, !types.ID
   field :block, !BlockType
   field :trigger_options, !ArbitraryObjectType
   field :trigger, !TriggerType
@@ -148,23 +153,41 @@ end
 MutationRoot = GraphQL::ObjectType.define do
   name "Mutation"
 
-  field :activate_subscription, SubscriptionType do
-    description "Create and activate a block's subscription"
-    argument :block_id, !types.Int
-    argument :trigger_id, !types.Int
-    argument :trigger_options, !ArbitraryObjectType
+  field :create_or_update_subscription, SubscriptionType do
+    description "Create or update a block's subscription"
+    argument :subscription_id, types.ID
+    argument :block_id, types.ID
+    argument :trigger_id, types.ID
 
     resolve ->(ob, args, ctx) {
-      block = Block.find(args[:block_id])
-      trigger = Trigger.find(args[:trigger_id])
+      subscription = nil
 
-      subscription = Subscription.new(
-        block: block,
-        trigger: trigger,
-        user: ctx[:session],
-        trigger_options: args[:trigger_options],
-      )
+      if(args[:subscription_id])
+        subscription = Subscription.find(args[:subscription_id])
 
+        subscription.update!(
+          trigger: Trigger.find(args[:trigger_id]),
+          trigger_options: args[:trigger_options] || {},
+        )
+      else
+        subscription = Subscription.create!(
+          block: Block.find(args[:block_id]),
+          trigger: Trigger.find(args[:trigger_id]),
+          user: ctx[:session],
+          trigger_options: args[:trigger_options].presence || {},
+        )
+      end
+
+      subscription
+    }
+  end
+
+  field :activate_subscription, SubscriptionType do
+    description "Activate a block's subscription"
+    argument :subscription_id, !types.ID
+
+    resolve -> (obj, args, ctx) {
+      subscription = Subscription.find(args[:subscription_id])
       subscription.activate
       subscription
     }
@@ -172,12 +195,21 @@ MutationRoot = GraphQL::ObjectType.define do
 
   field :deactivate_subscription, SubscriptionType do
     description "Deactivate a block's subscription"
-    argument :subscription_id, !types.Int
+    argument :subscription_id, !types.ID
 
     resolve ->(obj, args, ctx) {
       subscription = Subscription.find(args[:subscription_id])
       subscription.deactivate
       subscription
+    }
+  end
+
+  field :destroy_subscription, SubscriptionType do
+    argument :subscription_id, !types.ID
+
+    resolve -> (ojb, args, ctx) {
+      subscription = Subscription.find(args[:subscription_id])
+      subscription.destroy
     }
   end
 end

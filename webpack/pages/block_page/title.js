@@ -49,7 +49,9 @@ class Title extends React.Component {
           <Hint>
             Created on {dateFormat(date, "mmmm d, yyyy")}
           </Hint>
+        </Column>
 
+        <Column>
           <EditableField.Text
             editable={this.props.editable}
             initialValue={this.state.description}

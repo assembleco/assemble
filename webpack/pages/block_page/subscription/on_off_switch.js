@@ -1,11 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
+import { gql, graphql } from "react-apollo";
 
 import Hint from "components/hint"
-import Section from "components/section"
 import Toggle from "react-toggle"
-import updateBlock from "util/update_block"
 
 class OnOffSwitch extends React.Component {
   constructor(props) {
@@ -21,7 +20,7 @@ class OnOffSwitch extends React.Component {
       return null;
 
     return(
-      <Section>
+      <div>
         <label>
           <Toggle
             onChange={this.activeChanged.bind(this)}
@@ -34,12 +33,15 @@ class OnOffSwitch extends React.Component {
         When you're happy with how your block is set up,
         turn it on and it will begin listening to events.
         </Hint>
-      </Section>
+      </div>
     );
   }
 
   activeChanged(event) {
-    this.setState({ active: event.target.checked })
+    if(event.target.checked)
+      this.props.activate()
+    else
+      this.props.deactivate()
 
     updateBlock(
       { active: event.target.checked },
@@ -47,6 +49,27 @@ class OnOffSwitch extends React.Component {
     )
   }
 }
+
+const activate = gql`
+mutation {
+  deactivate_subscription(subscription_id:2) {
+    id
+  }
+}
+`
+
+const deactivate = gql`
+mutation ($opts: ArbitraryObject!) {
+  activate_subscription(block_id: 21, trigger_id: 1, trigger_options: $opts) {
+    id
+  }
+}
+`
+
+const ComponentWithMutations =
+  graphql(activate, { name: "activate" })(
+  graphql(deactivate, { name: "deactivate" })(OnOffSwitch)
+  )
 
 OnOffSwitch.propTypes = {
   active: PropTypes.bool.isRequired,

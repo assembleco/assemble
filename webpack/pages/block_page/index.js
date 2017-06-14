@@ -7,67 +7,49 @@ import gql from "graphql-tag"
 
 import BlockSource from "./block_source";
 import BlockUsage from "./block_usage";
-import SelectAnEvent from "./select_an_event"
+import Subscription from "./subscription"
 import Title from "./title"
-import OnOffSwitch from "./on_of_switch"
 import Loading from "components/loading"
 
 import Row from "layout/row"
 import Column from "layout/column"
 
-const BlockPage = (props) => (
-  props.data.loading ? <Loading /> : (
+const BlockPage = ({ data }) => (
+  data.loading ? <Loading /> : (
     <div>
-      <Row>
-        <Column>
-          <Title
-            id={props.data.block.id}
-            created_at={props.data.block.created_at}
-            description={props.data.block.description}
-            editable={props.data.block.editable}
-            name={props.data.block.name}
-            user={props.data.block.author}
-          />
-        </Column>
+      <Title
+        id={data.block.id}
+        created_at={data.block.created_at}
+        description={data.block.description}
+        editable={data.block.editable}
+        name={data.block.name}
+        user={data.block.author}
+      />
 
-        <Column>
-          <OnOffSwitch
-            id={props.data.block.id}
-            active={props.data.block.active}
-            editable={props.data.block.editable}
-            name={props.data.block.name}
-            user={props.data.block.author}
-          />
-        </Column>
-      </Row>
-
-      <SelectAnEvent
-        id={props.data.block.id}
-        editable={props.data.block.editable}
-        name={props.data.block.name}
-        user={props.data.block.author}
-        eventSettings={props.data.block.event_settings}
+      <Subscription
+        {...data.block.subscription}
+        block_id={data.block.id}
       />
 
       <BlockSource
-        id={props.data.block.id}
-        command={props.data.block.command}
-        editable={props.data.block.editable}
-        dockerfile={props.data.block.dockerfile}
-        name={props.data.block.name}
-        source={props.data.block.source}
-        source_path={props.data.block.source_path}
-        user={props.data.block.author}
+        id={data.block.id}
+        command={data.block.command}
+        editable={data.block.editable}
+        dockerfile={data.block.dockerfile}
+        name={data.block.name}
+        source={data.block.source}
+        source_path={data.block.source_path}
+        user={data.block.author}
       />
 
       <BlockUsage
-        editable={props.data.block.editable}
-        initial_input_data={props.data.block.initial_input_data}
-        name={props.data.block.name}
+        editable={data.block.editable}
+        initial_input_data={data.block.initial_input_data}
+        name={data.block.name}
         run_block_url={`${window.location.href}/runs.json`}
-        schema={props.data.block.schema}
-        user={props.data.block.author}
-        user_api_key={props.data.session.api_key}
+        schema={data.block.schema}
+        user={data.block.author}
+        user_api_key={data.session.api_key}
       />
     </div>
   )
@@ -78,13 +60,11 @@ const id = window.location.pathname.split("/")[2]
 const BlockPageQuery = gql`
   query BlockQuery {
     block(id: ${id}) {
-      active
       command
       created_at
       description
       dockerfile
       editable
-      event_settings
       id
       initial_input_data
       name
@@ -94,6 +74,24 @@ const BlockPageQuery = gql`
 
       author {
         handle
+      }
+
+      subscription {
+        id
+        trigger_options
+
+        trigger {
+          id
+          name
+          description
+          options_schema
+          data_schema
+
+          service {
+            name
+            domain
+          }
+        }
       }
     }
 

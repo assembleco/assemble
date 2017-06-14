@@ -6,7 +6,13 @@ SlackAuthentication.destroy_all
 User.destroy_all
 Service.destroy_all
 
-user = User.create!(handle: "user", github_uid: "abc123", github_token: "abc123")
+user = User.create!(
+  handle: "user",
+  github_uid: "abc123",
+  github_token: "abc123",
+  email: "person@example.com",
+)
+
 github = Service.create!(name: "GitHub", domain: "github.com")
 
 trigger_schema = {
