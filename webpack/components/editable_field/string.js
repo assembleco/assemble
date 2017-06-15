@@ -18,7 +18,7 @@ class EditableString extends React.Component {
       <span>
         {this.state.editedValue == null
           ? <span
-            onClick={() => this.setState({ editedValue: this.props.initialValue })}
+            onClick={this.startEditing.bind(this)}
             role="link">
             {this.props.children}
             </span>
@@ -37,6 +37,11 @@ class EditableString extends React.Component {
         }
       </span>
     );
+  }
+
+  startEditing() {
+    if(this.props.editable)
+      this.setState({ editedValue: this.props.initialValue })
   }
 
   edit() {
