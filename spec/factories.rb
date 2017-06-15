@@ -40,6 +40,12 @@ FactoryGirl.define do
   factory :trigger do
     name "Push"
     description "New commits pushed to the GitHub repository"
+    service
+
+    default_options(
+      "repo" => "assembleapp/registry"
+    )
+
     options_schema(
       type: :object,
       properties: {
@@ -47,7 +53,6 @@ FactoryGirl.define do
       },
       required: [:repo]
     )
-    service
   end
 
   factory :user do

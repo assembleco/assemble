@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import styled from "styled-components"
 import { graphql, compose } from "react-apollo"
 import gql from "graphql-tag"
+import $ from "jquery"
 
 import Column from "layout/column"
 import TriggerSetup from "./trigger_setup"
@@ -16,8 +17,10 @@ class Subscription extends React.Component {
     super(props)
 
     this.state = {
+      active: props.active,
+      id: props.id,
       trigger: props.trigger,
-      id: props.id
+      trigger_options: props.trigger_options,
     }
   }
 
@@ -50,6 +53,8 @@ class Subscription extends React.Component {
 
             {this.renderRightColumn()}
           </Row>
+
+          { this.state.trigger && this.renderBottom() }
         </Section>
       )
     );
@@ -59,22 +64,26 @@ class Subscription extends React.Component {
     let trigger_index = parseInt(event.target.selectedOptions[0].value)
     let selected_trigger = this.props.data.triggers[trigger_index-1]
 
-    this.setState({ trigger: selected_trigger });
-
     if(selected_trigger) {
-      let request = this.props.create_or_update_subscription({ variables: {
-        subscription_id: this.props.id,
+      let request = this.props.create_subscription({ variables: {
         trigger_id: parseInt(selected_trigger.id),
         block_id: parseInt(this.props.block_id),
       }})
 
-      request.then(({ data }) => { this.setState({ id: data.create_or_update_subscription.id }) })
+      request.then(({ data }) => this.setState({
+        trigger: selected_trigger,
+        id: data.create_subscription.id,
+        trigger_options: data.create_subscription.trigger_options,
+      }))
     } else {
       let request = this.props.destroy_subscription({ variables: {
           subscription_id: this.state.id
       }})
 
-      request.then(({ data }) => { this.setState({ id: null }) })
+      request.then(({ data }) => { this.setState({
+        id: null,
+        trigger: selected_trigger,
+      }) })
     }
   }
 
@@ -84,7 +93,8 @@ class Subscription extends React.Component {
         <Column>
           <TriggerSetup
             {...this.state.trigger}
-            options={this.props.trigger_options}
+            options={this.state.trigger_options}
+            settingUpdated={this.settingUpdated.bind(this)}
           />
         </Column>
       );
@@ -99,7 +109,65 @@ class Subscription extends React.Component {
         </Column>
       );
   }
+
+  renderBottom() {
+    return (
+      <Footer>
+        <label>
+          <input
+            type="checkbox"
+            onChange={this.activeChanged.bind(this)}
+            checked={this.state.active || false}
+            />
+            {this.state.active ? "Active" : "Inactive" }
+        </label>
+
+        <Hint>
+          When you're happy with how your block is set up,
+          turn it on and it will begin listening to events.
+        </Hint>
+      </Footer>
+    )
+  }
+
+  activeChanged(event) {
+    if(event.target.checked) {
+      this.setState({ active: true })
+
+      this.props.activate_subscription({ variables: {
+        subscription_id: this.state.id,
+      }})
+    } else {
+      this.setState({ active: false })
+
+      this.props.deactivate_subscription({ variables: {
+        subscription_id: this.state.id,
+      }})
+    }
+  }
+
+  settingUpdated(settingName, newValue) {
+    let new_options = $.extend(true, {}, this.state.trigger_options);
+    new_options[settingName] = newValue;
+
+    let request = this.props.update_subscription({ variables: {
+      subscription_id: parseInt(this.state.id),
+      trigger_id: parseInt(this.state.trigger.id),
+      trigger_options: new_options,
+    }})
+
+    request.then(({ data }) => this.setState({
+      id: data.update_subscription.id,
+      trigger_options: data.update_subscription.trigger_options,
+    }))
+  }
 }
+
+const Footer = styled.div`
+  border-top: 1px solid lightgrey;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+`
 
 const trigger_prop_types = PropTypes.shape({
   id: PropTypes.string.isRequired,
@@ -132,6 +200,7 @@ const dataQuery = gql`
       description
       data_schema
       options_schema
+
       service {
         name
         domain
@@ -140,14 +209,39 @@ const dataQuery = gql`
   }
 `
 
-const create_or_update_subscription = gql`
-  mutation ($subscription_id: ID, $trigger_id: ID, $block_id: ID) {
-    create_or_update_subscription(
-        subscription_id: $subscription_id,
+const create_subscription = gql`
+  mutation ($trigger_id: ID, $block_id: ID) {
+    create_subscription(
         trigger_id: $trigger_id,
         block_id: $block_id,
       ) {
+
       id
+      trigger_options
+
+      trigger {
+        name
+        id
+      }
+    }
+  }
+`
+
+const update_subscription = gql`
+  mutation ($subscription_id: ID!, $trigger_id: ID, $trigger_options: ArbitraryObject) {
+    update_subscription(
+        trigger_id: $trigger_id,
+        subscription_id: $subscription_id,
+        trigger_options: $trigger_options,
+      ) {
+
+      id
+      trigger_options
+
+      trigger {
+        name
+        id
+      }
     }
   }
 `
@@ -160,8 +254,27 @@ const destroy_subscription = gql`
   }
 `
 
+const activate_subscription = gql`
+  mutation ($subscription_id: ID!) {
+    activate_subscription(subscription_id: $subscription_id) {
+      id
+    }
+  }
+`
+
+const deactivate_subscription = gql`
+  mutation ($subscription_id: ID!) {
+    destroy_subscription(subscription_id: $subscription_id) {
+      id
+    }
+  }
+`
+
 export default compose(
   graphql(dataQuery),
-  graphql(create_or_update_subscription, { name: "create_or_update_subscription" }),
+  graphql(create_subscription, { name: "create_subscription" }),
+  graphql(update_subscription, { name: "update_subscription" }),
   graphql(destroy_subscription, { name: "destroy_subscription" }),
+  graphql(activate_subscription, { name: "activate_subscription" }),
+  graphql(deactivate_subscription, { name: "deactivate_subscription" }),
 )(Subscription);

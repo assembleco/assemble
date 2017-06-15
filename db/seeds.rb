@@ -27,6 +27,7 @@ Trigger.create!(
   name: "Push",
   description: "New commits pushed to the GitHub repository",
   options_schema: trigger_schema,
+  default_options: { repo: "assembleapp/registry" },
 )
 
 Block.create!(

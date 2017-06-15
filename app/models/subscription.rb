@@ -21,6 +21,10 @@ class Subscription < ApplicationRecord
     )
   end
 
+  def active?
+    activated_at && !deactivated_at
+  end
+
   def deactivate
     if(service.deactivate(remote_webhook_id))
       update(deactivated_at: Time.current)
@@ -29,6 +33,11 @@ class Subscription < ApplicationRecord
 
   def record_event(webhook_params)
     service.record_event(webhook_params, self)
+  end
+
+  def trigger=(value)
+    super(value)
+    self.trigger_options = value.default_options
   end
 
   private

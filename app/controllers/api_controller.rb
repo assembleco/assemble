@@ -109,6 +109,11 @@ SubscriptionType = GraphQL::ObjectType.define do
   description "The connection between a block and the web events it listens to"
 
   field :id, !types.ID
+
+  field :active, !types.Boolean do
+    resolve -> (obj, args, ctx) { !!obj.active? }
+  end
+
   field :block, !BlockType
   field :trigger_options, !ArbitraryObjectType
   field :trigger, !TriggerType
@@ -153,30 +158,38 @@ end
 MutationRoot = GraphQL::ObjectType.define do
   name "Mutation"
 
-  field :create_or_update_subscription, SubscriptionType do
-    description "Create or update a block's subscription"
-    argument :subscription_id, types.ID
+  field :create_subscription, SubscriptionType do
+    description "Subscribe a block to a trigger"
     argument :block_id, types.ID
     argument :trigger_id, types.ID
 
     resolve ->(ob, args, ctx) {
-      subscription = nil
+      trigger = Trigger.find(args[:trigger_id])
 
-      if(args[:subscription_id])
-        subscription = Subscription.find(args[:subscription_id])
+      subscription = Subscription.create!(
+        block: Block.find(args[:block_id]),
+        trigger: trigger,
+        user: ctx[:session],
+        trigger_options: trigger.default_options,
+      )
 
-        subscription.update!(
-          trigger: Trigger.find(args[:trigger_id]),
-          trigger_options: args[:trigger_options] || {},
-        )
-      else
-        subscription = Subscription.create!(
-          block: Block.find(args[:block_id]),
-          trigger: Trigger.find(args[:trigger_id]),
-          user: ctx[:session],
-          trigger_options: args[:trigger_options].presence || {},
-        )
-      end
+      subscription
+    }
+  end
+
+  field :update_subscription, !SubscriptionType do
+    argument :subscription_id, !types.ID
+    argument :trigger_id, types.ID
+    argument :trigger_options, ArbitraryObjectType
+
+    resolve -> (obj, args, ctx) {
+      subscription = Subscription.find(args[:subscription_id])
+      trigger = Trigger.find(args[:trigger_id])
+
+      subscription.update!(
+        trigger: trigger,
+        trigger_options: args[:trigger_options].presence || trigger.default_options,
+      )
 
       subscription
     }
@@ -188,8 +201,9 @@ MutationRoot = GraphQL::ObjectType.define do
 
     resolve -> (obj, args, ctx) {
       subscription = Subscription.find(args[:subscription_id])
-      subscription.activate
-      subscription
+
+        subscription.activate
+        subscription
     }
   end
 
