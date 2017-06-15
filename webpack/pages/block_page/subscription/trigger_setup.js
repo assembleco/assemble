@@ -8,82 +8,61 @@ import Hint from "components/hint"
 import Row from "layout/row"
 import updateBlock from "util/update_block"
 
-class TriggerSetup extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = this.props.options || {}
-  }
-
-  render() {
-    const information = {
-      ref: "string",
-      head: "string",
-      before: "string",
-      size: 123,
-      distinct_size: 123,
-      commits: [{
-        sha: "string",
-        message: "string",
-        author: {
-          name: "string",
-          email: "string",
-        },
-        url: "string",
-        distinct: true,
-      }]
-    }
-
-    return(
-      <div>
-        <h3>{this.props.service.name}: {this.props.name}</h3>
-
-        <Settings>
-          <h4>Settings</h4>
-
-          {Object.keys(this.state).map(this.renderSetting.bind(this))}
-        </Settings>
-
-        <Information>
-          <h4>Event Information</h4>
-
-          <Hint>
-            Each time this event fires,
-            it will provide this information to your block.
-          </Hint>
-
-          <pre>
-          { JSON.stringify(information, null, 2) }
-          </pre>
-        </Information>
-      </div>
-    );
-  }
-
-  renderSetting(settingName) {
-    return(
-      <Row key={settingName}>
-        <Column>{settingName}:</Column>
-        <Column>
-          <EditableField.String
-            onChange={(newVal) => this.settingUpdated(settingName, newVal)}
-            editable={true}
-            initialValue={this.state[settingName]}
-          >
-            {this.state[settingName]}
-          </EditableField.String>
-        </Column>
-      </Row>
-    );
-  }
-
-  settingUpdated(settingName, newValue) {
-    let newState = {}
-    newState[settingName] = newValue;
-
-    this.setState(newState)
-  }
+const information = {
+  ref: "string",
+  head: "string",
+  before: "string",
+  size: 123,
+  distinct_size: 123,
+  commits: [{
+    sha: "string",
+    message: "string",
+    author: {
+      name: "string",
+      email: "string",
+    },
+    url: "string",
+    distinct: true,
+  }]
 }
+
+const TriggerSetup = (props) => (
+  <div>
+    <h3>{props.service.name}: {props.name}</h3>
+
+    <Settings>
+      <h4>Settings</h4>
+
+      {Object.keys(props.options).map((settingName) => (
+        <Row key={settingName}>
+          <Column>{settingName}:</Column>
+          <Column>
+            <EditableField.String
+              onChange={(newVal) => props.settingUpdated(settingName, newVal)}
+              editable={true}
+              initialValue={props.options[settingName]}
+            >
+              {props.options[settingName]}
+            </EditableField.String>
+          </Column>
+        </Row>
+      ))}
+    </Settings>
+
+    <Information>
+      <h4>Event Information</h4>
+
+      <Hint>
+        Each time this event fires,
+        it will provide this information to your block.
+      </Hint>
+
+      <pre>
+      { JSON.stringify(information, null, 2) }
+      </pre>
+    </Information>
+  </div>
+)
 
 const Settings = styled.div`
   margin-bottom: 1.5rem;
@@ -103,6 +82,9 @@ TriggerSetup.propTypes = {
     name: PropTypes.string.isRequired,
     domain: PropTypes.string.isRequired,
   }),
+
+  options: PropTypes.object.isRequired,
+  settingUpdated: PropTypes.func.isRequired,
 }
 
 export default TriggerSetup;

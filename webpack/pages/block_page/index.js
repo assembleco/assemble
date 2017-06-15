@@ -79,6 +79,7 @@ const BlockPageQuery = gql`
       subscription {
         id
         trigger_options
+        active
 
         trigger {
           id
