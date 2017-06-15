@@ -40,6 +40,7 @@ class Subscription extends React.Component {
               <select
                 value={this.state.trigger ? this.state.trigger.id : "null"}
                 onChange={this.triggerSelected.bind(this)}
+                disabled={this.state.active && "disabled"}
                 >
                 <option key="null" value={null}>No trigger</option>
 
@@ -95,6 +96,7 @@ class Subscription extends React.Component {
             {...this.state.trigger}
             options={this.state.trigger_options}
             settingUpdated={this.settingUpdated.bind(this)}
+            editable={!this.state.active}
           />
         </Column>
       );
@@ -264,7 +266,7 @@ const activate_subscription = gql`
 
 const deactivate_subscription = gql`
   mutation ($subscription_id: ID!) {
-    destroy_subscription(subscription_id: $subscription_id) {
+    deactivate_subscription(subscription_id: $subscription_id) {
       id
     }
   }

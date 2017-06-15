@@ -40,6 +40,11 @@ class Subscription < ApplicationRecord
     self.trigger_options = value.default_options
   end
 
+  def destroy
+    deactivate if active?
+    super
+  end
+
   private
 
   def trigger_options_satisfied?

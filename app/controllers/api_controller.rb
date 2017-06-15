@@ -202,8 +202,8 @@ MutationRoot = GraphQL::ObjectType.define do
     resolve -> (obj, args, ctx) {
       subscription = Subscription.find(args[:subscription_id])
 
-        subscription.activate
-        subscription
+      subscription.activate
+      subscription
     }
   end
 

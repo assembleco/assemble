@@ -33,13 +33,19 @@ const TriggerSetup = (props) => (
     <Settings>
       <h4>Settings</h4>
 
+      {props.editable ||
+        <Hint>
+          These settings are locked in place while the trigger is active.
+        </Hint>
+      }
+
       {Object.keys(props.options).map((settingName) => (
         <Row key={settingName}>
           <Column>{settingName}:</Column>
           <Column>
             <EditableField.String
+              editable={props.editable}
               onChange={(newVal) => props.settingUpdated(settingName, newVal)}
-              editable={true}
               initialValue={props.options[settingName]}
             >
               {props.options[settingName]}
@@ -77,6 +83,7 @@ TriggerSetup.propTypes = {
   description: PropTypes.string.isRequired,
   options_schema: PropTypes.object.isRequired,
   data_schema: PropTypes.object.isRequired,
+  editable: PropTypes.bool.isRequired,
 
   service: PropTypes.shape({
     name: PropTypes.string.isRequired,
