@@ -1,0 +1,5 @@
+mutation destroy_subscription($subscription_id: ID!) {
+  destroy_subscription(subscription_id: $subscription_id) {
+    id
+  }
+}

@@ -2,7 +2,6 @@ import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 import { graphql, compose } from "react-apollo"
-import gql from "graphql-tag"
 import $ from "jquery"
 
 import Column from "layout/column"
@@ -11,6 +10,13 @@ import Hint from "components/hint"
 import Loading from "components/loading"
 import Row from "layout/row"
 import Section from "components/section"
+
+import dataQuery from "graphql/triggers.gql"
+import create_subscription from "graphql/create_subscription.gql"
+import update_subscription from "graphql/update_subscription.gql"
+import destroy_subscription from "graphql/destroy_subscription.gql"
+import activate_subscription from "graphql/activate_subscription.gql"
+import deactivate_subscription from "graphql/deactivate_subscription.gql"
 
 class Subscription extends React.Component {
   constructor(props) {
@@ -193,84 +199,6 @@ Subscription.propTypes = {
 
   data: PropTypes.shape({ triggers: PropTypes.arrayOf(trigger_prop_types) })
 }
-
-const dataQuery = gql`
-  {
-    triggers {
-      id
-      name
-      description
-      data_schema
-      options_schema
-
-      service {
-        name
-        domain
-      }
-    }
-  }
-`
-
-const create_subscription = gql`
-  mutation ($trigger_id: ID, $block_id: ID) {
-    create_subscription(
-        trigger_id: $trigger_id,
-        block_id: $block_id,
-      ) {
-
-      id
-      trigger_options
-
-      trigger {
-        name
-        id
-      }
-    }
-  }
-`
-
-const update_subscription = gql`
-  mutation ($subscription_id: ID!, $trigger_id: ID, $trigger_options: ArbitraryObject) {
-    update_subscription(
-        trigger_id: $trigger_id,
-        subscription_id: $subscription_id,
-        trigger_options: $trigger_options,
-      ) {
-
-      id
-      trigger_options
-
-      trigger {
-        name
-        id
-      }
-    }
-  }
-`
-
-const destroy_subscription = gql`
-  mutation destroy_subscription($subscription_id: ID!) {
-    destroy_subscription(subscription_id: $subscription_id) {
-      id
-    }
-  }
-`
-
-const activate_subscription = gql`
-  mutation ($subscription_id: ID!) {
-    activate_subscription(subscription_id: $subscription_id) {
-      id
-    }
-  }
-`
-
-const deactivate_subscription = gql`
-  mutation ($subscription_id: ID!) {
-    deactivate_subscription(subscription_id: $subscription_id) {
-      id
-    }
-  }
-`
 
 export default compose(
   graphql(dataQuery),

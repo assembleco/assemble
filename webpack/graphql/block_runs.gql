@@ -1,0 +1,26 @@
+query BlockRunsQuery ($block_id: ID!) {
+  block(id: $block_id) {
+    runs {
+      event {
+        created_at
+        subscription {
+          trigger {
+            name
+            service {
+              name
+            }
+          }
+        }
+      }
+
+      id
+      created_at
+      exit_status
+      input
+      output
+      status
+      stderr
+      stdout
+    }
+  }
+}

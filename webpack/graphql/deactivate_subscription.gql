@@ -1,0 +1,5 @@
+mutation ($subscription_id: ID!) {
+  deactivate_subscription(subscription_id: $subscription_id) {
+    id
+  }
+}

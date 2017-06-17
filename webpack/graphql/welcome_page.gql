@@ -1,0 +1,18 @@
+query BlockQuery {
+  blocks {
+    created_at
+    id
+    name
+
+    author {
+      handle
+      email
+    }
+  }
+
+  session {
+    person {
+      id
+    }
+  }
+}

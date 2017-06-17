@@ -3,7 +3,8 @@ import PropTypes from "prop-types"
 import styled from "styled-components"
 import ApolloClient, { createNetworkInterface } from "apollo-client"
 import { ApolloProvider, graphql } from "react-apollo"
-import gql from "graphql-tag"
+
+import data_query from "graphql/block_runs.gql"
 
 import Loading from "components/loading"
 import Section from "components/section"
@@ -59,35 +60,6 @@ class BlockRuns extends React.Component {
     )
   }
 }
-
-const data_query = gql`
-  query BlockRunsQuery ($block_id: ID!) {
-    block(id: $block_id) {
-      runs {
-        event {
-          created_at
-          subscription {
-            trigger {
-              name
-              service {
-                name
-              }
-            }
-          }
-        }
-
-        id
-        created_at
-        exit_status
-        input
-        output
-        status
-        stderr
-        stdout
-      }
-    }
-  }
-`
 
 const BlockPageWithData = graphql(data_query, { options: ({ block_id }) => ({
   variables: { block_id: 21 }
