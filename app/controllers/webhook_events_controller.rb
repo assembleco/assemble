@@ -5,10 +5,6 @@ class WebhookEventsController < ApplicationController
   skip_before_action :require_login, only: [:create]
 
   def create
-    subscription = Subscription.find_by!(
-      remote_webhook_id: params[:webhook_event][:hook][:id],
-    )
-
     body = request.body
     digest = OpenSSL::Digest.new("sha1")
     secret = ENV.fetch("GITHUB_SIGNATURE_SECRET")
@@ -17,7 +13,13 @@ class WebhookEventsController < ApplicationController
     signature = request.headers["X-Hub-Signature"]
 
     if "sha1=#{hmac}" == signature
-      subscription.record_event(params)
+      subscriptions = Subscription.all.select do |subscription|
+        subscription.trigger_options["repo"] == params["repository"]["full_name"]
+      end
+
+      subscriptions.each do |subscription|
+        subscription.record_event(params)
+      end
     else
       raise InvalidSignature, "expected #{signature}, got #{hmac}"
     end
