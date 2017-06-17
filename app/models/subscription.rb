@@ -32,7 +32,16 @@ class Subscription < ApplicationRecord
   end
 
   def record_event(webhook_params)
-    service.record_event(webhook_params, self)
+    event = service.record_event(webhook_params, self)
+
+    run = BlockRun.create!(
+      block: block,
+      input: event.data.merge(data_overrides),
+      user: user,
+      event: event,
+    )
+
+    run.execute
   end
 
   def trigger=(value)
