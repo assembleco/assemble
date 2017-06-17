@@ -18,8 +18,6 @@ class BlockRunsController < ApplicationController
         format.json {
           render plain: JSON.pretty_generate({
             status: :success,
-            message: "Running block `#{user.handle}/#{block.name}`",
-            path: block_run_path(user, block, run),
             input: run.input,
             output: clean(run.stdout),
             errors: clean(run.stderr),
@@ -34,11 +32,7 @@ class BlockRunsController < ApplicationController
   private
 
   def block
-    @block ||= Block.find_by!(user: user, name: params[:blockname])
-  end
-
-  def user
-    @user ||= User.find_by!(handle: params[:handle])
+    @block ||= Block.find(params[:block_id])
   end
 
   def clean(input)
