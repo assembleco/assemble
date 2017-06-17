@@ -10,6 +10,7 @@ import Hint from "components/hint"
 import Loading from "components/loading"
 import Row from "layout/row"
 import Section from "components/section"
+import Form from "react-jsonschema-form"
 
 import dataQuery from "graphql/triggers.gql"
 import create_subscription from "graphql/create_subscription.gql"
@@ -27,6 +28,7 @@ class Subscription extends React.Component {
       id: props.id,
       trigger: props.trigger,
       trigger_options: props.trigger_options,
+      data_overrides: props.data_overrides,
     }
   }
 
@@ -56,6 +58,8 @@ class Subscription extends React.Component {
                     </option>
                 )) }
               </select>
+
+              {this.state.trigger && this.renderDataOverrides()}
             </Column>
 
             {this.renderRightColumn()}
@@ -118,6 +122,37 @@ class Subscription extends React.Component {
       );
   }
 
+  renderDataOverrides() {
+    const uiSchema =  {
+      ssh_private_key: {
+        "ui:widget": "textarea"
+      }
+    };
+
+    return (
+      <div>
+        <Hint>
+        Override the block's input data here.
+        The data you provide in this form will be passed to the block
+        alongside the data from the trigger.
+        </Hint>
+
+        <Form
+          uiSchema={uiSchema}
+          schema={this.props.schema}
+          onChange={ this.data_overrides_changed.bind(this) }
+          formData={this.state.data_overrides}
+          >
+          <div style={{ position: "relative", overflow: "hidden" }}>
+            <a onClick={() => this.data_overrides_changed({ formData: {} }) }>
+              Clear input fields
+            </a>
+          </div>
+        </Form>
+      </div>
+    )
+  }
+
   renderBottom() {
     return (
       <Footer>
@@ -152,6 +187,15 @@ class Subscription extends React.Component {
         subscription_id: this.state.id,
       }})
     }
+  }
+
+  data_overrides_changed(event) {
+    this.setState({ data_overrides: event.formData })
+
+    this.props.update_subscription({ variables: {
+      subscription_id: parseInt(this.state.id),
+      data_overrides: event.formData,
+    }})
   }
 
   settingUpdated(settingName, newValue) {

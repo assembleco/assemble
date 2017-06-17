@@ -150,6 +150,7 @@ SubscriptionType = GraphQL::ObjectType.define do
   field :block, !BlockType
   field :trigger_options, !ArbitraryObjectType
   field :trigger, !TriggerType
+  field :data_overrides, !ArbitraryObjectType
 end
 
 QueryType = GraphQL::ObjectType.define do
@@ -214,14 +215,18 @@ MutationRoot = GraphQL::ObjectType.define do
     argument :subscription_id, !types.ID
     argument :trigger_id, types.ID
     argument :trigger_options, ArbitraryObjectType
+    argument :data_overrides, ArbitraryObjectType
 
     resolve -> (obj, args, ctx) {
       subscription = Subscription.find(args[:subscription_id])
-      trigger = Trigger.find(args[:trigger_id])
+
+      trigger = Trigger.find_by(id: args[:trigger_id]) || subscription.trigger
+      data_overrides = args[:data_overrides] || subscription.data_overrides
 
       subscription.update!(
         trigger: trigger,
         trigger_options: args[:trigger_options].presence || trigger.default_options,
+        data_overrides: data_overrides
       )
 
       subscription
