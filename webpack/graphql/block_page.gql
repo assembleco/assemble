@@ -17,9 +17,10 @@ query BlockQuery ($block_id: ID!) {
     }
 
     subscription {
+      active
+      data_overrides
       id
       trigger_options
-      active
 
       trigger {
         id

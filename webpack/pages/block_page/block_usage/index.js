@@ -31,7 +31,7 @@ class BlockUsage extends React.Component {
   render() {
     const uiSchema =  {
       ssh_private_key: {
-        "ui:widget": "textarea" // could also be "select"
+        "ui:widget": "textarea"
       }
     };
 

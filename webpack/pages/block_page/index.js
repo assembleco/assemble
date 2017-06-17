@@ -30,6 +30,7 @@ const BlockPage = ({ data }) => (
       <Subscription
         {...data.block.subscription}
         block_id={data.block.id}
+        schema={data.block.schema}
       />
 
       <BlockSource

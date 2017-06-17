@@ -1,8 +1,14 @@
-mutation ($subscription_id: ID!, $trigger_id: ID, $trigger_options: ArbitraryObject) {
+mutation (
+  $subscription_id: ID!,
+  $trigger_id: ID,
+  $trigger_options: ArbitraryObject,
+  $data_overrides: ArbitraryObject,
+) {
   update_subscription(
       trigger_id: $trigger_id,
       subscription_id: $subscription_id,
       trigger_options: $trigger_options,
+      data_overrides: $data_overrides,
     ) {
 
     id
