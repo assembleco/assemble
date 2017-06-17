@@ -114,9 +114,9 @@ RunType = GraphQL::ObjectType.define do
 
   field :id, !types.ID
   field :block, !BlockType
-  field :exit_status, !types.Int
-  field :stdout, !types.String
-  field :stderr, !types.String
+  field :exit_status, types.Int
+  field :stdout, types.String
+  field :stderr, types.String
   field :created_at, !TimeType
   field :updated_at, !TimeType
   field :status, !types.String
