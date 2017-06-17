@@ -61,26 +61,9 @@ class BlockRuns extends React.Component {
   }
 }
 
-const BlockPageWithData = graphql(data_query, { options: ({ block_id }) => ({
-  variables: { block_id: 21 }
+const BlockRunsWithData = graphql(data_query, { options: ({ block_id }) => ({
+  variables: { block_id }
 })})(BlockRuns)
-
-const WrappedBlockPage = (props) => {
-  const client = new ApolloClient({
-    networkInterface: createNetworkInterface({
-      uri: "/api",
-      opts: {
-        credentials: 'same-origin',
-      },
-    }),
-  })
-
-  return (
-    <ApolloProvider client={client}>
-      <BlockPageWithData />
-    </ApolloProvider>
-  );
-};
 
 const RunList = styled(Column)`
   border-right: 1px solid lightgrey;
@@ -97,4 +80,4 @@ const backgroundColors = {
   failure: { backgroundColor: colors.red }
 }
 
-export default WrappedBlockPage;
+export default BlockRunsWithData;

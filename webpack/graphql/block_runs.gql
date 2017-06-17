@@ -1,5 +1,7 @@
 query BlockRunsQuery ($block_id: ID!) {
   block(id: $block_id) {
+    id
+
     runs {
       event {
         created_at
