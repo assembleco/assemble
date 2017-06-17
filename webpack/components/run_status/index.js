@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import $ from "jquery"
 import styled from "styled-components"
 
-import colors from "../../styles/colors"
+import colors from "styles/colors"
 
 class RunStatus extends React.Component {
   render() {
