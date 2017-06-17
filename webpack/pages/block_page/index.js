@@ -60,11 +60,9 @@ const BlockPage = ({ data }) => (
   )
 )
 
-const id = window.location.pathname.split("/")[2]
-
 const BlockPageQuery = gql`
-  query BlockQuery {
-    block(id: ${id}) {
+  query BlockQuery ($block_id: ID!) {
+    block(id: $block_id) {
       command
       created_at
       description
@@ -107,7 +105,9 @@ const BlockPageQuery = gql`
   }
 `
 
-const BlockPageWithData = graphql(BlockPageQuery)(BlockPage)
+const BlockPageWithData = graphql(BlockPageQuery, { options: {
+  variables: { block_id: window.location.pathname.split("/")[2] }
+}})(BlockPage)
 
 const WrappedBlockPage = (props) => {
   const client = new ApolloClient({
