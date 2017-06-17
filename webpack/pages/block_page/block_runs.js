@@ -10,6 +10,7 @@ import Section from "components/section"
 import Column from "layout/column"
 import Row from "layout/row"
 import RunStatus from "components/run_status"
+import colors from "styles/colors"
 
 class BlockRuns extends React.Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class BlockRuns extends React.Component {
               <Run
                 key={run.id}
                 onClick={() => this.setState({ selectedRunID: run.id }) }
+                style={backgroundColors[run.status]}
                 >
                 Run on { run.created_at }
               </Run>
@@ -116,5 +118,11 @@ const Run = styled(Row)`
   padding: 0.75rem;
   border-bottom: 1px solid lightgrey;
 `
+
+const backgroundColors = {
+  pending: { backgroundColor: colors.yellow },
+  success: { backgroundColor: colors.green },
+  failure: { backgroundColor: colors.red }
+}
 
 export default WrappedBlockPage;
