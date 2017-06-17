@@ -86,11 +86,44 @@ BlockType = GraphQL::ObjectType.define do
     }
   end
 
+  field :runs, types[RunType] do
+    resolve -> (obj, args, ctx) {
+      obj.runs.where(user: ctx[:session])
+    }
+  end
+
   field :subscription, SubscriptionType do
     resolve -> (obj, args, ctx) {
       obj.subscriptions.find_by(user: ctx[:session])
     }
   end
+end
+
+EventType = GraphQL::ObjectType.define do
+  name "Event"
+  description "A webhook-fired event from a third-party service"
+
+  field :data, !ArbitraryObjectType
+  field :subscription, !SubscriptionType
+  field :created_at, !TimeType
+end
+
+RunType = GraphQL::ObjectType.define do
+  name "Run"
+  description "A single execution of a block"
+
+  field :id, !types.ID
+  field :block, !BlockType
+  field :exit_status, !types.Int
+  field :stdout, !types.String
+  field :stderr, !types.String
+  field :created_at, !TimeType
+  field :updated_at, !TimeType
+  field :status, !types.String
+  field :input, ArbitraryObjectType
+  field :output, ArbitraryObjectType
+  field :user, !PersonType
+  field :event, EventType
 end
 
 SessionType = GraphQL::ObjectType.define do
