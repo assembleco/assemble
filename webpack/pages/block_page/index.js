@@ -7,6 +7,7 @@ import gql from "graphql-tag"
 
 import BlockSource from "./block_source";
 import BlockUsage from "./block_usage";
+import BlockRuns from "./block_runs";
 import Subscription from "./subscription"
 import Title from "./title"
 import Loading from "components/loading"
@@ -51,6 +52,10 @@ const BlockPage = ({ data }) => (
         user={data.block.author}
         user_api_key={data.session.api_key}
       />
+
+      <BlockRuns
+        block_id={data.block.id}
+        />
     </div>
   )
 )

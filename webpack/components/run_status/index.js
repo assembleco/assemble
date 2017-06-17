@@ -49,8 +49,8 @@ const backgroundColors = {
 
 RunStatus.propTypes = {
   status: PropTypes.string.isRequired,
-  input: PropTypes.string.isRequired,
-  output: PropTypes.string.isRequired,
+  input: PropTypes.object.isRequired,
+  output: PropTypes.string,
   errors: PropTypes.string,
 }
 
