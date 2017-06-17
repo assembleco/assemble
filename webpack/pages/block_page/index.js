@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import styled from "styled-components"
 import ApolloClient, { createNetworkInterface } from "apollo-client"
 import { ApolloProvider, graphql } from "react-apollo"
-import gql from "graphql-tag"
+import BlockPageQuery from "graphql/block_page.gql"
 
 import BlockSource from "./block_source";
 import BlockUsage from "./block_usage";
@@ -59,51 +59,6 @@ const BlockPage = ({ data }) => (
     </div>
   )
 )
-
-const BlockPageQuery = gql`
-  query BlockQuery ($block_id: ID!) {
-    block(id: $block_id) {
-      command
-      created_at
-      description
-      dockerfile
-      editable
-      id
-      initial_input_data
-      name
-      schema
-      source
-      source_path
-
-      author {
-        handle
-      }
-
-      subscription {
-        id
-        trigger_options
-        active
-
-        trigger {
-          id
-          name
-          description
-          options_schema
-          data_schema
-
-          service {
-            name
-            domain
-          }
-        }
-      }
-    }
-
-    session {
-      api_key
-    }
-  }
-`
 
 const BlockPageWithData = graphql(BlockPageQuery, { options: {
   variables: { block_id: window.location.pathname.split("/")[2] }

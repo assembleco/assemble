@@ -1,0 +1,42 @@
+query BlockQuery ($block_id: ID!) {
+  block(id: $block_id) {
+    command
+    created_at
+    description
+    dockerfile
+    editable
+    id
+    initial_input_data
+    name
+    schema
+    source
+    source_path
+
+    author {
+      handle
+    }
+
+    subscription {
+      id
+      trigger_options
+      active
+
+      trigger {
+        id
+        name
+        description
+        options_schema
+        data_schema
+
+        service {
+          name
+          domain
+        }
+      }
+    }
+  }
+
+  session {
+    api_key
+  }
+}

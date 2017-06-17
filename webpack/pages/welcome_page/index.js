@@ -2,7 +2,8 @@ import React from "react"
 import styled from "styled-components"
 import ApolloClient, { createNetworkInterface } from "apollo-client"
 import { ApolloProvider, graphql } from "react-apollo"
-import gql from "graphql-tag"
+
+import WelcomePageQuery from "graphql/welcome_page.gql"
 
 import WelcomeMessage from "./welcome_message"
 import BlockListing from "components/block_listing"
@@ -35,27 +36,6 @@ const List = styled.div`
   justify-content: flex-start;
   margin-bottom: 1.5rem;
   overflow: hidden;
-`
-
-const WelcomePageQuery = gql`
-  query BlockQuery {
-    blocks {
-      created_at
-      id
-      name
-
-      author {
-        handle
-        email
-      }
-    }
-
-    session {
-      person {
-        id
-      }
-    }
-  }
 `
 
 const WelcomePageWithData = graphql(WelcomePageQuery)(WelcomePage)

@@ -1,0 +1,14 @@
+{
+  triggers {
+    id
+    name
+    description
+    data_schema
+    options_schema
+
+    service {
+      name
+      domain
+    }
+  }
+}
