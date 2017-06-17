@@ -82,7 +82,7 @@ BlockType = GraphQL::ObjectType.define do
 
   field :initial_input_data, !ArbitraryObjectType do
     resolve ->(obj, args, ctx) {
-      obj.runs.where(user: ctx[:session]).last.try(:input) || {}
+      obj.runs.where(user: ctx[:session], event: nil).last.try(:input) || {}
     }
   end
 
