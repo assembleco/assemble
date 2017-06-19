@@ -28,23 +28,6 @@ const BlockPage = ({ data }) => (
         user={data.block.author}
       />
 
-      <Subscription
-        {...data.block.subscription}
-        block_id={data.block.id}
-        schema={data.block.schema}
-      />
-
-      <BlockSource
-        id={data.block.id}
-        command={data.block.command}
-        editable={data.block.editable}
-        dockerfile={data.block.dockerfile}
-        name={data.block.name}
-        source={data.block.source}
-        source_path={data.block.source_path}
-        user={data.block.author}
-      />
-
       { data.session
       ? <BlockUsage
           editable={data.block.editable}
@@ -60,9 +43,24 @@ const BlockPage = ({ data }) => (
         </Section>
       }
 
-      <BlockRuns
+      <BlockSource
+        id={data.block.id}
+        command={data.block.command}
+        editable={data.block.editable}
+        dockerfile={data.block.dockerfile}
+        name={data.block.name}
+        source={data.block.source}
+        source_path={data.block.source_path}
+        user={data.block.author}
+      />
+
+      <Subscription
+        {...data.block.subscription}
         block_id={data.block.id}
-        />
+        schema={data.block.schema}
+      />
+
+      <BlockRuns block_id={data.block.id} />
     </div>
   )
 )
