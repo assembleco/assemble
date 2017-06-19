@@ -11,6 +11,7 @@ import BlockRuns from "./block_runs";
 import Subscription from "./subscription"
 import Title from "./title"
 import Loading from "components/loading"
+import Section from "components/section"
 
 import Row from "layout/row"
 import Column from "layout/column"
@@ -44,15 +45,20 @@ const BlockPage = ({ data }) => (
         user={data.block.author}
       />
 
-      <BlockUsage
-        editable={data.block.editable}
-        initial_input_data={data.block.initial_input_data}
-        name={data.block.name}
-        run_block_url={`${window.location.href}/runs.json`}
-        schema={data.block.schema}
-        user={data.block.author}
-        user_api_key={data.session.api_key}
-      />
+      { data.session
+      ? <BlockUsage
+          editable={data.block.editable}
+          initial_input_data={data.block.initial_input_data}
+          name={data.block.name}
+          run_block_url={`${window.location.href}/runs.json`}
+          schema={data.block.schema}
+          user={data.block.author}
+          user_api_key={data.session.api_key}
+        />
+      : <Section>
+          Sign in with GitHub to try out this block.
+        </Section>
+      }
 
       <BlockRuns
         block_id={data.block.id}
