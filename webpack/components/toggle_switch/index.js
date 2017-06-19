@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import Check from './check'
 import X from './x'
@@ -126,13 +125,7 @@ export default class Toggle extends PureComponent {
   }
 
   render () {
-    const { className, icons: _icons, ...inputProps } = this.props
-
-    const classes = classNames('react-toggle', {
-      'react-toggle--checked': this.state.checked,
-      'react-toggle--focus': this.state.hasFocus,
-      'react-toggle--disabled': this.props.disabled,
-    }, className)
+    const { icons: _icons, ...inputProps } = this.props
 
     return (
       <ReactToggle
@@ -185,14 +178,15 @@ Toggle.propTypes = {
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
-  className: PropTypes.string,
   name: PropTypes.string,
   value: PropTypes.string,
   id: PropTypes.string,
   'aria-labelledby': PropTypes.string,
   'aria-label': PropTypes.string,
+
   icons: PropTypes.oneOfType([
     PropTypes.bool,
+
     PropTypes.shape({
       checked: PropTypes.node,
       unchecked: PropTypes.node,
