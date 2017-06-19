@@ -48,7 +48,7 @@ class WelcomeMessage extends React.Component {
         command: 'echo "click to edit the block\'s command."',
         dockerfile: "FROM ubuntu\n# click to edit the dockerfile"
       }},
-      success: (data) => { window.location = `/blocks/${this.props.current_user.handle}/${data.name}` },
+      success: (data) => { window.location = `/blocks/${data.id}` },
     })
   }
 }
