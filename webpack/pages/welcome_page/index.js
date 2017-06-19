@@ -13,7 +13,7 @@ const WelcomePage = (props) => (
   props.data.loading
   ? <Loading />
   : <div>
-      <WelcomeMessage session={props.session}/>
+      <WelcomeMessage session={props.data.session}/>
 
       <Wrapper>
         <List>
