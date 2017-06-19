@@ -4,10 +4,12 @@ import PropTypes from 'prop-types'
 import Check from './check'
 import X from './x'
 import { pointerCoord } from './util'
+import styled from "styled-components"
 
 export default class Toggle extends PureComponent {
   constructor (props) {
     super(props)
+
     this.handleClick = this.handleClick.bind(this)
     this.handleTouchStart = this.handleTouchStart.bind(this)
     this.handleTouchMove = this.handleTouchMove.bind(this)
@@ -15,6 +17,7 @@ export default class Toggle extends PureComponent {
     this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.previouslyChecked = !!(props.checked || props.defaultChecked)
+
     this.state = {
       checked: !!(props.checked || props.defaultChecked),
       hasFocus: false,
@@ -36,7 +39,7 @@ export default class Toggle extends PureComponent {
       checkbox.click()
       return
     }
-    
+
     const checked = this.props.hasOwnProperty('checked') ? this.props.checked : checkbox.checked;
 
     this.setState({checked})
@@ -124,6 +127,7 @@ export default class Toggle extends PureComponent {
 
   render () {
     const { className, icons: _icons, ...inputProps } = this.props
+
     const classes = classNames('react-toggle', {
       'react-toggle--checked': this.state.checked,
       'react-toggle--focus': this.state.hasFocus,
@@ -131,29 +135,32 @@ export default class Toggle extends PureComponent {
     }, className)
 
     return (
-      <div className={classes}
+      <ReactToggle
+        disabled={this.props.disabled}
         onClick={this.handleClick}
         onTouchStart={this.handleTouchStart}
         onTouchMove={this.handleTouchMove}
         onTouchEnd={this.handleTouchEnd}>
-        <div className='react-toggle-track'>
-          <div className='react-toggle-track-check'>
-            {this.getIcon('checked')}
-          </div>
-          <div className='react-toggle-track-x'>
-            {this.getIcon('unchecked')}
-          </div>
-        </div>
-        <div className='react-toggle-thumb' />
 
-        <input
+        <Track checked={this.state.checked}>
+          <TrackCheck checked={this.state.checked}>
+            {this.getIcon('checked')}
+          </TrackCheck>
+
+          <TrackX checked={this.state.checked}>
+            {this.getIcon('unchecked')}
+          </TrackX>
+        </Track>
+
+        <ToggleSwitchThumb checked={this.state.checked} />
+
+        <ScreenreaderInput
           {...inputProps}
-          ref={ref => { this.input = ref }}
+          innerRef={ref => { this.input = ref }}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
-          className='react-toggle-screenreader-only'
           type='checkbox' />
-      </div>
+      </ReactToggle>
     )
   }
 }
@@ -187,4 +194,128 @@ Toggle.propTypes = {
       unchecked: PropTypes.node,
     }),
   ]),
+}
+
+const ToggleSwitchThumb = styled.div`
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  position: absolute;
+  top: 1px;
+  left: ${({checked}) => checked ? "27px" : "1px"};
+  width: 22px;
+  height: 22px;
+  border: 1px solid ${({checked}) => checked ? checkedColor : unCheckedColor};
+  border-radius: 50%;
+  background-color: #FAFAFA;
+
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+`
+
+ToggleSwitchThumb.defaultProps = {
+  checked: false,
+}
+
+const ScreenreaderInput = styled.input`
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+`
+
+const checkedColor = "#19AB27"
+const unCheckedColor = "#4D4D4D"
+
+const Track = styled.div`
+  width: 50px;
+  height: 24px;
+  padding: 0;
+  border-radius: 30px;
+  background-color: ${({checked}) => checked ? checkedColor : unCheckedColor };
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+`
+
+Track.defaultProps = {
+  checked: false
+}
+
+const TrackCheck = styled.div`
+  position: absolute;
+  width: 14px;
+  height: 10px;
+  top: 0px;
+  bottom: 0px;
+  margin-top: auto;
+  margin-bottom: auto;
+  line-height: 0;
+  left: 8px;
+  opacity: ${({checked}) => checked ? 1 : 0};
+  -webkit-transition: opacity 0.25s ease;
+  -moz-transition: opacity 0.25s ease;
+  transition: opacity 0.25s ease;
+`
+
+TrackCheck.defaultProps = {
+  checked: false
+}
+
+const TrackX = styled.div`
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: 0px;
+  bottom: 0px;
+  margin-top: auto;
+  margin-bottom: auto;
+  line-height: 0;
+  right: 10px;
+  opacity: ${({ checked }) => checked ? 0 : 1};
+  -webkit-transition: opacity 0.25s ease;
+  -moz-transition: opacity 0.25s ease;
+  transition: opacity 0.25s ease;
+`
+
+TrackX.defaultProps = {
+  checked: false
+}
+
+const ReactToggle = styled.div`
+  touch-action: pan-x;
+
+  display: inline-block;
+  position: relative;
+  cursor: ${({disabled}) => disabled ? "not-allowed" : "pointer" };
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
+
+  ${({disabled}) => ( disabled && `
+    -webkit-transition: opacity 0.25s;
+    transition: opacity 0.25s;
+    opacity: 0.5;
+  `) };
+`
+
+ReactToggle.defaultProps = {
+  disabled: false,
 }
