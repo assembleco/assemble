@@ -11,6 +11,7 @@ import Loading from "components/loading"
 import Row from "layout/row"
 import Section from "components/section"
 import Form from "react-jsonschema-form"
+import ToggleSwitch from "components/toggle_switch"
 
 import dataQuery from "graphql/triggers.gql"
 import create_subscription from "graphql/create_subscription.gql"
@@ -157,8 +158,7 @@ class Subscription extends React.Component {
     return (
       <Footer>
         <label>
-          <input
-            type="checkbox"
+          <ToggleSwitch
             onChange={this.activeChanged.bind(this)}
             checked={this.state.active || false}
             />
