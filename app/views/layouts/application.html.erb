@@ -20,13 +20,13 @@
       docs_path: ENV.fetch("ABOUT_URL_DOCS"),
     ) %>
 
-    <%= content_for :hero %>
-
     <div class="content">
       <%= render "flashes" -%>
-      <%= yield %>
-      <%= render "javascript" %>
-      <%= render "css_overrides" %>
     </div>
+
+    <%= yield %>
+
+    <%= render "javascript" %>
+    <%= render "css_overrides" %>
   </body>
 </html>
