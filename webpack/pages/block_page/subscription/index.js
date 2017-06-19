@@ -162,13 +162,22 @@ class Subscription extends React.Component {
             onChange={this.activeChanged.bind(this)}
             checked={this.state.active || false}
             />
+
+          <OnOffLabel>
             {this.state.active ? "Active" : "Inactive" }
+          </OnOffLabel>
         </label>
 
-        <Hint>
-          When you're happy with how your block is set up,
-          turn it on and it will begin listening to events.
-        </Hint>
+        { this.state.active
+          ? <Hint>
+              This block is currently listening for events from this trigger.
+            </Hint>
+          : <Hint>
+              When you're happy with how your block is set up,
+              turn it on and it will begin listening to events.
+            </Hint>
+        }
+
       </Footer>
     )
   }
@@ -219,6 +228,10 @@ const Footer = styled.div`
   border-top: 1px solid lightgrey;
   margin-top: 0.75rem;
   padding-top: 0.75rem;
+`
+
+const OnOffLabel = styled.span`
+  margin-left: 1.5rem;
 `
 
 const trigger_prop_types = PropTypes.shape({
