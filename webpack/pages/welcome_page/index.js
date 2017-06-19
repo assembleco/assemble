@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import ApolloClient, { createNetworkInterface } from "apollo-client"
 import { ApolloProvider, graphql } from "react-apollo"
+import { Page } from "hedron"
 
 import WelcomePageQuery from "graphql/welcome_page.gql"
 
@@ -12,7 +13,7 @@ import Loading from "components/loading"
 const WelcomePage = (props) => (
   props.data.loading
   ? <Loading />
-  : <div>
+  : <Page width="1200px">
       <WelcomeMessage session={props.data.session}/>
 
       <Wrapper>
@@ -22,7 +23,7 @@ const WelcomePage = (props) => (
           )}
         </List>
       </Wrapper>
-    </div>
+    </Page>
 );
 
 const Wrapper = styled.div`

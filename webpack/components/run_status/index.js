@@ -9,34 +9,33 @@ class RunStatus extends React.Component {
   render() {
     if(this.props.status == "pending")
       return(
-        <Container id="pending" style={backgroundColors[this.props.status]} >
-          <Message>
-            Run is pending...
-          </Message>
-        </Container>
+        <Message id="pending" style={backgroundColors[this.props.status]} >
+          Run is pending...
+        </Message>
       );
     else
       return (
-        <Container id={this.props.status} style={backgroundColors[this.props.status]} >
+        <div id={this.props.status} style={backgroundColors[this.props.status]} >
           <Message>
             Run completed – {this.props.status}
           </Message>
 
           <div>
-            Output:
+            <Message>Output:</Message>
 
-            <pre>
+            <Code>
             {this.props.output}
-            </pre>
+            </Code>
           </div>
 
           <div>
-            Errors:
-            <pre>
+            <Message>Errors:</Message>
+
+            <Code>
             {this.props.errors}
-            </pre>
+            </Code>
           </div>
-        </Container>
+        </div>
       );
   }
 }
@@ -54,13 +53,13 @@ RunStatus.propTypes = {
   errors: PropTypes.string,
 }
 
-const Container = styled.div`
-  padding: 0.75rem;
+const Message = styled.div`
   margin-bottom: 1.5rem;
 `
 
-const Message = styled.div`
-  margin-bottom: 1.5rem;
+const Code = styled.pre`
+  overflow-x: scroll;
+  width: 20rem;
 `
 
 export default RunStatus;
