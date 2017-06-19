@@ -137,6 +137,7 @@ export default class Toggle extends PureComponent {
     return (
       <ReactToggle
         disabled={this.props.disabled}
+        checked={this.props.checked}
         onClick={this.handleClick}
         onTouchStart={this.handleTouchStart}
         onTouchMove={this.handleTouchMove}
@@ -152,7 +153,10 @@ export default class Toggle extends PureComponent {
           </TrackX>
         </Track>
 
-        <ToggleSwitchThumb checked={this.state.checked} />
+        <Thumb
+          checked={this.state.checked}
+          focused={this.state.hasFocus}
+        />
 
         <ScreenreaderInput
           {...inputProps}
@@ -196,7 +200,7 @@ Toggle.propTypes = {
   ]),
 }
 
-const ToggleSwitchThumb = styled.div`
+const Thumb = styled.div`
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
   position: absolute;
   top: 1px;
@@ -214,10 +218,17 @@ const ToggleSwitchThumb = styled.div`
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   transition: all 0.25s ease;
+
+  ${({focused}) => ( focused && `
+    -webkit-box-shadow: 0px 0px 3px 2px #0099E0;
+    -moz-box-shadow: 0px 0px 3px 2px #0099E0;
+    box-shadow: 0px 0px 2px 3px #0099E0;
+  `) };
 `
 
-ToggleSwitchThumb.defaultProps = {
+Thumb.defaultProps = {
   checked: false,
+  focused: false,
 }
 
 const ScreenreaderInput = styled.input`
@@ -263,6 +274,13 @@ const TrackCheck = styled.div`
   -webkit-transition: opacity 0.25s ease;
   -moz-transition: opacity 0.25s ease;
   transition: opacity 0.25s ease;
+
+  ${({checked}) => ( checked && `
+    -webkit-transition: opacity 0.25s ease;
+    -moz-transition: opacity 0.25s ease;
+    transition: opacity 0.25s ease;
+  `) };
+
 `
 
 TrackCheck.defaultProps = {
@@ -309,13 +327,31 @@ const ReactToggle = styled.div`
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-tap-highlight-color: transparent;
 
-  ${({disabled}) => ( disabled && `
-    -webkit-transition: opacity 0.25s;
-    transition: opacity 0.25s;
-    opacity: 0.5;
-  `) };
+  ${({disabled}) => ( disabled
+    ? `
+      -webkit-transition: opacity 0.25s;
+      transition: opacity 0.25s;
+      opacity: 0.5;
+    `
+    : `
+      &:active {
+        ${Thumb} {
+          -webkit-box-shadow: 0px 0px 5px 5px #0099E0;
+          -moz-box-shadow: 0px 0px 5px 5px #0099E0;
+          box-shadow: 0px 0px 5px 5px #0099E0;
+        }
+      }
+
+      &:hover {
+        ${Track} {
+          background-color: ${({checked}) => checked ? "#128D15" : "#000000"}
+        }
+      }
+    `
+  ) };
 `
 
 ReactToggle.defaultProps = {
   disabled: false,
+  checked: false,
 }
