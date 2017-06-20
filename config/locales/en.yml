@@ -47,10 +47,3 @@ en:
     update:
       success: "Thanks for sharing, %{name}!"
       failure: Hmmm... that doesn't look quite right.
-
-  about:
-    index:
-      greeting: Welcome, beautiful human, to
-      description:
-        one: We want to make it easy for anyone to access the power of technology – whether they know how to code or not.
-        two: We're working to create simple, understandable tools to bring the best parts of programming to everyone in the world.
