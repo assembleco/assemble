@@ -34,10 +34,16 @@ class BlocksController < ApplicationController
   def update
     @block = Block.find(params[:id])
 
-    if @block.update(block_params)
-      render json: @block.as_json
+    if @block.user == current_user
+      if @block.update(block_params)
+        render json: @block.as_json
+      else
+        render json: @block.errors.as_json
+      end
     else
-      render json: @block.errors.as_json
+      render status: :unauthorized, json: {
+        error: "You do not have permission to edit this block.",
+      }
     end
   end
 

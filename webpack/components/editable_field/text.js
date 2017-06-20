@@ -16,7 +16,7 @@ class EditableText extends React.Component {
   render() {
     return (
       <span>
-        {this.state.editedValue == null
+        {!this.state.editable || this.state.editedValue == null
           ? <span
             onClick={() => this.setState({ editedValue: this.props.initialValue })}
             role="link">
