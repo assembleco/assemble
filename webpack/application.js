@@ -1,6 +1,7 @@
 import $ from "jquery";
 import { mountComponents } from "react-rails-ujs";
 
+import AboutPage from "./pages/about_page";
 import BlockPage from "./pages/block_page";
 import WelcomePage from "./pages/welcome_page";
 
@@ -9,6 +10,7 @@ import JSONTree from "react-json-tree";
 import Schema from "./components/schema";
 
 mountComponents({
+  AboutPage,
   BlockPage,
   Header,
   JSONTree,

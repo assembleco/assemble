@@ -23,7 +23,7 @@ var config = {
       loader: 'babel-loader',
     },
     {
-      test: /\.(png|jpg)$/,
+      test: /\.(png|jpg|svg)$/,
       loader: 'url?limit=25000'
     },
     {
