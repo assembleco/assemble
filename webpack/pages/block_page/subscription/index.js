@@ -41,7 +41,7 @@ class Subscription extends React.Component {
 
           <Hint>
           Set up a trigger,
-          and your block ill run automatically henever that event happens.
+          and your block will run automatically whenever that event happens.
           </Hint>
 
           <Row>
@@ -117,7 +117,7 @@ class Subscription extends React.Component {
           <Hint>
             &lt;– Choose an event to get started.
             <br/>
-            Or, continue ith a free-standing block.
+            Or, continue with a free-standing block.
           </Hint>
         </Column>
       );
