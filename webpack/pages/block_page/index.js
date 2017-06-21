@@ -1,8 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
-import ApolloClient, { createNetworkInterface } from "apollo-client"
-import { ApolloProvider, graphql } from "react-apollo"
+
+import { graphql } from "react-apollo"
 import BlockPageQuery from "graphql/block_page.gql"
 
 import BlockSource from "./block_source";
@@ -90,21 +90,4 @@ const BlockPageWithData = graphql(BlockPageQuery, { options: {
   variables: { block_id: window.location.pathname.split("/")[2] }
 }})(BlockPage)
 
-const WrappedBlockPage = (props) => {
-  const client = new ApolloClient({
-    networkInterface: createNetworkInterface({
-      uri: "/api",
-      opts: {
-        credentials: 'same-origin',
-      },
-    }),
-  })
-
-  return (
-    <ApolloProvider client={client}>
-      <BlockPageWithData />
-    </ApolloProvider>
-  );
-};
-
-export default WrappedBlockPage;
+export default BlockPageWithData;

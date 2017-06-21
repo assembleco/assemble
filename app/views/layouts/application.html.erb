@@ -14,15 +14,6 @@
   </head>
 
   <body class="<%= body_class %>" data-rails-env="<%= Rails.env %>">
-    <%= react_component(
-      "Header",
-      current_user: current_user.try(:handle),
-    ) %>
-
-    <div class="content">
-      <%= render "flashes" -%>
-    </div>
-
     <%= react_component("App") %>
 
     <%= render "javascript" %>
