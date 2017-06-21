@@ -4,11 +4,8 @@ FactoryGirl.define do
   factory :block, aliases: [:destination] do
     user
     sequence(:name) { |n| "block_#{n}" }
-
-    command "ruby /app/script.rb"
-    dockerfile "FROM ruby\n"
     source "puts 'Hello, World!'\n"
-    source_path "/app/script.rb"
+    environment
   end
 
   factory :block_run do
@@ -18,6 +15,14 @@ FactoryGirl.define do
     status :success
     stderr ""
     stdout ""
+  end
+
+  factory :environment do
+    name "ruby"
+    command "ruby /app/script.rb"
+    source_path "/app/script.rb"
+    dockerfile "FROM ruby:latest"
+    preamble "# Comments describing how the block works"
   end
 
   factory :event do
