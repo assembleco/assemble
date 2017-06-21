@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615004315) do
+ActiveRecord::Schema.define(version: 20170621170350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,16 +35,15 @@ ActiveRecord::Schema.define(version: 20170615004315) do
   end
 
   create_table "blocks", force: :cascade do |t|
-    t.string   "name",        null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "name",           null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.text     "description"
     t.jsonb    "schema"
     t.integer  "user_id"
-    t.string   "command"
-    t.text     "dockerfile"
     t.text     "source"
-    t.string   "source_path"
+    t.integer  "environment_id"
+    t.index ["environment_id"], name: "index_blocks_on_environment_id", using: :btree
     t.index ["schema"], name: "index_blocks_on_schema", using: :gin
     t.index ["user_id"], name: "index_blocks_on_user_id", using: :btree
   end
@@ -62,6 +61,16 @@ ActiveRecord::Schema.define(version: 20170615004315) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+  end
+
+  create_table "environments", force: :cascade do |t|
+    t.string   "name",        null: false
+    t.string   "command"
+    t.string   "source_path"
+    t.text     "dockerfile"
+    t.text     "preamble"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -144,6 +153,7 @@ ActiveRecord::Schema.define(version: 20170615004315) do
 
   add_foreign_key "block_runs", "blocks"
   add_foreign_key "block_runs", "events"
+  add_foreign_key "blocks", "environments"
   add_foreign_key "blocks", "users"
   add_foreign_key "events", "subscriptions"
   add_foreign_key "secrets", "blocks"

@@ -4,6 +4,8 @@ class Block < ApplicationRecord
   EMPTY_SCHEMA = { type: "object", properties: {}, required: [] }.freeze
 
   belongs_to :user
+  belongs_to :environment
+
   has_many :runs, dependent: :destroy, class_name: "BlockRun"
   has_many :subscriptions, dependent: :destroy
 

@@ -5,6 +5,7 @@ Block.destroy_all
 SlackAuthentication.destroy_all
 User.destroy_all
 Service.destroy_all
+Environment.destroy_all
 
 user = User.create!(
   handle: "user",
@@ -30,13 +31,24 @@ Trigger.create!(
   default_options: { repo: "assembleapp/registry" },
 )
 
-Block.create!(
-  command: "ruby /app/debug.rb",
-  description: "Simply prints out the input that was passed to the flow.",
+ruby = Environment.create!(
+  name: "ruby",
+  command: "ruby /app/script.rb",
   dockerfile: "FROM ruby:latest\n",
+  source_path: "/app/script.rb",
+)
+node = Environment.create!(
+  name: "node",
+  command: "node /app/script.js",
+  dockerfile: "FROM node:latest\n",
+  source_path: "/app/script.js",
+)
+
+Block.create!(
+  description: "Simply prints out the input that was passed to the flow.",
+  environment: ruby,
   name: "debug",
   source: File.read("db/seeds/blocks/debug.rb"),
-  source_path: "/app/debug.rb",
   user: user,
 )
 
@@ -50,13 +62,11 @@ darksky_schema = {
   required: [:darksky_key, :latitude, :longitude],
 }
 Block.create!(
-  command: "ruby /app/darksky.rb",
   description: "This block connects to the Dark Sky API (https://darksky.net/) to pull the latest weather forecast information.",
-  dockerfile: "FROM ruby:latest\n",
+  environment: ruby,
   name: "forecast",
   schema: darksky_schema,
   source: File.read("db/seeds/blocks/darksky.rb"),
-  source_path: "/app/darksky.rb",
   user: user,
 )
 
@@ -76,13 +86,11 @@ pushover_schema = {
   required: [:text, :pushover]
 }
 Block.create!(
-  command: "node /app/pushover.js",
   description: "Use Pushover (https://pushover.net/) to send a notification to a user's phone",
-  dockerfile: "FROM node:latest\n",
+  environment: node,
   name: "phone_notification",
   schema: pushover_schema,
   source: File.read("db/seeds/blocks/pushover.js"),
-  source_path: "/app/pushover.js",
   user: user,
 )
 
@@ -101,12 +109,10 @@ transform_schema = {
   },
 }
 Block.create!(
-  command: "ruby /app/transform.rb",
   description: "Takes input data, and outputs the same data with some of the data renamed.",
-  dockerfile: "FROM ruby:latest\n",
+  environment: ruby,
   name: "transform",
   schema: transform_schema,
   source: File.read("db/seeds/blocks/transform.rb"),
-  source_path: "/app/transform.rb",
   user: user,
 )
