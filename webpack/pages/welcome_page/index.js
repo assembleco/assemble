@@ -1,10 +1,10 @@
 import React from "react"
 import styled from "styled-components"
-import ApolloClient, { createNetworkInterface } from "apollo-client"
-import { ApolloProvider, graphql } from "react-apollo"
-import { Page } from "hedron"
 
+import { graphql } from "react-apollo"
 import WelcomePageQuery from "graphql/welcome_page.gql"
+
+import { Page } from "hedron"
 
 import WelcomeMessage from "./welcome_message"
 import BlockListing from "components/block_listing"
@@ -41,21 +41,4 @@ const List = styled.div`
 
 const WelcomePageWithData = graphql(WelcomePageQuery)(WelcomePage)
 
-const WrappedWelcomePage = (props) => {
-  const client = new ApolloClient({
-    networkInterface: createNetworkInterface({
-      uri: "/api",
-      opts: {
-        credentials: 'same-origin',
-      },
-    }),
-  })
-
-  return (
-    <ApolloProvider client={client}>
-      <WelcomePageWithData />
-    </ApolloProvider>
-  );
-};
-
-export default WrappedWelcomePage;
+export default WelcomePageWithData;

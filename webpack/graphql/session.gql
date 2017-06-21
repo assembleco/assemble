@@ -1,0 +1,7 @@
+query Session {
+  session {
+    person {
+      handle
+    }
+  }
+}

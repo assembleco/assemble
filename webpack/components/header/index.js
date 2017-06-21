@@ -4,6 +4,9 @@ import $ from "jquery"
 import styled from "styled-components"
 import { Page } from 'hedron';
 
+import { graphql } from "react-apollo"
+import SessionQuery from "graphql/session.gql"
+
 import Logo from "../logo"
 
 class Header extends React.Component {
@@ -15,15 +18,19 @@ class Header extends React.Component {
             <Logo continuous />
 
             <Link href="/" className="header-title">Assemble</Link>
-            <Link href={this.props.docs_path}>Docs</Link>
+
+            <Link href="https://www.notion.so/assemble/Assemble-Documentation-006d3d9b69a0409ba8c456b08acc9cf1#e6b3629c7e7e469181a334fad3721c3b">
+              Docs
+            </Link>
+
             <Link href="/about">About</Link>
             <Link href="https://github.com/assembleapp/registry">GitHub</Link>
           </Left>
 
           <Right>
-            { this.props.current_user ?
+            { this.props.data.session ?
               <div>
-                <Link href="/user_info">{this.props.current_user}</Link>
+                <span>{this.props.data.session.person.handle}</span>
                 <Link className="button" onClick={this.sign_out}>Sign out</Link>
               </div>
               :
@@ -44,14 +51,10 @@ class Header extends React.Component {
   }
 }
 
-Header.propTypes = {
-  current_user: PropTypes.string,
-  docs_path: PropTypes.string.isRequired,
-}
-
 const Background = styled.div`
-  width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);;
+  margin-bottom: 1.5rem;
+  width: 100%;
 `
 
 const Menu = styled(Page)`
@@ -76,4 +79,6 @@ const Link = styled.a`
   margin-left: 1.5rem;
 `
 
-export default Header;
+const HeaderWithData = graphql(SessionQuery)(Header)
+
+export default HeaderWithData;
