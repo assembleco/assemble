@@ -6,30 +6,25 @@ class Toggle extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { open: true };
+    this.state = { open: props.open };
   }
 
   render() {
-    const date = new Date(this.props.created_at);
-
-    if(this.state.open)
-      return(
-        <Label role="link" onClick={this.toggle.bind(this)}>
-          {this.props.showLabel}
-        </Label>
-      )
-    else
-      return(
-        <div>
-          <Label role="link" onClick={this.toggle.bind(this)}>
-            {this.props.hideLabel}
-          </Label>
+    return (
+      this.state.open
+      ? <div>
+         <Label role="link" onClick={this.toggle.bind(this)}>
+           {this.props.hideLabel}
+         </Label>
 
           <div>
           {this.props.children}
           </div>
         </div>
-      )
+      : <Label role="link" onClick={this.toggle.bind(this)}>
+          {this.props.showLabel}
+        </Label>
+    )
   }
 
   toggle() {
@@ -38,9 +33,14 @@ class Toggle extends React.Component {
 }
 
 const Label = styled.div`
-  background-color: lightgray;
   color: blue;
   cursor: pointer;
 `
+
+Toggle.propTypes = {
+  hideLabel: PropTypes.string.isRequired,
+  open: PropTypes.bool,
+  showLabel: PropTypes.string.isRequired,
+}
 
 export default Toggle;
