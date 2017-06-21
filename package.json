@@ -16,6 +16,7 @@
     "react-jsonschema-form": "^0.42.0",
     "react-markdown": "^2.5.0",
     "react-rails-ujs": "^1.0.0",
+    "react-router-dom": "^4.1.1",
     "react-toggle": "^4.0.1",
     "stats-webpack-plugin": "^0.4.3",
     "styled-components": "^2.1.0",
