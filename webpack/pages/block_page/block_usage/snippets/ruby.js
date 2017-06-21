@@ -5,20 +5,29 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 
 import Hint from "components/hint"
 
-const RubySnippet = (props) => (
-  <div>
-    <Hint>
-    Tested on Ruby 2.4.1
-    </Hint>
+const RubySnippet = (props) => {
+  const data = {
+    query: "mutation ($block_id: ID!, $data: ArbitraryObject!) { create_run(block_id: $block_id, data: $data) { id status stdout stderr } } ",
+    variables: {
+      block_id: "18",
+      data: props.input_data
+    }
+  }
 
-    <SyntaxHighlighter language="ruby">
+  return (
+    <div>
+      <Hint>
+      Tested on Ruby 2.4.1
+      </Hint>
+
+      <SyntaxHighlighter language="ruby">
 {
 `require 'net/http'
 require 'uri'
 
 ASSEMBLE_USER_KEY = "${props.user_api_key}"
 
-input = '${JSON.stringify({ data: props.input_data }, null, 2)}'
+input = '${JSON.stringify(data, null, 2)}'
 
 uri = URI('${ props.run_block_url }')
 result = Net::HTTP.post(
@@ -36,9 +45,10 @@ else
 end
 `
 }
-    </SyntaxHighlighter>
-  </div>
-);
+      </SyntaxHighlighter>
+    </div>
+  );
+}
 
 RubySnippet.propTypes = {
   run_block_url: PropTypes.string.isRequired,
