@@ -7,6 +7,7 @@ import update_block from "graphql/update_block.gql"
 import create_run from "graphql/create_run.gql"
 import block_runs_query from "graphql/block_runs.gql"
 
+import Toggle from "components/toggle"
 import Column from "layout/column"
 import EditableField from "components/editable_field"
 import Hint from "components/hint"
@@ -120,11 +121,16 @@ class BlockSource extends React.Component {
 
         <BottomRow>
           { this.props.session
-          ? <BlockUsage
-              input_data={this.state.inputData}
-              run_block_url={`${window.location.href}/runs.json`}
-              user_api_key={this.props.user_api_key}
-            />
+          ? <Toggle
+              showLabel="Use this block from an existing codebase"
+              hideLabel="Hide"
+            >
+              <BlockUsage
+                input_data={this.state.inputData}
+                run_block_url={`${window.location.href}/runs.json`}
+                user_api_key={this.props.user_api_key}
+              />
+            </Toggle>
           : "Sign in with GitHub to try out this block."
           }
         </BottomRow>
