@@ -2,6 +2,9 @@ import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 
+import { graphql } from "react-apollo"
+import update_block from "graphql/update_block.gql"
+
 import Column from "layout/column"
 import EditableField from "components/editable_field"
 import Hint from "components/hint"
@@ -17,6 +20,7 @@ class BlockSource extends React.Component {
     super(props)
 
     this.state = {
+      environment: this.props.environment,
       source: this.props.source,
       schema: this.props.schema,
       inputData: this.props.initial_input_data,
@@ -72,6 +76,22 @@ class BlockSource extends React.Component {
           <Column>
             <h3>Block Source</h3>
 
+            <EnvironmentSelect>
+              <label>Environment:</label>
+
+              <select
+                value={this.state.environment.id}
+                onChange={this.environmentChanged.bind(this)}
+                disabled={!this.props.editable}
+                >
+                { this.props.environments.map((env) => (
+                  <option key={env.id} value={env.id}>
+                    {env.name}
+                  </option>
+                )) }
+              </select>
+            </EnvironmentSelect>
+
             <EditableField.Text
               hint={<div>
                 <p>
@@ -108,6 +128,19 @@ class BlockSource extends React.Component {
         </BottomRow>
       </Section>
     );
+  }
+
+  environmentChanged(event) {
+    let newEnvironmentID = event.target.value
+
+    let request = this.props.update_block({ variables: {
+      environment_id: parseInt(newEnvironmentID),
+      id: parseInt(this.props.id),
+    }})
+
+    request.then(({ data }) => this.setState({
+      environment: data.update_block.environment,
+    }))
   }
 
   onSubmit(event) {
@@ -164,15 +197,23 @@ const Button = styled.button`
   float: right;
 `
 
+const EnvironmentSelect = styled.div`
+  select, label {
+    display: inline;
+  }
+
+  label {
+    margin-right: 0.75rem;
+  }
+`
+
 BlockSource.propTypes = {
   id: PropTypes.string.isRequired,
   source: PropTypes.string.isRequired,
   editable: PropTypes.bool.isRequired,
   environment: PropTypes.shape({
-    command: PropTypes.string.isRequired,
-    source_path: PropTypes.string.isRequired,
-    dockerfile: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
   }).isRequired,
 }
 
-export default BlockSource;
+export default graphql(update_block, { name: "update_block" })(BlockSource);
