@@ -25,7 +25,7 @@ class BlockRunsController < ApplicationController
         }
       end
     else
-      render text: run.errors.full_messages.to_yml
+      render plain: run.errors.full_messages.to_yml
     end
   end
 

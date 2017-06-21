@@ -17,14 +17,13 @@
     <%= react_component(
       "Header",
       current_user: current_user.try(:handle),
-      docs_path: ENV.fetch("ABOUT_URL_DOCS"),
     ) %>
 
     <div class="content">
       <%= render "flashes" -%>
     </div>
 
-    <%= yield %>
+    <%= react_component("App") %>
 
     <%= render "javascript" %>
     <%= render "css_overrides" %>
