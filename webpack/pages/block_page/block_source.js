@@ -14,10 +14,7 @@ class BlockSource extends React.Component {
     super(props)
 
     this.state = {
-      command: this.props.command,
-      source_path: this.props.source_path,
       source: this.props.source,
-      dockerfile: this.props.dockerfile,
     }
   }
 
@@ -27,45 +24,13 @@ class BlockSource extends React.Component {
         <Row>
           <Column>
             <h3>Command</h3>
-            <EditableField.String
-              editable={this.props.editable}
-              hint="How do we run your code?"
-              onChange={this.commandUpdated.bind(this)}
-              initialValue={this.state.command}>
-              <Code>{ this.state.command }</Code>
-            </EditableField.String>
+            <Code>{ this.props.environment.command }</Code>
 
             <h3>Source Path</h3>
-            <EditableField.String
-              editable={this.props.editable}
-              hint="Where should we save your script in your virtual machine?"
-              initialValue={this.state.source_path}
-              onChange={this.sourcePathUpdated.bind(this)}>
-                <Code>{ this.state.source_path }</Code>
-            </EditableField.String>
+            <Code>{ this.props.environment.source_path }</Code>
 
             <h3>Dockerfile</h3>
-            <EditableField.Text
-              hint={<div>
-                <p>
-                Define your code's environment as a Dockerfile –
-                check out the <a href='https://www.digitalocean.com/community/tutorials/docker-explained-using-dockerfiles-to-automate-building-of-images'>official reference</a> or
-                get in touch with the chat button in the corner
-                if you're not familiar with Dockerfiles.
-                </p>
-                <p>
-                Soon, you won't need to worry about this.
-                We're working on automatically detecting
-                your code's environment and dependencies
-                so that all you need to write is the code.
-                </p>
-              </div>}
-              editable={this.props.editable}
-              onChange={this.dockerfileUpdated.bind(this)}
-              initialValue={this.state.dockerfile}
-              >
-              <pre>{ this.state.dockerfile }</pre>
-            </EditableField.Text>
+            <pre>{ this.props.environment.dockerfile }</pre>
           </Column>
 
           <Column>
@@ -98,24 +63,9 @@ class BlockSource extends React.Component {
     );
   }
 
-  commandUpdated(newCommand) {
-    this.setState({ command: newCommand })
-    updateBlock({ command: newCommand }, this.props.id)
-  }
-
-  sourcePathUpdated(newSourcePath) {
-    this.setState({ source_path: newSourcePath })
-    updateBlock({ source_path: newSourcePath }, this.props.id)
-  }
-
   sourceUpdated(newSource) {
     this.setState({ source: newSource })
     updateBlock({ source: newSource }, this.props.id)
-  }
-
-  dockerfileUpdated(newDockerfile) {
-    this.setState({ dockerfile: newDockerfile })
-    updateBlock({ dockerfile: newDockerfile }, this.props.id)
   }
 }
 

@@ -1,19 +1,22 @@
 query BlockQuery ($block_id: ID!) {
   block(id: $block_id) {
-    command
     created_at
     description
-    dockerfile
     editable
     id
     initial_input_data
     name
     schema
     source
-    source_path
 
     author {
       handle
+    }
+
+    environment {
+      command
+      dockerfile
+      source_path
     }
 
     subscription {

@@ -46,12 +46,10 @@ const BlockPage = ({ data }) => (
 
         <BlockSource
           id={data.block.id}
-          command={data.block.command}
+          environment={data.block.environment}
           editable={data.block.editable}
-          dockerfile={data.block.dockerfile}
           name={data.block.name}
           source={data.block.source}
-          source_path={data.block.source_path}
           user={data.block.author}
         />
 

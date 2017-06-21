@@ -3,14 +3,12 @@ Types::Block = GraphQL::ObjectType.define do
   description "A standalone, executable serverless function"
 
   field :active, !types.Boolean
-  field :command, types.String
   field :created_at, !Types::Time
   field :description, types.String
-  field :dockerfile, types.String
+  field :environment, !Types::Environment
   field :id, !types.ID
   field :name, types.String
   field :source, types.String
-  field :source_path, types.String
   field :udpated_at, !Types::Time
   field :schema, !Types::ArbitraryObject
 
