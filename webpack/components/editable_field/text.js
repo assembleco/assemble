@@ -16,11 +16,13 @@ class EditableText extends React.Component {
   render() {
     return (
       <span>
-        {!this.state.editable || this.state.editedValue == null
+        {!this.props.editable || this.state.editedValue == null
           ? <span
             onClick={() => this.setState({ editedValue: this.props.initialValue })}
-            role="link">
-            {this.props.children}
+            role="link"
+            >
+              {this.props.children}
+              { this.props.editable && <Hint>^ Click to edit</Hint> }
             </span>
           : <div>
               <Hint>{this.props.hint}</Hint>
