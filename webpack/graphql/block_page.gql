@@ -14,9 +14,7 @@ query BlockQuery ($block_id: ID!) {
     }
 
     environment {
-      command
-      dockerfile
-      source_path
+      id
     }
 
     subscription {
@@ -42,5 +40,10 @@ query BlockQuery ($block_id: ID!) {
 
   session {
     api_key
+  }
+
+  environments {
+    id
+    name
   }
 }

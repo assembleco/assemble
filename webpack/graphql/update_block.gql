@@ -1,0 +1,8 @@
+mutation updateBlock($id: ID!, $environment_id: ID!) {
+  update_block(id: $id, environment_id: $environment_id) {
+    environment {
+      id
+      name
+    }
+  }
+}

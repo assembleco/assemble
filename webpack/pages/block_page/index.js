@@ -29,14 +29,15 @@ const BlockPage = ({ data }) => (
         />
 
         <BlockSource
-          id={data.block.id}
-          environment={data.block.environment}
           editable={data.block.editable}
-          name={data.block.name}
-          source={data.block.source}
-          session={data.session}
+          environment={data.block.environment}
+          environments={data.environments}
+          id={data.block.id}
           initial_input_data={data.block.initial_input_data}
+          name={data.block.name}
           schema={data.block.schema}
+          session={data.session}
+          source={data.block.source}
           user_api_key={data.session.api_key}
         />
 

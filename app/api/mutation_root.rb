@@ -6,6 +6,7 @@ MutationRoot = GraphQL::ObjectType.define do
     Mutations::CreateSubscription,
     Mutations::DeactivateSubscription,
     Mutations::DestroySubscription,
+    Mutations::UpdateBlock,
     Mutations::UpdateSubscription,
   ].each do |mutation|
     field File.basename(mutation.to_s.underscore), mutation.return_type do
