@@ -27,7 +27,7 @@ class Title extends React.Component {
     const date = new Date(this.props.created_at);
 
     return(
-      <Row>
+      <Wrapper>
         <Logo />
 
         <Column>
@@ -70,7 +70,7 @@ class Title extends React.Component {
             <Markdown source={this.state.description}/>
           </EditableField.Text>
         </Column>
-      </Row>
+      </Wrapper>
     );
   }
 
@@ -84,6 +84,10 @@ class Title extends React.Component {
     updateBlock({ description: newDescription }, this.props.id)
   }
 }
+
+const Wrapper = styled(Row)`
+  margin-bottom: 1.5rem;
+`
 
 Title.propTypes = {
   created_at: PropTypes.string.isRequired,

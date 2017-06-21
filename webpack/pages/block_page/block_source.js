@@ -7,7 +7,10 @@ import EditableField from "components/editable_field"
 import Hint from "components/hint"
 import Row from "layout/row"
 import Section from "components/section"
+import BlockUsage from "pages/block_page/block_usage";
 import updateBlock from "util/update_block"
+
+import Form from "react-jsonschema-form"
 
 class BlockSource extends React.Component {
   constructor(props) {
@@ -15,26 +18,59 @@ class BlockSource extends React.Component {
 
     this.state = {
       source: this.props.source,
+      schema: this.props.schema,
+      inputData: this.props.initial_input_data,
     }
   }
 
   render() {
+    const uiSchema =  {
+      ssh_private_key: {
+        "ui:widget": "textarea"
+      }
+    };
+
     return(
       <Section>
         <Row>
+          <LeftColumn>
+            <h3>Block Input</h3>
+
+            <Hint>
+            These variables will be passed into your block as JSON data.
+            </Hint>
+
+            <EditableField.Schema
+              editable={this.props.editable}
+              initialValue={this.state.schema}
+              onChange={this.schemaUpdated.bind(this)}
+              >
+
+              <Form
+                uiSchema={uiSchema}
+                schema={this.state.schema}
+                onChange={ (e) => this.setState({ inputData: e.formData }) }
+                onSubmit={this.onSubmit.bind(this)}
+                formData={this.state.inputData}
+                >
+                <FormFooter>
+                  <a onClick={() => this.setState({ inputData: {} }) }>
+                    Clear input fields
+                  </a>
+
+                  <Button
+                    type="submit"
+                    disabled={this.props.user_api_key == null}
+                  >
+                    Run the block with these inputs
+                  </Button>
+                </FormFooter>
+              </Form>
+            </EditableField.Schema>
+          </LeftColumn>
+
           <Column>
-            <h3>Command</h3>
-            <Code>{ this.props.environment.command }</Code>
-
-            <h3>Source Path</h3>
-            <Code>{ this.props.environment.source_path }</Code>
-
-            <h3>Dockerfile</h3>
-            <pre>{ this.props.environment.dockerfile }</pre>
-          </Column>
-
-          <Column>
-            <h3>Source</h3>
+            <h3>Block Source</h3>
 
             <EditableField.Text
               hint={<div>
@@ -59,8 +95,38 @@ class BlockSource extends React.Component {
             </EditableField.Text>
           </Column>
         </Row>
+
+        <BottomRow>
+          { this.props.session
+          ? <BlockUsage
+              input_data={this.state.inputData}
+              run_block_url={`${window.location.href}/runs.json`}
+              user_api_key={this.props.user_api_key}
+            />
+          : "Sign in with GitHub to try out this block."
+          }
+        </BottomRow>
       </Section>
     );
+  }
+
+  onSubmit(event) {
+    this.setState({ run: { status: "pending" } });
+
+    $.post(
+      this.props.run_block_url,
+      { data: event.formData },
+      this.runFinished.bind(this),
+    )
+  }
+
+  schemaUpdated(newSchema) {
+    this.setState({schema: newSchema})
+
+    updateBlock(
+      { schema_json: JSON.stringify(newSchema) },
+      this.props.id,
+    )
   }
 
   sourceUpdated(newSource) {
@@ -74,17 +140,39 @@ const Icon = styled.img`
 `
 
 const Code = styled.code`
-  background-color: lightgray;
+  background-color: lightgrey;
   color: red;
+`
+
+const LeftColumn = styled(Column)`
+  border-right: 1px solid lightgrey;
+  padding-right: 0.75rem;
+`
+
+const BottomRow = styled(Row)`
+  border-top: 1px solid lightgrey;
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+`
+
+const FormFooter = styled.div`
+  position: relative;
+  overflow: hidden;
+`
+
+const Button = styled.button`
+  float: right;
 `
 
 BlockSource.propTypes = {
   id: PropTypes.string.isRequired,
-  command: PropTypes.string.isRequired,
-  source_path: PropTypes.string.isRequired,
   source: PropTypes.string.isRequired,
-  dockerfile: PropTypes.string.isRequired,
   editable: PropTypes.bool.isRequired,
+  environment: PropTypes.shape({
+    command: PropTypes.string.isRequired,
+    source_path: PropTypes.string.isRequired,
+    dockerfile: PropTypes.string.isRequired,
+  }).isRequired,
 }
 
 export default BlockSource;
