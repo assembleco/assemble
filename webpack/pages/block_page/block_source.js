@@ -2,8 +2,10 @@ import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 
-import { graphql } from "react-apollo"
+import { graphql, compose } from "react-apollo"
 import update_block from "graphql/update_block.gql"
+import create_run from "graphql/create_run.gql"
+import block_runs_query from "graphql/block_runs.gql"
 
 import Column from "layout/column"
 import EditableField from "components/editable_field"
@@ -144,13 +146,16 @@ class BlockSource extends React.Component {
   }
 
   onSubmit(event) {
-    this.setState({ run: { status: "pending" } });
-
-    $.post(
-      this.props.run_block_url,
-      { data: event.formData },
-      this.runFinished.bind(this),
-    )
+    this.props.create_run({
+      variables: {
+        block_id: this.props.id,
+        data: event.formData,
+      },
+      refetchQueries: [{
+        query: block_runs_query,
+        variables: { block_id: this.props.id },
+      }],
+    })
   }
 
   schemaUpdated(newSchema) {
@@ -216,4 +221,7 @@ BlockSource.propTypes = {
   }).isRequired,
 }
 
-export default graphql(update_block, { name: "update_block" })(BlockSource);
+export default compose(
+  graphql(update_block, { name: "update_block" }),
+  graphql(create_run, { name: "create_run" }),
+)(BlockSource);

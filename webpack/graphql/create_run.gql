@@ -1,0 +1,5 @@
+mutation ($block_id: ID!, $data: ArbitraryObject!) {
+  create_run(block_id: $block_id, data: $data) {
+    id
+  }
+}
