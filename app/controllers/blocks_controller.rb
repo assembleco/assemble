@@ -7,11 +7,11 @@ class BlocksController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
   def index
+    render html: "", layout: true
   end
 
   def show
-    @block = Block.find(params[:id])
-    editable = current_user == @block.user
+    render html: "", layout: true
   end
 
   def create
