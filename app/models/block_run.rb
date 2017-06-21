@@ -14,27 +14,27 @@ class BlockRun < ApplicationRecord
   def execute
     if schema_satisfied?
       Dir.mktmpdir do |dir|
-        File.write("#{dir}/Dockerfile", block.dockerfile)
+        File.write("#{dir}/Dockerfile", block.environment.dockerfile)
         image = Docker::Image.build_from_dir(dir)
 
         container = Docker::Container.create("Image" => image.id, "Tty" => true)
         container.start
 
-        container.store_file(block.source_path, block.source.gsub("\r\n", "\n"))
+        container.store_file(
+          block.environment.source_path,
+          block.source.gsub("\r\n", "\n"),
+        )
 
-        puts "Input:"
-        puts  input.to_json
-
-        output, errors, self.exit_status = container.exec(
-          block.command.split(" "),
+        stdout, stderr, self.exit_status = container.exec(
+          block.environment.command.split(" "),
           stdin: StringIO.new(input.to_json),
         )
 
         container.stop
         container.delete
 
-        self.stdout = output.join
-        self.stderr = errors.join
+        self.stdout = stdout.join
+        self.stderr = stderr.join
 
         save
       end

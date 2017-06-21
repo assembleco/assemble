@@ -29,6 +29,8 @@ class BlockRuns extends React.Component {
       run.id == this.state.selectedRunID
     ))[0];
 
+    let runs = this.props.data.block.runs.slice()
+
     return (
       <Wrapper>
         { this.state.selectedRunID
@@ -49,12 +51,13 @@ class BlockRuns extends React.Component {
               <Hint>Refresh to update</Hint>
             </RunListTitle>
 
-            { this.props.data.block.runs.map((run) => (
+            { runs.reverse().map((run) => (
               <Run
                 key={run.id}
                 onClick={() => this.setState({ selectedRunID: run.id }) }
                 style={backgroundColors[run.status]}
                 >
+                #{run.id},
                 Run on { run.created_at }
                 <RightText>&gt;</RightText>
               </Run>
