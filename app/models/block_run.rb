@@ -33,8 +33,8 @@ class BlockRun < ApplicationRecord
         container.stop
         container.delete
 
-        self.stdout = stdout.join
-        self.stderr = stderr.join
+        self.stdout = clean(stdout.join)
+        self.stderr = clean(stderr.join)
 
         save
       end
@@ -54,6 +54,14 @@ class BlockRun < ApplicationRecord
   end
 
   private
+
+  def clean(text)
+    text.to_s.encode('UTF-8', {
+      invalid: :replace,
+      undef: :replace,
+      replace: '?',
+    })
+  end
 
   def container_assemble_dir
     "/.assemble"
