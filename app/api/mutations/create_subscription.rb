@@ -1,29 +1,35 @@
-class Mutations::CreateSubscription < Mutations::Base
-  def self.arguments(types)
-    {
-      block_id: types.ID,
-      trigger_id: types.ID,
-    }
-  end
+module Mutations
+  class CreateSubscription < Mutations::Base
+    def self.arguments(types)
+      {
+        block_id: types.ID,
+        trigger_id: types.ID,
+      }
+    end
 
-  def self.description
-    "Subscribe a block to a trigger"
-  end
+    def self.description
+      "Subscribe a block to a trigger"
+    end
 
-  def self.return_type
-    Types::Subscription
-  end
+    def self.return_type
+      Types::Subscription
+    end
 
-  def execute
-    trigger = Trigger.find(args[:trigger_id])
+    def execute
+      person = context[:session]
+      block = Block.find(args[:block_id])
+      trigger = Trigger.find(args[:trigger_id])
 
-    subscription = Subscription.create!(
-      block: Block.find(args[:block_id]),
-      trigger: trigger,
-      user: context[:session],
-      trigger_options: trigger.default_options,
-    )
+      block.subscriptions.where(user: person).destroy_all
 
-    subscription
+      subscription = Subscription.create!(
+        block: block,
+        trigger: trigger,
+        user: person,
+        trigger_options: trigger.default_options,
+      )
+
+      subscription
+    end
   end
 end
