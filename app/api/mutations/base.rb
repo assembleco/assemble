@@ -1,13 +1,15 @@
-class Mutations::Base
-  def self.execute(object, args, context)
-    new(object, args, context).execute
-  end
+module Mutations
+  class Base
+    def self.execute(object, args, context)
+      new(object, args, context).execute
+    end
 
-  def initialize(object, args, context)
-    @object = object
-    @args = args
-    @context = context
-  end
+    def initialize(object, args, context)
+      @object = object
+      @args = args
+      @context = context
+    end
 
-  attr_reader :object, :args, :context
+    attr_reader :object, :args, :context
+  end
 end
