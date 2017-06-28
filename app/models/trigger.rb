@@ -1,10 +1,14 @@
 require "trigger_strategy/github/push"
+require "trigger_strategy/time/recurring"
 
 class Trigger < ApplicationRecord
   STRATEGIES = {
     "github.com" => {
       push: TriggerStrategy::GitHub::Push
     },
+    "assembleapp.co" => {
+      recurring: TriggerStrategy::Time::Recurring
+    }
   }.freeze
 
   belongs_to :service

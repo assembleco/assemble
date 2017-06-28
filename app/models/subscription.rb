@@ -32,7 +32,7 @@ class Subscription < ApplicationRecord
   end
 
   def record_event(webhook_params)
-    event = service.record_event(webhook_params, self)
+    event = service.record_event(webhook_params)
 
     run = BlockRun.create!(
       block: block,
@@ -41,7 +41,7 @@ class Subscription < ApplicationRecord
       event: event,
     )
 
-    run.execute
+    run.delay.execute
   end
 
   def trigger=(value)
@@ -61,6 +61,6 @@ class Subscription < ApplicationRecord
   end
 
   def service
-    @service ||= trigger.strategy.new(user, trigger_options)
+    @service ||= trigger.strategy.new(self)
   end
 end

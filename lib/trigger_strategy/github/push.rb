@@ -1,12 +1,9 @@
 module TriggerStrategy
   module GitHub
     class Push
-      def initialize(authentication, options)
-        @authentication = authentication
-        @options = options.with_indifferent_access
+      def initialize(subscription)
+        @subscription = subscription
       end
-
-      attr_reader :authentication, :options
 
       # Returns the remote webhook ID
       def activate
@@ -35,7 +32,9 @@ module TriggerStrategy
         github_client.remove_hook(repo, remote_webhook_id)
       end
 
-      def record_event(payload, subscription)
+      # TODO: never call this method directly.
+      # Instead, use `Subscription#record_event`.
+      def record_event(payload)
         Event.create!(data: payload.as_json, subscription: subscription)
       end
 
@@ -46,7 +45,7 @@ module TriggerStrategy
       end
 
       def github_client
-        Octokit::Client.new(access_token: authentication.github_token)
+        Octokit::Client.new(access_token: subscription.user.github_token)
       end
 
       def host
@@ -55,6 +54,10 @@ module TriggerStrategy
 
       def github_signature_secret
         ENV.fetch("GITHUB_SIGNATURE_SECRET")
+      end
+
+      def options
+        subscription.trigger_options.with_indifferent_access
       end
     end
   end
