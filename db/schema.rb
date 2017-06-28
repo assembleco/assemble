@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170621170350) do
+ActiveRecord::Schema.define(version: 20170628180318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,16 @@ ActiveRecord::Schema.define(version: 20170621170350) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.index ["subscription_id"], name: "index_events_on_subscription_id", using: :btree
+  end
+
+  create_table "recurring_events", force: :cascade do |t|
+    t.integer  "frequency_quantity", null: false
+    t.string   "frequency_unit",     null: false
+    t.integer  "subscription_id",    null: false
+    t.string   "at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["subscription_id"], name: "index_recurring_events_on_subscription_id", using: :btree
   end
 
   create_table "secrets", force: :cascade do |t|
@@ -156,6 +166,7 @@ ActiveRecord::Schema.define(version: 20170621170350) do
   add_foreign_key "blocks", "environments"
   add_foreign_key "blocks", "users"
   add_foreign_key "events", "subscriptions"
+  add_foreign_key "recurring_events", "subscriptions"
   add_foreign_key "secrets", "blocks"
   add_foreign_key "secrets", "users"
   add_foreign_key "slack_authentications", "users"

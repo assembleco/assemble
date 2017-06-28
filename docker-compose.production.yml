@@ -1,6 +1,14 @@
 version: "2.1"
 
 services:
+  clock:
+    command: bundle exec clockwork util/clock.rb
+    image: assemble/web
+    links:
+      - db
+    volumes:
+      - .:/app
+
   db:
     image: postgres:latest
     expose:
