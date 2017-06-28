@@ -68,6 +68,9 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     cliver (0.3.2)
+    clockwork (2.0.2)
+      activesupport
+      tzinfo
     coderay (1.1.1)
     concurrent-ruby (1.0.4)
     crack (0.4.3)
@@ -323,6 +326,7 @@ DEPENDENCIES
   bourbon
   bullet
   bundler-audit (>= 0.5.0)
+  clockwork
   coderay
   database_cleaner
   delayed_job_active_record

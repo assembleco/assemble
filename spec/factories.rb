@@ -30,6 +30,12 @@ FactoryGirl.define do
     trigger
   end
 
+  factory :recurring_event do
+    frequency_quantity 1
+    frequency_unit "day"
+    subscription
+  end
+
   factory :service do
     name "GitHub"
     domain "github.com"
