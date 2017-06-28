@@ -15,6 +15,7 @@ user = User.create!(
 )
 
 github = Service.create!(name: "GitHub", domain: "github.com")
+time = Service.create!(name: "Time-based", domain: "assembleapp.co")
 
 trigger_schema = {
   type: :object,
@@ -29,6 +30,26 @@ Trigger.create!(
   description: "New commits pushed to the GitHub repository",
   options_schema: trigger_schema,
   default_options: { repo: "assembleapp/registry" },
+)
+
+trigger_schema = {
+  type: :object,
+  properties: {
+    frequency_quantity: { type: :integer },
+    frequency_unit: { type: :string },
+    at: { type: :string },
+  },
+  required: [:frequency_quantity, :frequency_unit]
+}
+Trigger.create!(
+  service: time,
+  name: "Recurring",
+  description: "Run this block repeatedly at a certain time interval",
+  options_schema: trigger_schema,
+  default_options: {
+    frequency_quantity: 1,
+    frequency_unit: "day",
+  },
 )
 
 ruby = Environment.create!(
