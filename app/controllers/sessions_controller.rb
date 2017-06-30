@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       flash[:notice] =  t(".success", name: user.handle)
       redirect_to :root
     elsif provider?(:slack)
-      create_slack_authentication
+      create_authentication(:slack)
 
       redirect_to :root
     end
@@ -32,15 +32,8 @@ class SessionsController < ApplicationController
     request.env["omniauth.auth"]
   end
 
-  def create_slack_authentication
-    SlackAuthentication.create!(
-      handle: auth_hash.fetch(:info).fetch(:user),
-      team: auth_hash.fetch(:info).fetch(:team),
-      slack_team_id: auth_hash.fetch(:info).fetch(:team_id),
-      token: auth_hash.fetch(:credentials).fetch(:token),
-      user: current_user,
-      slack_user_id: auth_hash.fetch(:info).fetch(:user_id),
-    )
+  def create_authentication(provider)
+    raise NotImplementedError
   end
 
   def provider?(provider_id)
