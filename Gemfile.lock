@@ -45,6 +45,12 @@ GEM
     autoprefixer-rails (6.5.1)
       execjs
     awesome_print (1.7.0)
+    better_errors (2.1.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bitters (1.4.0)
       bourbon (>= 5.0.0.beta.6)
       sass (~> 3.4)
@@ -323,6 +329,8 @@ DEPENDENCIES
   attr_encrypted (~> 3.0)
   autoprefixer-rails
   awesome_print
+  better_errors
+  binding_of_caller
   bourbon
   bullet
   bundler-audit (>= 0.5.0)
@@ -381,4 +389,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.14.5
+   1.14.6
