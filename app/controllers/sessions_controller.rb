@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
     redirect_to :root
   end
 
+
   def destroy
     self.current_user = nil
     render json: { status: :ok }

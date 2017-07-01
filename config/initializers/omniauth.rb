@@ -14,4 +14,11 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     ENV.fetch("SLACK_CLIENT_SECRET"),
     scope: "commands",
   )
+
+  provider(
+    :bitbucket,
+    ENV["BITBUCKET_KEY"],
+    ENV["BITBUCKET_SECRET"],
+    scope: "repository,email,webhook",
+  )
 end
