@@ -37,6 +37,8 @@ gem "uglifier"
 gem "webpack-rails"
 
 group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
   gem "graphiql-rails"
   gem "listen"
   gem "web-console"
