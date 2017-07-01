@@ -3,6 +3,7 @@
 BlockRun.destroy_all
 Block.destroy_all
 User.destroy_all
+Trigger.destroy_all
 Service.destroy_all
 Environment.destroy_all
 
@@ -13,9 +14,23 @@ user = User.create!(
   email: "person@example.com",
 )
 
-github = Service.create!(name: "GitHub", domain: "github.com")
-time = Service.create!(name: "Time-based", domain: "assembleapp.co")
+# bitbucket = Service.create!(name: "BitBucket", domain: "bitbucket.org", oauth_provider: "bitbucket")
+# trigger_schema = {
+#   type: :object,
+#   properties: {
+#     repo: { type: :string },
+#   },
+#   required: [:repo]
+# }
+# Trigger.create!(
+#   service: bitbucket,
+#   name: "Push",
+#   description: "New commits pushed to the BitBucket repository",
+#   options_schema: trigger_schema,
+#   default_options: { repo: "graysonwright/assemble_test" },
+# )
 
+github = Service.create!(name: "GitHub", domain: "github.com")
 trigger_schema = {
   type: :object,
   properties: {
@@ -31,6 +46,7 @@ Trigger.create!(
   default_options: { repo: "assembleapp/registry" },
 )
 
+time = Service.create!(name: "Time-based", domain: "assembleapp.co")
 trigger_schema = {
   type: :object,
   properties: {

@@ -158,6 +158,7 @@ GEM
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     normalize-rails (3.0.3)
+    oauth (0.5.3)
     oauth2 (1.3.1)
       faraday (>= 0.8, < 0.12)
       jwt (~> 1.0)
@@ -174,9 +175,16 @@ GEM
     omniauth (1.6.1)
       hashie (>= 3.4.6, < 3.6.0)
       rack (>= 1.6.2, < 3)
+    omniauth-bitbucket (0.0.2)
+      multi_json (~> 1.7)
+      omniauth (~> 1.1)
+      omniauth-oauth (~> 1.0)
     omniauth-github (1.0.1)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
+    omniauth-oauth (1.1.0)
+      oauth
+      omniauth (~> 1.0)
     omniauth-oauth2 (1.3.1)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
@@ -355,6 +363,7 @@ DEPENDENCIES
   normalize-rails (~> 3.0.0)
   octicons_helper
   octokit
+  omniauth-bitbucket
   omniauth-github
   omniauth-slack
   pg
