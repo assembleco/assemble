@@ -73,17 +73,16 @@ class Subscription extends React.Component {
   }
 
   triggerSelected(event) {
-    let trigger_index = parseInt(event.target.selectedOptions[0].value)
-    let selected_trigger = this.props.data.triggers[trigger_index-1]
+    let trigger_id = parseInt(event.target.selectedOptions[0].value)
 
-    if(selected_trigger) {
+    if(trigger_id) {
       let request = this.props.create_subscription({ variables: {
-        trigger_id: parseInt(selected_trigger.id),
+        trigger_id: parseInt(trigger_id),
         block_id: parseInt(this.props.block_id),
       }})
 
       request.then(({ data }) => this.setState({
-        trigger: selected_trigger,
+        trigger: data.create_subscription.trigger,
         id: data.create_subscription.id,
         trigger_options: data.create_subscription.trigger_options,
       }))
@@ -94,7 +93,7 @@ class Subscription extends React.Component {
 
       request.then(({ data }) => { this.setState({
         id: null,
-        trigger: selected_trigger,
+        trigger: null,
       }) })
     }
   }
