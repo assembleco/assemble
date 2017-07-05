@@ -1,3 +1,5 @@
+#import "./fragments/subscription.gql"
+
 query BlockQuery ($block_id: ID!) {
   block(id: $block_id) {
     created_at
@@ -18,23 +20,7 @@ query BlockQuery ($block_id: ID!) {
     }
 
     subscription {
-      active
-      data_overrides
-      id
-      trigger_options
-
-      trigger {
-        id
-        name
-        description
-        options_schema
-        data_schema
-
-        service {
-          name
-          domain
-        }
-      }
+      ...subscription
     }
   }
 

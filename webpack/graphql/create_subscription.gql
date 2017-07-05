@@ -1,15 +1,11 @@
+#import "./fragments/subscription.gql"
+
 mutation ($trigger_id: ID, $block_id: ID) {
   create_subscription(
       trigger_id: $trigger_id,
       block_id: $block_id,
     ) {
 
-    id
-    trigger_options
-
-    trigger {
-      name
-      id
-    }
+    ...subscription
   }
 }

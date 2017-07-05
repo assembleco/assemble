@@ -1,0 +1,19 @@
+fragment subscription on Subscription {
+  active
+  data_overrides
+  id
+  trigger_options
+
+  trigger {
+    id
+    name
+    description
+    options_schema
+    data_schema
+
+    service {
+      name
+      domain
+    }
+  }
+}
