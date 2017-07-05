@@ -19,5 +19,7 @@ module AppFactory
     config.webpack.dev_server.manifest_host = 'webpack'
     config.webpack.dev_server.manifest_port = 8888
     config.webpack.dev_server.port = 8888
+
+    config.autoload_paths += %W(#{config.root}/lib)
   end
 end
