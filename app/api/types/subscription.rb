@@ -8,6 +8,7 @@ Types::Subscription = GraphQL::ObjectType.define do
     resolve -> (obj, args, ctx) { !!obj.active? }
   end
 
+  field :authentication, Types::Authentication
   field :block, !Types::Block
   field :trigger_options, !Types::ArbitraryObject
   field :trigger, !Types::Trigger

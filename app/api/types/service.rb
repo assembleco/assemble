@@ -4,4 +4,5 @@ Types::Service = GraphQL::ObjectType.define do
 
   field :name, !types.String
   field :domain, !types.String
+  field :oauth_provider, types.String
 end

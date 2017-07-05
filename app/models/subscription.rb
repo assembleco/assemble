@@ -25,6 +25,10 @@ class Subscription < ApplicationRecord
     activated_at && !deactivated_at
   end
 
+  def authentication
+    Authentication.find_by(service: trigger.service, user: user)
+  end
+
   def deactivate
     if(service.deactivate(remote_webhook_id))
       update(deactivated_at: Time.current)
