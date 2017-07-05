@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630072214) do
+ActiveRecord::Schema.define(version: 20170705191347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "authentications", force: :cascade do |t|
+    t.integer  "service_id"
+    t.integer  "user_id"
+    t.jsonb    "credentials", default: {}, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["service_id"], name: "index_authentications_on_service_id", using: :btree
+    t.index ["user_id"], name: "index_authentications_on_user_id", using: :btree
+  end
 
   create_table "block_runs", force: :cascade do |t|
     t.integer  "block_id",                        null: false
@@ -102,10 +112,11 @@ ActiveRecord::Schema.define(version: 20170630072214) do
   end
 
   create_table "services", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.string   "domain",     null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",           null: false
+    t.string   "domain",         null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "oauth_provider"
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -151,6 +162,8 @@ ActiveRecord::Schema.define(version: 20170630072214) do
     t.index ["github_uid"], name: "index_users_on_github_uid", using: :btree
   end
 
+  add_foreign_key "authentications", "services"
+  add_foreign_key "authentications", "users"
   add_foreign_key "block_runs", "blocks"
   add_foreign_key "block_runs", "events"
   add_foreign_key "blocks", "environments"

@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 FactoryGirl.define do
+  factory :authentication do
+    service
+    user
+    credentials {}
+  end
+
   factory :block, aliases: [:destination] do
     user
     sequence(:name) { |n| "block_#{n}" }

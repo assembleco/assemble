@@ -3,7 +3,9 @@
 Rails.application.routes.draw do
   post "/api", to: "api#query"
 
-  get "/auth/:provider/callback", to: "sessions#create"
+  get "/auth/github/callback", to: "sessions#create"
+  get "/auth/:provider/callback", to: "authentications#create"
+
   resource :session, only: [:new, :destroy]
 
   get "/about", to: "about#index", as: :about

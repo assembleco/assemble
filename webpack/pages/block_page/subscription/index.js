@@ -4,14 +4,15 @@ import styled from "styled-components"
 import { graphql, compose } from "react-apollo"
 import $ from "jquery"
 
+import AuthenticationLink from "components/authentication_link"
 import Column from "layout/column"
-import TriggerSetup from "./trigger_setup"
+import Form from "react-jsonschema-form"
 import Hint from "components/hint"
 import Loading from "components/loading"
 import Row from "layout/row"
 import Section from "components/section"
-import Form from "react-jsonschema-form"
 import ToggleSwitch from "components/toggle_switch"
+import TriggerSetup from "./trigger_setup"
 
 import dataQuery from "graphql/triggers.gql"
 import create_subscription from "graphql/create_subscription.gql"
@@ -26,6 +27,7 @@ class Subscription extends React.Component {
 
     this.state = {
       active: props.active,
+      authentication: props.authentication,
       id: props.id,
       trigger: props.trigger,
       trigger_options: props.trigger_options,
@@ -66,10 +68,21 @@ class Subscription extends React.Component {
             {this.renderRightColumn()}
           </Row>
 
-          { this.state.trigger && this.renderBottom() }
+          { this.isActivatable() && this.renderBottom() }
         </Section>
       )
     );
+  }
+
+  isActivatable() {
+    return this.state.trigger && !this.missingAuthentication()
+  }
+
+  missingAuthentication() {
+    return (
+    this.state.trigger.service.oauth_provider &&
+      this.state.authentication == null
+    )
   }
 
   triggerSelected(event) {
@@ -85,6 +98,7 @@ class Subscription extends React.Component {
         trigger: data.create_subscription.trigger,
         id: data.create_subscription.id,
         trigger_options: data.create_subscription.trigger_options,
+        authentication: data.create_subscription.authentication,
       }))
     } else {
       let request = this.props.destroy_subscription({ variables: {
@@ -94,6 +108,7 @@ class Subscription extends React.Component {
       request.then(({ data }) => { this.setState({
         id: null,
         trigger: null,
+        authentication: null,
       }) })
     }
   }
@@ -102,12 +117,15 @@ class Subscription extends React.Component {
     if(this.state.trigger)
       return(
         <Column>
-          <TriggerSetup
-            {...this.state.trigger}
-            options={this.state.trigger_options}
-            settingUpdated={this.settingUpdated.bind(this)}
-            editable={!this.state.active}
-          />
+        { this.missingAuthentication()
+          ? <AuthenticationLink {...this.state.trigger.service} />
+          : <TriggerSetup
+              {...this.state.trigger}
+              options={this.state.trigger_options}
+              settingUpdated={this.settingUpdated.bind(this)}
+              editable={!this.state.active}
+            />
+        }
         </Column>
       );
     else
