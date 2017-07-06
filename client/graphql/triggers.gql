@@ -1,14 +1,7 @@
+#import "./fragments/trigger.gql"
+
 {
   triggers {
-    id
-    name
-    description
-    data_schema
-    options_schema
-
-    service {
-      name
-      domain
-    }
+    ...trigger
   }
 }

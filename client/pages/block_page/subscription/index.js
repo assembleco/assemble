@@ -257,7 +257,6 @@ const trigger_prop_types = PropTypes.shape({
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   options_schema: PropTypes.object.isRequired,
-  data_schema: PropTypes.object.isRequired,
 
   service: PropTypes.shape({
     name: PropTypes.string.isRequired,

@@ -6,6 +6,6 @@ Types::Trigger = GraphQL::ObjectType.define do
   field :name, !types.String
   field :description, !types.String
   field :options_schema, !Types::ArbitraryObject
-  field :data_schema, !Types::ArbitraryObject
+  field :sample_data, !Types::ArbitraryObject
   field :service, !Types::Service
 end

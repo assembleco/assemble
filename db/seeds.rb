@@ -29,6 +29,23 @@ Trigger.create!(
   description: "New commits pushed to the GitHub repository",
   options_schema: trigger_schema,
   default_options: { repo: "assembleapp/registry" },
+  sample_data: {
+    ref: "string",
+    head: "string",
+    before: "string",
+    size: 123,
+    distinct_size: 123,
+    commits: [{
+      sha: "string",
+      message: "string",
+      author: {
+        name: "string",
+        email: "string",
+      },
+      url: "string",
+      distinct: true,
+    }]
+  }
 )
 
 trigger_schema = {

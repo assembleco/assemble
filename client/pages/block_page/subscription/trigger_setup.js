@@ -8,24 +8,6 @@ import Hint from "components/hint"
 import Row from "layout/row"
 import updateBlock from "util/update_block"
 
-const information = {
-  ref: "string",
-  head: "string",
-  before: "string",
-  size: 123,
-  distinct_size: 123,
-  commits: [{
-    sha: "string",
-    message: "string",
-    author: {
-      name: "string",
-      email: "string",
-    },
-    url: "string",
-    distinct: true,
-  }]
-}
-
 const TriggerSetup = (props) => (
   <div>
     <h3>{props.service.name}: {props.name}</h3>
@@ -56,15 +38,15 @@ const TriggerSetup = (props) => (
     </Settings>
 
     <Information>
-      <h4>Event Information</h4>
+      <h4>Sample Data</h4>
 
       <Hint>
-        Each time this event fires,
-        it will provide this information to your block.
+        {props.service.name} will send these inputs to your block
+        every time your block runs.
       </Hint>
 
       <pre>
-      { JSON.stringify(information, null, 2) }
+      { JSON.stringify(props.sample_data, null, 2) }
       </pre>
     </Information>
   </div>
@@ -82,8 +64,8 @@ TriggerSetup.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   options_schema: PropTypes.object.isRequired,
-  data_schema: PropTypes.object.isRequired,
   editable: PropTypes.bool.isRequired,
+  sample_data: PropTypes.object.isRequired,
 
   service: PropTypes.shape({
     name: PropTypes.string.isRequired,

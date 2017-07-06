@@ -1,0 +1,13 @@
+fragment trigger on Trigger {
+  id
+  name
+  description
+  options_schema
+  sample_data
+
+  service {
+    name
+    domain
+    oauth_provider
+  }
+}
