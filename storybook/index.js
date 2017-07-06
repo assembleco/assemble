@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import Logo from "../webpack/components/logo"
+import Logo from "../client/components/logo"
 
 storiesOf('Button', module)
   .add('with text', () => (

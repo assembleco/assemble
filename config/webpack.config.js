@@ -13,7 +13,7 @@ var production = process.env.NODE_ENV === 'production';
 
 var config = {
   entry: {
-    'application': ["babel-polyfill", './webpack/application.js'],
+    'application': ["babel-polyfill", './client/application.js'],
   },
 
   module: {
@@ -50,7 +50,7 @@ var config = {
 
   resolve: {
     extensions: ['', '.js', '.jsx'],
-    root: path.join(__dirname, '..', 'webpack'),
+    root: path.join(__dirname, '..', 'client'),
   },
 
   plugins: [
