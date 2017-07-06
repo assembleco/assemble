@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import Logo from "../client/components/logo"
+// import BlockSource from "../client/pages/block_page/block_source"
 
 storiesOf('Button', module)
   .add('with text', () => (
@@ -25,3 +26,22 @@ storiesOf("Logo", module)
   .add("rotating", () => (
     <Logo continuous />
   ))
+
+/*
+storiesOf("Block source", module)
+  .add("not editable", () => (
+    <BlockSource
+      id="1"
+      source="echo 'foobar'"
+      environment={{ id: "1" }}
+    />
+  ))
+  .add("editable", () => (
+    <BlockSource
+      editable
+      id="1"
+      source="echo 'foobar'"
+      environment={{ id: "1" }}
+    />
+  ))
+*/
