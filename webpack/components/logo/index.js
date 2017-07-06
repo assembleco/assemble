@@ -3,13 +3,15 @@ import styled from "styled-components"
 import React from "react";
 import PropTypes from "prop-types"
 
+// Eighties colors
+const border_color = "#2d2d2d"
 const face_colors = [
-  '#a8cfd9', // blue
-  '#a9dbcb', // green
-  '#dba5cd', // pink
-  '#fab09c', // orange
-  '#d68282', // red
-  '#f2d28f', // yellow
+  "#6699cc", // Blue
+  "#cc99cc", // Purple
+  "#99cc99", // Green
+  "#ffcc66", // Yellow
+  "#f2777a", // Red
+  "#f99157", // Orange
 ]
 
 const depth = 30;
@@ -165,7 +167,8 @@ const CubeOuter = styled.figure`
 
 const CubeFace = styled.section`
   background: rgba(141, 214, 249, 1);
-  border: 2px solid #000;
+  border: 1px solid ${border_color};
+  border-radius: 1px;
   height: 100%;
   position: absolute;
   transition-delay: 0.2s;
