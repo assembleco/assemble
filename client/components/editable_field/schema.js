@@ -4,6 +4,7 @@ import styled from "styled-components"
 
 import Schema from "components/schema"
 import Hint from "components/hint"
+import colors from "styles/colors"
 
 class EditableSchema extends React.Component {
   constructor(props) {
@@ -17,12 +18,10 @@ class EditableSchema extends React.Component {
   render() {
     return (
       <div>
-        { this.props.editable
-          ? <Hint>
-            As the block's author, <Link role="link" onClick={this.edit.bind(this)}>
-            edit the block's input schema
-            </Link> to help others understand how it works.
-            </Hint>
+        { this.props.editHint
+          ? <Link role="link" onClick={this.edit.bind(this)}>
+              {this.props.editHint}
+            </Link>
           : ""
         }
 
@@ -49,7 +48,9 @@ EditableSchema.propTypes = {
 }
 
 const Link = styled.span`
-  color: blue;
+  color: ${colors.blue};
+  cursor: pointer;
+  margin-bottom: 0.75rem;
 `
 
 export default EditableSchema;

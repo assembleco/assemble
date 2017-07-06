@@ -1,8 +1,8 @@
 const colors = {
-  green: "#acdbcc",
-  blue: "#477dca;",
-  yellow: "#f2d38e",
-  red: "#fb987f",
+  green: "#718c00",
+  blue: "#4271ae",
+  yellow: "#eab700",
+  red: "#c82829",
 }
 
 export default colors;

@@ -41,13 +41,14 @@ class BlockSource extends React.Component {
       <Section>
         <Row>
           <LeftColumn>
-            <h3>Block Input</h3>
+            <h3>Inputs</h3>
 
             <Hint>
-            These variables will be passed into your block as JSON data.
+              What information does your block need in order to run?
             </Hint>
 
             <EditableField.Schema
+              editHint="Change the type of inputs the block takes"
               editable={this.props.editable}
               initialValue={this.state.schema}
               onChange={this.schemaUpdated.bind(this)}
@@ -118,22 +119,6 @@ class BlockSource extends React.Component {
             </EditableField.Text>
           </Column>
         </Row>
-
-        <BottomRow>
-          { this.props.session
-          ? <Toggle
-              showLabel="Use this block from an existing codebase"
-              hideLabel="Hide"
-            >
-              <BlockUsage
-                input_data={this.state.inputData}
-                run_block_url={`${window.location.href}/runs.json`}
-                user_api_key={this.props.user_api_key}
-              />
-            </Toggle>
-          : "Sign in with GitHub to try out this block."
-          }
-        </BottomRow>
       </Section>
     );
   }
