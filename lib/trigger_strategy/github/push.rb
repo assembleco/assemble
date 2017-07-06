@@ -5,6 +5,8 @@ module TriggerStrategy
         @subscription = subscription
       end
 
+      attr_reader :subscription
+
       # Returns the remote webhook ID
       def activate
         response = github_client.create_hook(
