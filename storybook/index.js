@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import Logo from "../client/components/logo"
+import Link from "../client/components/link"
 
 storiesOf('Button', module)
   .add('with text', () => (
@@ -24,4 +25,12 @@ storiesOf("Logo", module)
   ))
   .add("rotating", () => (
     <Logo continuous />
+  ))
+
+storiesOf("Link", module)
+  .add("internal", () => (
+    <Link to="/foo">Go to /foo</Link>
+  ))
+  .add("external", () => (
+    <Link external to="https://github.com">GitHub</Link>
   ))

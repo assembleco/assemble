@@ -18,7 +18,13 @@ class BlockRuns extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { selectedRunID: props.data.block && props.data.block.runs[0].id }
+    this.state = {
+      selectedRunID: (
+        props.data.block &&
+        props.data.block.runs[0] &&
+        props.data.block.runs[0].id
+      )
+    }
   }
 
   render() {
