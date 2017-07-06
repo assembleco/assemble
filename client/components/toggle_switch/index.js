@@ -4,6 +4,7 @@ import Check from './check'
 import X from './x'
 import { pointerCoord } from './util'
 import styled from "styled-components"
+import colors from "styles/colors"
 
 export default class Toggle extends PureComponent {
   constructor (props) {
@@ -236,8 +237,8 @@ const ScreenreaderInput = styled.input`
   width: 1px;
 `
 
-const checkedColor = "#19AB27"
-const unCheckedColor = "#4D4D4D"
+const checkedColor = colors.green
+const unCheckedColor = colors.darkgrey
 
 const Track = styled.div`
   width: 50px;
