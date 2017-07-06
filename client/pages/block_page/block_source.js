@@ -7,13 +7,15 @@ import update_block from "graphql/update_block.gql"
 import create_run from "graphql/create_run.gql"
 import block_runs_query from "graphql/block_runs.gql"
 
-import Toggle from "components/toggle"
+import BlockUsage from "pages/block_page/block_usage";
 import Column from "layout/column"
 import EditableField from "components/editable_field"
 import Hint from "components/hint"
+import Link from "components/link"
 import Row from "layout/row"
 import Section from "components/section"
-import BlockUsage from "pages/block_page/block_usage";
+import Toggle from "components/toggle"
+import border from "styles/border"
 import updateBlock from "util/update_block"
 
 import Form from "react-jsonschema-form"
@@ -38,8 +40,8 @@ class BlockSource extends React.Component {
     };
 
     return(
-      <Section>
-        <Row>
+      <div>
+        <FlexibleRow>
           <LeftColumn>
             <h3>Inputs</h3>
 
@@ -48,7 +50,7 @@ class BlockSource extends React.Component {
             </Hint>
 
             <EditableField.Schema
-              editHint="Change the type of inputs the block takes"
+              editHint="Change the type of inputs the block takes."
               editable={this.props.editable}
               initialValue={this.state.schema}
               onChange={this.schemaUpdated.bind(this)}
@@ -62,9 +64,9 @@ class BlockSource extends React.Component {
                 formData={this.state.inputData}
                 >
                 <FormFooter>
-                  <a onClick={() => this.setState({ inputData: {} }) }>
+                  <Link external onClick={() => this.setState({ inputData: {} }) }>
                     Clear input fields
-                  </a>
+                  </Link>
 
                   <Button
                     type="submit"
@@ -77,8 +79,8 @@ class BlockSource extends React.Component {
             </EditableField.Schema>
           </LeftColumn>
 
-          <Column>
-            <h3>Block Source</h3>
+          <Section>
+            <h3>Program</h3>
 
             <EnvironmentSelect>
               <label>Environment:</label>
@@ -117,9 +119,9 @@ class BlockSource extends React.Component {
               >
               <pre>{ this.state.source }</pre>
             </EditableField.Text>
-          </Column>
-        </Row>
-      </Section>
+          </Section>
+        </FlexibleRow>
+      </div>
     );
   }
 
@@ -168,25 +170,21 @@ const Icon = styled.img`
   height: 3rem;
 `
 
-const Code = styled.code`
-  background-color: lightgrey;
-  color: red;
-`
-
 const LeftColumn = styled(Column)`
-  border-right: 1px solid lightgrey;
-  padding-right: 0.75rem;
-`
-
-const BottomRow = styled(Row)`
-  border-top: 1px solid lightgrey;
-  padding-top: 0.75rem;
-  margin-top: 0.75rem;
+  margin-right: 0;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border: ${border};
+  border-right: none;
 `
 
 const FormFooter = styled.div`
   position: relative;
   overflow: hidden;
+`
+
+const FlexibleRow = styled(Row)`
+  align-items: flex-start;
 `
 
 const Button = styled.button`

@@ -51,6 +51,7 @@ const Link = styled.span`
   color: ${colors.blue};
   cursor: pointer;
   margin-bottom: 0.75rem;
+  display: inline-block;
 `
 
 export default EditableSchema;

@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from "styled-components";
+import border from "styles/border"
 
 const Section = styled.div`
   background-color: white;
   padding: 1.5rem;
-  border: 1px solid #ddd;
+  border: ${border};
   border-radius: 4px;
   margin-bottom: 1.5rem;
   overflow: hidden;
