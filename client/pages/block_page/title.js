@@ -32,11 +32,6 @@ class Title extends React.Component {
 
         <Column>
           <h1>
-            <a href={`/users/${this.props.user.handle}`}>
-              {this.props.user.handle}
-            </a>
-
-            &nbsp;/&nbsp;
             <EditableField.String
               editable={this.props.editable}
               initialValue={this.state.name}
@@ -48,6 +43,8 @@ class Title extends React.Component {
 
           <Hint>
             Created on {dateFormat(date, "mmmm d, yyyy")}
+            <br/>
+            by {this.props.user.handle}
           </Hint>
         </Column>
 
