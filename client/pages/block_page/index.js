@@ -72,8 +72,10 @@ const RightSidebar = styled.div`
   flex: 0 0 20rem;
 `
 
-const BlockPageWithData = graphql(BlockPageQuery, { options: {
-  variables: { block_id: window.location.pathname.split("/")[2] }
-}})(BlockPage)
+const BlockPageWithData = graphql(BlockPageQuery, {
+  options: ({ match }) => ({
+    variables: { block_id: match.params.id }
+  })
+})(BlockPage)
 
 export default BlockPageWithData;

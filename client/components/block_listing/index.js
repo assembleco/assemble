@@ -1,14 +1,12 @@
-import React from "react"
-import styled from "styled-components"
-import dateFormat from "dateformat"
 import Gravatar from "react-gravatar"
-
 import Logo from "components/logo"
+import React from "react"
+import dateFormat from "dateformat"
+import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 const BlockListing = (props) => (
-  <ListItem
-    href={`/blocks/${props.id}`}
-    >
+  <BlockLink to={`/blocks/${props.id}`} >
     <Icon/>
 
     {props.name}
@@ -24,10 +22,10 @@ const BlockListing = (props) => (
         <div>on {dateFormat(props.created_at, "mmmm d, yyyy")}</div>
       </AuthorInfo>
     </Author>
-  </ListItem>
+  </BlockLink>
 )
 
-const ListItem = styled.a`
+const BlockLink = styled(Link)`
   background-color: white;
   border-radius: 4px;
   color: black;
