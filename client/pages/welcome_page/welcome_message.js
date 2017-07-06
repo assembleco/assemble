@@ -4,6 +4,7 @@ import styled from "styled-components"
 import $ from "jquery"
 
 import Section from "components/section"
+import Link from "components/link"
 
 class WelcomeMessage extends React.Component {
   render() {
@@ -12,9 +13,9 @@ class WelcomeMessage extends React.Component {
         <Wrapper>
           <p>
           Assemble is a registry of open-source, publicly-usable&nbsp;
-          <a href="https://www.notion.so/assemble/Glossary-107d90a48c6441f79ff35b6943cc3fad#44c9a85610884b45a1f8941e4f9d9f9c">
+          <Link external to="https://www.notion.so/assemble/Glossary-107d90a48c6441f79ff35b6943cc3fad#44c9a85610884b45a1f8941e4f9d9f9c">
           Serverless functions
-          </a>,
+          </Link>,
           which we call <em>Blocks</em>.
           </p>
 
@@ -22,13 +23,13 @@ class WelcomeMessage extends React.Component {
           We are working with the community to make it easier to use and share blocks,
           with the goal of making them as accessible as possible
           for novice developers and non-developers.&nbsp;
-          <a href="/about">Learn more</a>.
+          <Link to="/about">Learn more</Link>.
           </p>
 
           <p>
           { this.props.session
             ? <button onClick={this.createNewBlock.bind(this)}>+ Create a new block</button>
-            : <a href="/session/new">Sign in to get started</a>
+            : <Link external to="/session/new">Sign in to get started</Link>
           }
           </p>
         </Wrapper>

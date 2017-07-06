@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { Page } from "hedron"
 import scroll_down from "images/about/scroll_down.svg"
 
+import Link from "components/link"
 import Section from "components/section"
 
 const urls = {
@@ -35,7 +36,7 @@ const Context = ({ scrollHint }) => (
       These features have not been built yet –
       this is simply a vision of what we'd like to achieve.
       We've published more detailed plans and roadmaps&nbsp;
-      <a href={urls.docs}>in our documentation</a>.
+      <Link external to={urls.docs}>in our documentation</Link>.
       </p>
 
       <p>
@@ -46,9 +47,9 @@ const Context = ({ scrollHint }) => (
 
       <p>
       Get in touch with us
-      <a href={urls.docs}>on Slack</a>,
-      <a href={urls.github}>on GitHub</a>,
-      <a href={urls.notion}>on Notion</a>,
+      <Link external to={urls.docs}>on Slack</Link>,
+      <Link external to={urls.github}>on GitHub</Link>,
+      <Link external to={urls.notion}>on Notion</Link>,
       or just click on the orange circle in the corner of your screen
       and start typing.
       </p>
