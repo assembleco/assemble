@@ -101,7 +101,7 @@ class BlockSource extends React.Component {
 
                   <Button
                     type="submit"
-                    disabled={this.props.user_api_key == null}
+                    disabled={this.props.session == null}
                   >
                     Run the block with these inputs
                   </Button>
