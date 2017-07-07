@@ -4,11 +4,11 @@ import styled from "styled-components"
 import { graphql, compose } from "react-apollo"
 import $ from "jquery"
 
+import Action from "components/action"
 import AuthenticationLink from "components/authentication_link"
 import Column from "layout/column"
 import Form from "react-jsonschema-form"
 import Hint from "components/hint"
-import Link from "components/link"
 import Loading from "components/loading"
 import Row from "layout/row"
 import Section from "components/section"
@@ -151,9 +151,9 @@ class Subscription extends React.Component {
           formData={this.state.data_overrides}
           >
           <div style={{ position: "relative", overflow: "hidden" }}>
-            <Link external onClick={() => this.data_overrides_changed({ formData: {} }) }>
+            <Action onClick={() => this.data_overrides_changed({ formData: {} }) }>
               Clear input fields
-            </Link>
+            </Action>
           </div>
         </Form>
       </div>

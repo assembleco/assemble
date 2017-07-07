@@ -1,7 +1,7 @@
 import React from "react"
 
+import Action from "components/action"
 import GenericAttribute from "./generic_attribute";
-import Link from "components/link"
 
 class ObjectAttribute extends React.Component {
   constructor(props) {
@@ -26,8 +26,8 @@ class ObjectAttribute extends React.Component {
         { this.props.editable ?
         <span>
           <span style={{ marginRight: "0.5rem" }}>Add a child:</span>
-          <Link external onClick={() => this.addChild("string")} style={{ marginRight: "0.5rem" }}>""</Link>
-          <Link external onClick={() => this.addChild("object")} style={{ marginRight: "0.5rem" }}>{"{}"}</Link>
+          <Action onClick={() => this.addChild("string")} style={{ marginRight: "0.5rem" }}>""</Action>
+          <Action onClick={() => this.addChild("object")} style={{ marginRight: "0.5rem" }}>{"{}"}</Action>
         </span>
         : ""
         }

@@ -4,8 +4,8 @@ import styled from "styled-components"
 import ObjectAttribute from "./object_attribute";
 import StringAttribute from "./string_attribute";
 
+import Action from "components/action"
 import EditableField from "components/editable_field"
-import Link from "components/link"
 
 class GenericAttribute extends React.Component {
   render() {
@@ -33,7 +33,7 @@ class GenericAttribute extends React.Component {
       : "";
 
     const removeLink = this.props.editable && this.props.onRemove
-      ? <Link external onClick={() => this.props.onRemove(this.props.name)}>[X]</Link>
+      ? <Action onClick={() => this.props.onRemove(this.props.name)}>[X]</Action>
       : "";
 
     return (

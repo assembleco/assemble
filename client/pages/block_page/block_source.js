@@ -7,11 +7,11 @@ import update_block from "graphql/update_block.gql"
 import create_run from "graphql/create_run.gql"
 import block_runs_query from "graphql/block_runs.gql"
 
+import Action from "components/action"
 import BlockUsage from "pages/block_page/block_usage";
 import Column from "layout/column"
 import EditableField from "components/editable_field"
 import Hint from "components/hint"
-import Link from "components/link"
 import Row from "layout/row"
 import Section from "components/section"
 import Toggle from "components/toggle"
@@ -95,9 +95,9 @@ class BlockSource extends React.Component {
                 formData={this.state.inputData}
                 >
                 <FormFooter>
-                  <Link external onClick={() => this.setState({ inputData: {} }) }>
+                  <Action onClick={() => this.setState({ inputData: {} }) }>
                     Clear input fields
-                  </Link>
+                  </Action>
 
                   <Button
                     type="submit"

@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { Link as RouterLink } from 'react-router-dom'
+import colors from "styles/colors"
 
 const Link = (props) => (
   props.external
@@ -15,11 +16,11 @@ const Link = (props) => (
 )
 
 const ExternalLink = styled.a`
-  color: #4271ae;
+  color: ${colors.blue};
 `
 
 const InternalLink = styled(RouterLink)`
-  color: #4271ae;
+  color: ${colors.blue};
 `
 
 export default Link
