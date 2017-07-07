@@ -14,7 +14,7 @@ user = User.create!(
 )
 
 github = Service.create!(name: "GitHub", domain: "github.com")
-time = Service.create!(name: "Time-based", domain: "assembleapp.co")
+assemble = Service.create!(name: "Assemble", domain: "assembleapp.co")
 
 trigger_schema = {
   type: :object,
@@ -58,7 +58,7 @@ trigger_schema = {
   required: [:frequency_quantity, :frequency_unit]
 }
 Trigger.create!(
-  service: time,
+  service: assemble,
   name: "Recurring",
   description: "Run this block repeatedly at a certain time interval",
   options_schema: trigger_schema,

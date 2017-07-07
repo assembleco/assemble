@@ -14,6 +14,7 @@ import Row from "layout/row"
 import Section from "components/section"
 import ToggleSwitch from "components/toggle_switch"
 import TriggerSetup from "./trigger_setup"
+import border from "styles/border"
 
 import dataQuery from "graphql/triggers.gql"
 import create_subscription from "graphql/create_subscription.gql"
@@ -39,22 +40,22 @@ class Subscription extends React.Component {
   render() {
     return(
       this.props.data.loading ? <Loading /> : (
-        <Section>
-          <h2>Choose a trigger for your block</h2>
+        <FlexibleRow>
+          <LeftColumn>
+            <Section>
+              <h2>Connect this block to an app</h2>
 
-          <Hint>
-          Set up a trigger,
-          and your block will run automatically whenever that event happens.
-          </Hint>
+              <Hint>
+              Choose an event from any app you use,<br/>
+              and your block will run automatically whenever that event happens.
+              </Hint>
 
-          <Row>
-            <Column>
               <select
                 value={this.state.trigger ? this.state.trigger.id : "null"}
                 onChange={this.triggerSelected.bind(this)}
                 disabled={this.state.active && "disabled"}
                 >
-                <option key="null" value={null}>No trigger</option>
+                <option key="null" value={null}>Not connected</option>
 
                 { this.props.data.triggers.map((trigger) => (
                     <option key={trigger.id} value={trigger.id}>
@@ -63,14 +64,14 @@ class Subscription extends React.Component {
                 )) }
               </select>
 
-              {this.state.trigger && this.renderDataOverrides()}
-            </Column>
+              {this.renderTriggerSetup()}
 
-            {this.renderRightColumn()}
-          </Row>
+              { this.isActivatable() && this.renderBottom() }
+            </Section>
+          </LeftColumn>
 
-          { this.isActivatable() && this.renderBottom() }
-        </Section>
+          {this.state.trigger && <RightColumn>{this.renderDataOverrides()}</RightColumn>}
+        </FlexibleRow>
       )
     );
   }
@@ -114,30 +115,17 @@ class Subscription extends React.Component {
     }
   }
 
-  renderRightColumn() {
+  renderTriggerSetup() {
     if(this.state.trigger)
       return(
-        <Column>
-        { this.missingAuthentication()
-          ? <AuthenticationLink {...this.state.trigger.service} />
-          : <TriggerSetup
-              {...this.state.trigger}
-              options={this.state.trigger_options}
-              settingUpdated={this.settingUpdated.bind(this)}
-              editable={!this.state.active}
-            />
-        }
-        </Column>
-      );
-    else
-      return (
-        <Column>
-          <Hint>
-            &lt;– Choose an event to get started.
-            <br/>
-            Or, continue with a free-standing block.
-          </Hint>
-        </Column>
+        this.missingAuthentication()
+        ? <AuthenticationLink {...this.state.trigger.service} />
+        : <TriggerSetup
+            {...this.state.trigger}
+            options={this.state.trigger_options}
+            settingUpdated={this.settingUpdated.bind(this)}
+            editable={!this.state.active}
+          />
       );
   }
 
@@ -186,16 +174,13 @@ class Subscription extends React.Component {
           </OnOffLabel>
         </label>
 
-        { this.state.active
-          ? <Hint>
-              This block is currently listening for events from this trigger.
-            </Hint>
-          : <Hint>
-              When you're happy with how your block is set up,
-              turn it on and it will begin listening to events.
-            </Hint>
-        }
-
+        <Hint>
+          { this.state.active
+          ? "This block is currently listening"
+          : "When you're happy with how your block is set up, turn it on and it will begin listening"
+          }
+          for events from {this.state.trigger.service.name}
+        </Hint>
       </Footer>
     )
   }
@@ -250,6 +235,23 @@ const Footer = styled.div`
 
 const OnOffLabel = styled.span`
   margin-left: 1.5rem;
+`
+
+const FlexibleRow = styled(Row)`
+  align-items: flex-start;
+`
+
+const LeftColumn = styled(Column)`
+  margin-right: 0;
+  width: 50%;
+`
+
+const RightColumn = styled(Column)`
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border: ${border};
+  border-left: none;
+  width: 50%;
 `
 
 const trigger_prop_types = PropTypes.shape({

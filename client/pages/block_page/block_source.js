@@ -43,6 +43,37 @@ class BlockSource extends React.Component {
       <div>
         <FlexibleRow>
           <LeftColumn>
+            <Section>
+              <h3>Program</h3>
+
+              <EnvironmentSelect>
+                <label>Environment:</label>
+
+                <select
+                  value={this.state.environment.id}
+                  onChange={this.environmentChanged.bind(this)}
+                  disabled={!this.props.editable}
+                  >
+                  { this.props.environments.map((env) => (
+                    <option key={env.id} value={env.id}>
+                      {env.name}
+                    </option>
+                  )) }
+                </select>
+              </EnvironmentSelect>
+
+              <EditableField.Text
+                hint="What code should this block run?"
+                editable={this.props.editable}
+                onChange={this.sourceUpdated.bind(this)}
+                initialValue={this.state.source}
+                >
+                <pre>{ this.state.source }</pre>
+              </EditableField.Text>
+            </Section>
+          </LeftColumn>
+
+          <RightColumn>
             <h3>Inputs</h3>
 
             <Hint>
@@ -77,49 +108,7 @@ class BlockSource extends React.Component {
                 </FormFooter>
               </Form>
             </EditableField.Schema>
-          </LeftColumn>
-
-          <Section>
-            <h3>Program</h3>
-
-            <EnvironmentSelect>
-              <label>Environment:</label>
-
-              <select
-                value={this.state.environment.id}
-                onChange={this.environmentChanged.bind(this)}
-                disabled={!this.props.editable}
-                >
-                { this.props.environments.map((env) => (
-                  <option key={env.id} value={env.id}>
-                    {env.name}
-                  </option>
-                )) }
-              </select>
-            </EnvironmentSelect>
-
-            <EditableField.Text
-              hint={<div>
-                <p>
-                What code should this block run?
-                </p>
-                <p>
-                You can use any language you like -
-                just be sure that it works
-                with the Dockerfile and command that you enter below.
-                </p>
-                <p>
-                We are working to support additional function sources soon,
-                including GitHub repos, Gists, and images on Docker Hub.
-                </p>
-              </div>}
-              editable={this.props.editable}
-              onChange={this.sourceUpdated.bind(this)}
-              initialValue={this.state.source}
-              >
-              <pre>{ this.state.source }</pre>
-            </EditableField.Text>
-          </Section>
+          </RightColumn>
         </FlexibleRow>
       </div>
     );
@@ -172,10 +161,15 @@ const Icon = styled.img`
 
 const LeftColumn = styled(Column)`
   margin-right: 0;
+  width: 50%;
+`
+
+const RightColumn = styled(Column)`
   padding: 1.5rem;
   background-color: #ffffff;
   border: ${border};
-  border-right: none;
+  border-left: none;
+  width: 50%;
 `
 
 const FormFooter = styled.div`
