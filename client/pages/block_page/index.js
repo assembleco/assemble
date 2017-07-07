@@ -36,9 +36,7 @@ const BlockPage = ({ data }) => (
           initial_input_data={data.block.initial_input_data}
           name={data.block.name}
           schema={data.block.schema}
-          session={data.session}
           source={data.block.source}
-          user_api_key={data.session.api_key}
         />
 
         <Subscription
