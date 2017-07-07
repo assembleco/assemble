@@ -14,4 +14,10 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     ENV.fetch("SLACK_CLIENT_SECRET"),
     scope: "commands",
   )
+
+  provider(
+    :google_oauth2,
+    ENV.fetch("GOOGLE_CLIENT_ID"),
+    ENV.fetch("GOOGLE_CLIENT_SECRET"),
+  )
 end

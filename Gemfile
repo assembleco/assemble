@@ -3,6 +3,7 @@ source "https://rubygems.org"
 ruby "2.4.0"
 
 gem "attr_encrypted", "~> 3.0"
+gem "omniauth-google-oauth2"
 gem "autoprefixer-rails"
 gem "bourbon"
 gem "clockwork"

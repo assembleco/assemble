@@ -3,6 +3,7 @@ require "authentication_strategy/bitbucket"
 class Service < ApplicationRecord
   AUTHENTICATION_STRATEGIES = {
     "bitbucket.org" => AuthenticationStrategy::BitBucket,
+    "google.com" => AuthenticationStrategy::Google,
   }
 
   validates :name, presence: true, uniqueness: true

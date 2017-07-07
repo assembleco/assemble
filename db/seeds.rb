@@ -15,6 +15,7 @@ user = User.create!(
 
 github = Service.create!(name: "GitHub", domain: "github.com")
 assemble = Service.create!(name: "Assemble", domain: "assembleapp.co")
+google = Service.create!(name: "Google", domain: "google.com")
 
 trigger_schema = {
   type: :object,

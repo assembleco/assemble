@@ -4,6 +4,7 @@ class AuthenticationsController < ApplicationController
   PROVIDER_DOMAIN_MAPPING = {
     bitbucket: "bitbucket.org",
     github: "github.com",
+    google_oauth2: "google.com",
   }.with_indifferent_access.freeze
 
   def create
