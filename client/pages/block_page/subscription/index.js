@@ -214,6 +214,10 @@ class Subscription extends React.Component {
     let new_options = $.extend(true, {}, this.state.trigger_options);
     new_options[settingName] = newValue;
 
+    const schema = this.state.trigger.options_schema
+    if(schema.properties[settingName].type == "integer")
+      new_options[settingName] = parseInt(newValue)
+
     let request = this.props.update_subscription({ variables: {
       subscription_id: parseInt(this.state.id),
       trigger_id: parseInt(this.state.trigger.id),
