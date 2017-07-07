@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170706223444) do
+ActiveRecord::Schema.define(version: 20170707174112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,16 @@ ActiveRecord::Schema.define(version: 20170706223444) do
     t.index ["user_id"], name: "index_secrets_on_user_id", using: :btree
   end
 
+  create_table "service_dependencies", force: :cascade do |t|
+    t.integer  "block_id",                        null: false
+    t.integer  "service_id",                      null: false
+    t.jsonb    "credential_mapping", default: {}, null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["block_id"], name: "index_service_dependencies_on_block_id", using: :btree
+    t.index ["service_id"], name: "index_service_dependencies_on_service_id", using: :btree
+  end
+
   create_table "services", force: :cascade do |t|
     t.string   "name",           null: false
     t.string   "domain",         null: false
@@ -172,6 +182,8 @@ ActiveRecord::Schema.define(version: 20170706223444) do
   add_foreign_key "recurring_events", "subscriptions"
   add_foreign_key "secrets", "blocks"
   add_foreign_key "secrets", "users"
+  add_foreign_key "service_dependencies", "blocks"
+  add_foreign_key "service_dependencies", "services"
   add_foreign_key "subscriptions", "blocks"
   add_foreign_key "subscriptions", "triggers"
   add_foreign_key "subscriptions", "users"

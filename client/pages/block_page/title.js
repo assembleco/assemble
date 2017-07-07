@@ -28,28 +28,27 @@ class Title extends React.Component {
     const date = new Date(this.props.created_at);
 
     return(
-      <Wrapper>
-        <Logo />
-
         <Column>
-          <h1>
-            <EditableField.String
-              editable={this.props.editable}
-              initialValue={this.state.name}
-              onChange={this.nameUpdated.bind(this)}
-              >
-              {this.state.name}
-            </EditableField.String>
-          </h1>
+          <Row>
+            <Logo />
 
-          <Hint>
-            Created on {dateFormat(date, "mmmm d, yyyy")}
-            <br/>
-            by {this.props.user.handle}
-          </Hint>
-        </Column>
+            <Column>
+              <h1>
+                <EditableField.String
+                  editable={this.props.editable}
+                  initialValue={this.state.name}
+                  onChange={this.nameUpdated.bind(this)}
+                  >
+                  {this.state.name}
+                </EditableField.String>
+              </h1>
 
-        <Column>
+              <Hint>
+                Created on {dateFormat(date, "mmmm d, yyyy")} by {this.props.user.handle}
+              </Hint>
+            </Column>
+          </Row>
+
           <EditableField.Text
             editable={this.props.editable}
             initialValue={this.state.description}
@@ -67,7 +66,6 @@ class Title extends React.Component {
             <Markdown source={this.state.description}/>
           </EditableField.Text>
         </Column>
-      </Wrapper>
     );
   }
 
@@ -81,10 +79,6 @@ class Title extends React.Component {
     updateBlock({ description: newDescription }, this.props.id)
   }
 }
-
-const Wrapper = styled(Row)`
-  margin-bottom: 1.5rem;
-`
 
 Title.propTypes = {
   created_at: PropTypes.string.isRequired,

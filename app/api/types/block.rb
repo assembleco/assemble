@@ -16,6 +16,8 @@ Types::Block = GraphQL::ObjectType.define do
     resolve ->(obj, args, ctx) { obj.user }
   end
 
+  field :service_dependencies, !types[Types::ServiceDependency]
+
   field :editable, !types.Boolean do
     resolve ->(obj, args, ctx) { obj.user == ctx[:session] }
   end

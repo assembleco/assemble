@@ -24,6 +24,12 @@ query BlockQuery ($block_id: ID!) {
     }
   }
 
+  credentialed_services {
+    id
+    name
+    domain
+  }
+
   session {
     api_key
   }

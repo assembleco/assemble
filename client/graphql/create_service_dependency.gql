@@ -1,0 +1,8 @@
+mutation ($block_id: ID!, $service_id: ID!) {
+  create_service_dependency(
+      block_id: $block_id,
+      service_id: $service_id,
+    ) {
+    id
+  }
+}

@@ -1,0 +1,5 @@
+mutation ($id: ID!) {
+  destroy_service_dependency(id: $id) {
+    id
+  }
+}

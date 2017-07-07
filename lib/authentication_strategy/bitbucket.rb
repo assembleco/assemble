@@ -1,5 +1,9 @@
 module AuthenticationStrategy
   class BitBucket
+    CREDENTIAL_MAPPING = {
+      "BITBUCKET_OAUTH_TOKEN" => "token",
+    }.freeze
+
     def initialize(oauth_payload)
       @oauth_payload = oauth_payload
     end

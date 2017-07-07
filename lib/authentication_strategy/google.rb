@@ -1,5 +1,9 @@
 module AuthenticationStrategy
   class Google
+    CREDENTIAL_MAPPING = {
+      "GOOGLE_OAUTH_TOKEN" => "token",
+    }.freeze
+
     def initialize(oauth_payload)
       @oauth_payload = oauth_payload
     end

@@ -3,11 +3,12 @@ import PropTypes from "prop-types"
 import styled from "styled-components"
 
 import { graphql } from "react-apollo"
-import BlockPageQuery from "graphql/block_page.gql"
+import block_page_query from "graphql/block_page.gql"
 
 import BlockSource from "./block_source";
 import BlockRuns from "./block_runs";
 import Subscription from "./subscription"
+import ServiceDependencies from "./service_dependencies"
 import Title from "./title"
 import Loading from "components/loading"
 import Section from "components/section"
@@ -19,14 +20,23 @@ const BlockPage = ({ data }) => (
   data.loading ? <Loading /> : (
     <Wrapper>
       <MainColumn>
-        <Title
-          id={data.block.id}
-          created_at={data.block.created_at}
-          description={data.block.description}
-          editable={data.block.editable}
-          name={data.block.name}
-          user={data.block.author}
-        />
+        <TitleWrapper>
+          <Title
+            id={data.block.id}
+            created_at={data.block.created_at}
+            description={data.block.description}
+            editable={data.block.editable}
+            name={data.block.name}
+            user={data.block.author}
+          />
+
+          <ServiceDependencies
+            block_id={data.block.id}
+            editable={data.block.editable}
+            service_dependencies={data.block.service_dependencies}
+            services={data.credentialed_services}
+          />
+        </TitleWrapper>
 
         <BlockSource
           editable={data.block.editable}
@@ -61,6 +71,10 @@ const Wrapper = styled.div`
   position: relative;
 `
 
+const TitleWrapper = styled(Row)`
+  margin-bottom: 1.5rem;
+`
+
 const MainColumn = styled.div`
   margin-right: 1.5rem;
   overflow-x: scroll;
@@ -71,10 +85,8 @@ const RightSidebar = styled.div`
   flex: 0 0 20rem;
 `
 
-const BlockPageWithData = graphql(BlockPageQuery, {
-  options: ({ match }) => ({
-    variables: { block_id: match.params.id }
-  })
+const BlockPageWithData = graphql(block_page_query, {
+  options: ({ match }) => ({ variables: { block_id: match.params.id } })
 })(BlockPage)
 
 export default BlockPageWithData;

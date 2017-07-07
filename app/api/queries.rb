@@ -21,10 +21,10 @@ Queries = GraphQL::ObjectType.define do
     resolve -> (obj, args, ctx) { Environment.all }
   end
 
-  field :services do
+  field :credentialed_services do
     type types[Types::Service]
-    description "A list of all known third-party services"
-    resolve -> (obj, args, ctx) { Service.all }
+    description "A list of all third-party services that provide credentials to blocks"
+    resolve -> (obj, args, ctx) { Service.where.not(oauth_provider: nil) }
   end
 
   field :triggers do

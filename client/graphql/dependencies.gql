@@ -1,0 +1,17 @@
+query dependencies($block_id: ID!) {
+  block(id: $block_id) {
+    id
+
+    service_dependencies {
+      id
+      credential_mapping
+      authenticated
+
+      service {
+        name
+        domain
+        oauth_provider
+      }
+    }
+  }
+}

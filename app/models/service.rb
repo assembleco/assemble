@@ -13,6 +13,10 @@ class Service < ApplicationRecord
     auth_strategy.new(oauth_payload).credentials
   end
 
+  def credential_mapping
+    auth_strategy::CREDENTIAL_MAPPING
+  end
+
   private
 
   def auth_strategy

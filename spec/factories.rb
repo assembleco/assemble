@@ -47,6 +47,12 @@ FactoryGirl.define do
     domain "github.com"
   end
 
+  factory :service_dependency do
+    block
+    service
+    credential_mapping {}
+  end
+
   factory :subscription do
     block
     user

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_many :blocks
 
-  has_many :slack_authentications
+  has_many :authentications
 
   validates :github_uid, presence: true, uniqueness: true
   validates :github_token, presence: true, uniqueness: true
