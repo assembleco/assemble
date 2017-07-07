@@ -10,10 +10,8 @@ import updateBlock from "util/update_block"
 
 const TriggerSetup = (props) => (
   <div>
-    <h3>{props.service.name}: {props.name}</h3>
-
     <Settings>
-      <h4>Settings</h4>
+      <h3>Settings</h3>
 
       {props.editable ||
         <Hint>
@@ -38,7 +36,7 @@ const TriggerSetup = (props) => (
     </Settings>
 
     <Information>
-      <h4>Sample Data</h4>
+      <h3>Sample Data</h3>
 
       <Hint>
         {props.service.name} will send these inputs to your block

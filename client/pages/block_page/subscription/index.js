@@ -43,7 +43,7 @@ class Subscription extends React.Component {
         <FlexibleRow>
           <LeftColumn>
             <Section>
-              <h2>Connect this block to an app</h2>
+              <h2>Connect to an app</h2>
 
               <Hint>
               Choose an event from any app you use,<br/>
@@ -176,8 +176,8 @@ class Subscription extends React.Component {
 
         <Hint>
           { this.state.active
-          ? "This block is currently listening"
-          : "When you're happy with how your block is set up, turn it on and it will begin listening"
+          ? "This block is currently listening "
+          : "When you're happy with how your block is set up, turn it on and it will begin listening "
           }
           for events from {this.state.trigger.service.name}
         </Hint>
