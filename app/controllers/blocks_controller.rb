@@ -14,23 +14,6 @@ class BlocksController < ApplicationController
     render html: "", layout: true
   end
 
-  def create
-    @block = Block.new(block_params)
-
-    if @block.save
-      respond_to do |format|
-        format.json {
-          render json: @block.as_json
-        }
-        format.html {
-          redirect_to block_path(@block.user, @block), notice: t(".success")
-        }
-      end
-    else
-      render json: @block.errors.full_messages
-    end
-  end
-
   def update
     @block = Block.find(params[:id])
 

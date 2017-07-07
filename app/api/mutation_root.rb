@@ -3,6 +3,7 @@ MutationRoot = GraphQL::ObjectType.define do
 
   [
     Mutations::ActivateSubscription,
+    Mutations::CreateBlock,
     Mutations::CreateRun,
     Mutations::CreateSubscription,
     Mutations::DeactivateSubscription,

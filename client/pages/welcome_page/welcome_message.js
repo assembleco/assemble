@@ -1,10 +1,11 @@
 import React from "react"
 import styled from "styled-components"
-
-import $ from "jquery"
+import { graphql, compose } from "react-apollo"
 
 import Section from "components/section"
 import Link from "components/link"
+
+import create_block from "graphql/create_block.gql"
 
 class WelcomeMessage extends React.Component {
   render() {
@@ -38,18 +39,8 @@ class WelcomeMessage extends React.Component {
   }
 
   createNewBlock() {
-    $.ajax({
-      method: "POST",
-      url: "/blocks",
-      data: { block: {
-        name: "click_to_rename",
-        description: "Click to edit the block's description",
-        source: "# Click to edit the block's source",
-        source_path: "/click/to/edit/the/source/path",
-        command: 'echo "click to edit the block\'s command."',
-        dockerfile: "FROM ubuntu\n# click to edit the dockerfile"
-      }},
-      success: (data) => { window.location = `/blocks/${data.id}` },
+    this.props.create_block().then(({ data }) => {
+      window.location = `/blocks/${data.create_block.id}`
     })
   }
 }
@@ -63,4 +54,6 @@ const Wrapper = styled(Section)`
   width: 50%;
 `
 
-export default WelcomeMessage
+export default compose(
+  graphql(create_block, { name: "create_block" }),
+)(WelcomeMessage);

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get "/about", to: "about#index", as: :about
 
   # Block paths
-  resources :blocks, only: [:index, :show, :update, :destroy, :create]
+  resources :blocks, only: [:index, :show, :update, :destroy]
 
   # Webhook paths
   post "/webhook/github", to: "webhook_events#create"
