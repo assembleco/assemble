@@ -139,9 +139,9 @@ class Subscription extends React.Component {
     return (
       <div>
         <Hint>
-        Override the block's input data here.
-        The data you provide in this form will be passed to the block
-        alongside the data from the trigger.
+        If there are any input fields not provided
+        by the {this.state.trigger.service.name} {this.state.trigger.name} event,
+        pass them in here.
         </Hint>
 
         <Form
