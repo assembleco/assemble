@@ -1,0 +1,5 @@
+mutation ($service_id: ID!) {
+  destroy_authentication(service_id: $service_id) {
+    id
+  }
+}

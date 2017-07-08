@@ -4,6 +4,7 @@ import { graphql, compose } from "react-apollo"
 
 import create_service_dependency from "graphql/create_service_dependency.gql"
 import destroy_service_dependency from "graphql/destroy_service_dependency.gql"
+import destroy_authentication from "graphql/destroy_authentication.gql"
 import dependencies_query from "graphql/dependencies.gql"
 
 import Action from "components/action"
@@ -52,7 +53,15 @@ class ServiceDependencies extends React.Component {
               </Hint>
 
               { dependency.authenticated
-                ? <div> ✅ Signed in to {dependency.service.name}.</div>
+                ? <div> ✅ Signed in to {dependency.service.name}.
+                    <Action onClick={() => this.props.destroy_authentication({
+                      variables: { service_id: dependency.service.id },
+                      refetchQueries: [{
+                        query: dependencies_query,
+                        variables: { block_id: this.props.block_id },
+                      }],
+                    })}>Sign Out</Action>
+                  </div>
                 : <AuthenticationLink {...dependency.service} />
               }
             </Section>
@@ -135,4 +144,5 @@ export default compose(
   graphql(dependencies_query),
   graphql(create_service_dependency, { name: "create_service_dependency" }),
   graphql(destroy_service_dependency, { name: "destroy_service_dependency" }),
+  graphql(destroy_authentication, { name: "destroy_authentication" }),
 )(ServiceDependencies)

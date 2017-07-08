@@ -8,6 +8,7 @@ query dependencies($block_id: ID!) {
       authenticated
 
       service {
+        id
         name
         domain
         oauth_provider
