@@ -30,7 +30,7 @@ Types::Block = GraphQL::ObjectType.define do
 
   field :runs, types[Types::Run] do
     resolve -> (obj, args, ctx) {
-      obj.runs.where(user: ctx[:session])
+      obj.runs.where(user: ctx[:session]).order(:created_at)
     }
   end
 
