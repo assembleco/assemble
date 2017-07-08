@@ -4,16 +4,17 @@ MutationRoot = GraphQL::ObjectType.define do
   [
     Mutations::ActivateSubscription,
     Mutations::CreateBlock,
+    Mutations::CreateChromeExtensionEvent,
     Mutations::CreateRun,
     Mutations::CreateServiceDependency,
-    Mutations::DestroyServiceDependency,
     Mutations::CreateSubscription,
     Mutations::DeactivateSubscription,
+    Mutations::DestroyServiceDependency,
     Mutations::DestroySubscription,
     Mutations::UpdateBlock,
     Mutations::UpdateSubscription,
   ].each do |mutation|
-    field File.basename(mutation.to_s.underscore), mutation.return_type do
+    field File.basename(mutation.to_s.underscore), mutation.return_type(types) do
       description mutation.description
 
       mutation.arguments(types).each do |arg, type|

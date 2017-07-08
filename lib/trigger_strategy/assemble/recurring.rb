@@ -1,5 +1,5 @@
 module TriggerStrategy
-  module Time
+  module Assemble
     class Recurring
       def initialize(subscription)
         @subscription = subscription
@@ -28,7 +28,7 @@ module TriggerStrategy
       # TODO: never call this method directly.
       # Instead, use `Subscription#record_event`.
       def record_event(payload)
-        Event.create!(data: { time: ::Time.current }, subscription: subscription)
+        Event.create!(data: { time: Time.current }, subscription: subscription)
       end
 
       private

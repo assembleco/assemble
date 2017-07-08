@@ -11,7 +11,7 @@ module Mutations
       "Mark that a block depends on credentials from a service"
     end
 
-    def self.return_type
+    def self.return_type(types)
       Types::ServiceDependency
     end
 

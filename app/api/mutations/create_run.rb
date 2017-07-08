@@ -10,7 +10,7 @@ class Mutations::CreateRun < Mutations::Base
     "Run a block with custom input data"
   end
 
-  def self.return_type
+  def self.return_type(types)
     !Types::Run
   end
 

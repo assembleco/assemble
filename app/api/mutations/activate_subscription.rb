@@ -9,7 +9,7 @@ class Mutations::ActivateSubscription < Mutations::Base
     "Activate a block's subscription"
   end
 
-  def self.return_type
+  def self.return_type(types)
     !Types::Subscription
   end
 

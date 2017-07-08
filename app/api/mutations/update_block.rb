@@ -9,7 +9,7 @@ class Mutations::UpdateBlock < Mutations::Base
   def self.description
   end
 
-  def self.return_type
+  def self.return_type(types)
     !Types::Block
   end
 

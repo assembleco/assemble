@@ -11,7 +11,7 @@ module Mutations
       "Subscribe a block to a trigger"
     end
 
-    def self.return_type
+    def self.return_type(types)
       Types::Subscription
     end
 

@@ -6,6 +6,8 @@ class Service < ApplicationRecord
     "google.com" => AuthenticationStrategy::Google,
   }
 
+  has_many :triggers
+
   validates :name, presence: true, uniqueness: true
   validates :domain, presence: true, uniqueness: { case_sensitive: false }
 

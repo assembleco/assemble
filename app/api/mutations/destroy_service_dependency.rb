@@ -10,7 +10,7 @@ module Mutations
       "Remove a block's dependency on credentials from a service"
     end
 
-    def self.return_type
+    def self.return_type(types)
       Types::ServiceDependency
     end
 

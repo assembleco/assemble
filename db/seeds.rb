@@ -13,13 +13,29 @@ user = User.create!(
   email: "person@example.com",
 )
 
-github = Service.create!(name: "GitHub", domain: "github.com")
 assemble = Service.create!(name: "Assemble", domain: "assembleapp.co")
+github = Service.create!(name: "GitHub", domain: "github.com")
 
 google = Service.create!(
   name: "Google",
   domain: "google.com",
   oauth_provider: "google_oauth2",
+)
+
+trigger_schema = {
+  type: :object,
+  properties: {
+    extension_uuid: { type: :string },
+  },
+  required: [:extension_uuid]
+}
+Trigger.create!(
+  service: assemble,
+  name: "Chrome extension",
+  description: "Run whenever you click the Chrome extension button",
+  options_schema: trigger_schema,
+  default_options: { extension_uuid: "aaaa-bbbbb-ccccc-ddddd-eeee" },
+  sample_data: { url: "http://example.com", html: "<html>Hello!</html>" },
 )
 
 trigger_schema = {

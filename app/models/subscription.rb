@@ -46,6 +46,7 @@ class Subscription < ApplicationRecord
     )
 
     run.delay.execute
+    event
   end
 
   def trigger=(value)

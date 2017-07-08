@@ -8,7 +8,7 @@ class Mutations::DestroySubscription < Mutations::Base
   def self.description
   end
 
-  def self.return_type
+  def self.return_type(types)
     Types::Subscription
   end
 

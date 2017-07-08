@@ -1,17 +1,20 @@
+require "trigger_strategy/assemble/chrome_extension"
+require "trigger_strategy/assemble/recurring"
 require "trigger_strategy/github/push"
-require "trigger_strategy/time/recurring"
 
 class Trigger < ApplicationRecord
   STRATEGIES = {
     "github.com" => {
-      push: TriggerStrategy::GitHub::Push
+      push: TriggerStrategy::GitHub::Push,
     },
     "assembleapp.co" => {
-      recurring: TriggerStrategy::Time::Recurring
+      recurring: TriggerStrategy::Assemble::Recurring,
+      chrome_extension: TriggerStrategy::Assemble::ChromeExtension,
     }
   }.freeze
 
   belongs_to :service
+  has_many :subscriptions
 
   validates :name, presence: true, uniqueness: { scope: :service_id }
   validates :service, presence: true
@@ -22,7 +25,7 @@ class Trigger < ApplicationRecord
   def strategy
     @strategy ||= STRATEGIES.
       fetch(service.domain, {}).
-      fetch(name.downcase.to_sym, nil)
+      fetch(name.downcase.gsub(" ", "_").to_sym, nil)
   end
 
   private

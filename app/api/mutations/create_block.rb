@@ -9,7 +9,7 @@ module Mutations
       "Create a new block"
     end
 
-    def self.return_type
+    def self.return_type(types)
       Types::Block
     end
 
