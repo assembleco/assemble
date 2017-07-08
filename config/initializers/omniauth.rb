@@ -19,5 +19,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     :google_oauth2,
     ENV.fetch("GOOGLE_CLIENT_ID"),
     ENV.fetch("GOOGLE_CLIENT_SECRET"),
+    scope: "email,profile,https://www.googleapis.com/auth/drive",
   )
 end

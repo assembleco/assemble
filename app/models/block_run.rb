@@ -3,7 +3,8 @@
 require "json"
 
 class BlockRun < ApplicationRecord
-  INPUT_SCHEMA_NOT_SATISFIED = "input_schema_not_satisfied"
+  INPUT_SCHEMA_NOT_SATISFIED = "The block is missing required inputs"
+  DEPENDENT_SERVICES_NOT_SATISFIED = "You are not signed into the necessary third-party services"
 
   belongs_to :user
   belongs_to :block
@@ -12,34 +13,45 @@ class BlockRun < ApplicationRecord
   validates :user, presence: true
 
   def execute
-    if schema_satisfied?
-      Dir.mktmpdir do |dir|
-        File.write("#{dir}/Dockerfile", block.environment.dockerfile)
-        image = Docker::Image.build_from_dir(dir)
-
-        container = Docker::Container.create("Image" => image.id, "Tty" => true)
-        container.start
-
-        container.store_file(
-          block.environment.source_path,
-          block.source.gsub("\r\n", "\n"),
-        )
-
-        stdout, stderr, self.exit_status = container.exec(
-          block.environment.command.split(" "),
-          stdin: StringIO.new(input.to_json),
-        )
-
-        container.stop
-        container.delete
-
-        self.stdout = clean(stdout.join)
-        self.stderr = clean(stderr.join)
-
-        save
-      end
-    else
+    unless schema_satisfied?
       update!(status: BlockRun::INPUT_SCHEMA_NOT_SATISFIED)
+      return
+    end
+
+    unless authorizations_satisfied?
+      update!(status: BlockRun::DEPENDENT_SERVICES_NOT_SATISFIED)
+      return
+    end
+
+    Dir.mktmpdir do |dir|
+      File.write("#{dir}/Dockerfile", block.environment.dockerfile)
+      image = Docker::Image.build_from_dir(dir)
+
+      container = Docker::Container.create(
+        "Image" => image.id,
+        "Tty" => true,
+        "Env" => container_env_variables,
+      )
+
+      container.start
+
+      container.store_file(
+        block.environment.source_path,
+        block.source.gsub("\r\n", "\n"),
+      )
+
+      stdout, stderr, self.exit_status = container.exec(
+        block.environment.command.split(" "),
+        stdin: StringIO.new(input.to_json),
+      )
+
+      container.stop
+      container.delete
+
+      self.stdout = clean(stdout.join)
+      self.stderr = clean(stderr.join)
+
+      save
     end
   end
 
@@ -69,5 +81,21 @@ class BlockRun < ApplicationRecord
 
   def schema_satisfied?
     JSON::Validator.validate(block.schema, input)
+  end
+
+  def authorizations_satisfied?
+    block.service_dependencies.all? do |dependency|
+      user.authentications.exists?(service: dependency.service)
+    end
+  end
+
+  def container_env_variables
+    block.service_dependencies.map do |dependency|
+      authentication = user.authentications.find_by(service: dependency.service)
+
+      dependency.credential_mapping.map do |env_variable_name, credential_name|
+        "#{env_variable_name}=#{authentication.credentials[credential_name]}"
+      end
+    end.flatten.compact
   end
 end

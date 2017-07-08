@@ -42,7 +42,7 @@ class ServiceDependencies extends React.Component {
               </Row>
 
               <Hint>
-                Provides:
+                Provides the environment variables:
 
                 <ul>
                   { Object.keys(dependency.credential_mapping).map((env) => (
