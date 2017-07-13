@@ -7,7 +7,6 @@ import $ from "jquery"
 import Action from "components/action"
 import AuthenticationLink from "components/authentication_link"
 import Column from "layout/column"
-import Form from "react-jsonschema-form"
 import Hint from "components/hint"
 import Loading from "components/loading"
 import Row from "layout/row"
@@ -123,19 +122,13 @@ class Subscription extends React.Component {
         : <TriggerSetup
             {...this.state.trigger}
             options={this.state.trigger_options}
-            settingUpdated={this.settingUpdated.bind(this)}
+            settingUpdated={this.triggerSettingUpdated.bind(this)}
             editable={!this.state.active}
           />
       );
   }
 
   renderDataOverrides() {
-    const uiSchema =  {
-      ssh_private_key: {
-        "ui:widget": "textarea"
-      }
-    };
-
     return (
       <div>
         <Hint>
@@ -144,18 +137,16 @@ class Subscription extends React.Component {
         pass them in here.
         </Hint>
 
-        <Form
-          uiSchema={uiSchema}
-          schema={this.props.schema}
-          onChange={ this.data_overrides_changed.bind(this) }
-          formData={this.state.data_overrides}
+        <textarea
+          onChange={(event) => this.set_data_overrides(JSON.parse(event.target.value)) }
+          value={JSON.stringify(this.state.data_overrides)}
           >
           <div style={{ position: "relative", overflow: "hidden" }}>
-            <Action onClick={() => this.data_overrides_changed({ formData: {} }) }>
+            <Action onClick={() => this.set_data_overrides({}) }>
               Clear input fields
             </Action>
           </div>
-        </Form>
+        </textarea>
       </div>
     )
   }
@@ -201,16 +192,16 @@ class Subscription extends React.Component {
     }
   }
 
-  data_overrides_changed(event) {
-    this.setState({ data_overrides: event.formData })
+  set_data_overrides(new_data_overrides) {
+    this.setState({ data_overrides: new_data_overrides })
 
     this.props.update_subscription({ variables: {
       subscription_id: parseInt(this.state.id),
-      data_overrides: event.formData,
+      data_overrides: new_data_overrides,
     }})
   }
 
-  settingUpdated(settingName, newValue) {
+  triggerSettingUpdated(settingName, newValue) {
     let new_options = $.extend(true, {}, this.state.trigger_options);
     new_options[settingName] = newValue;
 

@@ -45,7 +45,6 @@ const BlockPage = ({ data }) => (
           id={data.block.id}
           initial_input_data={data.block.initial_input_data}
           name={data.block.name}
-          schema={data.block.schema}
           session={data.session}
           source={data.block.source}
         />
@@ -53,7 +52,6 @@ const BlockPage = ({ data }) => (
         <Subscription
           {...data.block.subscription}
           block_id={data.block.id}
-          schema={data.block.schema}
         />
       </MainColumn>
 

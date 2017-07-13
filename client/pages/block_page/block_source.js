@@ -18,8 +18,6 @@ import Toggle from "components/toggle"
 import border from "styles/border"
 import updateBlock from "util/update_block"
 
-import Form from "react-jsonschema-form"
-
 class BlockSource extends React.Component {
   constructor(props) {
     super(props)
@@ -27,18 +25,11 @@ class BlockSource extends React.Component {
     this.state = {
       environment: this.props.environment,
       source: this.props.source,
-      schema: this.props.schema,
-      inputData: this.props.initial_input_data,
+      inputJSON: JSON.stringify(this.props.initial_input_data, null, 2),
     }
   }
 
   render() {
-    const uiSchema =  {
-      ssh_private_key: {
-        "ui:widget": "textarea"
-      }
-    };
-
     return(
       <div>
         <FlexibleRow>
@@ -78,36 +69,25 @@ class BlockSource extends React.Component {
 
             <Hint>
               What information does your block need in order to run?
+              Please enter JSON.
             </Hint>
 
-            <EditableField.Schema
-              editHint="Change the type of inputs the block takes."
-              editable={this.props.editable}
-              initialValue={this.state.schema}
-              onChange={this.schemaUpdated.bind(this)}
-              >
+            <textarea
+              onChange={ (e) => this.setState({ inputJSON: e.target.value }) }
+              value={this.state.inputJSON}
+            />
 
-              <Form
-                uiSchema={uiSchema}
-                schema={this.state.schema}
-                onChange={ (e) => this.setState({ inputData: e.formData }) }
-                onSubmit={this.onSubmit.bind(this)}
-                formData={this.state.inputData}
-                >
-                <FormFooter>
-                  <Action onClick={() => this.setState({ inputData: {} }) }>
-                    Clear input fields
-                  </Action>
+            <FormFooter>
+              <Action onClick={() => this.setState({ inputJSON: "{}" }) }>
+                Clear input fields
+              </Action>
 
-                  <Button
-                    type="submit"
-                    disabled={this.props.session == null}
-                  >
-                    Run the block with these inputs
-                  </Button>
-                </FormFooter>
-              </Form>
-            </EditableField.Schema>
+              <Button
+                type="submit"
+                disabled={this.props.session == null}
+                onClick={() => this.createRun()}
+              >Run the block with these inputs</Button>
+            </FormFooter>
           </RightColumn>
         </FlexibleRow>
       </div>
@@ -127,26 +107,19 @@ class BlockSource extends React.Component {
     }))
   }
 
-  onSubmit(event) {
+  createRun() {
     this.props.create_run({
       variables: {
         block_id: this.props.id,
-        data: event.formData,
+        data: JSON.parse(this.state.inputJSON),
       },
       refetchQueries: [{
         query: block_runs_query,
         variables: { block_id: this.props.id },
       }],
     })
-  }
 
-  schemaUpdated(newSchema) {
-    this.setState({schema: newSchema})
-
-    updateBlock(
-      { schema_json: JSON.stringify(newSchema) },
-      this.props.id,
-    )
+    return false
   }
 
   sourceUpdated(newSource) {

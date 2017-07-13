@@ -3,7 +3,6 @@
 require "json"
 
 class BlockRun < ApplicationRecord
-  INPUT_SCHEMA_NOT_SATISFIED = "The block is missing required inputs"
   DEPENDENT_SERVICES_NOT_SATISFIED = "You are not signed into the necessary third-party services"
 
   belongs_to :user
@@ -13,11 +12,6 @@ class BlockRun < ApplicationRecord
   validates :user, presence: true
 
   def execute
-    unless schema_satisfied?
-      update!(status: BlockRun::INPUT_SCHEMA_NOT_SATISFIED)
-      return
-    end
-
     unless authorizations_satisfied?
       update!(status: BlockRun::DEPENDENT_SERVICES_NOT_SATISFIED)
       return
@@ -77,10 +71,6 @@ class BlockRun < ApplicationRecord
 
   def container_assemble_dir
     "/.assemble"
-  end
-
-  def schema_satisfied?
-    JSON::Validator.validate(block.schema, input)
   end
 
   def authorizations_satisfied?

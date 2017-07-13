@@ -10,7 +10,6 @@ Types::Block = GraphQL::ObjectType.define do
   field :name, types.String
   field :source, types.String
   field :udpated_at, !Types::Time
-  field :schema, !Types::ArbitraryObject
 
   field :author, !Types::Person do
     resolve ->(obj, args, ctx) { obj.user }

@@ -50,7 +50,6 @@ class BlocksController < ApplicationController
       :command,
       :handle,
       :name,
-      :schema_json,
     ).merge(user: current_user)
   end
 end

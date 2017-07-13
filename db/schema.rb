@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707174112) do
+ActiveRecord::Schema.define(version: 20170713035200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,12 +49,10 @@ ActiveRecord::Schema.define(version: 20170707174112) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.text     "description"
-    t.jsonb    "schema"
     t.integer  "user_id"
     t.text     "source"
     t.integer  "environment_id"
     t.index ["environment_id"], name: "index_blocks_on_environment_id", using: :btree
-    t.index ["schema"], name: "index_blocks_on_schema", using: :gin
     t.index ["user_id"], name: "index_blocks_on_user_id", using: :btree
   end
 
