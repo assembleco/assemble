@@ -2,6 +2,8 @@ import React from "react"
 import styled from "styled-components"
 
 import ApolloClient, { createNetworkInterface } from "apollo-client"
+import Immutable from "immutable"
+import thunkMiddleware from "redux-thunk";
 import { ApolloProvider } from "react-apollo"
 import { BrowserRouter, Route } from "react-router-dom"
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
@@ -11,6 +13,8 @@ import BlockPage from "./pages/block_page";
 import WelcomePage from "./pages/welcome_page";
 
 import Header from "components/header";
+
+import appReducer from "reducers/app"
 
 const App = (props) => {
   return (
@@ -37,21 +41,17 @@ const client = new ApolloClient({
   }),
 })
 
-const reducer = (state, action) => {
-  if(action.type == "CHANGE_INPUT_JSON")
-    return { input_json: action.input_json }
-
-  return { input_json: null }
-}
-
 const store = createStore(
   combineReducers({
-    app: reducer,
+    app: appReducer,
     apollo: client.reducer(),
   }),
 
+  { app: Immutable.Map({ blocks: Immutable.Map({}) }) },
+
   compose(
     applyMiddleware(client.middleware()),
+    applyMiddleware(thunkMiddleware),
     (typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
   )
 )

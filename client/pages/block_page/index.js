@@ -16,63 +16,68 @@ import Section from "components/section"
 
 import Row from "layout/row"
 import Column from "layout/column"
+import actions from "actions"
 
-const BlockPage = ({ data }) => {
-  if(data.loading)
-    return <Loading />
+class BlockPage extends React.Component {
+  componentDidMount() {
+    this.props.getGraph(
+      "block.input_data",
+      { id: this.props.match.params.id },
+    )
+  }
 
-  const mapStateToProps = (state) => (
-    { input_json: state.app.input_json || JSON.stringify(data.block.initial_input_data, null, 2) }
-  )
+  render() {
+    const data = this.props.data
 
-  const mapDispatchToProps = (dispatch) => (
-    { onInputChange: (input_json) => dispatch({ type: "CHANGE_INPUT_JSON", input_json: input_json }) }
-  )
+    if(data.loading)
+      return <Loading />
 
-  const ConnectedBlockSource = connect(mapStateToProps, mapDispatchToProps)(BlockSource)
+    if(this.props.fetching)
+      return <Loading />
 
-  return(
-    <Wrapper>
-      <MainColumn>
-        <TitleWrapper>
-          <Title
+    return(
+      <Wrapper>
+        <MainColumn>
+          <TitleWrapper>
+            <Title
+              id={data.block.id}
+              created_at={data.block.created_at}
+              description={data.block.description}
+              editable={data.block.editable}
+              name={data.block.name}
+              user={data.block.author}
+            />
+
+            <ServiceDependencies
+              block_id={data.block.id}
+              editable={data.block.editable}
+              service_dependencies={data.block.service_dependencies}
+              services={data.credentialed_services}
+            />
+          </TitleWrapper>
+
+          <ConnectedBlockSource
+            editable={data.block.editable}
+            environment={data.block.environment}
+            environments={data.environments}
             id={data.block.id}
-            created_at={data.block.created_at}
-            description={data.block.description}
-            editable={data.block.editable}
             name={data.block.name}
-            user={data.block.author}
+            session={data.session}
+            source={data.block.source}
           />
 
-          <ServiceDependencies
+          <Subscription
+            {...data.block.subscription}
             block_id={data.block.id}
-            editable={data.block.editable}
-            service_dependencies={data.block.service_dependencies}
-            services={data.credentialed_services}
           />
-        </TitleWrapper>
+        </MainColumn>
 
-        <ConnectedBlockSource
-          editable={data.block.editable}
-          environment={data.block.environment}
-          environments={data.environments}
-          id={data.block.id}
-          name={data.block.name}
-          session={data.session}
-          source={data.block.source}
-        />
-
-        <Subscription
-          {...data.block.subscription}
-          block_id={data.block.id}
-        />
-      </MainColumn>
-
-      <RightSidebar>
-        <BlockRuns block_id={data.block.id} />
-      </RightSidebar>
-    </Wrapper>
-  )
+        <RightSidebar>
+          <BlockRuns block_id={data.block.id} />
+        </RightSidebar>
+      </Wrapper>
+    )
+  }
 }
 
 const Wrapper = styled.div`
@@ -100,4 +105,31 @@ const BlockPageWithData = graphql(block_page_query, {
   options: ({ match }) => ({ variables: { block_id: match.params.id } })
 })(BlockPage)
 
-export default BlockPageWithData;
+const BlockPageWithDataAndState = connect(
+  (state) => ({ fetching: state.app.fetching }),
+  (dispatch) => ({ getGraph: (key, vars) => dispatch(actions.getGraph(key, vars)) }),
+)(BlockPageWithData)
+
+export default BlockPageWithDataAndState;
+
+
+
+const mapStateToProps = (state, ownProps) => {
+  const block_id = ownProps.id
+  const input_json = state.app.get("blocks").get(block_id).get("input_json")
+
+  return { input_json }
+}
+
+const mapDispatchToProps = (dispatch) => (
+  {
+    onInputChange: (input_json, ownProps) => dispatch({
+      type: "CHANGE_INPUT_JSON",
+      id: ownProps.id,
+      input_json: input_json,
+    })
+  }
+)
+
+const ConnectedBlockSource = connect(mapStateToProps, mapDispatchToProps)(BlockSource)
+

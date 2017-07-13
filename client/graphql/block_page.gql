@@ -6,7 +6,6 @@ query BlockQuery ($block_id: ID!) {
     description
     editable
     id
-    initial_input_data
     name
     source
 
