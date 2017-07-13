@@ -2,7 +2,6 @@ import React from "react"
 import styled from "styled-components"
 
 import ApolloClient, { createNetworkInterface } from "apollo-client"
-import Immutable from "immutable"
 import thunkMiddleware from "redux-thunk";
 import { ApolloProvider } from "react-apollo"
 import { BrowserRouter, Route } from "react-router-dom"
@@ -46,8 +45,6 @@ const store = createStore(
     app: reducers.rootReducer,
     apollo: client.reducer(),
   }),
-
-  { app: Immutable.Map({ blocks: Immutable.Map({}) }) },
 
   compose(
     applyMiddleware(client.middleware()),

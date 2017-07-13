@@ -1,5 +1,3 @@
-import Immutable from "immutable"
-
 const selectors = {
   input_json: id => state => state.app.blocks[id].input_json,
 }
