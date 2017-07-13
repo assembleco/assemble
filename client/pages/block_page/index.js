@@ -14,6 +14,8 @@ import Title from "./title"
 import Loading from "components/loading"
 import Section from "components/section"
 
+import reducers from "reducers"
+
 import Row from "layout/row"
 import Column from "layout/column"
 import actions from "actions"
@@ -115,21 +117,17 @@ export default BlockPageWithDataAndState;
 
 
 const mapStateToProps = (state, ownProps) => {
-  const block_id = ownProps.id
-  const input_json = state.app.get("blocks").get(block_id).get("input_json")
-
-  return { input_json }
+  return { input_json: reducers.selectors.input_json(ownProps.id)(state) }
 }
 
-const mapDispatchToProps = (dispatch) => (
+const mapDispatchToProps = (dispatch, ownProps) => (
   {
-    onInputChange: (input_json, ownProps) => dispatch({
+    onInputChange: (input_json) => dispatch({
       type: "CHANGE_INPUT_JSON",
-      id: ownProps.id,
+      variables: { id: ownProps.id },
       input_json: input_json,
     })
   }
 )
 
 const ConnectedBlockSource = connect(mapStateToProps, mapDispatchToProps)(BlockSource)
-

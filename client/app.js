@@ -14,7 +14,7 @@ import WelcomePage from "./pages/welcome_page";
 
 import Header from "components/header";
 
-import appReducer from "reducers/app"
+import reducers from "reducers"
 
 const App = (props) => {
   return (
@@ -43,7 +43,7 @@ const client = new ApolloClient({
 
 const store = createStore(
   combineReducers({
-    app: appReducer,
+    app: reducers.rootReducer,
     apollo: client.reducer(),
   }),
 
