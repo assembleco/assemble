@@ -16,6 +16,9 @@ import ToggleSwitch from "components/toggle_switch"
 import TriggerSetup from "./trigger_setup"
 import border from "styles/border"
 
+import reducers from "reducers"
+import { connect } from "react-redux"
+
 import dataQuery from "graphql/triggers.gql"
 import create_subscription from "graphql/create_subscription.gql"
 import update_subscription from "graphql/update_subscription.gql"
@@ -145,6 +148,10 @@ class Subscription extends React.Component {
           value={this.state.input_json}
           >
         </textarea>
+
+        <InputAction onClick={() => this.set_input_json(this.props.block_input_json) }>
+          Copy input from above
+        </InputAction>
 
         <InputAction onClick={() => this.set_input_json("{}") }>
           Clear input
@@ -277,7 +284,7 @@ Subscription.propTypes = {
   data: PropTypes.shape({ triggers: PropTypes.arrayOf(trigger_prop_types) })
 }
 
-export default compose(
+const SubscriptionWithData = compose(
   graphql(dataQuery),
   graphql(create_subscription, { name: "create_subscription" }),
   graphql(update_subscription, { name: "update_subscription" }),
@@ -285,3 +292,7 @@ export default compose(
   graphql(activate_subscription, { name: "activate_subscription" }),
   graphql(deactivate_subscription, { name: "deactivate_subscription" }),
 )(Subscription);
+
+export default connect(
+  (state, ownProps) => ({ block_input_json: reducers.selectors.input_json(ownProps.block_id)(state) }),
+)(SubscriptionWithData)
