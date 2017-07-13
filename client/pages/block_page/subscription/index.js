@@ -194,10 +194,6 @@ class Subscription extends React.Component {
     }
   }
 
-  copyCurrentRunInputs() {
-    debugger;
-  }
-
   set_input_json(new_input_json) {
     this.setState({ input_json: new_input_json })
 

@@ -26,7 +26,6 @@ class BlockSource extends React.Component {
     this.state = {
       environment: this.props.environment,
       source: this.props.source,
-      inputJSON: JSON.stringify(this.props.initial_input_data, null, 2),
     }
   }
 
@@ -74,12 +73,12 @@ class BlockSource extends React.Component {
             </Hint>
 
             <textarea
-              onChange={linkState(this, "inputJSON")}
-              value={this.state.inputJSON}
+              onChange={e => this.props.onInputChange(e.target.value)}
+              value={this.props.input_json}
             />
 
             <FormFooter>
-              <Action onClick={() => this.setState({ inputJSON: "{}" }) }>
+              <Action onClick={() => this.props.onInputChange("{}") }>
                 Clear input
               </Action>
 
@@ -112,7 +111,7 @@ class BlockSource extends React.Component {
     this.props.create_run({
       variables: {
         block_id: this.props.id,
-        data: JSON.parse(this.state.inputJSON),
+        data: JSON.parse(this.props.input_json),
       },
       refetchQueries: [{
         query: block_runs_query,

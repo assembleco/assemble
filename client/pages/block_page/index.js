@@ -2,6 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 
+import { connect } from "react-redux"
 import { graphql } from "react-apollo"
 import block_page_query from "graphql/block_page.gql"
 
@@ -16,8 +17,21 @@ import Section from "components/section"
 import Row from "layout/row"
 import Column from "layout/column"
 
-const BlockPage = ({ data }) => (
-  data.loading ? <Loading /> : (
+const BlockPage = ({ data }) => {
+  if(data.loading)
+    return <Loading />
+
+  const mapStateToProps = (state) => (
+    { input_json: state.app.input_json || JSON.stringify(data.block.initial_input_data, null, 2) }
+  )
+
+  const mapDispatchToProps = (dispatch) => (
+    { onInputChange: (input_json) => dispatch({ type: "CHANGE_INPUT_JSON", input_json: input_json }) }
+  )
+
+  const ConnectedBlockSource = connect(mapStateToProps, mapDispatchToProps)(BlockSource)
+
+  return(
     <Wrapper>
       <MainColumn>
         <TitleWrapper>
@@ -38,12 +52,11 @@ const BlockPage = ({ data }) => (
           />
         </TitleWrapper>
 
-        <BlockSource
+        <ConnectedBlockSource
           editable={data.block.editable}
           environment={data.block.environment}
           environments={data.environments}
           id={data.block.id}
-          initial_input_data={data.block.initial_input_data}
           name={data.block.name}
           session={data.session}
           source={data.block.source}
@@ -60,7 +73,7 @@ const BlockPage = ({ data }) => (
       </RightSidebar>
     </Wrapper>
   )
-)
+}
 
 const Wrapper = styled.div`
   align-items: stretch;
