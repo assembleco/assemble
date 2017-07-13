@@ -3,19 +3,7 @@ import { mountComponents } from "react-rails-ujs";
 
 import App from "./app";
 
-import BlockPage from "./pages/block_page";
-import WelcomePage from "./pages/welcome_page";
-
-import Header from "./components/header";
-import JSONTree from "react-json-tree";
-import Schema from "./components/schema";
-
-mountComponents({
-  App,
-  Header,
-  JSONTree,
-  Schema,
-});
+mountComponents({ App });
 
 $(document).ajaxSend(function(e, xhr, options) {
   var token = $("meta[name='csrf-token']").attr("content");
