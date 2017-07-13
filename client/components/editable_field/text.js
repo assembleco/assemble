@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
+import linkState from "linkstate"
 
 import Hint from "components/hint"
 
@@ -28,7 +29,7 @@ class EditableText extends React.Component {
               <Hint>{this.props.hint}</Hint>
               <textarea
                 value={this.state.editedValue}
-                onChange={(e) => this.setState({ editedValue: e.target.value })}
+                onChange={linkState(this, "editedValue")}
                 onBlur={this.finishEditing.bind(this)}
                 ref={(input) => { if(input) { input.focus() }}}
                 style={{ marginRight: "0.5rem" }}

@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import styled from "styled-components"
 import { graphql, compose } from "react-apollo"
 import $ from "jquery"
+import linkState from "linkstate"
 
 import Action from "components/action"
 import AuthenticationLink from "components/authentication_link"
@@ -32,7 +33,7 @@ class Subscription extends React.Component {
       id: props.id,
       trigger: props.trigger,
       trigger_options: props.trigger_options,
-      data_overrides: props.data_overrides,
+      input_json: JSON.stringify(props.data_overrides, null, 2),
     }
   }
 
@@ -69,7 +70,9 @@ class Subscription extends React.Component {
             </Section>
           </LeftColumn>
 
-          {this.state.trigger && <RightColumn>{this.renderDataOverrides()}</RightColumn>}
+          { this.state.trigger &&
+            <RightColumn>{this.render_input_json()}</RightColumn>
+          }
         </FlexibleRow>
       )
     );
@@ -128,7 +131,7 @@ class Subscription extends React.Component {
       );
   }
 
-  renderDataOverrides() {
+  render_input_json() {
     return (
       <div>
         <Hint>
@@ -138,15 +141,14 @@ class Subscription extends React.Component {
         </Hint>
 
         <textarea
-          onChange={(event) => this.set_data_overrides(JSON.parse(event.target.value)) }
-          value={JSON.stringify(this.state.data_overrides)}
+          onChange={linkState(this, "input_json")}
+          value={this.state.input_json}
           >
-          <div style={{ position: "relative", overflow: "hidden" }}>
-            <Action onClick={() => this.set_data_overrides({}) }>
-              Clear input fields
-            </Action>
-          </div>
         </textarea>
+
+        <InputAction onClick={() => this.set_input_json("{}") }>
+          Clear input
+        </InputAction>
       </div>
     )
   }
@@ -192,12 +194,16 @@ class Subscription extends React.Component {
     }
   }
 
-  set_data_overrides(new_data_overrides) {
-    this.setState({ data_overrides: new_data_overrides })
+  copyCurrentRunInputs() {
+    debugger;
+  }
+
+  set_input_json(new_input_json) {
+    this.setState({ input_json: new_input_json })
 
     this.props.update_subscription({ variables: {
       subscription_id: parseInt(this.state.id),
-      data_overrides: new_data_overrides,
+      input_json: new_input_json,
     }})
   }
 
@@ -221,6 +227,10 @@ class Subscription extends React.Component {
     }))
   }
 }
+
+const InputAction = styled(Action)`
+  display: block;
+`
 
 const Footer = styled.div`
   border-top: 1px solid lightgrey;

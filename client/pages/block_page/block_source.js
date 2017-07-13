@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
+import linkState from "linkstate"
 
 import { graphql, compose } from "react-apollo"
 import update_block from "graphql/update_block.gql"
@@ -73,13 +74,13 @@ class BlockSource extends React.Component {
             </Hint>
 
             <textarea
-              onChange={ (e) => this.setState({ inputJSON: e.target.value }) }
+              onChange={linkState(this, "inputJSON")}
               value={this.state.inputJSON}
             />
 
             <FormFooter>
               <Action onClick={() => this.setState({ inputJSON: "{}" }) }>
-                Clear input fields
+                Clear input
               </Action>
 
               <Button

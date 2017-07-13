@@ -8,6 +8,7 @@
     "freezer-js": "^0.11.2",
     "hedron": "^0.6.0",
     "jquery": "^3.1.1",
+    "linkstate": "^1.0.1",
     "react": "^15.4.2",
     "react-apollo": "^1.4.2",
     "react-dom": "^15.4.2",
