@@ -4,12 +4,13 @@ import styled from "styled-components"
 import ApolloClient, { createNetworkInterface } from "apollo-client"
 import thunkMiddleware from "redux-thunk";
 import { ApolloProvider } from "react-apollo"
-import { BrowserRouter, Route } from "react-router-dom"
+import { BrowserRouter, Route, Switch } from "react-router-dom"
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 
 import AboutPage from "./pages/about";
 import BlockPage from "./pages/block";
 import WelcomePage from "./pages/welcome";
+import NotFoundPage from "./pages/not_found";
 
 import Header from "components/header";
 
@@ -22,9 +23,12 @@ const App = (props) => {
         <div>
           <Header/>
 
-          <Route path="/about" component={AboutPage} />
-          <Route path="/blocks/:id" component={BlockPage} />
-          <Route exact path="/" component={WelcomePage} />
+          <Switch>
+            <Route path="/about" component={AboutPage} />
+            <Route path="/blocks/:id" component={BlockPage} />
+            <Route exact path="/" component={WelcomePage} />
+            <Route component={NotFoundPage} />
+          </Switch>
         </div>
       </BrowserRouter>
     </ApolloProvider>
