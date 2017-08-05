@@ -110,11 +110,10 @@ ActiveRecord::Schema.define(version: 20170713035200) do
   end
 
   create_table "service_dependencies", force: :cascade do |t|
-    t.integer  "block_id",                        null: false
-    t.integer  "service_id",                      null: false
-    t.jsonb    "credential_mapping", default: {}, null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.integer  "block_id",   null: false
+    t.integer  "service_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["block_id"], name: "index_service_dependencies_on_block_id", using: :btree
     t.index ["service_id"], name: "index_service_dependencies_on_service_id", using: :btree
   end
