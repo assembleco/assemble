@@ -42,7 +42,7 @@ const client = new ApolloClient({
 
 const store = createStore(
   combineReducers({
-    app: reducers.rootReducer,
+    app: reducers.appReducer,
     apollo: client.reducer(),
   }),
 
