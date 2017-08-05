@@ -9,7 +9,7 @@ import create_run from "graphql/create_run.gql"
 import block_runs_query from "graphql/block_runs.gql"
 
 import Action from "components/action"
-import BlockUsage from "pages/block_page/block_usage";
+import BlockUsage from "./block_usage";
 import Column from "layout/column"
 import EditableField from "components/editable_field"
 import Hint from "components/hint"

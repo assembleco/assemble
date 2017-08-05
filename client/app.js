@@ -7,9 +7,9 @@ import { ApolloProvider } from "react-apollo"
 import { BrowserRouter, Route } from "react-router-dom"
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 
-import AboutPage from "./pages/about_page";
-import BlockPage from "./pages/block_page";
-import WelcomePage from "./pages/welcome_page";
+import AboutPage from "./pages/about";
+import BlockPage from "./pages/block";
+import WelcomePage from "./pages/welcome";
 
 import Header from "components/header";
 
