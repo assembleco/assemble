@@ -1,10 +1,12 @@
 # Remove any data currently in the database
 
-BlockRun.destroy_all
 Block.destroy_all
-User.destroy_all
-Service.destroy_all
+BlockRun.destroy_all
 Environment.destroy_all
+Service.destroy_all
+ServiceDependency.destroy_all
+Trigger.destroy_all
+User.destroy_all
 
 user = User.create!(
   handle: "user",
