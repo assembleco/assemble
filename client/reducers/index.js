@@ -1,5 +1,5 @@
 const selectors = {
-  input_json: id => state => state.app.blocks[id].input_json,
+  input_json: id => state => state.block.blocks[id].input_json,
 }
 
 const appReducer = (state = { blocks: undefined }, action) => (
@@ -7,6 +7,7 @@ const appReducer = (state = { blocks: undefined }, action) => (
     ...state,
     blocks: blocksReducer(state.blocks, action),
     fetching: fetchingReducer(state.fetching, action),
+    // TODO session: sessionReducer(state.session, action),
   }
 )
 
@@ -33,27 +34,12 @@ const blocksReducer = (state = {}, action) => {
 
 const blockReducer = (state = {}, action) => {
   switch (action.type) {
-    case "FINISH_REQUEST":
-      let reducer = requestReducers[action.request]
-      return reducer(state, action)
-
     case "CHANGE_INPUT_JSON":
       return { ...state, input_json: action.input_json }
 
     default:
       return state
   }
-}
-
-const ReduceInputDataRequest = (state = {}, action) => {
-  const input_data = action.response.data.block.initial_input_data
-  const input_json = JSON.stringify(input_data, null, 2)
-
-  return { ...state, input_json }
-}
-
-const requestReducers = {
-  "block.input_data": ReduceInputDataRequest,
 }
 
 export default { appReducer, selectors }

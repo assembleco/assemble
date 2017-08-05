@@ -4,7 +4,8 @@ import styled from "styled-components"
 
 import { connect } from "react-redux"
 import { graphql } from "react-apollo"
-import block_page_query from "graphql/block_page.gql"
+
+import blockRequest from "requests/block"
 
 import BlockSource from "./block_source";
 import BlockRuns from "./block_runs";
@@ -14,27 +15,19 @@ import Title from "./title"
 import Loading from "components/loading"
 import Section from "components/section"
 
-import reducers from "reducers"
-
 import Row from "layout/row"
 import Column from "layout/column"
-import actions from "actions"
 
 class BlockPage extends React.Component {
   componentDidMount() {
-    this.props.getGraph(
-      "block.input_data",
-      { id: this.props.match.params.id },
-    )
+    this.props.requestBlock({ block_id: this.props.match.params.id })
   }
 
   render() {
+    const block = this.props.block
     const data = this.props.data
 
     if(data.loading)
-      return <Loading />
-
-    if(this.props.fetching)
       return <Loading />
 
     return(
@@ -42,40 +35,39 @@ class BlockPage extends React.Component {
         <MainColumn>
           <TitleWrapper>
             <Title
-              id={data.block.id}
-              created_at={data.block.created_at}
-              description={data.block.description}
-              editable={data.block.editable}
-              name={data.block.name}
-              user={data.block.author}
+              id={block.id}
+              created_at={block.created_at}
+              description={block.description}
+              editable={block.editable}
+              name={block.name}
+              user={block.author}
             />
 
             <ServiceDependencies
-              block_id={data.block.id}
-              editable={data.block.editable}
-              service_dependencies={data.block.service_dependencies}
+              block_id={block.id}
+              editable={block.editable}
+              service_dependencies={block.service_dependencies}
               services={data.credentialed_services}
             />
           </TitleWrapper>
 
-          <ConnectedBlockSource
-            editable={data.block.editable}
-            environment={data.block.environment}
-            environments={data.environments}
-            id={data.block.id}
-            name={data.block.name}
+          <BlockSource
+            editable={block.editable}
+            environment={block.environment}
+            id={block.id}
+            name={block.name}
             session={data.session}
-            source={data.block.source}
+            source={block.source}
           />
 
           <Subscription
-            {...data.block.subscription}
-            block_id={data.block.id}
+            {...block.subscription}
+            block_id={block.id}
           />
         </MainColumn>
 
         <RightSidebar>
-          <BlockRuns block_id={data.block.id} />
+          <BlockRuns block_id={block.id} />
         </RightSidebar>
       </Wrapper>
     )
@@ -103,31 +95,12 @@ const RightSidebar = styled.div`
   flex: 0 0 20rem;
 `
 
-const BlockPageWithData = graphql(block_page_query, {
-  options: ({ match }) => ({ variables: { block_id: match.params.id } })
-})(BlockPage)
-
 const BlockPageWithDataAndState = connect(
-  (state) => ({ fetching: state.app.fetching }),
-  (dispatch) => ({ getGraph: (key, vars) => dispatch(actions.getGraph(key, vars)) }),
-)(BlockPageWithData)
+  (state, { match }) => ({
+    block: state.block.blocks[match.params.id],
+    data: { loading: state.block.blocks[match.params.id] ? false : true },
+  }),
+  (dispatch) => ({ requestBlock: (vars) => dispatch(blockRequest(vars)) }),
+)(BlockPage)
 
 export default BlockPageWithDataAndState;
-
-
-
-const mapStateToProps = (state, ownProps) => {
-  return { input_json: reducers.selectors.input_json(ownProps.id)(state) }
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => (
-  {
-    onInputChange: (input_json) => dispatch({
-      type: "CHANGE_INPUT_JSON",
-      variables: { id: ownProps.id },
-      input_json: input_json,
-    })
-  }
-)
-
-const ConnectedBlockSource = connect(mapStateToProps, mapDispatchToProps)(BlockSource)

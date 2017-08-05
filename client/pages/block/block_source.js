@@ -3,11 +3,13 @@ import PropTypes from "prop-types"
 import styled from "styled-components"
 import linkState from "linkstate"
 
-import { graphql, compose } from "react-apollo"
-import update_block from "graphql/update_block.gql"
-import create_run from "graphql/create_run.gql"
 import block_runs_query from "graphql/block_runs.gql"
+import create_run from "graphql/create_run.gql"
+import update_block from "graphql/update_block.gql"
+import { connect } from "react-redux"
+import { graphql, compose } from "react-apollo"
 
+import reducers from "reducers"
 import Action from "components/action"
 import BlockUsage from "./block_usage";
 import Column from "layout/column"
@@ -177,7 +179,24 @@ BlockSource.propTypes = {
   }).isRequired,
 }
 
+const mapStateToProps = (state, ownProps) => ({
+  input_json: reducers.selectors.input_json(ownProps.id)(state),
+  environments: state.block.environments,
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => (
+  {
+    onInputChange: (input_json) => dispatch({
+      type: "CHANGE_INPUT_JSON",
+      variables: { id: ownProps.id },
+      input_json: input_json,
+    })
+  }
+)
+
+const ConnectedBlockSource = connect(mapStateToProps, mapDispatchToProps)(BlockSource)
+
 export default compose(
   graphql(update_block, { name: "update_block" }),
   graphql(create_run, { name: "create_run" }),
-)(BlockSource);
+)(ConnectedBlockSource);

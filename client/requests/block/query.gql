@@ -1,4 +1,4 @@
-#import "./fragments/subscription.gql"
+#import "graphql/fragments/subscription.gql"
 
 query BlockQuery ($block_id: ID!) {
   block(id: $block_id) {
@@ -26,10 +26,6 @@ query BlockQuery ($block_id: ID!) {
     id
     name
     domain
-  }
-
-  session {
-    api_key
   }
 
   environments {

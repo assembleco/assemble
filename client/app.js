@@ -16,6 +16,8 @@ import Header from "components/header";
 
 import reducers from "reducers"
 
+import blockRequest from "requests/block"
+
 const App = (props) => {
   return (
     <ApolloProvider store={store} client={client}>
@@ -47,6 +49,7 @@ const client = new ApolloClient({
 const store = createStore(
   combineReducers({
     app: reducers.appReducer,
+    [blockRequest.key]: blockRequest.reducer,
     apollo: client.reducer(),
   }),
 
