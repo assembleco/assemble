@@ -16,6 +16,7 @@
     "react-gravatar": "^2.6.3",
     "react-json-tree": "^0.10.1",
     "react-markdown": "^2.5.0",
+    "react-modal": "^2.3.2",
     "react-rails-ujs": "^1.0.0",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",

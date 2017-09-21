@@ -2319,6 +2319,10 @@ exenv@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.0.tgz#3835f127abf075bfe082d0aed4484057c78e3c89"
 
+exenv@^1.2.0:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
+
 expand-brackets@^0.1.4:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/expand-brackets/-/expand-brackets-0.1.5.tgz#df07284e342a807cd733ac5af72411e581d1177b"
@@ -4526,6 +4530,14 @@ react-modal@^1.7.6, react-modal@^1.7.7:
     exenv "1.2.0"
     lodash.assign "^4.2.0"
     prop-types "^15.5.7"
+    react-dom-factories "^1.0.0"
+
+react-modal@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-2.3.2.tgz#af9d625da218461de3e87551609dfca12d8d4946"
+  dependencies:
+    exenv "^1.2.0"
+    prop-types "^15.5.10"
     react-dom-factories "^1.0.0"
 
 react-pure-render@^1.0.2:
