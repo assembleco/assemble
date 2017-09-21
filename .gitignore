@@ -7,11 +7,12 @@
 /coverage/*
 /db/*.sqlite3
 /log/*
-/public/system
+/node_modules
 /public/assets
+/public/run_outputs
+/public/system
 /tags
 /tmp/*
-/node_modules
 
 # Environment-specific files (prod, dev, etc.)
 # These files have samples committed in the repository for each environment.

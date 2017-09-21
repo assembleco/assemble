@@ -17,17 +17,24 @@ class BlockRun < ApplicationRecord
       return
     end
 
+    output_dir = "public/run_outputs/#{id}"
+    host_dir = File.join(ENV.fetch("HOST_APPLICATION_DIR"), output_dir)
+
+    `mkdir -p #{Rails.root.join(output_dir)}`
+
     Dir.mktmpdir do |dir|
       File.write("#{dir}/Dockerfile", block.environment.dockerfile)
       image = Docker::Image.build_from_dir(dir)
 
       container = Docker::Container.create(
+        "Env" => container_env_variables,
         "Image" => image.id,
         "Tty" => true,
-        "Env" => container_env_variables,
       )
 
-      container.start
+      container.start(
+        'Binds' => ["#{host_dir}:/output"]
+      )
 
       container.store_file(
         block.environment.source_path,
