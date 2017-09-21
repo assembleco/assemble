@@ -4,6 +4,7 @@ import $ from "jquery"
 import styled from "styled-components"
 
 import colors from "styles/colors"
+import Link from "components/link"
 
 class RunStatus extends React.Component {
   render() {
@@ -34,6 +35,20 @@ class RunStatus extends React.Component {
             <Code>
             {this.props.errors}
             </Code>
+          </div>
+
+          <div>
+            <Message>Output Files:</Message>
+
+            <ul>
+              {Object.keys(this.props.output_files).map((filename) => (
+                <li>
+                  <Link external to={this.props.output_files[filename]}>
+                    {filename}
+                  </Link>
+                </li>
+              )) }
+            </ul>
           </div>
         </div>
       );

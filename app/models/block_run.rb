@@ -66,6 +66,20 @@ class BlockRun < ApplicationRecord
     end
   end
 
+  def output_files
+    public_dir = "public"
+    run_path = "run_outputs/#{id}/"
+    full_path = Rails.root.join(public_dir, run_path)
+
+    Dir.glob(full_path.join("*")).map do |file|
+      # Strip out the directory prefix
+      filename = file[full_path.to_s.length .. -1]
+      url = "//" + File.join(ENV.fetch("APPLICATION_HOST"), run_path, filename)
+
+      [filename, url]
+    end.to_h
+  end
+
   private
 
   def clean(text)

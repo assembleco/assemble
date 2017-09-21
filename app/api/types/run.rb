@@ -12,6 +12,7 @@ Types::Run = GraphQL::ObjectType.define do
   field :status, !types.String
   field :input, Types::ArbitraryObject
   field :output, Types::ArbitraryObject
+  field :output_files, Types::ArbitraryObject
   field :user, !Types::Person
   field :event, Types::Event
 end

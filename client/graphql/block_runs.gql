@@ -23,6 +23,7 @@ query BlockRunsQuery ($block_id: ID!) {
       status
       stderr
       stdout
+      output_files
     }
   }
 }
