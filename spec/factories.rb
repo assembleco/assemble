@@ -11,7 +11,9 @@ FactoryGirl.define do
     user
     sequence(:name) { |n| "block_#{n}" }
     source "puts 'Hello, World!'\n"
-    environment
+    command "ruby /app/script.rb"
+    source_path "/app/script.rb"
+    dockerfile "FROM ruby:latest"
   end
 
   factory :block_run do
@@ -21,14 +23,6 @@ FactoryGirl.define do
     status :success
     stderr ""
     stdout ""
-  end
-
-  factory :environment do
-    name "ruby"
-    command "ruby /app/script.rb"
-    source_path "/app/script.rb"
-    dockerfile "FROM ruby:latest"
-    preamble "# Comments describing how the block works"
   end
 
   factory :event do

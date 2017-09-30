@@ -2,7 +2,6 @@
 
 class Block < ApplicationRecord
   belongs_to :user
-  belongs_to :environment
 
   has_many :runs, dependent: :destroy, class_name: "BlockRun"
   has_many :subscriptions, dependent: :destroy

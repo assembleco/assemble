@@ -53,7 +53,6 @@ class BlockPage extends React.Component {
 
           <BlockSource
             editable={block.editable}
-            environment={block.environment}
             id={block.id}
             name={block.name}
             session={data.session}

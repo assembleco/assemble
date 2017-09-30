@@ -15,12 +15,6 @@ Queries = GraphQL::ObjectType.define do
     resolve -> (obj, args, ctx) { Block.all }
   end
 
-  field :environments do
-    type !types[Types::Environment]
-    description "A list of all environments"
-    resolve -> (obj, args, ctx) { Environment.all }
-  end
-
   field :credentialed_services do
     type types[Types::Service]
     description "A list of all third-party services that provide credentials to blocks"

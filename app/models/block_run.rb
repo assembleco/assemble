@@ -23,7 +23,7 @@ class BlockRun < ApplicationRecord
     `mkdir -p #{Rails.root.join(output_dir)}`
 
     Dir.mktmpdir do |dir|
-      File.write("#{dir}/Dockerfile", block.environment.dockerfile)
+      File.write("#{dir}/Dockerfile", block.dockerfile)
       image = Docker::Image.build_from_dir(dir)
 
       container = Docker::Container.create(
@@ -37,12 +37,12 @@ class BlockRun < ApplicationRecord
       )
 
       container.store_file(
-        block.environment.source_path,
+        block.source_path,
         block.source.gsub("\r\n", "\n"),
       )
 
       stdout, stderr, self.exit_status = container.exec(
-        block.environment.command.split(" "),
+        block.command.split(" "),
         stdin: StringIO.new(input.to_json),
       )
 

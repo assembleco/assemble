@@ -10,7 +10,6 @@ const reducer = (state = {}, variables, data) => {
   return {
     ...state,
     blocks: blocksReducer(state.blocks, variables, data),
-    environments: data.environments || [],
   }
 }
 
@@ -47,10 +46,6 @@ query BlockQuery ($block_id: ID!) {
       handle
     }
 
-    environment {
-      id
-    }
-
     subscription {
       ...subscription
     }
@@ -60,12 +55,6 @@ query BlockQuery ($block_id: ID!) {
     id
     name
     domain
-  }
-
-  # TODO extract to separate request
-  environments {
-    id
-    name
   }
 }
 

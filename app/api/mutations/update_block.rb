@@ -2,7 +2,6 @@ class Mutations::UpdateBlock < Mutations::Base
   def self.arguments(types)
     {
       id: !types.ID,
-      environment_id: types.ID,
     }
   end
 
@@ -17,7 +16,6 @@ class Mutations::UpdateBlock < Mutations::Base
     block = Block.find(args[:id])
 
     block.update!(
-      environment_id: args[:environment_id],
     )
 
     block

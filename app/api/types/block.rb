@@ -5,7 +5,9 @@ Types::Block = GraphQL::ObjectType.define do
   field :active, !types.Boolean
   field :created_at, !Types::Time
   field :description, types.String
-  field :environment, !Types::Environment
+  field :command, types.String
+  field :dockerfile, types.String
+  field :source_path, types.String
   field :id, !types.ID
   field :name, types.String
   field :source, types.String

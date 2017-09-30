@@ -5,7 +5,6 @@ import linkState from "linkstate"
 
 import block_runs_query from "graphql/block_runs.gql"
 import create_run from "graphql/create_run.gql"
-import update_block from "graphql/update_block.gql"
 import { connect } from "react-redux"
 import { graphql, compose } from "react-apollo"
 
@@ -26,7 +25,6 @@ class BlockSource extends React.Component {
     super(props)
 
     this.state = {
-      environment: this.props.environment,
       source: this.props.source,
     }
   }
@@ -38,22 +36,6 @@ class BlockSource extends React.Component {
           <LeftColumn>
             <Section>
               <h3>Program</h3>
-
-              <EnvironmentSelect>
-                <label>Environment:</label>
-
-                <select
-                  value={this.state.environment.id}
-                  onChange={this.environmentChanged.bind(this)}
-                  disabled={!this.props.editable}
-                  >
-                  { this.props.environments.map((env) => (
-                    <option key={env.id} value={env.id}>
-                      {env.name}
-                    </option>
-                  )) }
-                </select>
-              </EnvironmentSelect>
 
               <EditableField.Text
                 hint="What code should this block run?"
@@ -94,19 +76,6 @@ class BlockSource extends React.Component {
         </FlexibleRow>
       </div>
     );
-  }
-
-  environmentChanged(event) {
-    let newEnvironmentID = event.target.value
-
-    let request = this.props.update_block({ variables: {
-      environment_id: parseInt(newEnvironmentID),
-      id: parseInt(this.props.id),
-    }})
-
-    request.then(({ data }) => this.setState({
-      environment: data.update_block.environment,
-    }))
   }
 
   createRun() {
@@ -160,28 +129,14 @@ const Button = styled.button`
   float: right;
 `
 
-const EnvironmentSelect = styled.div`
-  select, label {
-    display: inline;
-  }
-
-  label {
-    margin-right: 0.75rem;
-  }
-`
-
 BlockSource.propTypes = {
   id: PropTypes.string.isRequired,
   source: PropTypes.string.isRequired,
   editable: PropTypes.bool.isRequired,
-  environment: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  }).isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => ({
   input_json: reducers.selectors.input_json(ownProps.id)(state),
-  environments: state.block.environments,
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => (
@@ -197,6 +152,5 @@ const mapDispatchToProps = (dispatch, ownProps) => (
 const ConnectedBlockSource = connect(mapStateToProps, mapDispatchToProps)(BlockSource)
 
 export default compose(
-  graphql(update_block, { name: "update_block" }),
   graphql(create_run, { name: "create_run" }),
 )(ConnectedBlockSource);

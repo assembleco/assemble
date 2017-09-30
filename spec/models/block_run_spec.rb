@@ -2,9 +2,8 @@ require 'rails_helper'
 
 RSpec.describe BlockRun, type: :model do
   describe "#execute" do
-    it "runs the block using its default environment" do
-      env = create(:environment, command: "echo hello")
-      block = create(:block, environment: env)
+    it "runs the block command" do
+      block = create(:block, command: "echo hello")
       run = BlockRun.create!(user: create(:user), block: block, input: {})
 
       run.execute

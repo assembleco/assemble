@@ -2,7 +2,6 @@
 
 Block.destroy_all
 BlockRun.destroy_all
-Environment.destroy_all
 Service.destroy_all
 ServiceDependency.destroy_all
 Trigger.destroy_all
@@ -92,22 +91,11 @@ Trigger.create!(
   },
 )
 
-ruby = Environment.create!(
-  name: "ruby",
+Block.create!(
+  description: "Simply prints out the input that was passed to the flow.",
   command: "ruby /app/script.rb",
   dockerfile: "FROM ruby:latest\n",
   source_path: "/app/script.rb",
-)
-node = Environment.create!(
-  name: "node",
-  command: "node /app/script.js",
-  dockerfile: "FROM node:latest\n",
-  source_path: "/app/script.js",
-)
-
-Block.create!(
-  description: "Simply prints out the input that was passed to the flow.",
-  environment: ruby,
   name: "debug",
   source: File.read("db/seeds/blocks/debug.rb"),
   user: user,
@@ -115,7 +103,9 @@ Block.create!(
 
 Block.create!(
   description: "This block connects to the Dark Sky API (https://darksky.net/) to pull the latest weather forecast information.",
-  environment: ruby,
+  command: "ruby /app/script.rb",
+  dockerfile: "FROM ruby:latest\n",
+  source_path: "/app/script.rb",
   name: "forecast",
   source: File.read("db/seeds/blocks/darksky.rb"),
   user: user,
@@ -123,7 +113,9 @@ Block.create!(
 
 Block.create!(
   description: "Use Pushover (https://pushover.net/) to send a notification to a user's phone",
-  environment: node,
+  command: "node /app/script.js",
+  dockerfile: "FROM node:latest\n",
+  source_path: "/app/script.js",
   name: "phone_notification",
   source: File.read("db/seeds/blocks/pushover.js"),
   user: user,
@@ -131,7 +123,9 @@ Block.create!(
 
 Block.create!(
   description: "Takes input data, and outputs the same data with some of the data renamed.",
-  environment: ruby,
+  command: "ruby /app/script.rb",
+  dockerfile: "FROM ruby:latest\n",
+  source_path: "/app/script.rb",
   name: "transform",
   source: File.read("db/seeds/blocks/transform.rb"),
   user: user,

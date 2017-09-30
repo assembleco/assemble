@@ -13,10 +13,6 @@ query BlockQuery ($block_id: ID!) {
       handle
     }
 
-    environment {
-      id
-    }
-
     subscription {
       ...subscription
     }
@@ -26,10 +22,5 @@ query BlockQuery ($block_id: ID!) {
     id
     name
     domain
-  }
-
-  environments {
-    id
-    name
   }
 }

@@ -17,11 +17,13 @@ module Mutations
       person = context[:session]
 
       Block.create!(
-        description: "Click to edit the block's description",
         name: "Click to Rename",
+        description: "Click to edit the block's description",
         source: "# Click to edit the block's source\necho 'hello'",
         user: person,
-        environment: Environment.first,
+        command: "ruby /app/script.rb",
+        dockerfile: "FROM ruby:latest",
+        source_path: "/app/script.rb",
       )
     end
   end
